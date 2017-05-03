@@ -69,7 +69,7 @@ ul {
     background: white;
 }
 
-.seeBtn {
+.deleteBtn {
     float: right;
     font-weight: bold;
     background: none;
@@ -78,9 +78,16 @@ ul {
     position: relative;
 }
 
+.seeBtn {
+    float: right;
+    font-weight: bold;
+    font-size: 1em;
+    position: relative;
+    bottom: 0;
+}
+
 .nyRapportBtn {
     float: right;
-    background: none;
     position: relative;
 }
 

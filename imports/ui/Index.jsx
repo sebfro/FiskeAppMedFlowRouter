@@ -1,10 +1,12 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
+import { Meteor } from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 
 import {Reports} from '../api/reports.js';
 
 import Report from './Report.jsx';
+import AccountsUIWrapper from './AcountsUIWrapper.jsx';
 
 //Index component - represents the whole app
 class Index extends Component {
@@ -14,6 +16,7 @@ class Index extends Component {
     }
 
     renderReports() {
+
         return this.props.reports.map((report) => (
             <Report key={report._id} report={report}/>
         ));
@@ -26,14 +29,19 @@ class Index extends Component {
                     <h1>
                         Results
                     </h1>
-                    <button onClick={this.newReport.bind(this)}>
+                    <button className="nyRapportBtn" onClick={this.newReport.bind(this)}>
                         Ny rapport
                     </button>
+
+                    <AccountsUIWrapper/>
+
                 </header>
 
-                <ul>
-                    {this.renderReports()}
-                </ul>
+                { this.props.currentUser ?
+                    <ul>
+                        {this.renderReports()}
+                    </ul> : ''
+                }
             </div>
         )
     }
@@ -41,10 +49,13 @@ class Index extends Component {
 
 Index.propTypes = {
     reports: PropTypes.array.isRequired,
+    currentUser: PropTypes.object,
+
 };
 
 export default createContainer(() => {
     return {
         reports: Reports.find({}, {sort: {createdAt: -1}}).fetch(),
+        currentUser: Meteor.user(),
     };
 }, Index);

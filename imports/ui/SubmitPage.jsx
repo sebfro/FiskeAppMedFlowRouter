@@ -1,13 +1,19 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
+import { Meteor } from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 
 import {Reports} from '../api/reports.js';
 
 import Report from './Report.jsx';
 
+const buttonInstance = (
+    <button>default</button>
+);
+
 class SubmitPage extends Component {
     handleSubmit(event) {
+
         event.preventDefault();
 
         //Find the text field via the react ref
@@ -15,16 +21,12 @@ class SubmitPage extends Component {
         const kommentarText = ReactDOM.findDOMNode(this.refs.rapportKommentar).value.trim();
         const lengdeNr = ReactDOM.findDOMNode(this.refs.rapportLengde).value.trim();
 
-        console.debug("her er inputen: " + kommentarText);
-        console.debug("her er inputen: " + titelText);
-        console.debug("Her er inputen: " + lengdeNr);
+        console.log("Her er inputen: " + kommentarText);
+        console.log("Her er inputen: " + titelText);
+        console.log("Her er inputen: " + lengdeNr);
 
-        Reports.insert({
-            titel: titelText,
-            kommentar: kommentarText,
-            lengde: lengdeNr,
-            createdAt: new Date(),
-        });
+        Meteor.call(`reports.insert`, ( titelText, kommentarText, lengdeNr) );
+
 
         //Clear form
         ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
@@ -33,9 +35,13 @@ class SubmitPage extends Component {
 
     }
 
+
     render() {
         return (
             <div className="container">
+                <head>
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"/>
+                </head>
                 <header>
                     <h1>Ny rapport</h1>
                 </header>
@@ -65,10 +71,9 @@ class SubmitPage extends Component {
                             />
                         </li>
                         <li>
-
-                            <button onClick={this.handleSubmit.bind(this)}>
-                                Send
-                            </button>
+                                <button onClick={this.handleSubmit.bind(this)}>
+                                    Send
+                                </button>
                         </li>
                     </ul>
                 </form>

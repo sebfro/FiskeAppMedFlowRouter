@@ -1,19 +1,17 @@
 import React, {Component, PropTypes} from 'react';
 
-import { Reports } from '../api/reports.js';
+import { Meteor } from 'meteor/meteor';
 
 //Report component - represents a single report
 export default class Report extends Component {
     toggleChecked() {
         // Set the checked property to the opposite of its current value
-        Reports.update(this.props.report._id, {
-            $set: { checked: !this.props.report.checked },
-        });
+        Meteor.call('reports.setChecked', this.props.task._id, !this.props.report.checked);
     }
 
     //foreløpig brukes denne til å slette rapporter
     getReport(){
-        Reports.remove(this.props.report._id);
+        Meteor.call('reports.remove', this.props.report._id);
     }
 
     render() {
