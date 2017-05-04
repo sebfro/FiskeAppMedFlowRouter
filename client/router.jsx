@@ -19,7 +19,7 @@ FlowRouter.route('/nyRapport',{
     }
 });
 
-FlowRouter.route('/rapportId', {
+FlowRouter.route('/seRapport', {
     action: function(params, queryParams) {
         console.log("Spesifik rapport");
         ReactLayout.render(viewRapport);

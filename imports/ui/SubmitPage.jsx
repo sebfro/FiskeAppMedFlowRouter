@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
+import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 
 import {Reports} from '../api/reports.js';
@@ -16,6 +16,8 @@ class SubmitPage extends Component {
 
         event.preventDefault();
 
+        let valid = false;
+
         //Find the text field via the react ref
         const titelText = ReactDOM.findDOMNode(this.refs.rapportTitel).value.trim();
         const kommentarText = ReactDOM.findDOMNode(this.refs.rapportKommentar).value.trim();
@@ -25,25 +27,37 @@ class SubmitPage extends Component {
         console.log("Her er inputen: " + titelText);
         console.log("Her er inputen: " + lengdeNr);
 
-        Meteor.call(`reports.insert`, ( titelText, kommentarText, lengdeNr) );
+
+        if (titelText != "" && kommentarText != "" && lengdeNr != "") {
+
+                Meteor.call(`reports.insert`, titelText, kommentarText, Number(lengdeNr));
 
 
-        //Clear form
-        ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
-        ReactDOM.findDOMNode(this.refs.rapportKommentar).value = '';
-        ReactDOM.findDOMNode(this.refs.rapportLengde).value = '';
+            //Clear form
 
+            ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
+            ReactDOM.findDOMNode(this.refs.rapportKommentar).value = '';
+            ReactDOM.findDOMNode(this.refs.rapportLengde).value = '';
+
+            this.backToIndex();
+
+        }
+    }
+
+    backToIndex(){
+        FlowRouter.go("/");
     }
 
 
     render() {
         return (
             <div className="container">
-                <head>
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"/>
-                </head>
                 <header>
                     <h1>Ny rapport</h1>
+
+                        <button className="nyRapportBtn" onClick={this.backToIndex.bind()}>
+                            Tilbake
+                        </button>
                 </header>
                 <form className="new-report">
                     <ul>
@@ -71,9 +85,9 @@ class SubmitPage extends Component {
                             />
                         </li>
                         <li>
-                                <button onClick={this.handleSubmit.bind(this)}>
-                                    Send
-                                </button>
+                            <button onClick={this.handleSubmit.bind(this)}>
+                                Send
+                            </button>
                         </li>
                     </ul>
                 </form>

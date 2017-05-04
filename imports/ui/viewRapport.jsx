@@ -17,11 +17,20 @@ class viewRapport extends Component {
             console.log(report);
         }
     }
+
+    backToIndex(event){
+        FlowRouter.go("/");
+    }
+
     render() {
         return (
             <div className="container">
                 <header>
                     <h1>Rapport</h1>
+
+                        <button className="nyRapportBtn" onClick={this.backToIndex.bind(this)}>
+                            Tilbake
+                        </button>
                 </header>
                 <ul>
                     <li>

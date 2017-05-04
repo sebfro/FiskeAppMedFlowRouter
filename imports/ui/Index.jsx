@@ -10,9 +10,13 @@ import AccountsUIWrapper from './AcountsUIWrapper.jsx';
 
 //Index component - represents the whole app
 class Index extends Component {
+
+
+
     newReport() {
         console.log("Ny rapport");
         console.debug("Ny rapport");
+        FlowRouter.go("/nyRapport");
     }
 
     renderReports() {
@@ -29,9 +33,17 @@ class Index extends Component {
                     <h1>
                         Results
                     </h1>
+                    { this.props.currentUser ?
+                        /*
                     <button className="nyRapportBtn" onClick={this.newReport.bind(this)}>
                         Ny rapport
                     </button>
+                    */
+                            <button className="nyRapportBtn" onClick={this.newReport.bind(this)}>
+                                Ny rapport
+                            </button>
+                        : ''
+                    }
 
                     <AccountsUIWrapper/>
 

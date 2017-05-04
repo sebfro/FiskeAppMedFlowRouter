@@ -9,24 +9,31 @@ import { check } from 'meteor/check';
 export const Reports = new Mongo.Collection('reports');
 
 Meteor.methods({
-    'reports.insert'(titelText/*, kommentarText, lengdeNr*/){
+    'reports.insert'(titelText, kommentarText, lengdeNr){
         console.log("hei");
         check(titelText, String);
-        //check(kommentarText, String);
-        //check(lengdeNr, Number);
+        check(kommentarText, String);
+        check(lengdeNr, Number);
+
+        console.log("hei");
 
         //Make sure user is logged in before inserting a report
         if(!Meteor.userId()){
             throw new Meteor.Error('not-authorized');
         }
+
+        console.log("hei");
+
         Reports.insert({
-            titel: titelTextt,
+            titel: titelText,
             kommentar: kommentarText,
             lengde: lengdeNr,
             createdAt: new Date(),
             owner: Meteor.userId(),
             email: Meteor.user().email,
         });
+
+        console.log("hei");
 },
     'reports.remove'(taskId){
         check(taskId, String);
