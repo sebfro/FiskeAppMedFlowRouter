@@ -8,6 +8,15 @@ import { check } from 'meteor/check';
 
 export const Reports = new Mongo.Collection('reports');
 
+if (Meteor.isServer) {
+    //This code only runs on the server
+    Meteor.publish('reports', function reportsPublication() {
+        return Reports.find();
+    });
+}
+
+
+
 Meteor.methods({
     'reports.insert'(titelText, kommentarText, lengdeNr){
         console.log("hei");

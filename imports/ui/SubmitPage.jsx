@@ -26,6 +26,7 @@ class SubmitPage extends Component {
         console.log("Her er inputen: " + kommentarText);
         console.log("Her er inputen: " + titelText);
         console.log("Her er inputen: " + lengdeNr);
+        console.log("Her er bruker: " + Meteor.userId().email);
 
 
         if (titelText != "" && kommentarText != "" && lengdeNr != "") {
@@ -55,7 +56,7 @@ class SubmitPage extends Component {
                 <header>
                     <h1>Ny rapport</h1>
 
-                        <button className="nyRapportBtn" onClick={this.backToIndex.bind()}>
+                        <button className="nyRapportBtn" onClick={this.backToIndex.bind(this)}>
                             Tilbake
                         </button>
                 </header>

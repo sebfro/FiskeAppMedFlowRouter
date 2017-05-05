@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {createContainer} from 'meteor/react-meteor-data';
+import { Meteor } from 'meteor/meteor';
 
 import {Reports} from '../api/reports.js';
 
@@ -8,17 +9,18 @@ import Report from './Report.jsx';
 
 
 class viewRapport extends Component {
-    renderReport(){
-        let report = Reports.findOne();
-        console.log(report);
-        console.debug(report);
-        console.debug("hei");
-        if(report){
-            console.log(report);
-        }
+    renderReports() {
+
+        return this.props.report.map((r) => (
+            <Report key={r._id} report={r}/>
+        ));
+
+
+
     }
 
     backToIndex(event){
+        event.preventDefault();
         FlowRouter.go("/");
     }
 
@@ -34,7 +36,7 @@ class viewRapport extends Component {
                 </header>
                 <ul>
                     <li>
-                        <h3>Tittel</h3>
+                        <h3></h3>
                     </li>
                     <li>
                         <p>Lengde: 30 cm</p>
@@ -43,7 +45,7 @@ class viewRapport extends Component {
                         <p>Kommentar: blablabla</p>
                     </li>
                     <li>
-                        <p>{this.renderReport}</p>
+                        <p> Rapport: {this.renderReports()}</p>
                     </li>
 
                 </ul>
@@ -53,11 +55,14 @@ class viewRapport extends Component {
 }
 
 viewRapport.propTypes = {
-    report: PropTypes.object.isRequired,
+    report: PropTypes.array.isRequired,
+    currentUser: PropTypes.object,
 };
 
 export default createContainer(() => {
+    Meteor.subscribe('report', Meteor.userId());
     return {
-        report: Reports.findOne( {title: "torsk"}),
+        report: Reports.find({}, {title: 'torsk'}).fetch(),
+        currentUser: Meteor.user(),
     };
 }, viewRapport);

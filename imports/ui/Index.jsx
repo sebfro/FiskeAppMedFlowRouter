@@ -13,10 +13,15 @@ class Index extends Component {
 
 
 
-    newReport() {
+    newReport(event) {
+        event.preventDefault();
         console.log("Ny rapport");
         console.debug("Ny rapport");
         FlowRouter.go("/nyRapport");
+    }
+    seeReport(event){
+        event.preventDefault();
+        FlowRouter.go("/seRapport")
     }
 
     renderReports() {
@@ -45,6 +50,10 @@ class Index extends Component {
                         : ''
                     }
 
+                   <button className="nyRapportBtn" onClick={this.seeReport.bind(this)}>
+                       Se raport
+                   </button>
+
                     <AccountsUIWrapper/>
 
                 </header>
@@ -66,6 +75,7 @@ Index.propTypes = {
 };
 
 export default createContainer(() => {
+    Meteor.subscribe('viewReports', Meteor.userId());
     return {
         reports: Reports.find({}, {sort: {createdAt: -1}}).fetch(),
         currentUser: Meteor.user(),
