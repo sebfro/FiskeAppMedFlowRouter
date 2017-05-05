@@ -9,15 +9,15 @@ import Report from './Report.jsx';
 
 
 class viewRapport extends Component {
-    renderReports() {
+    renderReport() {
 
-        return this.props.report.map((r) => (
-            <Report key={r._id} report={r}/>
-        ));
+        return (
+            <p>{Reports.findOne()}</p>
+        )};
 
 
 
-    }
+
 
     backToIndex(event){
         event.preventDefault();
@@ -45,7 +45,7 @@ class viewRapport extends Component {
                         <p>Kommentar: blablabla</p>
                     </li>
                     <li>
-                        <p> Rapport: {this.renderReports()}</p>
+                        {this.renderReport()}
                     </li>
 
                 </ul>
@@ -55,14 +55,14 @@ class viewRapport extends Component {
 }
 
 viewRapport.propTypes = {
-    report: PropTypes.array.isRequired,
+    report: PropTypes.object.isRequired,
     currentUser: PropTypes.object,
 };
 
 export default createContainer(() => {
-    Meteor.subscribe('report', Meteor.userId());
+    Meteor.subscribe('viewSingleReport', Meteor.userId(), "torsk");
     return {
-        report: Reports.find({}, {title: 'torsk'}).fetch(),
+        report: Reports.findOne({title: 'torsk', kommentar: "123"}),
         currentUser: Meteor.user(),
     };
 }, viewRapport);

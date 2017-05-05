@@ -54,5 +54,11 @@ Meteor.methods({
         check(setChecked, Boolean);
 
         Reports.update(taskId, { $set: { checked: setChecked } });
+    },
+    'tasks.setPrivate'(reportId, setToPrivate){
+        check(reportId, String);
+        check(setToPrivate, Boolean);
+
+        const report = Reports.findOne(reportId);
     }
 });

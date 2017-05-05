@@ -25,3 +25,10 @@ FlowRouter.route('/seRapport', {
         ReactLayout.render(viewRapport);
     }
 });
+
+FlowRouter.route('/seRapport2', {
+    action: function(params, queryParams) {
+        console.log("Open seRapport");
+        ReactLayout.render(viewRapport);
+    }
+})
