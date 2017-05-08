@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
-import { Meteor } from 'meteor/meteor';
+import {Meteor} from 'meteor/meteor';
 
 let showRest = false;
 
@@ -12,12 +12,12 @@ export default class Report extends Component {
         Meteor.call('reports.setChecked', this.props.report._id, !this.props.report.checked);
     }
 
-    deleteReport(){
+    deleteReport() {
         Meteor.call('reports.remove', this.props.report._id);
     }
 
     //foreløpig brukes denne til å slette rapporter
-    getReport(){
+    getReport() {
         Meteor.call('reports.setShow', this.props.report._id, !this.props.report.show);
     }
 
@@ -26,42 +26,35 @@ export default class Report extends Component {
         // so that we can style them nicely in css
         const reportClassName = this.props.report.checked ? 'checked' : '';
 
-        return (
-            <li className={reportClassName}>
-                <input
-                    type="checkbox"
-                    readOnly
-                    checked={this.props.report.checked}
-                    onClick={this.toggleChecked.bind(this)}
-                />
+        if (Meteor.userId() === this.props.report.owner) {
+            return (
 
-                <span className="text">{this.props.report.titel}</span>
+                <li className={reportClassName} onClick={this.getReport.bind(this)}>
 
-                <button className="seeBtn" onClick={this.getReport.bind(this)}>
-                    Se
-                </button>
 
-                <button className="seeBtn" onClick={this.deleteReport.bind(this)}>
-                    Delete
-                </button>
+                    <span className="text">{this.props.report.titel}</span>
 
-                {this.props.report.show ?
+                    <button className="seeBtn" onClick={this.deleteReport.bind(this)}>
+                        Delete
+                    </button>
 
-                <ul>
-                    <li>
-                        {this.props.report.kommentar}
-                    </li>
-                    <li>
-                        {this.props.report.lengde}
-                    </li>
-                    <li>
-                        {this.props.report.owner}
-                    </li>
-                </ul>
+                    {this.props.report.show ?
 
-                    : ''}
-            </li>
-        );
+                        <ul>
+                            <li>
+                                {this.props.report.kommentar}
+                            </li>
+                            <li>
+                                {this.props.report.lengde}
+                            </li>
+                        </ul>
+                        : ''}
+
+                </li>
+            );
+        } else {
+            return null;
+        }
     }
 }
 

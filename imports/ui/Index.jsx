@@ -19,10 +19,6 @@ class Index extends Component {
         console.debug("Ny rapport");
         FlowRouter.go("/nyRapport");
     }
-    seeReport(event){
-        event.preventDefault();
-        FlowRouter.go("/seRapport")
-    }
 
 
     renderReports() {
@@ -33,6 +29,7 @@ class Index extends Component {
     }
 
     render() {
+
         return (
             <div className="container">
                 <header>
@@ -50,10 +47,6 @@ class Index extends Component {
                             </button>
                         : ''
                     }
-
-                   <button className="nyRapportBtn" onClick={this.seeReport.bind(this)}>
-                       Se raport
-                   </button>
 
                     <AccountsUIWrapper/>
 
