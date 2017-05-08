@@ -40,25 +40,32 @@ Meteor.methods({
             createdAt: new Date(),
             owner: Meteor.userId(),
             email: Meteor.user().email,
+            show: true,
         });
 
         console.log("hei");
 },
-    'reports.remove'(taskId){
-        check(taskId, String);
+    'reports.remove'(reportId){
+        check(reportId, String);
 
-        Reports.remove(taskId);
+        Reports.remove(reportId);
     },
-    'reports.setChecked'(taskId, setChecked){
-        check(taskId, String);
+    'reports.setChecked'(reportId, setChecked){
+        check(reportId, String);
         check(setChecked, Boolean);
 
-        Reports.update(taskId, { $set: { checked: setChecked } });
+        Reports.update(reportId, { $set: { checked: setChecked } });
     },
-    'tasks.setPrivate'(reportId, setToPrivate){
+    'reports.setPrivate'(reportId, setToPrivate){
         check(reportId, String);
         check(setToPrivate, Boolean);
 
         const report = Reports.findOne(reportId);
+    },
+    'reports.setShow'(reportId, setShow){
+        check(reportId, String);
+        check(setShow, Boolean);
+
+        Reports.update(reportId, {$set: { show: setShow } });
     }
 });

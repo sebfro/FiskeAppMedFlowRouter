@@ -24,6 +24,7 @@ class Index extends Component {
         FlowRouter.go("/seRapport")
     }
 
+
     renderReports() {
 
         return this.props.reports.map((report) => (
