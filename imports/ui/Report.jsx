@@ -29,7 +29,7 @@ export default class Report extends Component {
         if (Meteor.userId() === this.props.report.owner) {
             return (
 
-                <li className={reportClassName} onClick={this.getReport.bind(this)}>
+                <li onClick={this.getReport.bind(this)}>
 
 
                     <span className="text">{this.props.report.titel}</span>

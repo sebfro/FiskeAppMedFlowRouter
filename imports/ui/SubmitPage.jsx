@@ -2,10 +2,11 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
+import { Template } from 'meteor/templating';
 
-import {Reports} from '../api/reports.js';
+import {Reports} from '../api/reports';
+import TakePhoto from './TakePhoto.jsx';
 
-import Report from './Report.jsx';
 
 const buttonInstance = (
     <button>default</button>
@@ -16,7 +17,6 @@ class SubmitPage extends Component {
 
         event.preventDefault();
 
-        let valid = false;
 
         //Find the text field via the react ref
         const titelText = ReactDOM.findDOMNode(this.refs.rapportTitel).value.trim();
@@ -26,7 +26,7 @@ class SubmitPage extends Component {
         console.log("Her er inputen: " + kommentarText);
         console.log("Her er inputen: " + titelText);
         console.log("Her er inputen: " + lengdeNr);
-        console.log("Her er bruker: " + Meteor.userId().email);
+        console.log("Her er bruker: " + Meteor.user);
 
 
         if (titelText != "" && kommentarText != "" && lengdeNr != "") {
@@ -51,14 +51,14 @@ class SubmitPage extends Component {
 
     takePicture(event){
         event.preventDefault();
-        var cameraOptions = {
+        let cameraOptions = {
             height: Number(600),
             width: Number(800),
             quality: 100
         };
         MeteorCamera.getPicture(cameraOptions, function(error, data){
             if (!error){
-                this.$('.photo').attr('src', data);
+                ReactDOM.findDOMNode(this.refs.photo).src = data;
             } else {
                 console.log(error.reason);
             }
@@ -66,8 +66,12 @@ class SubmitPage extends Component {
     }
 
 
+
+
     render() {
         return (
+
+
             <div className="container">
                 <header>
                     <h1>Ny rapport</h1>
@@ -101,16 +105,12 @@ class SubmitPage extends Component {
                                 placeholder="Skriv inn kommentar til rapporten"
                             />
                         </li>
-                        <li>
+                           <TakePhoto/>
+
+                           <li>
                             <button onClick={this.handleSubmit.bind(this)}>
                                 Send
                             </button>
-                        </li>
-                        <li>
-                            <button onClick={this.takePicture.bind(this)}>
-                                Legg til bilde
-                            </button>
-                            <img class="photo"/>
                         </li>
                     </ul>
                 </form>
