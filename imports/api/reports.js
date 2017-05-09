@@ -18,7 +18,7 @@ if (Meteor.isServer) {
 
 
 Meteor.methods({
-    'reports.insert'(titelText, kommentarText, lengdeNr){
+    'reports.insert'(titelText, kommentarText, lengdeNr, img, pos){
         console.log("hei");
         check(titelText, String);
         check(kommentarText, String);
@@ -37,10 +37,11 @@ Meteor.methods({
             titel: titelText,
             kommentar: kommentarText,
             lengde: lengdeNr,
+            photo: img,
+            location: pos,
             createdAt: new Date(),
             owner: Meteor.userId(),
-            email: Meteor.user().email,
-            show: true,
+            show: false,
         });
 
         console.log("hei");
@@ -67,5 +68,8 @@ Meteor.methods({
         check(setShow, Boolean);
 
         Reports.update(reportId, {$set: { show: setShow } });
+    },
+    'reports.setImgShow'(imgId, setShow){
+        reports
     }
 });

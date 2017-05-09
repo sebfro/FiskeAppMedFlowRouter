@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 
 import {Meteor} from 'meteor/meteor';
+import ShowImg from "./ShowImg";
 
-let showRest = false;
 
 //Report component - represents a single report
 export default class Report extends Component {
@@ -17,8 +17,14 @@ export default class Report extends Component {
     }
 
     //foreløpig brukes denne til å slette rapporter
-    getReport() {
+    setShow() {
         Meteor.call('reports.setShow', this.props.report._id, !this.props.report.show);
+    }
+
+    renderImg(){
+        return this.props.report.photo.map((img) => (
+            <ShowImg key={img._id} img={img}/>
+        ));
     }
 
     render() {
@@ -29,7 +35,9 @@ export default class Report extends Component {
         if (Meteor.userId() === this.props.report.owner) {
             return (
 
-                <li onClick={this.getReport.bind(this)}>
+                <div>
+
+                <li onClick={this.setShow.bind(this)}>
 
 
                     <span className="text">{this.props.report.titel}</span>
@@ -37,6 +45,7 @@ export default class Report extends Component {
                     <button className="seeBtn" onClick={this.deleteReport.bind(this)}>
                         Delete
                     </button>
+                </li>
 
                     {this.props.report.show ?
 
@@ -47,10 +56,15 @@ export default class Report extends Component {
                             <li>
                                 {this.props.report.lengde}
                             </li>
+                            <li>
+                                {this.renderImg()}
+                            </li>
                         </ul>
                         : ''}
 
-                </li>
+
+
+                </div>
             );
         } else {
             return null;

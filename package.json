@@ -20,6 +20,8 @@
     "react-addons-update": "^15.5.2",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.5.4",
+    "react-image-lightbox": "^3.4.3",
+    "react-images": "^0.5.2",
     "react-template": "^0.4.0"
   }
 }

@@ -5,7 +5,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 
 import {Reports} from '../api/reports.js';
 
-import Report from './Report.jsx';
+import Report from './Index_components/Report.jsx';
 import AccountsUIWrapper from './AcountsUIWrapper.jsx';
 
 //Index component - represents the whole app
@@ -37,11 +37,6 @@ class Index extends Component {
                         Results
                     </h1>
                     { this.props.currentUser ?
-                        /*
-                    <button className="nyRapportBtn" onClick={this.newReport.bind(this)}>
-                        Ny rapport
-                    </button>
-                    */
                             <button className="nyRapportBtn" onClick={this.newReport.bind(this)}>
                                 Ny rapport
                             </button>

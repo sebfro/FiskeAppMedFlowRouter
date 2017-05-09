@@ -18,17 +18,3 @@ FlowRouter.route('/nyRapport',{
         ReactLayout.render(SubmitPage);
     }
 });
-
-FlowRouter.route('/seRapport', {
-    action: function(params, queryParams) {
-        console.log("Spesifik rapport");
-        ReactLayout.render(viewRapport);
-    }
-});
-
-FlowRouter.route('/seRapport2', {
-    action: function(params, queryParams) {
-        console.log("Open seRapport");
-        ReactLayout.render(viewRapport);
-    }
-})

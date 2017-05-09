@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 
 import {Reports} from '../api/reports.js';
 
-import Report from './Report.jsx';
+import Report from './Index_components/Report.jsx';
 
 
 class viewRapport extends Component {

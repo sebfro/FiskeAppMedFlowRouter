@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {Meteor, MeteorCamera} from 'meteor/meteor';
+import ReactDOM from 'react-dom';
+
+import SubmitPage from './SubmitPage.jsx';
 
 export default class TakePhoto extends Component{
 
@@ -14,7 +16,9 @@ export default class TakePhoto extends Component{
         console.log("hei");
         MeteorCamera.getPicture(cameraOptions, function (error, data){
             if(!error){
-                ReactDOM.findDOMNode(this.refs.bilde).src = data;
+                SubmitPage.setImg(data);
+            } else {
+                console.log(error.reason);
             }
         });
     }
@@ -22,8 +26,6 @@ export default class TakePhoto extends Component{
     render(){
         return(
                <li>
-                   <img ref="bilde" src="">
-                   </img>
                <button onClick={this.takePicture.bind(this)}>
                    Legg til bilde
                </button>

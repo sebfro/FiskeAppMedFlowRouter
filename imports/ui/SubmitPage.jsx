@@ -5,14 +5,37 @@ import {createContainer} from 'meteor/react-meteor-data';
 import { Template } from 'meteor/templating';
 
 import {Reports} from '../api/reports';
-import TakePhoto from './TakePhoto.jsx';
+import ShowImg from './Index_components/ShowImg.jsx'
 
 
-const buttonInstance = (
-    <button>default</button>
-);
+let takeImg = [];
 
 class SubmitPage extends Component {
+
+
+
+    takePicture(event){
+        console.log("hei");
+        event.preventDefault();
+        let cameraOptions = {
+            height: 600,
+            width: 800,
+            quality: 100
+        };
+        console.log("hei");
+        MeteorCamera.getPicture(cameraOptions, function (error, data){
+            if(!error){
+                document.getElementById("bilde").innerHTML = data;
+                console.log(document.getElementById("test").innerHTML);
+                takeImg.push(data);
+            } else {
+                console.log(error.reason);
+            }
+        });
+    }
+
+
+
     handleSubmit(event) {
 
         event.preventDefault();
@@ -31,15 +54,17 @@ class SubmitPage extends Component {
 
         if (titelText != "" && kommentarText != "" && lengdeNr != "") {
 
-                Meteor.call(`reports.insert`, titelText, kommentarText, Number(lengdeNr));
+                Meteor.call(`reports.insert`, titelText, kommentarText, Number(lengdeNr),
+                    takeImg, Geolocation.currentLocation());
 
-
+            takeImg
             //Clear form
 
             ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
             ReactDOM.findDOMNode(this.refs.rapportKommentar).value = '';
             ReactDOM.findDOMNode(this.refs.rapportLengde).value = '';
 
+            takeImg = [];
             this.backToIndex();
 
         }
@@ -48,25 +73,6 @@ class SubmitPage extends Component {
     backToIndex(){
         FlowRouter.go("/");
     }
-
-    takePicture(event){
-        event.preventDefault();
-        let cameraOptions = {
-            height: Number(600),
-            width: Number(800),
-            quality: 100
-        };
-        MeteorCamera.getPicture(cameraOptions, function(error, data){
-            if (!error){
-                ReactDOM.findDOMNode(this.refs.photo).src = data;
-            } else {
-                console.log(error.reason);
-            }
-        });
-    }
-
-
-
 
     render() {
         return (
@@ -83,6 +89,7 @@ class SubmitPage extends Component {
                 <form className="new-report">
                     <ul>
                         <li>
+                            <p id="test">Per kommer</p>
 
                             <input
                                 type="text"
@@ -105,15 +112,23 @@ class SubmitPage extends Component {
                                 placeholder="Skriv inn kommentar til rapporten"
                             />
                         </li>
-                           <TakePhoto/>
+
+                        <li>
+                            <button onClick={this.takePicture.bind(this)}>
+                                Legg til bilde
+                            </button>
+                        </li>
 
                            <li>
+                               <img src="" id="bilde" />
                             <button onClick={this.handleSubmit.bind(this)}>
                                 Send
                             </button>
                         </li>
                     </ul>
                 </form>
+
+
             </div>
         )
     }
