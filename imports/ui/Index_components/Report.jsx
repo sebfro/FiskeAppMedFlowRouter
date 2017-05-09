@@ -59,6 +59,9 @@ export default class Report extends Component {
                             <li>
                                 {this.renderImg()}
                             </li>
+                            <li>
+                                {this.props.report.location}
+                            </li>
                         </ul>
                         : ''}
 

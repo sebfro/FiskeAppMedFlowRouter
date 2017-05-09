@@ -69,7 +69,4 @@ Meteor.methods({
 
         Reports.update(reportId, {$set: { show: setShow } });
     },
-    'reports.setImgShow'(imgId, setShow){
-        reports
-    }
 });

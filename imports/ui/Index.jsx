@@ -7,6 +7,7 @@ import {Reports} from '../api/reports.js';
 
 import Report from './Index_components/Report.jsx';
 import AccountsUIWrapper from './AcountsUIWrapper.jsx';
+import Map from './GoogleMaps/Map.jsx';
 
 //Index component - represents the whole app
 class Index extends Component {
@@ -47,11 +48,15 @@ class Index extends Component {
 
                 </header>
 
+                <Map/>
+
                 { this.props.currentUser ?
                     <ul>
                         {this.renderReports()}
                     </ul> : ''
                 }
+
+
             </div>
         )
     }
