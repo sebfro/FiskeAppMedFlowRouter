@@ -26,3 +26,4 @@ accounts-ui
 accounts-password
 arillo:flow-router-helpers
 mdg:geolocation
+mdg:camera

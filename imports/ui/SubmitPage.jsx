@@ -49,6 +49,22 @@ class SubmitPage extends Component {
         FlowRouter.go("/");
     }
 
+    takePicture(event){
+        event.preventDefault();
+        var cameraOptions = {
+            height: Number(600),
+            width: Number(800),
+            quality: 100
+        };
+        MeteorCamera.getPicture(cameraOptions, function(error, data){
+            if (!error){
+                this.$('.photo').attr('src', data);
+            } else {
+                console.log(error.reason);
+            }
+        });
+    }
+
 
     render() {
         return (
@@ -89,6 +105,12 @@ class SubmitPage extends Component {
                             <button onClick={this.handleSubmit.bind(this)}>
                                 Send
                             </button>
+                        </li>
+                        <li>
+                            <button onClick={this.takePicture.bind(this)}>
+                                Legg til bilde
+                            </button>
+                            <img class="photo"/>
                         </li>
                     </ul>
                 </form>
