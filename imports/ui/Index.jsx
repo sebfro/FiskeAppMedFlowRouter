@@ -7,7 +7,7 @@ import {Reports} from '../api/reports.js';
 
 import Report from './Index_components/Report.jsx';
 import AccountsUIWrapper from './AcountsUIWrapper.jsx';
-import Map from './GoogleMaps/Map.jsx';
+import {Marker, InfoWindow, Map} from 'google-maps-react';
 
 //Index component - represents the whole app
 class Index extends Component {
@@ -48,15 +48,11 @@ class Index extends Component {
 
                 </header>
 
-                <Map/>
-
                 { this.props.currentUser ?
                     <ul>
                         {this.renderReports()}
                     </ul> : ''
                 }
-
-
             </div>
         )
     }
@@ -65,7 +61,6 @@ class Index extends Component {
 Index.propTypes = {
     reports: PropTypes.array.isRequired,
     currentUser: PropTypes.object,
-
 };
 
 export default createContainer(() => {
