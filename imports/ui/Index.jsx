@@ -7,7 +7,6 @@ import {Reports} from '../api/reports.js';
 
 import Report from './Index_components/Report.jsx';
 import AccountsUIWrapper from './AcountsUIWrapper.jsx';
-import {Marker, InfoWindow, Map} from 'google-maps-react';
 
 //Index component - represents the whole app
 class Index extends Component {

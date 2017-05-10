@@ -2,10 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
-import { Template } from 'meteor/templating';
+
 
 import {Reports} from '../api/reports';
-import ShowImg from './Index_components/ShowImg.jsx'
 
 
 let takeImg = [];
@@ -20,7 +19,8 @@ class SubmitPage extends Component {
         let cameraOptions = {
             height: 600,
             width: 800,
-            quality: 100
+            quality: 100,
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY
         };
         console.log("hei");
         MeteorCamera.getPicture(cameraOptions, function (error, data){
