@@ -29,3 +29,8 @@ mdg:geolocation
 mdg:camera
 dburles:google-maps
 zeroasterisk:cordova-geolocation-foreground
+cfs:standard-packages
+cfs:gridfs
+meteortoys:allthings
+jalik:ufs
+jalik:ufs-gridfs

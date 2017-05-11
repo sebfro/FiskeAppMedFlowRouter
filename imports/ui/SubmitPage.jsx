@@ -5,6 +5,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 
 
 import {Reports} from '../api/reports';
+import SubmitImage from './SubmitImage.jsx';
 
 
 let takeImg = [];
@@ -19,8 +20,7 @@ class SubmitPage extends Component {
         let cameraOptions = {
             height: 600,
             width: 800,
-            quality: 100,
-            sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+            quality: 100
         };
         console.log("hei");
         MeteorCamera.getPicture(cameraOptions, function (error, data){
@@ -117,6 +117,10 @@ class SubmitPage extends Component {
                             <button onClick={this.takePicture.bind(this)}>
                                 Legg til bilde
                             </button>
+                        </li>
+
+                        <li>
+                            <SubmitImage/>
                         </li>
 
                            <li>

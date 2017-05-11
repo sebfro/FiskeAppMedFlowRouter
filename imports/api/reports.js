@@ -38,6 +38,7 @@ Meteor.methods({
             kommentar: kommentarText,
             lengde: lengdeNr,
             photo: img,
+            epost: Meteor.user().emails.address,
             location: pos,
             createdAt: new Date(),
             owner: Meteor.userId(),
