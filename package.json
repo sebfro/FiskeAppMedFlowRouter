@@ -5,6 +5,7 @@
     "start": "meteor run"
   },
   "dependencies": {
+    "babel-core": "^6.24.1",
     "babel-runtime": "^6.23.0",
     "bcrypt": "^1.0.2",
     "gm": "^1.23.0",
@@ -24,8 +25,14 @@
     "react-dropzone": "^3.13.1",
     "react-image-lightbox": "^3.4.3",
     "react-images": "^0.5.2",
+    "react-s3-uploader": "^4.1.1",
     "react-template": "^0.4.0",
     "spawn-sync": "^1.0.15",
     "try-thread-sleep": "^1.0.2"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "webpack": "^2.5.1"
   }
 }

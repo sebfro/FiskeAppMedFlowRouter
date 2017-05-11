@@ -120,7 +120,6 @@ class SubmitPage extends Component {
                         </li>
 
                         <li>
-                            <SubmitImage/>
                         </li>
 
                            <li>

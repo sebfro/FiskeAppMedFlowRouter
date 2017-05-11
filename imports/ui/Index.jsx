@@ -47,6 +47,9 @@ class Index extends Component {
 
                 </header>
 
+
+
+
                 { this.props.currentUser ?
                     <ul>
                         {this.renderReports()}

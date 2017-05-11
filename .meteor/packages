@@ -34,3 +34,8 @@ cfs:gridfs
 meteortoys:allthings
 jalik:ufs
 jalik:ufs-gridfs
+cfs:filesystem
+cosmos:browserify
+praneybehl:react-dropzone
+raix:ui-dropped-event
+cfs:s3

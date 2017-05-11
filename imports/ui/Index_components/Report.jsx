@@ -40,7 +40,7 @@ export default class Report extends Component {
                 <li onClick={this.setShow.bind(this)}>
 
 
-                    <span className="text">{this.props.report.titel}</span>
+                    <span className="text">{this.props.report.titel} - {this.props.report.epost}</span>
 
                     <button className="seeBtn" onClick={this.deleteReport.bind(this)}>
                         Delete
