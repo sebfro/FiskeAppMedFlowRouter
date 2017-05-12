@@ -5,7 +5,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 
 
 import {Reports} from '../api/reports';
-import SubmitImage from './SubmitImage.jsx';
+import SubmitImage from './SubmitPage_components/SubmitImage.jsx';
 
 
 let takeImg = [];
@@ -13,8 +13,7 @@ let takeImg = [];
 class SubmitPage extends Component {
 
 
-
-    takePicture(event){
+    takePicture(event) {
         console.log("hei");
         event.preventDefault();
         let cameraOptions = {
@@ -23,8 +22,8 @@ class SubmitPage extends Component {
             quality: 100
         };
         console.log("hei");
-        MeteorCamera.getPicture(cameraOptions, function (error, data){
-            if(!error){
+        MeteorCamera.getPicture(cameraOptions, function (error, data) {
+            if (!error) {
                 document.getElementById("bilde").innerHTML = data;
                 console.log(document.getElementById("test").innerHTML);
                 takeImg.push(data);
@@ -33,7 +32,6 @@ class SubmitPage extends Component {
             }
         });
     }
-
 
 
     handleSubmit(event) {
@@ -54,8 +52,8 @@ class SubmitPage extends Component {
 
         if (titelText != "" && kommentarText != "" && lengdeNr != "") {
 
-                Meteor.call(`reports.insert`, titelText, kommentarText, Number(lengdeNr),
-                    takeImg, Geolocation.currentLocation());
+            Meteor.call(`reports.insert`, titelText, kommentarText, Number(lengdeNr),
+                takeImg, Geolocation.currentLocation());
 
             takeImg
             //Clear form
@@ -70,7 +68,7 @@ class SubmitPage extends Component {
         }
     }
 
-    backToIndex(){
+    backToIndex() {
         FlowRouter.go("/");
     }
 
@@ -82,9 +80,9 @@ class SubmitPage extends Component {
                 <header>
                     <h1>Ny rapport</h1>
 
-                        <button className="nyRapportBtn" onClick={this.backToIndex.bind(this)}>
-                            Tilbake
-                        </button>
+                    <button className="nyRapportBtn" onClick={this.backToIndex.bind(this)}>
+                        Tilbake
+                    </button>
                 </header>
                 <form className="new-report">
                     <ul>
@@ -118,12 +116,12 @@ class SubmitPage extends Component {
                                 Legg til bilde
                             </button>
                         </li>
-
+                            <SubmitImage/>
                         <li>
                         </li>
 
-                           <li>
-                               <img src="" id="bilde" />
+                        <li>
+                            <img src="" id="bilde"/>
                             <button onClick={this.handleSubmit.bind(this)}>
                                 Send
                             </button>
