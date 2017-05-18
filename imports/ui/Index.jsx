@@ -20,6 +20,11 @@ class Index extends Component {
         FlowRouter.go("/nyRapport");
     }
 
+    seeReport(event){
+        event.preventDefault();
+        FlowRouter.go("/seRapport");
+    }
+
 
     renderReports() {
 
@@ -37,9 +42,14 @@ class Index extends Component {
                         Results
                     </h1>
                     { this.props.currentUser ?
+                        <div>
                             <button className="nyRapportBtn" onClick={this.newReport.bind(this)}>
                                 Ny rapport
                             </button>
+                            <button className="nyRapportBtn" onClick={this.seeReport.bind(this)}>
+                                Ny rapport
+                            </button>
+                        </div>
                         : ''
                     }
 
