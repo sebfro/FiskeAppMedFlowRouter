@@ -1,15 +1,22 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {ReactiveVar} from 'meteor/reactive-var';
-import {Template} from 'meteor/templating';
-//import Images from '../../../lib/images.collection.js';
+import {ReactMeteorData, createContainer} from 'meteor/react-meteor-data';
+import {Meteor} from 'meteor/meteor';
+import {_} from 'meteor/underscore';
+import { Images } from '../../../lib/images.collection.js';
+import { FilesCollection } from 'meteor/ostrio:files';
 
 
-export default class SubmitImage extends Component {
+class SubmitImage extends Component {
+
+
     constructor() {
         super();
         this.currentUpload = new ReactiveVar(false);
     }
+
+
 
 
     uploadedFiles() {
@@ -17,7 +24,13 @@ export default class SubmitImage extends Component {
     }
 
     uploadImage(event) {
+        "use strict";
+        event.preventDefault();
+        let self = this;
+
         if (event.currentTarget.files && event.currentTarget.files[0]) {
+            console.log(event.currentTarget.files);
+            console.log(event.currentTarget.files[0]);
             console.log(ReactDOM.findDOMNode(this.refs.file).value);
             // We upload only one file, in case
             // there was multiple files selected
@@ -25,38 +38,39 @@ export default class SubmitImage extends Component {
             var file = event.currentTarget.files[0];
             console.log(file);
             alert("Creater file/Just got file");
-            //if (true) {
                 console.log("In file");
-                const uploadInstance = Images.insert({
+                console.log(this.props.imgArray);
+
+                let uploadInstance = Images.insert({
                     file: file,
                     stream: 'dynamic',
-                    chuckSize: 'dynamic'
+                    chunkSize: 'dynamic',
+                    allowWebWorkers: false //Change to false if uploads not working
                 }, false);
+
+
+                self.setState({
+                    uploading: uploadInstance, //keep track of this instance to use below
+                    inProgress: true // show the progress bar now
+                });
+
                 console.log("Insert done");
                 alert("In file");
-                uploadInstance.on('start', function () {
-                    this.currentUpload = this;
-                });
-                alert("About to uload");
-                uploadInstance.on('end', function (error, fileObj) {
-                    if (error) {
-                        alert('Error during upload: ' + error.reason);
-                    } else {
-                        alert('File "' + fileObj.name + '" successfully uploaded');
-                    }
-                    this.currentUpload = false;
-                });
 
                 uploadInstance.start();
             //}
         }
     }
 
+    showUploads(){
+        console.log('********************', this.state.uploading);
+    }
+
 
     render() {
         console.log(this.currentUpload.curValue);
         return (
-            <div>
+            <div className="container">
                 { this.currentUpload.curValue ?
                     <div>
                         Uploading <p>{this.file}</p>
@@ -75,16 +89,19 @@ export default class SubmitImage extends Component {
         )
     }
 }
-/*
+
 SubmitImage.propTypes = {
-    reports: PropTypes.array.isRequired,
-    currentUser: PropTypes.object,
+    imgArray: PropTypes.array.isRequired
 };
 
 export default createContainer(() => {
+    Meteor.subscribe('files.images.all');
     return {
-        currentUser
-    };
+        imgArray: Images.find({}).fetch(), // Collection is Images(eksmeplet kaller dem userfiles)
+        uploading: [],
+        progress: 0,
+        inProgress: false
+    }
 }, SubmitImage);
 
 /*

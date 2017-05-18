@@ -1,12 +1,12 @@
 /**
- * Created by sebastian on 12.05.17.
+ * Created by sebastian on 15.05.17.
  */
-import { FilesCollection } from 'meteor/ostrio:files';
+import { FilesCollection, File } from 'meteor/ostrio:files';
 import { Meteor } from 'meteor/meteor';
 
-export var Images = new FilesCollection({
+var Images = new FilesCollection({
     collectionName: 'Images',
-    allowClientCode: true, // Disallow remove files from Client
+    allowClientCode: false, // Disallow remove files from Client
     onBeforeUpload: function (file) {
         // Allow upload files under 10MB, and only in png/jpg/jpeg formats
         if (file.size <= 10485760 && /png|jpg|jpeg/i.test(file.extension)) {
@@ -17,6 +17,7 @@ export var Images = new FilesCollection({
     }
 });
 
+
 if (Meteor.isClient) {
     Meteor.subscribe('files.images.all');
 }
@@ -26,16 +27,3 @@ if (Meteor.isServer) {
         return Images.find().cursor;
     });
 }
-
-
-/*
-if(Meteor.isServer){
-    this.Images.denyClient();
-    Meteor.publish('files.images.all', function(){
-        return Images.find().cursor;
-    });
-
-} else {
-    Meteor.subscribe('files.images.all');
-}
-*/

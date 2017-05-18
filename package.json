@@ -26,10 +26,12 @@
     "react-dropzone": "^3.13.1",
     "react-image-lightbox": "^3.4.3",
     "react-images": "^0.5.2",
+    "react-meteor-data": "^0.2.10",
     "react-s3-uploader": "^4.1.1",
     "react-template": "^0.4.0",
     "spawn-sync": "^1.0.15",
-    "try-thread-sleep": "^1.0.2"
+    "try-thread-sleep": "^1.0.2",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-loader": "^7.0.0",

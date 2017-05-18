@@ -6,7 +6,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 
 import {Reports} from '../api/reports';
 import SubmitImage from './SubmitPage_components/SubmitImage.jsx';
-
+import FileUploadComponent from './FileUploadTest/FileUpload.jsx';
 
 let takeImg = [];
 
@@ -16,11 +16,22 @@ class SubmitPage extends Component {
     takePicture(event) {
         console.log("hei");
         event.preventDefault();
-        let cameraOptions = {
-            height: 600,
-            width: 800,
-            quality: 100
-        };
+        let cameraOptions;
+        if(Meteor.isCordova){
+            cameraOptions = {
+                height: 600,
+                width: 800,
+                quality: 100,
+                sourceType: Camera.PictureSourceType.PHOTOLIBRAR
+            };
+        } else {
+            alert('Can only get image from memory on cordova');
+            cameraOptions = {
+                height: 600,
+                width: 800,
+                quality: 100
+            };
+        }
         console.log("hei");
         MeteorCamera.getPicture(cameraOptions, function (error, data) {
             if (!error) {
@@ -116,7 +127,7 @@ class SubmitPage extends Component {
                                 Legg til bilde
                             </button>
                         </li>
-                            <SubmitImage/>
+                        <SubmitImage/>
                         <li>
                         </li>
 
