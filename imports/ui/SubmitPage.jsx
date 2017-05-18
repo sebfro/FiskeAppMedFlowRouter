@@ -22,7 +22,7 @@ class SubmitPage extends Component {
                 height: 600,
                 width: 800,
                 quality: 100,
-                sourceType: Camera.PictureSourceType.PHOTOLIBRAR
+                sourceType: Camera.PictureSourceType.PHOTOLIBRARY
             };
         } else {
             alert('Can only get image from memory on cordova');
