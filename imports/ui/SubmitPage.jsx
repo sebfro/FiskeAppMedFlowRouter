@@ -12,26 +12,39 @@ let takeImg = [];
 
 class SubmitPage extends Component {
 
-
-    takePicture(event) {
-        console.log("hei");
+    getPictureFromStorage(event){
         event.preventDefault();
-        let cameraOptions;
-        if(Meteor.isCordova){
-            cameraOptions = {
+        console.log("Getting picture");
+        if(Meteor.isCordova) {
+            let cameraOptions = {
                 height: 600,
                 width: 800,
                 quality: 100,
                 sourceType: Camera.PictureSourceType.PHOTOLIBRARY
             };
+            MeteorCamera.getPicture(cameraOptions, function (error, data) {
+                if (!error) {
+                    document.getElementById("bilde").innerHTML = data;
+                    console.log(document.getElementById("test").innerHTML);
+                    takeImg.push(data);
+                } else {
+                    console.log(error.reason);
+                }
+            });
         } else {
-            alert('Can only get image from memory on cordova');
-            cameraOptions = {
+            alert("Can only get images from storage on Android or IOS");
+        }
+    }
+
+
+    takePicture(event) {
+        console.log("Taking photo");
+        event.preventDefault();
+        let cameraOptions = {
                 height: 600,
                 width: 800,
                 quality: 100
             };
-        }
         console.log("hei");
         MeteorCamera.getPicture(cameraOptions, function (error, data) {
             if (!error) {
@@ -124,7 +137,10 @@ class SubmitPage extends Component {
 
                         <li>
                             <button onClick={this.takePicture.bind(this)}>
-                                Legg til bilde
+                                Ta bilde
+                            </button>
+                            <button onClick={this.getPictureFromStorage.bind(this)}>
+                                Hent bilde
                             </button>
                         </li>
                         <SubmitImage/>

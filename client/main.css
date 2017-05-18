@@ -143,3 +143,8 @@ header .hide-completed {
         height: 500px;
     }
 }
+
+.scroll-area {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
