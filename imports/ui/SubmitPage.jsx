@@ -2,11 +2,11 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
+import { Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
+
 
 
 import {Reports} from '../api/reports';
-import SubmitImage from './SubmitPage_components/SubmitImage.jsx';
-import FileUploadComponent from './FileUploadTest/FileUpload.jsx';
 
 let takeImg = [];
 
@@ -104,9 +104,9 @@ class SubmitPage extends Component {
                 <header>
                     <h1>Ny rapport</h1>
 
-                    <button className="nyRapportBtn" onClick={this.backToIndex.bind(this)}>
+                    <Button className="backBtn" bsStyle="primary" onClick={this.backToIndex.bind(this)}>
                         Tilbake
-                    </button>
+                    </Button>
                 </header>
                 <form className="new-report">
                     <ul>
@@ -143,10 +143,6 @@ class SubmitPage extends Component {
                                 Hent bilde
                             </button>
                         </li>
-                        <SubmitImage/>
-                        <li>
-                        </li>
-
                         <li>
                             <img src="" id="bilde"/>
                             <button onClick={this.handleSubmit.bind(this)}>

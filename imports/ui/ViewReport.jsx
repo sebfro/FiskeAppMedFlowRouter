@@ -28,20 +28,10 @@ class ViewReport extends Component{
                         Tilbake
                     </button>
                 </header>
-
                 <ul>
-                    <li>
-                        {this.props.report.kommentar}
-                    </li>
-                    <li>
-                        {this.props.report.lengde}
-                    </li>
-                    <li>
-                        {this.renderImg()}
-                    </li>
-                    <li>
-                        {this.props.report.location}
-                    </li>
+                <il>
+                    {}
+                </il>
                 </ul>
                 <p>Dette er en test</p>
             </div>
@@ -50,11 +40,12 @@ class ViewReport extends Component{
 }
 
 ViewReport.propTypes = {
-    report: PropTypes.array.isRequired,
+    reports: PropTypes.array.isRequired,
 };
 
 export default createContainer(() =>{
+    Meteor.subscribe('reports', Meteor.userId());
     return{
         reports: Reports.find({}, {sort: {createdAt: -1}}).fetch(),
     }
-});
+}, ViewReport);

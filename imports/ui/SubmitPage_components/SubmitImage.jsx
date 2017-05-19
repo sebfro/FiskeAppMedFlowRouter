@@ -35,6 +35,10 @@ class SubmitImage extends Component {
             // We upload only one file, in case
             // there was multiple files selected
             console.log("Just entered uploadImage");
+
+            this.props.inProgress.curValue = true;
+            console.log(this.props.inProgress.curValue);
+
             var file = event.currentTarget.files[0];
             console.log(file);
             alert("Creater file/Just got file");
@@ -42,22 +46,19 @@ class SubmitImage extends Component {
                 console.log(this.props.imgArray);
 
                 let uploadInstance = Images.insert({
-                    file: file,
+                    file: event.currentTarget.files,
                     stream: 'dynamic',
                     chunkSize: 'dynamic',
                     allowWebWorkers: false //Change to false if uploads not working
                 }, false);
 
-
-                self.setState({
-                    uploading: uploadInstance, //keep track of this instance to use below
-                    inProgress: true // show the progress bar now
-                });
+                this.props.uploading.push(uploadInstance);
+                this.props.inProgress.curValue = true; // show the progress bar now
 
                 console.log("Insert done");
                 alert("In file");
 
-                uploadInstance.start();
+                uploadInstance[0].start();
             //}
         }
     }
@@ -68,10 +69,10 @@ class SubmitImage extends Component {
 
 
     render() {
-        console.log(this.currentUpload.curValue);
+        console.log(this.props.inProgress.curValue);
         return (
             <div className="container">
-                { this.currentUpload.curValue ?
+                { this.props.inProgress.curValue ?
                     <div>
                         Uploading <p>{this.file}</p>
                     </div>
@@ -100,7 +101,7 @@ export default createContainer(() => {
         imgArray: Images.find({}).fetch(), // Collection is Images(eksmeplet kaller dem userfiles)
         uploading: [],
         progress: 0,
-        inProgress: false
+        inProgress: new ReactiveVar(false)
     }
 }, SubmitImage);
 

@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
+import { Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
+
 
 import {Reports} from '../api/reports.js';
 
@@ -27,6 +29,7 @@ class Index extends Component {
 
 
     renderReports() {
+        console.log(this.props.currentUser);
 
         return this.props.reports.map((report) => (
             <Report key={report._id} report={report}/>
@@ -43,12 +46,14 @@ class Index extends Component {
                     </h1>
                     { this.props.currentUser ?
                         <div>
-                            <button className="nyRapportBtn" onClick={this.newReport.bind(this)}>
-                                Ny rapport
-                            </button>
-                            <button className="nyRapportBtn" onClick={this.seeReport.bind(this)}>
-                                Ny rapport
-                            </button>
+                            <ButtonGroup className="nyRapportBtn">
+                                <Button bsStyle="primary" onClick={this.seeReport.bind(this)}>
+                                    Se rapport
+                                </Button>
+                                <Button bsStyle="primary" onClick={this.newReport.bind(this)}>
+                                    Ny rapport
+                                </Button>
+                            </ButtonGroup>
                         </div>
                         : ''
                     }

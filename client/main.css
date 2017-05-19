@@ -86,9 +86,16 @@ ul {
     bottom: 0;
 }
 
-.nyRapportBtn {
+.backBtn {
     float: right;
     position: relative;
+}
+
+.nyRapportBtn {
+    float: right;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 li {

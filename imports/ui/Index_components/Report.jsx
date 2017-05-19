@@ -77,6 +77,6 @@ export default class Report extends Component {
 
 Report.propTypes = {
     //This component gets the report to display thorugh a React prop
-    //we can use proprTypes to indicate it is required
+    //we can use propTypes to indicate it is required
     report: PropTypes.object.isRequired,
 };
