@@ -18,7 +18,9 @@ export default class Report extends Component {
 
     //foreløpig brukes denne til å slette rapporter
     setShow() {
-        Meteor.call('reports.setShow', this.props.report._id, !this.props.report.show);
+        //Meteor.call('reports.setShow', this.props.report._id, !this.props.report.show);
+        Session.set('viewReport', this.props.report._id);
+        FlowRouter.go('/seRapport');
     }
 
     renderImg(){

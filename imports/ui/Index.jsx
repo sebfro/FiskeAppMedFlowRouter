@@ -17,20 +17,12 @@ class Index extends Component {
 
     newReport(event) {
         event.preventDefault();
-        console.log("Ny rapport");
-        console.debug("Ny rapport");
         FlowRouter.go("/nyRapport");
     }
 
-    seeReport(event){
-        event.preventDefault();
-        FlowRouter.go("/seRapport");
-    }
 
 
     renderReports() {
-        console.log(this.props.currentUser);
-
         return this.props.reports.map((report) => (
             <Report key={report._id} report={report}/>
         ));
@@ -41,22 +33,17 @@ class Index extends Component {
         return (
             <div className="container">
                 <header>
-                    <h1>
-                        Results
-                    </h1>
                     { this.props.currentUser ?
                         <div>
-                            <ButtonGroup className="nyRapportBtn">
-                                <Button bsStyle="primary" onClick={this.seeReport.bind(this)}>
-                                    Se rapport
-                                </Button>
-                                <Button bsStyle="primary" onClick={this.newReport.bind(this)}>
-                                    Ny rapport
-                                </Button>
-                            </ButtonGroup>
+                            <Button className="nyRapportBtn" bsStyle="primary" onClick={this.newReport.bind(this)}>
+                                Ny rapport
+                            </Button>
                         </div>
                         : ''
                     }
+                    <h1>
+                        Results
+                    </h1>
 
                     <AccountsUIWrapper/>
 

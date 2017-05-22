@@ -2,38 +2,60 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
+import { Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
 
 import {Reports} from '../api/reports';
 import ShowImg from './Index_components/ShowImg.jsx';
 
-class ViewReport extends Component{
+class ViewReport extends Component {
 
-    renderImg(){
-        return this.props.report.photo.map((img) => (
+    renderImg(report) {
+        return report.photo.map((img) => (
             <ShowImg key={img._id} img={img}/>
         ));
     }
 
-    backToIndex(){
+    renderReport() {
+        return Reports.findOne({_id: Session.get('viewReport')});
+    }
+
+    backToIndex() {
         FlowRouter.go("/");
     }
 
-    render(){
-        return(
+    render() {
+
+        console.log(Session.get('viewReport'));
+
+        let report = Reports.findOne({_id: Session.get('viewReport')});
+        console.log(report);
+        if(report === undefined){
+            FlowRouter.go('/');
+        }
+
+        return (
             <div className="container">
                 <header>
                     <h1>Ny rapport</h1>
 
-                    <button className="nyRapportBtn" onClick={this.backToIndex.bind(this)}>
+                    <Button className="nyRapportBtn" bsStyle="primary" onClick={this.backToIndex.bind(this)}>
                         Tilbake
-                    </button>
+                    </Button>
                 </header>
                 <ul>
-                <il>
-                    {}
-                </il>
+                    <li>
+                        {report.titel}
+                    </li>
+                    <li>
+                        {report.kommentar}
+                    </li>
+                    <li>
+                        {this.renderImg(report)}
+                    </li>
+                    <li>
+                        {report.location}
+                    </li>
                 </ul>
-                <p>Dette er en test</p>
             </div>
         );
     }
@@ -43,9 +65,9 @@ ViewReport.propTypes = {
     reports: PropTypes.array.isRequired,
 };
 
-export default createContainer(() =>{
+export default createContainer(() => {
     Meteor.subscribe('reports', Meteor.userId());
-    return{
+    return {
         reports: Reports.find({}, {sort: {createdAt: -1}}).fetch(),
     }
 }, ViewReport);

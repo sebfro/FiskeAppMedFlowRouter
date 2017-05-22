@@ -9,7 +9,6 @@ FlowRouter.route('/', {
     action: function(params, queryParams){
         console.log("Main page", params.postId)
         ReactLayout.render(Index);
-        ReactLayout.render(SubmitPage);
     }
 });
 

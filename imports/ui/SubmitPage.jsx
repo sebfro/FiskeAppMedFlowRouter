@@ -2,8 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
-import { Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
-
+import {Button, ButtonToolbar, ButtonGroup} from 'react-bootstrap';
 
 
 import {Reports} from '../api/reports';
@@ -12,10 +11,10 @@ let takeImg = [];
 
 class SubmitPage extends Component {
 
-    getPictureFromStorage(event){
+    getPictureFromStorage(event) {
         event.preventDefault();
         console.log("Getting picture");
-        if(Meteor.isCordova) {
+        if (Meteor.isCordova) {
             let cameraOptions = {
                 height: 600,
                 width: 800,
@@ -41,10 +40,10 @@ class SubmitPage extends Component {
         console.log("Taking photo");
         event.preventDefault();
         let cameraOptions = {
-                height: 600,
-                width: 800,
-                quality: 100
-            };
+            height: 600,
+            width: 800,
+            quality: 100
+        };
         console.log("hei");
         MeteorCamera.getPicture(cameraOptions, function (error, data) {
             if (!error) {
@@ -111,8 +110,6 @@ class SubmitPage extends Component {
                 <form className="new-report">
                     <ul>
                         <li>
-                            <p id="test">Per kommer</p>
-
                             <input
                                 type="text"
                                 ref="rapportTitel"
@@ -136,18 +133,20 @@ class SubmitPage extends Component {
                         </li>
 
                         <li>
-                            <button onClick={this.takePicture.bind(this)}>
-                                Ta bilde
-                            </button>
-                            <button onClick={this.getPictureFromStorage.bind(this)}>
-                                Hent bilde
-                            </button>
+                            <ButtonToolbar>
+                                <Button bsStyle="primary" onClick={this.takePicture.bind(this)}>
+                                    Ta bilde
+                                </Button>
+                                <Button bsStyle="primary" onClick={this.getPictureFromStorage.bind(this)}>
+                                    Hent bilde
+                                </Button>
+                            </ButtonToolbar>
                         </li>
                         <li>
                             <img src="" id="bilde"/>
-                            <button onClick={this.handleSubmit.bind(this)}>
+                            <Button bsStyle="primary" onClick={this.handleSubmit.bind(this)}>
                                 Send
-                            </button>
+                            </Button>
                         </li>
                     </ul>
                 </form>
