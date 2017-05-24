@@ -27,8 +27,9 @@ class ViewReport extends Component {
         console.log('Over here');
         console.log(Session.get('report.id'));
 
+        delete Session.keys.report.id
 
-        let report = Reports.findOne({_id: Session.get('report.id')});
+        let report = Reports.findOne({_id: this.props.repId});
         console.log(report);
         if(report === undefined){
             FlowRouter.go('/');
@@ -74,6 +75,7 @@ export default createContainer(() => {
     console.log('in container');
     Meteor.subscribe('reports', Meteor.userId());
     return {
+        repId: Session.get('report.id'),
         reports: Reports.find({}, {sort: {createdAt: -1}}).fetch(),
     }
 }, ViewReport);
