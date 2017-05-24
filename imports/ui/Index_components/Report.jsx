@@ -1,17 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 
 import {Meteor} from 'meteor/meteor';
-import { Session } from 'meteor/session';
-import ShowImg from "./ShowImg";
 
 
 //Report component - represents a single report
 export default class Report extends Component {
 
-    toggleChecked() {
-        // Set the checked property to the opposite of its current value
-        Meteor.call('reports.setChecked', this.props.report._id, !this.props.report.checked);
-    }
 
     deleteReport() {
         Meteor.call('reports.remove', this.props.report._id);
@@ -22,15 +16,11 @@ export default class Report extends Component {
         event.preventDefault();
 
         let id = this.props.report._id;
-        Session.set = ('report.id', {id});
+        console.log(id);
+        Session.set('report.id', id);
         FlowRouter.go('/seRapport');
     }
 
-    renderImg(){
-        return this.props.report.photo.map((img) => (
-            <ShowImg key={img._id} img={img}/>
-        ));
-    }
 
     render() {
         // Give reports a different className when they are checked off,
@@ -41,36 +31,14 @@ export default class Report extends Component {
 
                 <div>
 
-                <li onClick={this.setShow.bind(this)}>
+                    <li onClick={this.setShow.bind(this)}>
 
+                        <span className="text">{this.props.report.titel} - {this.props.report.epost}</span>
 
-                    <span className="text">{this.props.report.titel} - {this.props.report.epost}</span>
-
-                    <button className="seeBtn" onClick={this.deleteReport.bind(this)}>
-                        Delete
-                    </button>
-                </li>
-
-                    {this.props.report.show ?
-
-                        <ul>
-                            <li>
-                                {this.props.report.kommentar}
-                            </li>
-                            <li>
-                                {this.props.report.lengde}
-                            </li>
-                            <li>
-                                {this.renderImg()}
-                            </li>
-                            <li>
-                                {this.props.report.location}
-                            </li>
-                        </ul>
-                        : ''}
-
-
-
+                        <button className="seeBtn" onClick={this.deleteReport.bind(this)}>
+                            Delete
+                        </button>
+                    </li>
                 </div>
             );
         } else {

@@ -9,7 +9,7 @@ import {Reports} from '../api/reports';
 
 let takeImg = [];
 
-class SubmitPage extends Component {
+export default class SubmitPage extends Component {
 
     getPictureFromStorage(event) {
         event.preventDefault();
@@ -158,13 +158,3 @@ class SubmitPage extends Component {
         )
     }
 }
-
-SubmitPage.propTypes = {
-    reports: PropTypes.array.isRequired,
-};
-
-export default createContainer(() => {
-    return {
-        reports: Reports.find({}).fetch(),
-    };
-}, SubmitPage);

@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
-import { Session } from 'meteor/session';
 import {createContainer} from 'meteor/react-meteor-data';
 import { Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
 
@@ -27,16 +26,9 @@ class ViewReport extends Component {
     render() {
         console.log('Over here');
         console.log(Session.get('report.id'));
-        console.log(Session.get('report.id'));
 
-        return (
-            <p>Funket</p>
-        );
-        /*
 
-        console.log(Session.get('viewReport'));
-
-        let report = Reports.findOne({_id: Session.get('viewReport')});
+        let report = Reports.findOne({_id: Session.get('report.id')});
         console.log(report);
         if(report === undefined){
             FlowRouter.go('/');
@@ -56,6 +48,9 @@ class ViewReport extends Component {
                         {report.titel}
                     </li>
                     <li>
+                        {report.lengde}
+                    </li>
+                    <li>
                         {report.kommentar}
                     </li>
                     <li>
@@ -67,7 +62,7 @@ class ViewReport extends Component {
                 </ul>
             </div>
         );
-        */
+
     }
 }
 
