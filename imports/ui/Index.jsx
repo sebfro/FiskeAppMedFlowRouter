@@ -23,13 +23,18 @@ class Index extends Component {
 
 
     renderReports() {
-        return this.props.reports.map((report) => (
-            <Report key={report._id} report={report}/>
-        ));
+        let reportArray = [];
+        for (let i = 0; i < this.props.reports.length; i++) {
+            reportArray.push(
+                <Report key={i} report={this.props.reports[i]}/>
+            );
+        }
+
+        return reportArray;
     }
 
     render() {
-
+        console.log("hei");
         return (
             <div className="container">
                 <header>
@@ -53,9 +58,11 @@ class Index extends Component {
 
 
                 { this.props.currentUser ?
-                    <ul>
-                        {this.renderReports()}
-                    </ul> : ''
+                    (<ul>
+                        <li>
+                            {this.renderReports()}
+                        </li>
+                    </ul>) : null
                 }
             </div>
         )
@@ -68,6 +75,7 @@ Index.propTypes = {
 };
 
 export default createContainer(() => {
+    console.log("heiehei")
     Meteor.subscribe('reports', Meteor.userId());
     return {
         reports: Reports.find({}, {sort: {createdAt: -1}}).fetch(),

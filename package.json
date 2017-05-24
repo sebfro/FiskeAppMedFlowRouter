@@ -29,6 +29,7 @@
     "react-image-lightbox": "^3.4.3",
     "react-images": "^0.5.2",
     "react-meteor-data": "^0.2.10",
+    "react-mounter": "^1.2.0",
     "react-s3-uploader": "^4.1.1",
     "react-template": "^0.4.0",
     "spawn-sync": "^1.0.15",

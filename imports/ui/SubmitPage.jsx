@@ -86,13 +86,15 @@ class SubmitPage extends Component {
             ReactDOM.findDOMNode(this.refs.rapportLengde).value = '';
 
             takeImg = [];
-            this.backToIndex();
+            this.backToIndex(event);
 
         }
     }
 
-    backToIndex() {
-        FlowRouter.go("/");
+    backToIndex(event) {
+        event.preventDefault();
+        console.log("test");
+        FlowRouter.go("index", "hei");
     }
 
     render() {

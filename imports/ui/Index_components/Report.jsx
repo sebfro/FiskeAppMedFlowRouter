@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
 import {Meteor} from 'meteor/meteor';
+import { Session } from 'meteor/session';
 import ShowImg from "./ShowImg";
 
 
@@ -17,9 +18,11 @@ export default class Report extends Component {
     }
 
     //foreløpig brukes denne til å slette rapporter
-    setShow() {
-        //Meteor.call('reports.setShow', this.props.report._id, !this.props.report.show);
-        Session.set('viewReport', this.props.report._id);
+    setShow(event) {
+        event.preventDefault();
+
+        let id = this.props.report._id;
+        Session.set = ('report.id', {id});
         FlowRouter.go('/seRapport');
     }
 
@@ -33,7 +36,6 @@ export default class Report extends Component {
         // Give reports a different className when they are checked off,
         // so that we can style them nicely in css
         const reportClassName = this.props.report.checked ? 'checked' : '';
-
         if (Meteor.userId() === this.props.report.owner) {
             return (
 
