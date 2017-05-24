@@ -153,3 +153,7 @@ header .hide-completed {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
+
+.smallImg {
+    margin: 5px;
+}

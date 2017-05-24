@@ -23,8 +23,6 @@ export default class SubmitPage extends Component {
             };
             MeteorCamera.getPicture(cameraOptions, function (error, data) {
                 if (!error) {
-                    document.getElementById("bilde").innerHTML = data;
-                    console.log(document.getElementById("test").innerHTML);
                     takeImg.push(data);
                 } else {
                     console.log(error.reason);
@@ -47,8 +45,8 @@ export default class SubmitPage extends Component {
         console.log("hei");
         MeteorCamera.getPicture(cameraOptions, function (error, data) {
             if (!error) {
-                document.getElementById("bilde").innerHTML = data;
-                console.log(document.getElementById("test").innerHTML);
+                console.log("Pic right under");
+                console.log(data);
                 takeImg.push(data);
             } else {
                 console.log(error.reason);
@@ -78,8 +76,6 @@ export default class SubmitPage extends Component {
             Meteor.call(`reports.insert`, titelText, kommentarText, Number(lengdeNr),
                 takeImg, Geolocation.currentLocation());
 
-            takeImg
-            //Clear form
 
             ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
             ReactDOM.findDOMNode(this.refs.rapportKommentar).value = '';
@@ -145,7 +141,6 @@ export default class SubmitPage extends Component {
                             </ButtonToolbar>
                         </li>
                         <li>
-                            <img src="" id="bilde"/>
                             <Button bsStyle="primary" onClick={this.handleSubmit.bind(this)}>
                                 Send
                             </Button>

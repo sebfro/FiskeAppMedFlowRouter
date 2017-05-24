@@ -11,8 +11,8 @@ import ShowReport from './ViewReport_components/ShowReport.jsx';
 export default class ViewReport extends Component {
 
     renderImg(report) {
-        return report.photo.map((img) => (
-            <ShowImg key={img._id} img={img}/>
+        return report.photo.map((photo) => (
+            <ShowImg key={photo._id} img={photo}/>
         ));
     }
 
@@ -40,6 +40,9 @@ export default class ViewReport extends Component {
                         Tilbake
                     </Button>
                 </header>
+                <div>
+                {this.renderImg(report)}
+                </div>
                 <ShowReport report={report}/>
             </div>
 
