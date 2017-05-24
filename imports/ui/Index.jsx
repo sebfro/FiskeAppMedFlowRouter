@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
-import { Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 
 import {Reports} from '../api/reports.js';
@@ -33,8 +33,11 @@ class Index extends Component {
         return reportArray;
     }
 
+
+
     render() {
         console.log("hei");
+        console.log(this.props.reports);
         return (
             <div className="container">
                 <header>
@@ -57,13 +60,9 @@ class Index extends Component {
 
 
 
-                { this.props.currentUser ?
-                    (<ul>
-                        <li>
-                            {this.renderReports()}
-                        </li>
-                    </ul>) : null
-                }
+                <ul>
+                    {this.renderReports()}
+                </ul>
             </div>
         )
     }
@@ -75,7 +74,6 @@ Index.propTypes = {
 };
 
 export default createContainer(() => {
-    console.log("heiehei")
     Meteor.subscribe('reports', Meteor.userId());
     return {
         reports: Reports.find({}, {sort: {createdAt: -1}}).fetch(),

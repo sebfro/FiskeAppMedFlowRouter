@@ -5,18 +5,15 @@ import {createContainer} from 'meteor/react-meteor-data';
 import { Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
 
 import {Reports} from '../api/reports';
-import ShowImg from './Index_components/ShowImg.jsx';
+import ShowImg from './ViewReport_components/ShowImg.jsx';
+import ShowReport from './ViewReport_components/ShowReport.jsx';
 
-class ViewReport extends Component {
+export default class ViewReport extends Component {
 
     renderImg(report) {
         return report.photo.map((img) => (
             <ShowImg key={img._id} img={img}/>
         ));
-    }
-
-    renderReport() {
-        return Reports.findOne({_id: Session.get('report.id')});
     }
 
     backToIndex() {
@@ -27,9 +24,8 @@ class ViewReport extends Component {
         console.log('Over here');
         console.log(Session.get('report.id'));
 
-        delete Session.keys.report.id
 
-        let report = Reports.findOne({_id: this.props.repId});
+        let report = Reports.findOne({_id: Session.get('report.id')});
         console.log(report);
         if(report === undefined){
             FlowRouter.go('/');
@@ -44,38 +40,10 @@ class ViewReport extends Component {
                         Tilbake
                     </Button>
                 </header>
-                <ul>
-                    <li>
-                        {report.titel}
-                    </li>
-                    <li>
-                        {report.lengde}
-                    </li>
-                    <li>
-                        {report.kommentar}
-                    </li>
-                    <li>
-                        {this.renderImg(report)}
-                    </li>
-                    <li>
-                        {report.location}
-                    </li>
-                </ul>
+                <ShowReport report={report}/>
             </div>
+
         );
 
     }
 }
-
-ViewReport.propTypes = {
-    reports: PropTypes.array.isRequired,
-};
-
-export default createContainer(() => {
-    console.log('in container');
-    Meteor.subscribe('reports', Meteor.userId());
-    return {
-        repId: Session.get('report.id'),
-        reports: Reports.find({}, {sort: {createdAt: -1}}).fetch(),
-    }
-}, ViewReport);

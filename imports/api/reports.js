@@ -13,6 +13,7 @@ if (Meteor.isServer) {
     Meteor.publish('reports', function reportsPublication() {
         return Reports.find();
     });
+
 }
 
 
@@ -38,7 +39,6 @@ Meteor.methods({
             kommentar: kommentarText,
             lengde: lengdeNr,
             photo: img,
-            pic: null,
             epost: Meteor.user().emails[0].address,
             location: pos,
             createdAt: new Date(),
@@ -71,4 +71,9 @@ Meteor.methods({
 
         Reports.update(reportId, {$set: { show: setShow } });
     },
+    'reports.getReport'(reportId){
+        check(reportId, String);
+
+        Reports.findOne({ _id: reportId })
+    }
 });

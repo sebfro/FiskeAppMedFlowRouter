@@ -40,7 +40,7 @@ praneybehl:react-dropzone
 raix:ui-dropped-event
 cfs:s3
 ostrio:files
-autopublish
 fastclick
 reload-on-resume
 session
+autopublish
