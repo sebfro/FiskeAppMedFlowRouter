@@ -1,17 +1,19 @@
 import React, {Component, PropTypes} from 'react';
 
 
-export default class ShowImg extends Component{
+export default class ShowImg extends Component {
 
-    render(){
+    render() {
         console.log("In showImg");
         console.log("In showImg");
         console.log("In showImg");
         console.log("In showImg");
         console.log("In showImg");
         console.log("In showImg");
-        return(
+        return (
+            <li>
                 <img className="smallImg" src={this.props.img} height={80} width={80}/>
+            </li>
         );
     }
 }

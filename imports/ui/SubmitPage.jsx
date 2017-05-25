@@ -5,9 +5,11 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {Button, ButtonToolbar, ButtonGroup} from 'react-bootstrap';
 
 
-import {Reports} from '../api/reports';
 
 let takeImg = [];
+let posLong;
+let posLat;
+
 
 export default class SubmitPage extends Component {
 
@@ -69,12 +71,14 @@ export default class SubmitPage extends Component {
         console.log("Her er inputen: " + titelText);
         console.log("Her er inputen: " + lengdeNr);
         console.log("Her er bruker: " + Meteor.user);
+        console.log("Her er posLong" + posLong);
+        console.log("Her er posLat" + posLat);
 
 
         if (titelText != "" && kommentarText != "" && lengdeNr != "") {
 
             Meteor.call(`reports.insert`, titelText, kommentarText, Number(lengdeNr),
-                takeImg, Geolocation.currentLocation());
+                takeImg, posLat, posLong );
 
 
             ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
@@ -92,13 +96,22 @@ export default class SubmitPage extends Component {
         console.log("test");
         FlowRouter.go("index", "hei");
     }
-
-    getPosition(event){
-        event.preventDefault();
-        navigator
+    getPos(){
+        navigator.geolocation.getCurrentPosition(this.onSuccess);
     }
 
+    onSuccess(pos){
+        console.log(pos.coords.longitude);
+        console.log(pos.coords.latitude);
+        posLat = pos.coords.longitude;
+        posLong = pos.coords.latitude;
+        console.log(posLat);
+        console.log(posLong);
+    }
+
+
     render() {
+        this.getPos();
         return (
 
 

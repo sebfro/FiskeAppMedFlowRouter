@@ -16,12 +16,13 @@ export default class ShowReport extends Component {
 
     render(){
         console.log("Rett under her");
-        console.log(this.props.report.photo);
+        console.log("Rett under her");
+        console.log("Rett under her");
+        console.log("Rett under her");
+        console.log(' ' + this.props.report.latitude + ' ');
         return(
             <ul>
-                <li>
                     {this.renderImages()}
-                </li>
                 <li>
                     {this.props.report.titel}
                 </li>
@@ -31,6 +32,14 @@ export default class ShowReport extends Component {
                 <li>
                     {this.props.report.kommentar}
                 </li>
+                <li>
+                    {this.props.report.latitude}
+                </li>
+                <li>
+                    {this.props.report.longitude}
+                </li>
+                <p>Hei</p>
+
             </ul>
         );
     }

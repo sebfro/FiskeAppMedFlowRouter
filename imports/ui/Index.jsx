@@ -15,6 +15,7 @@ class Index extends Component {
 
 
 
+
     newReport(event) {
         event.preventDefault();
         FlowRouter.go("/nyRapport");
@@ -50,7 +51,7 @@ class Index extends Component {
                         : ''
                     }
                     <h1>
-                        Rapporter
+                        Rapporter2
                     </h1>
 
                     <AccountsUIWrapper/>

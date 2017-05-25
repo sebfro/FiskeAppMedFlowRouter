@@ -7,6 +7,12 @@ import SubmitPage from '../imports/ui/SubmitPage.jsx';
 import ViewReport from '../imports/ui/ViewReport.jsx';
 import {MainLayout} from '../imports/ui/MainLayout.jsx';
 
+if(Meteor.isClient){
+    Meteor.startup(function(){
+        GoogleMaps.load();
+    });
+}
+
 FlowRouter.route('/', {
     name: "index",
     action: function(params, queryParams){

@@ -2,11 +2,12 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
-import { Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
+import {Button, ButtonToolbar, ButtonGroup} from 'react-bootstrap';
 
 import {Reports} from '../api/reports';
 import ShowImg from './ViewReport_components/ShowImg.jsx';
 import ShowReport from './ViewReport_components/ShowReport.jsx';
+import ShowPosition from './ViewReport_components/ShowPosistion'
 
 export default class ViewReport extends Component {
 
@@ -27,7 +28,7 @@ export default class ViewReport extends Component {
 
         let report = Reports.findOne({_id: Session.get('report.id')});
         console.log(report);
-        if(report === undefined){
+        if (report === undefined) {
             FlowRouter.go('/');
         }
 
@@ -41,9 +42,10 @@ export default class ViewReport extends Component {
                     </Button>
                 </header>
                 <div>
-                {this.renderImg(report)}
+                    {this.renderImg(report)}
                 </div>
                 <ShowReport report={report}/>
+                <ShowPosition/>
             </div>
 
         );

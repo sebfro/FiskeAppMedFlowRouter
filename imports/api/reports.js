@@ -6,8 +6,10 @@ import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
 
-export const Reports = new Mongo.Collection('reports');
 
+
+
+export const Reports = new Mongo.Collection('reports');
 if (Meteor.isServer) {
     //This code only runs on the server
     Meteor.publish('reports', function reportsPublication() {
@@ -16,32 +18,19 @@ if (Meteor.isServer) {
 
 }
 
-if(Meteor.isCordova) {
-    Meteor.startup(function () {
-        navigator.geolocation.getCurrentPosition(success);
-    });
-}
-
-function success(){
-    alert("Geolocation fungerte");
-    alert(Geolocation.currentLocation());
-}
-
 Meteor.methods({
-    'reports.insert'(titelText, kommentarText, lengdeNr, img, pos){
-        console.log("hei");
+    'reports.insert'(titelText, kommentarText, lengdeNr, img, posLat, posLong){
         check(titelText, String);
         check(kommentarText, String);
         check(lengdeNr, Number);
 
-        console.log("hei");
+
 
         //Make sure user is logged in before inserting a report
         if(!Meteor.userId()){
             throw new Meteor.Error('not-authorized');
         }
 
-        console.log("hei");
 
         Reports.insert({
             titel: titelText,
@@ -49,13 +38,13 @@ Meteor.methods({
             lengde: lengdeNr,
             photo: img,
             epost: Meteor.user().emails[0].address,
-            location: pos,
+            latitude: posLat,
+            longitude: posLong,
             createdAt: new Date(),
             owner: Meteor.userId(),
             show: false,
         });
 
-        console.log("hei");
 },
     'reports.remove'(reportId){
         check(reportId, String);
@@ -74,11 +63,11 @@ Meteor.methods({
 
         const report = Reports.findOne(reportId);
     },
-    'reports.setShow'(reportId, setShow){
-        check(reportId, String);
+    'reports.setPos'(titel, pos){
+        check(titel, String);
         check(setShow, Boolean);
 
-        Reports.update(reportId, {$set: { show: setShow } });
+        Reports.update(titel, {$set: { location: pos } });
     },
     'reports.getReport'(reportId){
         check(reportId, String);
