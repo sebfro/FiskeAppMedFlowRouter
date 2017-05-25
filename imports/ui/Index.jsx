@@ -50,7 +50,7 @@ class Index extends Component {
                         : ''
                     }
                     <h1>
-                        Reports, husk å forandre denne her
+                        Rapporter
                     </h1>
 
                     <AccountsUIWrapper/>

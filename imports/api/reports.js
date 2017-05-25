@@ -16,7 +16,16 @@ if (Meteor.isServer) {
 
 }
 
+if(Meteor.isCordova) {
+    Meteor.startup(function () {
+        navigator.geolocation.getCurrentPosition(success);
+    });
+}
 
+function success(){
+    alert("Geolocation fungerte");
+    alert(Geolocation.currentLocation());
+}
 
 Meteor.methods({
     'reports.insert'(titelText, kommentarText, lengdeNr, img, pos){

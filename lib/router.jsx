@@ -10,7 +10,7 @@ import {MainLayout} from '../imports/ui/MainLayout.jsx';
 FlowRouter.route('/', {
     name: "index",
     action: function(params, queryParams){
-        console.log("Main page")
+        console.log("Main page");
         ReactLayout.render(Index);
     }
 });
