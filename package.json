@@ -10,6 +10,7 @@
     "bcrypt": "^1.0.2",
     "cordova": "^7.0.1",
     "cordova-plugin-compat": "^1.1.0",
+    "cordova-plugin-geolocation": "^2.4.3",
     "gm": "^1.23.0",
     "helper": "0.0.13",
     "jasny-bootstrap": "^3.1.3",

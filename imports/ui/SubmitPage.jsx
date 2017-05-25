@@ -93,6 +93,11 @@ export default class SubmitPage extends Component {
         FlowRouter.go("index", "hei");
     }
 
+    getPosition(event){
+        event.preventDefault();
+        navigator
+    }
+
     render() {
         return (
 
