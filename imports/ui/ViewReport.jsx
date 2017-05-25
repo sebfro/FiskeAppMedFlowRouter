@@ -34,7 +34,7 @@ export default class ViewReport extends Component {
         return (
             <div className="container">
                 <header>
-                    <h1>Ny rapport</h1>
+                    <h1>Rapport</h1>
 
                     <Button className="nyRapportBtn" bsStyle="primary" onClick={this.backToIndex.bind(this)}>
                         Tilbake
