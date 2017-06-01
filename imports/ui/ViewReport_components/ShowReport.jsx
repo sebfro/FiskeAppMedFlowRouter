@@ -24,22 +24,22 @@ export default class ShowReport extends Component {
             <ul>
                     {this.renderImages()}
                 <li>
-                    {this.props.report.text}
+                    Art: {this.props.report.text}
                 </li>
                 <li>
-                    {this.props.report.length}
+                    Lengde: {this.props.report.length}
                 </li>
                 <li>
-                    {this.props.report.amount}
+                    Antall: {this.props.report.amount}
                 </li>
                 <li>
-                    {this.props.report.depth}
+                    Dybde: {this.props.report.depth}
                 </li>
                 <li>
-                    {this.props.report.latitude}
+                    Breddegrad: {this.props.report.latitude}
                 </li>
                 <li>
-                    {this.props.report.longitude}
+                    Lengdegrad: {this.props.report.longitude}
                 </li>
 
             </ul>
