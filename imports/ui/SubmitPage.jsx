@@ -1,10 +1,10 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
-import {Button, ButtonToolbar, ButtonGroup} from 'react-bootstrap';
+import {Button, ButtonToolbar} from 'react-bootstrap';
 
-
+import { hasNumbers } from '../../lib/helpMethods.js';
 
 let takeImg = [];
 let posLong;
@@ -13,9 +13,29 @@ let posLat;
 
 export default class SubmitPage extends Component {
 
+    constructor(props){
+        super(props);
+        this.state = {
+            lengthError: false,
+            amountError: false,
+            depthError: false,
+            titelError: false,
+            substrartError: false
+        };
+    }
+
+    inputError(length, amount, depth, titel, substrart){
+        this.setState({
+            lengthError: length,
+            amountError: amount,
+            depthError: depth,
+            titelError: titel,
+            substrartError: substrart
+        })
+    }
+
     getPictureFromStorage(event) {
         event.preventDefault();
-        console.log("Getting picture");
         if (Meteor.isCordova) {
             let cameraOptions = {
                 height: 600,
@@ -37,17 +57,14 @@ export default class SubmitPage extends Component {
 
 
     takePicture(event) {
-        console.log("Taking photo");
         event.preventDefault();
         let cameraOptions = {
             height: 600,
             width: 800,
             quality: 100
         };
-        console.log("hei");
         MeteorCamera.getPicture(cameraOptions, function (error, data) {
             if (!error) {
-                console.log("Pic right under");
                 console.log(data);
                 takeImg.push(data);
             } else {
@@ -64,30 +81,34 @@ export default class SubmitPage extends Component {
 
         //Find the text field via the react ref
         const titelText = ReactDOM.findDOMNode(this.refs.rapportTitel).value.trim();
-        const kommentarText = ReactDOM.findDOMNode(this.refs.rapportKommentar).value.trim();
-        const lengdeNr = ReactDOM.findDOMNode(this.refs.rapportLengde).value.trim();
-
-        console.log("Her er inputen: " + kommentarText);
-        console.log("Her er inputen: " + titelText);
-        console.log("Her er inputen: " + lengdeNr);
-        console.log("Her er bruker: " + Meteor.user);
-        console.log("Her er posLong" + posLong);
-        console.log("Her er posLat" + posLat);
+        const lengthNr = ReactDOM.findDOMNode(this.refs.rapportLength).value.trim();
+        const depthNr = ReactDOM.findDOMNode(this.refs.rapportDepth).value.trim();
+        const amountNr = ReactDOM.findDOMNode(this.refs.rapportAmount).value.trim();
+        const substrartText = ReactDOM.findDOMNode(this.refs.rapportSubstrart).value.trim();
 
 
-        if (titelText != "" && kommentarText != "" && lengdeNr != "") {
+        if (lengthNr < 0 || lengthNr > 1000 || !lengthNr || amountNr < 0 || amountNr > 100 || !amountNr ||
+            depthNr < 0 || depthNr > 1000 || !depthNr || !titelText || hasNumbers(titelText) || !substrartText
+        || hasNumbers(substrartText)) {
 
-            Meteor.call(`reports.insert`, titelText, kommentarText, Number(lengdeNr),
-                takeImg, posLat, posLong );
+            this.inputError(lengthNr < 0 || lengthNr > 1000 || !lengthNr, amountNr < 0 || amountNr > 100 || !amountNr,
+                depthNr < 0 || depthNr > 1000 || !depthNr, !titelText || hasNumbers(titelText), !substrartText ||
+            hasNumbers(substrartText));
+
+
+        } else {
+            Meteor.call(`reports.insert`, titelText, substrartText, Number(lengthNr),
+                takeImg, posLat, posLong, Number(depthNr), Number(amountNr) );
 
 
             ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
-            ReactDOM.findDOMNode(this.refs.rapportKommentar).value = '';
-            ReactDOM.findDOMNode(this.refs.rapportLengde).value = '';
+            ReactDOM.findDOMNode(this.refs.rapportLength).value = '';
+            ReactDOM.findDOMNode(this.refs.rapportDepth).value = '';
+            ReactDOM.findDOMNode(this.refs.rapportAmount).value = '';
+            ReactDOM.findDOMNode(this.refs.rapportSubstrart).value = '';
 
             takeImg = [];
             this.backToIndex(event);
-
         }
     }
 
@@ -101,12 +122,8 @@ export default class SubmitPage extends Component {
     }
 
     onSuccess(pos){
-        console.log(pos.coords.longitude);
-        console.log(pos.coords.latitude);
         posLat = pos.coords.longitude;
         posLong = pos.coords.latitude;
-        console.log(posLat);
-        console.log(posLong);
     }
 
 
@@ -126,6 +143,9 @@ export default class SubmitPage extends Component {
                 <form className="new-report">
                     <ul>
                         <li>
+                            <p className="errorText" hidden={!this.state.titelError}>
+                                Art kan ikke inneholde tall eller være blank
+                            </p>
                             <input
                                 type="text"
                                 ref="rapportTitel"
@@ -133,18 +153,43 @@ export default class SubmitPage extends Component {
                             />
                         </li>
                         <li>
+                            <p className="errorText" hidden={!this.state.lengthError}>
+                                Lengde må være mellom 0 og 99
+                            </p>
                             <input
                                 type="number"
-                                ref="rapportLengde"
+                                ref="rapportLength"
                                 placeholder="Skriv inn lengde"
                             />
                         </li>
                         <li>
-
+                            <p className="errorText" hidden={!this.state.depthError}>
+                                Dybde må være mellom 0 og 99
+                            </p>
+                            <input
+                                type="number"
+                                ref="rapportDepth"
+                                placeholder="Skriv inn dybde"
+                            />
+                        </li>
+                        <li>
+                            <p className="errorText" hidden={!this.state.amountError}>
+                                Antall må være mellom 0 og 99
+                            </p>
+                            <input
+                                type="number"
+                                ref="rapportAmount"
+                                placeholder="Skriv inn antall"
+                            />
+                        </li>
+                        <li>
+                            <p className="errorText" hidden={!this.state.substrartError}>
+                                Substrart kan ikke inneholde tall eller være blank
+                            </p>
                             <input
                                 type="text"
-                                ref="rapportKommentar"
-                                placeholder="Skriv inn kommentar til rapporten"
+                                ref="rapportSubstrart"
+                                placeholder="Skriv inn substrat"
                             />
                         </li>
 

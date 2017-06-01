@@ -45,7 +45,6 @@ export default class ViewReport extends Component {
                     {this.renderImg(report)}
                 </div>
                 <ShowReport report={report}/>
-                <ShowPosition/>
             </div>
 
         );

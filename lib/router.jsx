@@ -9,7 +9,7 @@ import {MainLayout} from '../imports/ui/MainLayout.jsx';
 
 if(Meteor.isClient){
     Meteor.startup(function(){
-        GoogleMaps.load();
+        GoogleMaps.load({ key: 'AIzasSyAFSNWFkRXoi4cZsDzdslntFNtDZAK-lhc'});
     });
 }
 

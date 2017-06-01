@@ -157,3 +157,7 @@ header .hide-completed {
 .smallImg {
     margin: 5px;
 }
+
+.errorText {
+    color: red;
+}

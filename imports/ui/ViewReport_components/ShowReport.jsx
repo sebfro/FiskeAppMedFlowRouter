@@ -24,13 +24,16 @@ export default class ShowReport extends Component {
             <ul>
                     {this.renderImages()}
                 <li>
-                    {this.props.report.titel}
+                    {this.props.report.text}
                 </li>
                 <li>
-                    {this.props.report.lengde}
+                    {this.props.report.length}
                 </li>
                 <li>
-                    {this.props.report.kommentar}
+                    {this.props.report.amount}
+                </li>
+                <li>
+                    {this.props.report.depth}
                 </li>
                 <li>
                     {this.props.report.latitude}
@@ -38,7 +41,6 @@ export default class ShowReport extends Component {
                 <li>
                     {this.props.report.longitude}
                 </li>
-                <p>Hei</p>
 
             </ul>
         );

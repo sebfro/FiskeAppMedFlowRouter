@@ -19,9 +19,9 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-    'reports.insert'(titelText, kommentarText, lengdeNr, img, posLat, posLong){
+    'reports.insert'(titelText, substrartInput, lengdeNr, img, posLat, posLong, depthInput, amountInput){
         check(titelText, String);
-        check(kommentarText, String);
+        check(substrartInput, String);
         check(lengdeNr, Number);
 
 
@@ -33,16 +33,19 @@ Meteor.methods({
 
 
         Reports.insert({
-            titel: titelText,
-            kommentar: kommentarText,
-            lengde: lengdeNr,
+            text: titelText,
+            length: lengdeNr,
             photo: img,
             epost: Meteor.user().emails[0].address,
             latitude: posLat,
             longitude: posLong,
-            createdAt: new Date(),
+            depth: depthInput,
+            amount: amountInput,
+            substrart: substrartInput,
+            submitDate: new Date(),
             owner: Meteor.userId(),
-            show: false,
+            isValidated: false,
+            isCheckout: false,
         });
 
 },
