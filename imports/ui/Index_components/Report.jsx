@@ -3,15 +3,15 @@ import React, {Component, PropTypes} from 'react';
 import {Meteor} from 'meteor/meteor';
 
 
-//Report component - represents a single report
+//Report komponent - Viser frem en rapport
 export default class Report extends Component {
 
-
+    //Sletter en rapport
     deleteReport() {
         Meteor.call('reports.remove', this.props.report._id);
     }
 
-    //foreløpig brukes denne til å slette rapporter
+    //Åpner en ny side som viser en rapports innehold
     setShow(event) {
         event.preventDefault();
 

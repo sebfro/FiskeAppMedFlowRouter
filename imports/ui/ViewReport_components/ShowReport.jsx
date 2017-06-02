@@ -2,27 +2,23 @@ import React, {Component, PropTypes} from 'react';
 
 import ShowImg from './ShowImg.jsx';
 
+//ShowReport komponenet - GJengir alle tekst innhold i rapport på skjermen
 export default class ShowReport extends Component {
 
-    renderImages(){
+    //Kaller ShowImg komponent for hvert bilde i rapporten og gjengir det på skjerm
+    renderImages() {
         console.log("RenderImages");
         let imgArray = [];
-        for ( let i = 0; i < this.props.report.photo.length; i++){
+        for (let i = 0; i < this.props.report.photo.length; i++) {
             imgArray.push(
                 <ShowImg key={i} img={this.props.report.photo[i]}/>
             )
         }
     }
 
-    render(){
-        console.log("Rett under her");
-        console.log("Rett under her");
-        console.log("Rett under her");
-        console.log("Rett under her");
-        console.log(' ' + this.props.report.latitude + ' ');
-        return(
+    render() {
+        return (
             <ul>
-                    {this.renderImages()}
                 <li>
                     Art: {this.props.report.text}
                 </li>

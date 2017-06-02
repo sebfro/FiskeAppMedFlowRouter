@@ -10,19 +10,19 @@ import {Reports} from '../api/reports.js';
 import Report from './Index_components/Report.jsx';
 import AccountsUIWrapper from './AcountsUIWrapper.jsx';
 
-//Index component - represents the whole app
+//Index komponent - Gjengir hovedsiden til applikasjonen
 class Index extends Component {
 
 
 
-
+    //Sender bruker til nyrapport siden
     newReport(event) {
         event.preventDefault();
         FlowRouter.go("/nyRapport");
     }
 
 
-
+    //Kaller på report komponeneten og gjengir alle rapporter
     renderReports() {
         let reportArray = [];
         for (let i = 0; i < this.props.reports.length; i++) {
@@ -51,7 +51,7 @@ class Index extends Component {
                         : ''
                     }
                     <h1>
-                        Rapporter2
+                        Rapporter
                     </h1>
 
                     <AccountsUIWrapper/>

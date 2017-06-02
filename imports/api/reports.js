@@ -8,7 +8,7 @@ import { check } from 'meteor/check';
 
 
 
-
+//Reports komponent - her ligger alle rapportene lagret
 export const Reports = new Mongo.Collection('reports');
 if (Meteor.isServer) {
     //This code only runs on the server
@@ -18,6 +18,7 @@ if (Meteor.isServer) {
 
 }
 
+//Metoder for å legge til, slette og oppdateres
 Meteor.methods({
     'reports.insert'(titelText, substrartInput, lengdeNr, img, posLat, posLong, depthInput, amountInput){
         check(titelText, String);

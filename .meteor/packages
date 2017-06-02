@@ -44,3 +44,5 @@ fastclick
 reload-on-resume
 session
 autopublish
+practicalmeteor:mocha
+dburles:factory

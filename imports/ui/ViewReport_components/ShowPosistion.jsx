@@ -5,6 +5,7 @@ let latitude = undefined;
 let longitude = undefined;
 let per = true;
 
+//ShowPosition komponenten - Viser et kart med markør
 export default class ShowPosition extends Component {
 
     getMapLocation(){

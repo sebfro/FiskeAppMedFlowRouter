@@ -4,15 +4,16 @@ import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Button, ButtonToolbar} from 'react-bootstrap';
 
-import { hasNumbers } from '../../lib/helpMethods.js';
+import { hasNumbers, backToIndex } from '../../lib/helpMethods.js';
 
 let takeImg = [];
 let posLong;
 let posLat;
 
-
+//SubmitPage komponent - Gjengir side for å lage nye rapport og sden in.
 export default class SubmitPage extends Component {
 
+    //Setter state variabler
     constructor(props){
         super(props);
         this.state = {
@@ -23,7 +24,7 @@ export default class SubmitPage extends Component {
             substrartError: false
         };
     }
-
+    //Oppdaterer state variabler<
     inputError(length, amount, depth, titel, substrart){
         this.setState({
             lengthError: length,
@@ -33,7 +34,7 @@ export default class SubmitPage extends Component {
             substrartError: substrart
         })
     }
-
+    //Henter bilde fra mobilens minne
     getPictureFromStorage(event) {
         event.preventDefault();
         if (Meteor.isCordova) {
@@ -55,7 +56,7 @@ export default class SubmitPage extends Component {
         }
     }
 
-
+    //Ta bilde med kamera
     takePicture(event) {
         event.preventDefault();
         let cameraOptions = {
@@ -73,7 +74,8 @@ export default class SubmitPage extends Component {
         });
     }
 
-
+    //Send inn alle variablene som skal være i rapport til report.js. Sjekker om det er noe galt med inputten og klaer da inputerror.
+    //Sender de ellers videre.
     handleSubmit(event) {
 
         event.preventDefault();
@@ -108,19 +110,15 @@ export default class SubmitPage extends Component {
             ReactDOM.findDOMNode(this.refs.rapportSubstrart).value = '';
 
             takeImg = [];
-            this.backToIndex(event);
+            backToIndex(event);
         }
     }
 
-    backToIndex(event) {
-        event.preventDefault();
-        console.log("test");
-        FlowRouter.go("index", "hei");
-    }
+    //Henter nåværende posisjonb
     getPos(){
         navigator.geolocation.getCurrentPosition(this.onSuccess);
     }
-
+    //Mottar posisjons objekt og lagrer breddegrad og lengdegrad
     onSuccess(pos){
         posLat = pos.coords.longitude;
         posLong = pos.coords.latitude;
@@ -136,7 +134,7 @@ export default class SubmitPage extends Component {
                 <header>
                     <h1>Ny rapport</h1>
 
-                    <Button className="backBtn" bsStyle="primary" onClick={this.backToIndex.bind(this)}>
+                    <Button className="backBtn" bsStyle="primary" onClick={backToIndex.bind(this)}>
                         Tilbake
                     </Button>
                 </header>
@@ -149,12 +147,12 @@ export default class SubmitPage extends Component {
                             <input
                                 type="text"
                                 ref="rapportTitel"
-                                placeholder="Skriv inn titel til rapporten"
+                                placeholder="Skriv inn art til rapporten"
                             />
                         </li>
                         <li>
                             <p className="errorText" hidden={!this.state.lengthError}>
-                                Lengde må være mellom 0 og 99
+                                Lengde må være mellom 1 og 999
                             </p>
                             <input
                                 type="number"
@@ -164,7 +162,7 @@ export default class SubmitPage extends Component {
                         </li>
                         <li>
                             <p className="errorText" hidden={!this.state.depthError}>
-                                Dybde må være mellom 0 og 99
+                                Dybde må være mellom 0 og 999
                             </p>
                             <input
                                 type="number"

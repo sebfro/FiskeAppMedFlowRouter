@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
 
+//AccountsUIWrapper komponent - Gjengir login på index siden
 export default class AccountsUIWrapper extends Component {
     componentDidMount(){
         //Use Meteor Blaze to render login buttons

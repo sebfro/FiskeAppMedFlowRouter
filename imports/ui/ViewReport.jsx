@@ -1,14 +1,13 @@
-import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
+import React, {Component} from 'react';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
-import {Button, ButtonToolbar, ButtonGroup} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 import {Reports} from '../api/reports';
 import ShowImg from './ViewReport_components/ShowImg.jsx';
 import ShowReport from './ViewReport_components/ShowReport.jsx';
-import ShowPosition from './ViewReport_components/ShowPosistion'
 
+//ViewReport komponent - Hovedkomponent for visning av en rapport
 export default class ViewReport extends Component {
 
     renderImg(report) {
@@ -41,10 +40,12 @@ export default class ViewReport extends Component {
                         Tilbake
                     </Button>
                 </header>
-                <div>
-                    {this.renderImg(report)}
-                </div>
-                <ShowReport report={report}/>
+                <ul>
+                    <li>
+                        {this.renderImg(report)}
+                    </li>
+                    <ShowReport report={report}/>
+                </ul>
             </div>
 
         );
