@@ -20,9 +20,9 @@ if (Meteor.isServer) {
 
 //Metoder for å legge til, slette og oppdateres
 Meteor.methods({
-    'reports.insert'(titelText, substrartInput, lengdeNr, img, posLat, posLong, depthInput, amountInput){
+    'reports.insert'(titelText, /*substrartInput,*/ lengdeNr, img, posLat, posLong, depthInput, amountInput){
         check(titelText, String);
-        check(substrartInput, String);
+        //check(substrartInput, String);
         check(lengdeNr, Number);
 
 
@@ -42,7 +42,7 @@ Meteor.methods({
             longitude: posLong,
             depth: depthInput,
             amount: amountInput,
-            substrart: substrartInput,
+            //substrart: substrartInput,
             submitDate: new Date(),
             owner: Meteor.userId(),
             isValidated: false,

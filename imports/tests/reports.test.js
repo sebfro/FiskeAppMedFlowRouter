@@ -29,6 +29,9 @@ if (Meteor.isServer) {
                 const invocation = { userId };
                 deleteTask.apply(invocation, [reportId]);
                 assert.equal(Reports.find().count(), 0);
+            });
+            it('Can add report', function () {
+                assert.equal(Reports.find().count(), 1);
             })
         })
     });

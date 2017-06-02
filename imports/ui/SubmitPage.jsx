@@ -86,20 +86,20 @@ export default class SubmitPage extends Component {
         const lengthNr = ReactDOM.findDOMNode(this.refs.rapportLength).value.trim();
         const depthNr = ReactDOM.findDOMNode(this.refs.rapportDepth).value.trim();
         const amountNr = ReactDOM.findDOMNode(this.refs.rapportAmount).value.trim();
-        const substrartText = ReactDOM.findDOMNode(this.refs.rapportSubstrart).value.trim();
+        //const substrartText = ReactDOM.findDOMNode(this.refs.rapportSubstrart).value.trim();
 
 
         if (lengthNr < 0 || lengthNr > 1000 || !lengthNr || amountNr < 0 || amountNr > 100 || !amountNr ||
-            depthNr < 0 || depthNr > 1000 || !depthNr || !titelText || hasNumbers(titelText) || !substrartText
-        || hasNumbers(substrartText)) {
+            depthNr < 0 || depthNr > 1000 || !depthNr || !titelText || hasNumbers(titelText) /*|| !substrartText
+        || hasNumbers(substrartText)*/) {
 
             this.inputError(lengthNr < 0 || lengthNr > 1000 || !lengthNr, amountNr < 0 || amountNr > 100 || !amountNr,
-                depthNr < 0 || depthNr > 1000 || !depthNr, !titelText || hasNumbers(titelText), !substrartText ||
-            hasNumbers(substrartText));
+                depthNr < 0 || depthNr > 1000 || !depthNr, !titelText || hasNumbers(titelText)/*, !substrartText ||
+            hasNumbers(substrartText)*/);
 
 
         } else {
-            Meteor.call(`reports.insert`, titelText, substrartText, Number(lengthNr),
+            Meteor.call(`reports.insert`, titelText, /*substrartText,*/ Number(lengthNr),
                 takeImg, posLat, posLong, Number(depthNr), Number(amountNr) );
 
 
@@ -107,7 +107,7 @@ export default class SubmitPage extends Component {
             ReactDOM.findDOMNode(this.refs.rapportLength).value = '';
             ReactDOM.findDOMNode(this.refs.rapportDepth).value = '';
             ReactDOM.findDOMNode(this.refs.rapportAmount).value = '';
-            ReactDOM.findDOMNode(this.refs.rapportSubstrart).value = '';
+            //ReactDOM.findDOMNode(this.refs.rapportSubstrart).value = '';
 
             takeImg = [];
             backToIndex(event);
@@ -178,16 +178,6 @@ export default class SubmitPage extends Component {
                                 type="number"
                                 ref="rapportAmount"
                                 placeholder="Skriv inn antall"
-                            />
-                        </li>
-                        <li>
-                            <p className="errorText" hidden={!this.state.substrartError}>
-                                Substrart kan ikke inneholde tall eller være blank
-                            </p>
-                            <input
-                                type="text"
-                                ref="rapportSubstrart"
-                                placeholder="Skriv inn substrat"
                             />
                         </li>
 

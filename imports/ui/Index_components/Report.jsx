@@ -34,7 +34,7 @@ export default class Report extends Component {
                     <li onClick={this.setShow.bind(this)}>
 
                         <span className="text">{this.props.report.text} </span>
-                        <button onClick={this.deleteReport.bind(this)}>Slett</button>
+
 
                     </li>
                 </div>
