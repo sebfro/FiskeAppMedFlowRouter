@@ -42,6 +42,7 @@ Meteor.methods({
             longitude: posLong,
             depth: depthInput,
             amount: amountInput,
+            createdAt: new Date(),
             //substrart: substrartInput,
             submitDate: new Date(),
             owner: Meteor.userId(),
