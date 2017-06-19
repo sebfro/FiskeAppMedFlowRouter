@@ -50,6 +50,7 @@ export default class ViewReport extends Component {
                     <ShowReport report={report}/>
                 </ul>
                 <MyMap report={report}/>
+                <br/><br/>
             </div>
 
         );
