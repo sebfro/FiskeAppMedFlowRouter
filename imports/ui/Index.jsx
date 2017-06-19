@@ -2,12 +2,13 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
-import { Button } from 'react-bootstrap';
+import { Button, ButtonGroup } from 'react-bootstrap';
 
 
 import {Reports} from '../api/reports.js';
 
 import Report from './Index_components/Report.jsx';
+import ChooseReportType from './Index_components/ChooseReportType.jsx';
 import AccountsUIWrapper from './AcountsUIWrapper.jsx';
 
 //Index komponent - Gjengir hovedsiden til applikasjonen
@@ -58,8 +59,7 @@ class Index extends Component {
 
                 </header>
 
-
-
+                <ChooseReportType/>
 
                 <ul>
                     {this.renderReports()}

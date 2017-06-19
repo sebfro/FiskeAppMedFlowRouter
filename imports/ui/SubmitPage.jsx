@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
-import {Button, ButtonToolbar} from 'react-bootstrap';
+import {Button, ButtonToolbar, Radio, Checkbox} from 'react-bootstrap';
 
 import { hasNumbers, backToIndex } from '../../lib/helpMethods.js';
 
@@ -21,7 +21,8 @@ export default class SubmitPage extends Component {
             amountError: false,
             depthError: false,
             titelError: false,
-            substrartError: false
+            substrartError: false,
+            useCurrPos: true
         };
     }
     //Oppdaterer state variabler<
@@ -32,6 +33,13 @@ export default class SubmitPage extends Component {
             depthError: depth,
             titelError: titel,
             substrartError: substrart
+        })
+    }
+    changePos(e){
+        e.preventDefault();
+        console.log("fungerte");
+        this.setState({
+            useCurrPos: !this.state.useCurrPos
         })
     }
     //Henter bilde fra mobilens minne
@@ -126,6 +134,8 @@ export default class SubmitPage extends Component {
 
 
     render() {
+        console.log('Over here');
+        console.log(Session.get('Category'));
         this.getPos();
         return (
 
@@ -157,7 +167,7 @@ export default class SubmitPage extends Component {
                             <input
                                 type="number"
                                 ref="rapportLength"
-                                placeholder="Skriv inn lengde"
+                                placeholder="Skriv inn lengde (cm)"
                             />
                         </li>
                         <li>
@@ -167,7 +177,7 @@ export default class SubmitPage extends Component {
                             <input
                                 type="number"
                                 ref="rapportDepth"
-                                placeholder="Skriv inn dybde"
+                                placeholder="Skriv inn dybde (meter)"
                             />
                         </li>
                         <li>
@@ -180,6 +190,26 @@ export default class SubmitPage extends Component {
                                 placeholder="Skriv inn antall"
                             />
                         </li>
+
+                        <li>
+                            <Button bsStyle="primary" onClick={this.changePos.bind(this)}>
+                                Tok du bilde her?
+                            </Button>
+                        </li>
+                        {this.state.useCurrPos ?
+                            ''
+                            :
+                            <li>
+                                <input
+                                    style={{height: 200}}
+                                    type="text"
+                                    ref="posForklaring"
+                                    placeholder="Beskrivelse"
+                                />
+                            </li>
+                        }
+
+
 
                         <li>
                             <ButtonToolbar>
