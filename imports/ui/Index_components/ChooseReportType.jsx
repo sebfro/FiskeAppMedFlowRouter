@@ -8,26 +8,34 @@ export default class ChooseReportType extends Component{
     newReportFisk(e){
         e.preventDefault();
         Session.set('Category', "fiskeArt");
+        this.setSession();
         FlowRouter.go("/nyRapport");
     }
 
     newReportKoral(e){
         e.preventDefault();
         Session.set('Category', "koral");
+        this.setSession();
         FlowRouter.go("/nyRapport");
     }
 
     newReportFremmed(e){
         e.preventDefault();
         Session.set('Category', "fremmedArt");
+        this.setSession();
         FlowRouter.go("/nyRapport");
+    }
+
+    setSession(){
+        console.log("Marker has been set");
+        Session.set('addMarker', true);
     }
 
     render(){
         if(Meteor.userId()) {
             return (
                 <div>
-                    <ButtonGroup bsSize="large">
+                    <ButtonGroup bsSize="large" bsStyle="primary">
                         <Button onClick={this.newReportFisk.bind(this)}>
                             Fiske Art
                         </Button>

@@ -26,7 +26,7 @@ export default class ViewReport extends Component {
     render() {
         console.log('Over here');
         console.log(Session.get('report.id'));
-
+        Session.set('addMarker', false);
 
         let report = Reports.findOne({_id: Session.get('report.id')});
         console.log(report);
@@ -49,7 +49,7 @@ export default class ViewReport extends Component {
                     </li>
                     <ShowReport report={report}/>
                 </ul>
-                <MyMap/>
+                <MyMap report={report}/>
             </div>
 
         );

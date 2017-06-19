@@ -7,7 +7,7 @@ import ViewReport from '../imports/ui/ViewReport.jsx';
 //Starter googe maps api og gir den en nøkkel
 if(Meteor.isClient){
     Meteor.startup(function(){
-        GoogleMaps.load({ key: 'AIzasSyAFSNWFkRXoi4cZsDzdslntFNtDZAK-lhc'});
+        GoogleMaps.load({ key: 'AIzaSyAoNnMKlsuYKXO0t5eY6749sRZ4W_QEVBw'});
     });
 }
 

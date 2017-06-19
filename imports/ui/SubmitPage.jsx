@@ -5,6 +5,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {Button, ButtonToolbar, Radio, Checkbox} from 'react-bootstrap';
 
 import { hasNumbers, backToIndex } from '../../lib/helpMethods.js';
+import MyMap from './ViewReport_components/MyMap.jsx';
 
 let takeImg = [];
 let posLong;
@@ -139,8 +140,6 @@ export default class SubmitPage extends Component {
 
 
     render() {
-        console.log('Over here');
-        console.log(Session.get('Category'));
         this.getPos();
         return (
 
@@ -162,7 +161,7 @@ export default class SubmitPage extends Component {
                             <input
                                 type="text"
                                 ref="rapportTitel"
-                                placeholder="Skriv inn art til rapporten"
+                                placeholder="Skriv inn hvilken art du tror det er"
                             />
                         </li>
                         <li>
@@ -211,6 +210,8 @@ export default class SubmitPage extends Component {
                                     ref="posForklaring"
                                     placeholder="Beskrivelse"
                                 />
+
+                                <MyMap report={null}/>
                             </li>
                         }
 
