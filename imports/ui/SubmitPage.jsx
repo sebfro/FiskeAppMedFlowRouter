@@ -124,12 +124,17 @@ export default class SubmitPage extends Component {
 
     //Henter nåværende posisjonb
     getPos(){
-        navigator.geolocation.getCurrentPosition(this.onSuccess);
+        navigator.geolocation.getCurrentPosition(this.onSuccess, this.onFailure);
     }
     //Mottar posisjons objekt og lagrer breddegrad og lengdegrad
     onSuccess(pos){
         posLat = pos.coords.longitude;
         posLong = pos.coords.latitude;
+    }
+    onFailure(){
+        this.setState({
+            useCurrPos: false
+        })
     }
 
 
