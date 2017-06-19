@@ -6,6 +6,9 @@ import {Button} from 'react-bootstrap';
 import {Reports} from '../api/reports';
 import ShowImg from './ViewReport_components/ShowImg.jsx';
 import ShowReport from './ViewReport_components/ShowReport.jsx';
+import GoogleMap from './ViewReport_components/MyMap.jsx';
+import MyMap from "./ViewReport_components/MyMap";
+
 
 //ViewReport komponent - Hovedkomponent for visning av en rapport
 export default class ViewReport extends Component {
@@ -46,6 +49,7 @@ export default class ViewReport extends Component {
                     </li>
                     <ShowReport report={report}/>
                 </ul>
+                <MyMap/>
             </div>
 
         );

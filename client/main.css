@@ -141,12 +141,6 @@ header .hide-completed {
     .new-report input {
         padding-bottom: 5px;
     }
-
-    .map-container {
-        width: 800px;
-        max-width: 100%;
-        height: 500px;
-    }
 }
 
 .scroll-area {
@@ -160,4 +154,10 @@ header .hide-completed {
 
 .errorText {
     color: red;
+}
+
+.map-container {
+    width: 800px;
+    max-width: 100%;
+    height: 500px;
 }
