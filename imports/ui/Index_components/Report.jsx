@@ -20,6 +20,7 @@ export default class Report extends Component {
         let id = this.props.report._id;
         console.log(id);
         Session.set('report.id', id);
+        Session.set('addMarker', false);
         FlowRouter.go('/seRapport');
     }
 

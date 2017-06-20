@@ -1,5 +1,20 @@
-import { Reports } from '../imports/api/reports.js';
 import { Meteor } from 'meteor/meteor';
+import { Mongo } from 'meteor/mongo';
+import { check } from 'meteor/check';
+
+
+//const Reports = new Mongo.Collection('reports');
+
+if(Meteor.isServer){
+    Meteor.publish('reportColl', function reportsPublication(){
+
+    });
+
+    Meteor.methods({
+
+    })
+}
+
 
 /*
 Meteor.publish('viewReports', function(user_Id){

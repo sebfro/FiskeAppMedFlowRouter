@@ -24,7 +24,7 @@ Meteor.methods({
         check(titelText, String);
         //check(substrartInput, String);
         check(lengdeNr, Number);
-
+        console.log("er i insert");
 
 
         //Make sure user is logged in before inserting a report

@@ -4,12 +4,18 @@ import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Button, ButtonToolbar, Radio, Checkbox} from 'react-bootstrap';
 
-import { hasNumbers, backToIndex } from '../../lib/helpMethods.js';
+import { hasNumbers, backToIndex, dataURItoBlob } from '../../lib/helpMethods.js';
 import MyMap from './ViewReport_components/MyMap.jsx';
 
 let takeImg = [];
 let posLong;
 let posLat;
+
+export function setLatLng(lat, lng){
+    posLat = lat;
+    posLong = lng;
+    console.log("Forandret pos");
+}
 
 //SubmitPage komponent - Gjengir side for å lage nye rapport og sden in.
 export default class SubmitPage extends Component {
@@ -71,12 +77,15 @@ export default class SubmitPage extends Component {
         let cameraOptions = {
             height: 600,
             width: 800,
-            quality: 100
+            quality: 100,
+            correctOrientation: true,
         };
         MeteorCamera.getPicture(cameraOptions, function (error, data) {
             if (!error) {
                 console.log(data);
+                //takeImg.push(data);
                 takeImg.push(data);
+                console.log(dataURItoBlob(data));
             } else {
                 console.log(error.reason);
             }
@@ -141,6 +150,10 @@ export default class SubmitPage extends Component {
 
     render() {
         this.getPos();
+
+        if(!this.state.useCurrPos){
+            console.log("Bruker den andre pos");
+        }
         return (
 
 

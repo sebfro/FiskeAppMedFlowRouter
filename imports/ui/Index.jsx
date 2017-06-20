@@ -75,7 +75,7 @@ Index.propTypes = {
 };
 
 export default createContainer(() => {
-    Meteor.subscribe('reports', Meteor.userId());
+    Meteor.subscribe('report', Meteor.userId());
     return {
         reports: Reports.find({}, {sort: {createdAt: -1}}).fetch(),
         currentUser: Meteor.user(),

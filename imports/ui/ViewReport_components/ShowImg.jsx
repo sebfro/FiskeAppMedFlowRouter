@@ -17,13 +17,17 @@ export default class ShowImg extends Component {
     }
 
     render() {
+        console.log("her er den");
+        console.log(this.props.img);
         if(!this.state.enLarge) {
             return (
-                <img className="smallImg" src={this.props.img} height={160} width={90} onClick={this.setenLarge.bind(this)}/>
-            );
+                    <img className="smallImg" src={this.props.img} height={80} width={80} onClick={this.setenLarge.bind(this)}/>
+
+                    );
         } else {
             return (
-            <img className="smallImg" src={this.props.img} onClick={this.setenLarge.bind(this)}/>
+                    <img className="bigImg" src={this.props.img} onClick={this.setenLarge.bind(this)}/>
+
             );
         }
     }

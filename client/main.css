@@ -150,6 +150,14 @@ header .hide-completed {
 
 .smallImg {
     margin: 5px;
+    padding: 5px;
+}
+
+.bigImg {
+    margin: 5px;
+    padding: 5px;
+    width: 100%;
+    height: auto;
 }
 
 .errorText {
@@ -166,3 +174,4 @@ header .hide-completed {
     max-width: 100%;
     margin: 0 auto 10px;
 }
+

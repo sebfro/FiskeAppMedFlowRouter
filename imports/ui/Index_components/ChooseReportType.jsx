@@ -35,7 +35,7 @@ export default class ChooseReportType extends Component{
         if(Meteor.userId()) {
             return (
                 <div>
-                    <ButtonGroup className='category' bsSize="large" bsStyle="primary" block>
+                    <ButtonGroup className='category' bsSize="large" bsStyle="primary">
                         <Button bsStyle="primary" onClick={this.newReportFisk.bind(this)}>
                             Fiske Art
                         </Button>
