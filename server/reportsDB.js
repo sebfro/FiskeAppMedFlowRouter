@@ -1,28 +1,26 @@
 /**
- * Created by sebas on 03.05.2017.
+ * Created by sebastian on 20.06.17.
  */
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
 
+
+
 //Reports komponent - her ligger alle rapportene lagret
-export const Reports = new Mongo.Collection('reports');
+export const ReportsDB = new Mongo.Collection('reportsDB');
 if (Meteor.isServer) {
     //This code only runs on the server
-    Meteor.publish('reports', function reportsPublication() {
-        return Reports.find();
+    Meteor.publish('reportsDB', function reportsDBPublication() {
+        return ReportsDB.find();
     });
-
-    Meteor.startup( function() {
-
-    })
 
 }
 
 //Metoder for å legge til, slette og oppdateres
 Meteor.methods({
-    'reports.insert'(titelText, /*substrartInput,*/ lengdeNr, img, posLat, posLong, depthInput, amountInput){
+    'reportsDB.insert'(titelText, /*substrartInput,*/ lengdeNr, img, posLat, posLong, depthInput, amountInput){
         check(titelText, String);
         //check(substrartInput, String);
         check(lengdeNr, Number);
@@ -35,7 +33,7 @@ Meteor.methods({
         }
 
 
-        Reports.insert({
+        ReportsDB.insert({
             text: titelText,
             length: lengdeNr,
             photo: img,
@@ -52,33 +50,33 @@ Meteor.methods({
             isCheckout: false,
         });
 
-},
-    'reports.remove'(reportId){
+    },
+    'reportsDB.remove'(reportId){
         check(reportId, String);
 
-        Reports.remove(reportId);
+        ReportsDB.remove(reportId);
     },
-    'reports.setChecked'(reportId, setChecked){
+    'reportsDB.setChecked'(reportId, setChecked){
         check(reportId, String);
         check(setChecked, Boolean);
 
-        Reports.update(reportId, { $set: { checked: setChecked } });
+        ReportsDB.update(reportId, { $set: { checked: setChecked } });
     },
-    'reports.setPrivate'(reportId, setToPrivate){
+    'reportsDB.setPrivate'(reportId, setToPrivate){
         check(reportId, String);
         check(setToPrivate, Boolean);
 
         const report = Reports.findOne(reportId);
     },
-    'reports.setPos'(titel, pos){
+    'reportsDB.setPos'(titel, pos){
         check(titel, String);
         check(setShow, Boolean);
 
         Reports.update(titel, {$set: { location: pos } });
     },
-    'reports.getReport'(reportId){
+    'reportsDB.getReport'(reportId){
         check(reportId, String);
 
-        Reports.findOne({ _id: reportId })
+        ReportsDB.findOne({ _id: reportId })
     }
 });
