@@ -94,6 +94,7 @@ ul {
 .nyRapportBtn {
     float: right;
     position: relative;
+    padding: 5px;
 }
 
 li {
@@ -175,3 +176,6 @@ header .hide-completed {
     margin: 0 auto 10px;
 }
 
+.Modal, .ModalHeader, .ModalTitle, .ModalBody, .ModalFooter {
+    position: absolute;
+}

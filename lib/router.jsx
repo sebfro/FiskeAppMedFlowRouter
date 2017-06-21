@@ -1,4 +1,5 @@
 import React from 'react';
+import { Accounts } from 'meteor/accounts-base';
 
 import Index from '../imports/ui/Index.jsx';
 import SubmitPage from '../imports/ui/SubmitPage.jsx';
@@ -30,5 +31,15 @@ FlowRouter.route('/seRapport',{
     name: "seRapport",
     action (){
         ReactLayout.render(ViewReport);
+    }
+});
+
+FlowRouter.route('/verify-email/:token',{
+    action: function(){
+        let token = FlowRouter.getParam("token");
+        console.log(token);
+        Accounts.verifyEmail(token, function(err){
+            FlowRouter.go("/");
+        });
     }
 });

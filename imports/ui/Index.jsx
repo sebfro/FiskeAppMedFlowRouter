@@ -10,6 +10,7 @@ import {Reports} from '../api/reports.js';
 import Report from './Index_components/Report.jsx';
 import ChooseReportType from './Index_components/ChooseReportType.jsx';
 import AccountsUIWrapper from './AcountsUIWrapper.jsx';
+import AccountLogin from './Index_components/AccountLogin.jsx';
 
 //Index komponent - Gjengir hovedsiden til applikasjonen
 class Index extends Component {
@@ -20,16 +21,6 @@ class Index extends Component {
     newReport(event) {
         event.preventDefault();
         FlowRouter.go("/nyRapport");
-    }
-
-    testEmail(event){
-        Meteor.call(
-            'sendEmail',
-            'seb <sebastian17pepp@gmail.com>',
-            'sebastianfroyen@gmail.com',
-            'Dette er en test',
-            'Her er all den andre teksten'
-        );
     }
 
 
@@ -45,7 +36,10 @@ class Index extends Component {
         return reportArray;
     }
 
-
+    sendEmail(e){
+        e.preventDefault();
+        Meteor.call('sendAEmail');
+    }
 
     render() {
         console.log("hei");
@@ -58,8 +52,9 @@ class Index extends Component {
                             <Button className="nyRapportBtn" bsStyle="primary" onClick={this.newReport.bind(this)}>
                                 Ny rapport
                             </Button>
-                            <Button className="nyRapportBtn" bsStyle="primary" onClick={this.testEmail.bind(this)}>
-                                Send email
+                            <AccountLogin/>
+                            <Button className="nyRapportBtn" bsStyle="primary" onClick={this.sendEmail.bind(this)}>
+                                Send Email
                             </Button>
                         </div>
                         : ''

@@ -15,29 +15,27 @@ if (Meteor.isServer) {
     });
 
     Meteor.startup( function() {
-        process.env.MAIL_URL="smtp://sebastianfroyen%40gmail.com:Rhkwxexty69@smtp.gmail.com:465/";
+        let username = encodeURIComponent("sebastianfroyen@gmail.com");
+        let pass = encodeURIComponent("Rhkwxexty69");
+        let domain = "smtp.gmail.com";
+        let port = 587;
+        process.env.MAIL_URL="smtp://" + username + ":" + pass + "@" + domain + ":" + port;
 
-        Email.send({
-            from: 'sebastianfroyen@gmail.com',
-            to: 'sebastian17pepp@gmail.com ',
-            subject: 'Meteor can emails via gmail',
-            text: 'It worked'
-        });
     })
 
 }
 
 //Metoder for å legge til, slette og oppdateres
 Meteor.methods({
-    'sendEmail'(to, from, subject, text){
-        //Check that all arguments are string
-        check([to, from, subject, text], [String]);
-        console.log("Email");
-        //Let other method calls from the same client start running,
-        //without waiting for the email sending to complete
-        this.unblock();
-
-        Email.send({ to, from, subject, text});
+    'sendAEmail'(){
+        console.log("Email blir kjørt");
+        Email.send({
+            from: "sebastianfroyen@gmail.com",
+            to: "h144975@hib.no",
+            subject: "Meteor can send emails via gmail",
+            text: "Dette er teksten",
+        });
+        console.log("Email er ferdig");
     },
 
     'reports.insert'(titelText, /*substrartInput,*/ lengdeNr, img, posLat, posLong, depthInput, amountInput){
