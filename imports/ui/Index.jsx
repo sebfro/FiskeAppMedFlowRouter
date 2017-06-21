@@ -22,6 +22,16 @@ class Index extends Component {
         FlowRouter.go("/nyRapport");
     }
 
+    testEmail(event){
+        Meteor.call(
+            'sendEmail',
+            'seb <sebastian17pepp@gmail.com>',
+            'sebastianfroyen@gmail.com',
+            'Dette er en test',
+            'Her er all den andre teksten'
+        );
+    }
+
 
     //Kaller på report komponeneten og gjengir alle rapporter
     renderReports() {
@@ -47,6 +57,9 @@ class Index extends Component {
                         <div>
                             <Button className="nyRapportBtn" bsStyle="primary" onClick={this.newReport.bind(this)}>
                                 Ny rapport
+                            </Button>
+                            <Button className="nyRapportBtn" bsStyle="primary" onClick={this.testEmail.bind(this)}>
+                                Send email
                             </Button>
                         </div>
                         : ''
