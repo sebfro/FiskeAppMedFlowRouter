@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Navbar, NavbarBrand, NavItem, Nav } from 'react-bootstrap';
 
 import {Meteor} from 'meteor/meteor';
 
@@ -33,9 +33,30 @@ export default class ChooseReportType extends Component{
 
     render(){
         if(Meteor.userId()) {
+            /*return(
+                <Navbar>
+                    <Nav>
+                        <NavItem onClick={this.newReportFisk.bind(this)}>
+                            Fiske Art
+                        </NavItem>
+                        <NavItem onClick={this.newReportKoral.bind(this)}>
+                            Koral
+                        </NavItem>
+                        <NavItem onClick={this.newReportFremmed.bind(this)}>
+                            Fremmed Art
+                        </NavItem>
+                        <NavItem onClick={this.newReportFremmed.bind(this)}>
+                            Login
+                        </NavItem>
+                        <NavItem onClick={this.newReportFremmed.bind(this)}>
+                            Instillinger
+                        </NavItem>
+                    </Nav>
+                </Navbar>
+            )*/
             return (
                 <div>
-                    <ButtonGroup className='category' bsSize="large" bsStyle="primary">
+                    <ButtonGroup className='category' bsSize="large" bsStyle="primary" >
                         <Button bsStyle="primary" onClick={this.newReportFisk.bind(this)}>
                             Fiske Art
                         </Button>

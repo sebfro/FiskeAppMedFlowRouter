@@ -4,7 +4,7 @@ import GoogleMap from '../../api/GoogleMap.js';
 import Markers from './markers';
 import { setLatLng } from '../SubmitPage.jsx';
 
-
+let addedMarker = false;
 
 export default class MyMap extends Component {
     constructor() {
@@ -35,24 +35,24 @@ export default class MyMap extends Component {
         GoogleMaps.ready(name, map => {
             Tracker.autorun(c => {
                 google.maps.event.addListener(map.instance, 'click', function(event) {
-                    if(Session.get('addMarker') && !markerAdded){
-                        markerAdded = true;
+                    if(Session.get('addMarker') && !addedMarker){
+                        addedMarker = true;
                         Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng() });
                         console.log("Her er pos");
                         console.log(({lat: event.latLng.lat(), lng: event.latLng.lng()}));
                         markerPos = { lat: event.latLng.lat(), lng: event.latLng.lng() };
                         setLatLng(event.latLng.lng(), event.latLng.lat());
+                        Session.set('markerid', )
                     }
                 });
 
 
                 const markers = {};
-                let dragable = Session.get('addMarker');
-                console.log("here is what markerAdded is");
-                console.log(Session.get('addMarker'));
-                console.log("HHHHHHHHHHHHHHHHHHH");
-                console.log(markerPos.lat);
-                console.log(markerPos.lng);
+                let dragable = addedMarker;
+                if(addedMarker){
+                    console.log("Markeradded er true");
+                }
+                    //Session.get('addMarker');
 
                 Markers.find().observe({
                     added: function(document) {

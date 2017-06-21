@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import { CarouselItem } from 'react-bootstrap';
 
 //ShowImg komponent - gjengir et bilde på skjerm
 export default class ShowImg extends Component {
@@ -18,19 +17,13 @@ export default class ShowImg extends Component {
     }
 
     render() {
-        console.log("her er den");
-        console.log(this.props.img);
         if(!this.state.enLarge) {
             return (
-                <CarouselItem>
-                    <img className="smallImg" src={this.props.img} height={80} width={80} onClick={this.setenLarge.bind(this)}/>
-                </CarouselItem>
-                    );
+                <img className="smallImg" src={this.props.img} height={80} width={80} onClick={this.setenLarge.bind(this)}/>
+            );
         } else {
             return (
-                <CarouselItem>
-                    <img className="bigImg" src={this.props.img} onClick={this.setenLarge.bind(this)}/>
-                </CarouselItem>
+                <img className="bigImg" src={this.props.img} onClick={this.setenLarge.bind(this)}/>
 
             );
         }

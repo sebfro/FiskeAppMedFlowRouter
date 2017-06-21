@@ -46,9 +46,7 @@ export default class ViewReport extends Component {
                 </header>
                 <ul>
                     <li>
-                        <Carousel>
-                            {this.renderImg(report)}
-                        </Carousel>
+                        {this.renderImg(report)}
                     </li>
                     <ShowReport report={report}/>
                 </ul>

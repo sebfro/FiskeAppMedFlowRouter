@@ -13,6 +13,7 @@ import ChooseReportType from './Index_components/ChooseReportType.jsx';
 import AccountsUIWrapper from './AcountsUIWrapper.jsx';
 import AccountLogin from './Index_components/AccountLogin.jsx';
 
+
 //Index komponent - Gjengir hovedsiden til applikasjonen
 class Index extends Component {
 
@@ -48,11 +49,6 @@ class Index extends Component {
     }
 
     render() {
-        console.log("hei");
-        console.log(this.props.reports);
-        Meteor.users.find().fetch();
-        console.log("HHHHHHHHHHHHHH");
-        console.log(this.props.currentUser);
         return (
             <div className="container">
                 <header>
@@ -68,7 +64,7 @@ class Index extends Component {
                         : <AccountLogin/>
                     }
 
-                    
+
                     <h1>
                         Rapporter
                     </h1>
@@ -77,7 +73,7 @@ class Index extends Component {
 
                 </header>
 
-                <ChooseReportType/>
+                <ChooseReportType className="topbar" position="absolute"/>
                 <br/><br/>
                 <Button className="nyRapportBtn" bsStyle="primary" onClick={this.sendEmail.bind(this)}>
                     Send Email
