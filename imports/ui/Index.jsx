@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 import {createContainer} from 'meteor/react-meteor-data';
 import { Button, ButtonGroup } from 'react-bootstrap';
 
@@ -41,9 +42,17 @@ class Index extends Component {
         Meteor.call('sendAEmail');
     }
 
+    logOut(e){
+        e.preventDefault();
+        Meteor.logout();
+    }
+
     render() {
         console.log("hei");
         console.log(this.props.reports);
+        Meteor.users.find().fetch();
+        console.log("HHHHHHHHHHHHHH");
+        console.log(this.props.currentUser);
         return (
             <div className="container">
                 <header>
@@ -52,13 +61,14 @@ class Index extends Component {
                             <Button className="nyRapportBtn" bsStyle="primary" onClick={this.newReport.bind(this)}>
                                 Ny rapport
                             </Button>
-                            <AccountLogin/>
-                            <Button className="nyRapportBtn" bsStyle="primary" onClick={this.sendEmail.bind(this)}>
-                                Send Email
+                            <Button className="nyRapportBtn" bsStyle="primary" onClick={this.logOut.bind(this)}>
+                                Logg ut
                             </Button>
                         </div>
-                        : ''
+                        : <AccountLogin/>
                     }
+
+                    
                     <h1>
                         Rapporter
                     </h1>
@@ -68,6 +78,10 @@ class Index extends Component {
                 </header>
 
                 <ChooseReportType/>
+                <br/><br/>
+                <Button className="nyRapportBtn" bsStyle="primary" onClick={this.sendEmail.bind(this)}>
+                    Send Email
+                </Button>
 
                 <ul>
                     {this.renderReports()}

@@ -8,6 +8,7 @@ import { check } from 'meteor/check';
 
 //Reports komponent - her ligger alle rapportene lagret
 export const Reports = new Mongo.Collection('reports');
+
 if (Meteor.isServer) {
     //This code only runs on the server
     Meteor.publish('reports', function reportsPublication() {

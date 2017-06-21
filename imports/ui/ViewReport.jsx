@@ -8,6 +8,7 @@ import ShowImg from './ViewReport_components/ShowImg.jsx';
 import ShowReport from './ViewReport_components/ShowReport.jsx';
 import GoogleMap from './ViewReport_components/MyMap.jsx';
 import MyMap from "./ViewReport_components/MyMap";
+import { Carousel } from 'react-bootstrap';
 
 
 //ViewReport komponent - Hovedkomponent for visning av en rapport
@@ -45,7 +46,9 @@ export default class ViewReport extends Component {
                 </header>
                 <ul>
                     <li>
-                        {this.renderImg(report)}
+                        <Carousel>
+                            {this.renderImg(report)}
+                        </Carousel>
                     </li>
                     <ShowReport report={report}/>
                 </ul>
