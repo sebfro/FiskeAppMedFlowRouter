@@ -4,7 +4,7 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
-import { Accounts } from 'meteor/accounts-base';
+import { Accounts } from 'meteor/accounts-base'
 
 import Markers from '../ui/ViewReport_components/markers.jsx';
 
@@ -34,6 +34,12 @@ Meteor.methods({
         let userId = Meteor.userId();
         if(userId){
             return Accounts.sendVerificationEmail(userId);
+        }
+    },
+    'sendPassRevoveryLink'(email){
+        let user = Meteor.users.findOne({address: email});
+        if(user){
+            Accounts.forgotPassword()
         }
     },
     'sendAEmail'(){
@@ -70,9 +76,8 @@ Meteor.methods({
             depth: depthInput,
             amount: amountInput,
             markerId: markerId,
-            createdAt: new Date(),
+            createdAt: moment(new Date()).format("dddd, MMMM Do YYYY, h:mm:ss a"),
             //substrart: substrartInput,
-            submitDate: new Date(),
             owner: Meteor.userId(),
             isValidated: false,
             isCheckout: false,

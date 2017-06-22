@@ -4,6 +4,7 @@ import { Accounts } from 'meteor/accounts-base';
 import Index from '../imports/ui/Index.jsx';
 import SubmitPage from '../imports/ui/SubmitPage.jsx';
 import ViewReport from '../imports/ui/ViewReport.jsx';
+import StartPage from '../imports/ui/StartPage.jsx';
 
 //Starter googe maps api og gir den en nøkkel
 if(Meteor.isClient){
@@ -17,6 +18,13 @@ FlowRouter.route('/', {
     name: "index",
     action (){
         ReactLayout.render(Index);
+    }
+});
+
+FlowRouter.route('/startPage', {
+    name: "startPage",
+    action (){
+        ReactLayout.render(StartPage);
     }
 });
 

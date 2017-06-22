@@ -23,6 +23,9 @@ export default class ShowReport extends Component {
                     Art: {this.props.report.text}
                 </li>
                 <li>
+                    Dato: {this.props.report.createdAt}
+                </li>
+                <li>
                     Lengde: {this.props.report.length}
                 </li>
                 <li>

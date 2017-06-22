@@ -6,6 +6,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { Button, ButtonGroup, Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, FormGroup,
     InputGroup, FormControl, Overlay, Tooltip } from 'react-bootstrap';
 
+import PassRecovery from './PassRecovery.jsx';
 
 export default class AccountLogin extends Component {
     constructor(props){
@@ -70,17 +71,6 @@ export default class AccountLogin extends Component {
                     });
                 }
             });
-                /*Accounts.createUser({
-                    email: email,
-                    password: password,
-                }, function(err){
-                    if(err){
-                        console.log(err.reason);
-                    }
-                });*/
-            console.log("Brukeren kommer under");
-            console.log(Meteor.user());
-            console.log(Meteor.users.find().fetch());
             this.setShow(null);
         } else {
             Meteor.loginWithPassword(email, password, function(err){
@@ -93,6 +83,10 @@ export default class AccountLogin extends Component {
 
     logOut(e){
         e.preventDefault();
+    }
+
+    forgotPass(e){
+
     }
 
     render(){
@@ -111,7 +105,7 @@ export default class AccountLogin extends Component {
                         aria-labelledby="contained-modal-title"
                         >
 
-                        <ModalHeader closeButton>
+                        <ModalHeader>
                             <ModalTitle id="contained-modal-title">
                                 { !this.state.registrate ?
                                     'Logg inn'
@@ -191,11 +185,15 @@ export default class AccountLogin extends Component {
                                 </div>
                                 : ''
                             }
+
                             <Button onClick={this.login.bind(this)}>
                                 {this.state.registrate ?
                                     'Registrer' : 'Login'
                                 }
                             </Button>
+                            <br/><br/>
+                            <PassRecovery/>
+
                         </ModalBody>
                         <ModalFooter>
                             <Button type="submit" onClick={this.setRegistrate.bind(this)}>

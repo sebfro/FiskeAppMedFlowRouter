@@ -422,7 +422,9 @@
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/http.meta.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/color.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/runner.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/momentjs_moment/2.18.1/web.cordova/export.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/runnable.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/momentjs_moment/2.18.1/web.cordova/moment.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/hook.sync.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/mocha.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/test.js" />
@@ -963,7 +965,9 @@
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/http.meta.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/color.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/runner.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/momentjs_moment/2.18.1/web.cordova/export.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/runnable.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/momentjs_moment/2.18.1/web.cordova/moment.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/hook.sync.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/mocha.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/test.js" />

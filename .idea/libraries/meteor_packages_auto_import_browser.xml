@@ -43,6 +43,8 @@
         <item url="file://$USER_HOME$/.meteor/packages/modules-runtime/0.7.10/web.browser/modules-runtime.js" />
         <item url="file://$USER_HOME$/.meteor/packages/modules-runtime/0.7.10/web.browser/.npm/package/node_modules/install/install.js" />
         <item url="file://$USER_HOME$/.meteor/packages/mongo-id/1.0.6/web.browser/id.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/momentjs_moment/2.18.1/web.browser/export.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/momentjs_moment/2.18.1/web.browser/moment.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_sinon/1.14.1_2/web.browser/packages/practicalmeteor_sinon.js" />
         <item url="file://$USER_HOME$/.meteor/packages/promise/0.8.8/web.browser/common.js" />
         <item url="file://$USER_HOME$/.meteor/packages/promise/0.8.8/web.browser/client.js" />
@@ -584,6 +586,8 @@
       <root url="file://$USER_HOME$/.meteor/packages/modules-runtime/0.7.10/web.browser/modules-runtime.js" />
       <root url="file://$USER_HOME$/.meteor/packages/modules-runtime/0.7.10/web.browser/.npm/package/node_modules/install/install.js" />
       <root url="file://$USER_HOME$/.meteor/packages/mongo-id/1.0.6/web.browser/id.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/momentjs_moment/2.18.1/web.browser/export.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/momentjs_moment/2.18.1/web.browser/moment.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_sinon/1.14.1_2/web.browser/packages/practicalmeteor_sinon.js" />
       <root url="file://$USER_HOME$/.meteor/packages/promise/0.8.8/web.browser/common.js" />
       <root url="file://$USER_HOME$/.meteor/packages/promise/0.8.8/web.browser/client.js" />

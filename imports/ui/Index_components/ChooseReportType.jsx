@@ -1,29 +1,43 @@
 import React, {Component, PropTypes} from 'react';
 import { Button, ButtonGroup, Navbar, NavbarBrand, NavItem, Nav} from 'react-bootstrap';
-
 import {Meteor} from 'meteor/meteor';
+
+import {isVerified} from '../../../lib/helpMethods.js';
 
 export default class ChooseReportType extends Component{
 
     newReportFisk(e){
         e.preventDefault();
-        Session.set('Category', "fiskeArt");
-        this.setSession();
-        FlowRouter.go("/nyRapport");
+        if(isVerified()){
+            Session.set('Category', "fiskeArt");
+            this.setSession();
+            FlowRouter.go("/nyRapport");
+        } else {
+            alert("Du må verifisere emailen din før du kan sende inn rapporter.");
+        }
     }
 
     newReportKoral(e){
         e.preventDefault();
-        Session.set('Category', "koral");
-        this.setSession();
-        FlowRouter.go("/nyRapport");
+        if(isVerified()){
+            Session.set('Category', "koral");
+            this.setSession();
+            FlowRouter.go("/nyRapport");
+        } else {
+            alert("Du må verifisere emailen din før du kan sende inn rapporter.");
+        }
+
     }
 
     newReportFremmed(e){
         e.preventDefault();
-        Session.set('Category', "fremmedArt");
-        this.setSession();
-        FlowRouter.go("/nyRapport");
+        if(isVerified()) {
+            Session.set('Category', "fremmedArt");
+            this.setSession();
+            FlowRouter.go("/nyRapport");
+        } else {
+            alert("Du må verifisere emailen din før du kan sende inn rapporter.");
+        }
     }
 
     setSession(){

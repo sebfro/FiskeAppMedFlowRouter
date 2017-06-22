@@ -12,6 +12,7 @@ import Report from './Index_components/Report.jsx';
 import ChooseReportType from './Index_components/ChooseReportType.jsx';
 import AccountsUIWrapper from './AcountsUIWrapper.jsx';
 import AccountLogin from './Index_components/AccountLogin.jsx';
+import { backToIndex } from '../../lib/helpMethods.js';
 
 
 //Index komponent - Gjengir hovedsiden til applikasjonen
@@ -40,7 +41,7 @@ class Index extends Component {
 
     sendEmail(e){
         e.preventDefault();
-        Meteor.call('sendAEmail');
+        FlowRouter.go('/startPage')
     }
 
     logOut(e){
@@ -49,10 +50,10 @@ class Index extends Component {
     }
 
     onBackButtonDown(e){
+        backToIndex(e);
     }
 
     render() {
-
         document.addEventListener("backbutton", this.onBackButtonDown, false);
         return (
             <div className="container">
@@ -80,9 +81,6 @@ class Index extends Component {
 
                 <ChooseReportType/>
                 <br/><br/>
-                <Button className="nyRapportBtn" bsStyle="primary" onClick={this.sendEmail.bind(this)}>
-                    Send Email
-                </Button>
 
                 <ul>
                         {this.renderReports()}
