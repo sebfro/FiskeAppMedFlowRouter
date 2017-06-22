@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, NavItem } from 'react-bootstrap';
 
 
 import {Meteor} from 'meteor/meteor';
@@ -37,8 +37,8 @@ export default class Report extends Component {
 
                     <li onClick={this.setShow.bind(this)}>
 
-                        <span className="text">{this.props.report.text} </span>
 
+                        {this.props.report.text}
 
                     </li>
 

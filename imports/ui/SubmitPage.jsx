@@ -6,15 +6,22 @@ import {Button, ButtonToolbar, Radio, Checkbox} from 'react-bootstrap';
 
 import { hasNumbers, backToIndex, dataURItoBlob } from '../../lib/helpMethods.js';
 import MyMap from './ViewReport_components/MyMap.jsx';
+import Markers from './ViewReport_components/markers.jsx';
 
 let takeImg = [];
 let posLong;
 let posLat;
+let markerId;
 
 export function setLatLng(lat, lng){
     posLat = lat;
     posLong = lng;
     console.log("Forandret pos");
+}
+
+export function setMarkerId(id){
+    markerId = id;
+    console.log("markerid har blitt satt");
 }
 
 //SubmitPage komponent - Gjengir side for å lage nye rapport og sden in.
@@ -118,7 +125,7 @@ export default class SubmitPage extends Component {
 
         } else {
             Meteor.call(`reports.insert`, titelText, /*substrartText,*/ Number(lengthNr),
-                takeImg, posLat, posLong, Number(depthNr), Number(amountNr) );
+                takeImg, posLat, posLong, Number(depthNr), Number(amountNr), markerId );
 
             ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
             ReactDOM.findDOMNode(this.refs.rapportLength).value = '';
@@ -130,6 +137,7 @@ export default class SubmitPage extends Component {
             backToIndex(event);
         }
     }
+
 
     //Henter nåværende posisjonb
     getPos(){
@@ -146,6 +154,25 @@ export default class SubmitPage extends Component {
         })
     }
 
+    removeMarker(){
+        Markers.remove(markerId);
+    }
+
+    onBackButtonDown(e){
+        e.preventDefault();
+        e.stopPropagation();
+        if(markerId){
+            this.removeMarker();
+        }
+        FlowRouter.go('/');
+    }
+
+    goBackToIndex(e){
+        if(markerId){
+            this.removeMarker()
+        }
+        backToIndex(e);
+    }
 
     render() {
         this.getPos();
@@ -153,6 +180,9 @@ export default class SubmitPage extends Component {
         if(!this.state.useCurrPos){
             console.log("Bruker den andre pos");
         }
+
+        document.addEventListener("backbutton", this.onBackButtonDown, false);
+
         return (
 
 
@@ -160,7 +190,7 @@ export default class SubmitPage extends Component {
                 <header>
                     <h1>Ny rapport</h1>
 
-                    <Button className="backBtn" bsStyle="primary" onClick={backToIndex.bind(this)}>
+                    <Button className="backBtn" bsStyle="primary" onClick={this.goBackToIndex.bind(this)}>
                         Tilbake
                     </Button>
                 </header>

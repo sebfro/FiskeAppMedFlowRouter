@@ -51,15 +51,33 @@ export default class AccountLogin extends Component {
         let lastname = $('[name=lastname]').val();
         let phoneNumber = $('[name=phoneNumber]').val();
 
+        let user = {
+            email: $('[name=email]').val(),
+            password: $('[name=password]').val()
+        };
+
         if(this.state.registrate) {
-                Accounts.createUser({
+            Accounts.createUser( user, (err) => {
+                if(err){
+                    alert(err.reason);
+                } else {
+                    Meteor.call('sendVerificationLink', ( err, response) => {
+                        if(err){
+                            alert(err.reason);
+                        } else {
+                            alert('Welcome!', 'success');
+                        }
+                    });
+                }
+            });
+                /*Accounts.createUser({
                     email: email,
                     password: password,
                 }, function(err){
                     if(err){
                         console.log(err.reason);
                     }
-                });
+                });*/
             console.log("Brukeren kommer under");
             console.log(Meteor.user());
             console.log(Meteor.users.find().fetch());

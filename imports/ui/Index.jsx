@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import {createContainer} from 'meteor/react-meteor-data';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Nav, Navbar } from 'react-bootstrap';
 
 
 import {Reports} from '../api/reports.js';
@@ -48,7 +48,12 @@ class Index extends Component {
         Meteor.logout();
     }
 
+    onBackButtonDown(e){
+    }
+
     render() {
+
+        document.addEventListener("backbutton", this.onBackButtonDown, false);
         return (
             <div className="container">
                 <header>
@@ -73,14 +78,14 @@ class Index extends Component {
 
                 </header>
 
-                <ChooseReportType className="topbar" position="absolute"/>
+                <ChooseReportType/>
                 <br/><br/>
                 <Button className="nyRapportBtn" bsStyle="primary" onClick={this.sendEmail.bind(this)}>
                     Send Email
                 </Button>
 
                 <ul>
-                    {this.renderReports()}
+                        {this.renderReports()}
                 </ul>
             </div>
         )

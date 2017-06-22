@@ -4,7 +4,9 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import { Accounts } from 'meteor/accounts-base';
 
+import Markers from '../ui/ViewReport_components/markers.jsx';
 
 //Reports komponent - her ligger alle rapportene lagret
 export const Reports = new Mongo.Collection('reports');
@@ -28,6 +30,12 @@ if (Meteor.isServer) {
 
 //Metoder for å legge til, slette og oppdateres
 Meteor.methods({
+    'sendVerificationLink'(){
+        let userId = Meteor.userId();
+        if(userId){
+            return Accounts.sendVerificationEmail(userId);
+        }
+    },
     'sendAEmail'(){
         console.log("Email blir kjørt");
         Email.send({
@@ -39,7 +47,7 @@ Meteor.methods({
         console.log("Email er ferdig");
     },
 
-    'reports.insert'(titelText, /*substrartInput,*/ lengdeNr, img, posLat, posLong, depthInput, amountInput){
+    'reports.insert'(titelText, /*substrartInput,*/ lengdeNr, img, posLat, posLong, depthInput, amountInput, markerId){
         check(titelText, String);
         //check(substrartInput, String);
         check(lengdeNr, Number);
@@ -51,7 +59,7 @@ Meteor.methods({
             throw new Meteor.Error('not-authorized');
         }
 
-
+        Markers.insert({lat: posLat, lng: posLong, markerCreated: false});
         Reports.insert({
             text: titelText,
             length: lengdeNr,
@@ -61,6 +69,7 @@ Meteor.methods({
             longitude: posLong,
             depth: depthInput,
             amount: amountInput,
+            markerId: markerId,
             createdAt: new Date(),
             //substrart: substrartInput,
             submitDate: new Date(),

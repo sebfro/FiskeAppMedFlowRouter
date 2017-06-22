@@ -24,17 +24,21 @@ export default class ViewReport extends Component {
         FlowRouter.go("/");
     }
 
+    onBackButtonDown(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        FlowRouter.go('/');
+    }
+
     render() {
-        console.log('Over here');
-        console.log(Session.get('report.id'));
         Session.set('addMarker', false);
 
         let report = Reports.findOne({_id: Session.get('report.id')});
-        console.log(report);
         if (report === undefined) {
             FlowRouter.go('/');
         }
-
+        document.addEventListener("backbutton", this.onBackButtonDown, false);
         return (
             <div className="container">
                 <header>

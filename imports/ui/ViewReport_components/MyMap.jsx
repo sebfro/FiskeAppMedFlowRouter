@@ -2,9 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { Session } from 'meteor/session';
 import GoogleMap from '../../api/GoogleMap.js';
 import Markers from './markers';
-import { setLatLng } from '../SubmitPage.jsx';
+import { setLatLng, setMarkerId } from '../SubmitPage.jsx';
 
 let addedMarker = false;
+let markerId = "";
 
 export default class MyMap extends Component {
     constructor() {
@@ -29,35 +30,29 @@ export default class MyMap extends Component {
 
     }
 
+
+
     handleOnReady(name) {
-        let markerAdded = false;
+        let addedMarker = false;
         let markerPos = { lat: 60, lng: 5};
         GoogleMaps.ready(name, map => {
             Tracker.autorun(c => {
                 google.maps.event.addListener(map.instance, 'click', function(event) {
                     if(Session.get('addMarker') && !addedMarker){
                         addedMarker = true;
-                        Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng() });
-                        console.log("Her er pos");
-                        console.log(({lat: event.latLng.lat(), lng: event.latLng.lng()}));
+                        Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng(), current: true });
                         markerPos = { lat: event.latLng.lat(), lng: event.latLng.lng() };
                         setLatLng(event.latLng.lng(), event.latLng.lat());
-                        Session.set('markerid', )
                     }
                 });
 
-
                 const markers = {};
-                let dragable = addedMarker;
-                if(addedMarker){
-                    console.log("Markeradded er true");
-                }
-                    //Session.get('addMarker');
 
-                Markers.find().observe({
+                Markers.find({current: true}).observe({
+
                     added: function(document) {
                         const marker = new google.maps.Marker({
-                            draggable: dragable,
+                            draggable: addedMarker,
                             animation: google.maps.Animation.DROP,
                             position: new google.maps.LatLng(document.lat, document.lng),
                             map: map.instance,
@@ -72,27 +67,43 @@ export default class MyMap extends Component {
                                 setLatLng(event.latLng.lng(), event.latLng.lat())
                             });
                         }
-                        console.log("Here is a marker");
-                        console.log(marker.id);
-                        let lat = marker.position.lat;
-                        console.log(lat);
-                        console.log(marker.position.lat + " " + marker.position.lng);
-
+                        setMarkerId(document._id);
+                        markerId = document._id;
                         markers[document._id] = marker;
                     },
-                        /*
-                    changed: function(newDocument, oldDocument) {
-                        markers[newDocument._id].setPosition({
-                            lat: newDocument.lat,
-                            lng: newDocument.lng,
-                        });
-                    },
-                    removed: function(oldDocument) {
-                        markers[oldDocument._id].setMap(null);
-                        google.maps.event.clearInstanceListeners(markers[oldDocument._id]);
-                        delete markers[oldDocument._id];
-                    },*/
                 });
+
+                if(this.props.report) {
+                    console.log("Running");
+                    if (this.props.report.markerId) {
+                        Markers.find({_id: this.props.report.markerId}).observe({
+                            added: function (document) {
+                                const marker = new google.maps.Marker({
+                                    draggable: addedMarker,
+                                    animation: google.maps.Animation.DROP,
+                                    position: new google.maps.LatLng(document.lat, document.lng),
+                                    map: map.instance,
+                                    id: document._id,
+                                });
+                            }
+                        });
+                    } else {
+                        Markers.find({markerCreated: false}).observe({
+                            added: function (document) {
+                                const marker = new google.maps.Marker({
+                                    draggable: addedMarker,
+                                    animation: google.maps.Animation.DROP,
+                                    position: new google.maps.LatLng(document.lat, document.lng),
+                                    map: map.instance,
+                                    id: document._id,
+                                });
+                                Markers.update(document._id, {
+                                    $set: {markerCreated: true}
+                                });
+                            }
+                        });
+                    }
+                }
 
                 this.computation = c;
             });
@@ -101,6 +112,9 @@ export default class MyMap extends Component {
 
     componentWillUnmount() {
         this.computation.stop();
+        Markers.update(markerId, {
+            $set: {current: false},
+        });
     }
 
     render() {
