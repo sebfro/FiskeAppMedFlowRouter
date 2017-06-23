@@ -14,7 +14,7 @@ export const Reports = new Mongo.Collection('reports');
 if (Meteor.isServer) {
     //This code only runs on the server
     Meteor.publish('reports', function reportsPublication() {
-        return Reports.find();
+        return Reports.find({owner: this.userId});
     });
 
     Meteor.startup( function() {
@@ -54,7 +54,7 @@ Meteor.methods({
     },
 
     'reports.insert'(titelText, /*substrartInput,*/ lengdeNr, img, posLat, posLong,
-                     depthInput, amountInput, markerId, useCurrPos){
+                     depthInput, amountInput, markerId, useCurrPos, category, date){
         check(titelText, String);
         //check(substrartInput, String);
         check(lengdeNr, Number);
@@ -72,6 +72,11 @@ Meteor.methods({
                 $set: {markerCreated: true}
             });
         }
+
+        if(!date){
+            date = new Date();
+        }
+
         Reports.insert({
             text: titelText,
             length: lengdeNr,
@@ -82,7 +87,9 @@ Meteor.methods({
             depth: depthInput,
             amount: amountInput,
             markerId: markerId,
-            createdAt: moment(new Date()).format("dddd, MMMM Do YYYY, h:mm:ss a"),
+            createdAt: new Date(),
+            taken: date,
+            category: category,
             //substrart: substrartInput,
             owner: Meteor.userId(),
             isValidated: false,

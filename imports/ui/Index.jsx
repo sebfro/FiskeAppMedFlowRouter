@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import {createContainer} from 'meteor/react-meteor-data';
-import { Button, ButtonGroup, Nav, Navbar } from 'react-bootstrap';
+import { Button, ButtonGroup, Nav, Navbar, ListGroup, Glyphicon } from 'react-bootstrap';
 
 
 import {Reports} from '../api/reports.js';
@@ -49,12 +49,8 @@ class Index extends Component {
         Meteor.logout();
     }
 
-    onBackButtonDown(e){
-        backToIndex(e);
-    }
-
     render() {
-        document.addEventListener("backbutton", this.onBackButtonDown, false);
+        console.log(Meteor.userId());
         return (
             <div className="container">
                 <header>
@@ -65,6 +61,9 @@ class Index extends Component {
                             </Button>
                             <Button className="nyRapportBtn" bsStyle="primary" onClick={this.logOut.bind(this)}>
                                 Logg ut
+                            </Button>
+                            <Button bsStyle="primary">
+                                <Glyphicon glyph="align-justify"/>
                             </Button>
                         </div>
                         : <AccountLogin/>
@@ -82,9 +81,9 @@ class Index extends Component {
                 <ChooseReportType/>
                 <br/><br/>
 
-                <ul>
+                <ListGroup>
                         {this.renderReports()}
-                </ul>
+                </ListGroup>
             </div>
         )
     }
@@ -96,7 +95,7 @@ Index.propTypes = {
 };
 
 export default createContainer(() => {
-    Meteor.subscribe('report', Meteor.userId());
+    Meteor.subscribe('reports', Meteor.userId());
     return {
         reports: Reports.find({}, {sort: {createdAt: -1}}).fetch(),
         currentUser: Meteor.user(),

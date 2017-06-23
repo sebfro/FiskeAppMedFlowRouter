@@ -33,6 +33,7 @@ export default class MyMap extends Component {
 
 
     handleOnReady(name) {
+        Session.set('addedMarker', false);
         let addedMarker = false;
         let markerPos = { lat: 60, lng: 5};
         GoogleMaps.ready(name, map => {
@@ -40,6 +41,7 @@ export default class MyMap extends Component {
                 google.maps.event.addListener(map.instance, 'click', function(event) {
                     if(Session.get('addMarker') && !addedMarker){
                         addedMarker = true;
+                        Session.set('addedMarker', true);
                         Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng(), current: true });
                         markerPos = { lat: event.latLng.lat(), lng: event.latLng.lng() };
                         setLatLng(event.latLng.lng(), event.latLng.lat());

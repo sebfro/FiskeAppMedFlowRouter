@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import { Accounts } from 'meteor/accounts-base';
-import { Button, ButtonGroup, Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, FormGroup,
-    InputGroup, FormControl, Overlay, Tooltip } from 'react-bootstrap';
+import { Button, ButtonGroup, Modal, ModalHeader, ModalTitle, ModalBody,
+    ModalFooter, FormGroup, Collapse, InputGroup, FormControl, Overlay,
+    Tooltip } from 'react-bootstrap';
 
 import PassRecovery from './PassRecovery.jsx';
 
@@ -66,7 +67,7 @@ export default class AccountLogin extends Component {
                         if(err){
                             alert(err.reason);
                         } else {
-                            alert('Welcome!', 'success');
+                            alert('En email har blitt sendt til din epost for verifisering!', 'success');
                         }
                     });
                 }
@@ -140,7 +141,7 @@ export default class AccountLogin extends Component {
                                         />
                                     </InputGroup>
                                 </FormGroup>
-                            { this.state.registrate ?
+                            <Collapse in={this.state.registrate}>
                                 <div>
                                     <FormGroup>
                                         <InputGroup>
@@ -183,8 +184,7 @@ export default class AccountLogin extends Component {
                                         </InputGroup>
                                     </FormGroup>
                                 </div>
-                                : ''
-                            }
+                            </Collapse>
 
                             <Button onClick={this.login.bind(this)}>
                                 {this.state.registrate ?

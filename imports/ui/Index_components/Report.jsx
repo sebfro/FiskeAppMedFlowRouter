@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import { Button, ButtonGroup, NavItem } from 'react-bootstrap';
+import { Button, ButtonGroup, NavItem, ListGroupItem } from 'react-bootstrap';
 
 
 import {Meteor} from 'meteor/meteor';
@@ -18,7 +18,6 @@ export default class Report extends Component {
         event.preventDefault();
 
         let id = this.props.report._id;
-        console.log(id);
         Session.set('report.id', id);
         Session.set('addMarker', false);
         FlowRouter.go('/seRapport');
@@ -32,17 +31,10 @@ export default class Report extends Component {
         const reportClassName = this.props.report.checked ? 'checked' : '';
         if (Meteor.userId() === this.props.report.owner) {
             return (
+                    <ListGroupItem header={this.props.report.text} onClick={this.setShow.bind(this)}>
+                        <strong>Kategori: </strong>{this.props.report.category}, {moment(this.props.report.taken).format("MMMM Do YYYY")}
+                    </ListGroupItem>
 
-                <div>
-
-                    <li onClick={this.setShow.bind(this)}>
-
-
-                        {this.props.report.text}
-
-                    </li>
-
-                </div>
             );
         } else {
             return null;

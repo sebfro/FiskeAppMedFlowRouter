@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {ListGroupItem, ListGroup} from 'react-bootstrap';
 
 import ShowImg from './ShowImg.jsx';
 
@@ -18,30 +19,34 @@ export default class ShowReport extends Component {
 
     render() {
         return (
-            <ul>
-                <li>
-                    Art: {this.props.report.text}
-                </li>
-                <li>
-                    Dato: {this.props.report.createdAt}
-                </li>
-                <li>
-                    Lengde: {this.props.report.length}
-                </li>
-                <li>
-                    Antall: {this.props.report.amount}
-                </li>
-                <li>
-                    Dybde: {this.props.report.depth}
-                </li>
-                <li>
-                    Breddegrad: {this.props.report.latitude}
-                </li>
-                <li>
-                    Lengdegrad: {this.props.report.longitude}
-                </li>
-
-            </ul>
+            <row>
+                <ListGroup>
+                    <ListGroupItem>
+                        <strong> Art: </strong> {this.props.report.text}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <strong>Kategori: </strong> {this.props.report.category}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <strong>Dato: </strong> {moment(this.props.report.taken).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <strong>Antall: </strong> {this.props.report.amount}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <strong>Lengde: </strong> {this.props.report.length} cm
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <strong>Dybde: </strong> {this.props.report.depth} meter
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <strong>Breddegrad: </strong> {this.props.report.latitude}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <strong>Lengdegrad: </strong> {this.props.report.longitude}
+                    </ListGroupItem>
+                </ListGroup>
+            </row>
         );
     }
 }

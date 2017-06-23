@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
-import {Button, ButtonToolbar, Radio, Checkbox} from 'react-bootstrap';
+import {Button, ButtonToolbar, Radio, Checkbox, FormGroup, FormControl, ControlLabel, InputGroup, Collapse} from 'react-bootstrap';
 
 import { hasNumbers, backToIndex, dataURItoBlob } from '../../lib/helpMethods.js';
 import MyMap from './ViewReport_components/MyMap.jsx';
@@ -16,12 +16,10 @@ let markerId;
 export function setLatLng(lat, lng){
     posLat = lat;
     posLong = lng;
-    console.log("Forandret pos");
 }
 
 export function setMarkerId(id){
     markerId = id;
-    console.log("markerid har blitt satt");
 }
 
 //SubmitPage komponent - Gjengir side for å lage nye rapport og sden in.
@@ -36,22 +34,26 @@ export default class SubmitPage extends Component {
             depthError: false,
             titelError: false,
             substrartError: false,
-            useCurrPos: true
+            pictureError: false,
+            markerError: false,
+            useCurrPos: true,
+            category: Session.get('Category'),
         };
     }
+
     //Oppdaterer state variabler<
-    inputError(length, amount, depth, titel, substrart){
+    inputError(length, amount, depth, titel, picture, marker){
         this.setState({
             lengthError: length,
             amountError: amount,
             depthError: depth,
             titelError: titel,
-            substrartError: substrart
+            pictureError: picture,
+            markerError: marker
         })
     }
     changePos(e){
         e.preventDefault();
-        console.log("fungerte");
         this.setState({
             useCurrPos: !this.state.useCurrPos
         })
@@ -89,12 +91,9 @@ export default class SubmitPage extends Component {
         };
         MeteorCamera.getPicture(cameraOptions, function (error, data) {
             if (!error) {
-                console.log(data);
                 //takeImg.push(data);
                 takeImg.push(data);
-                console.log(dataURItoBlob(data));
             } else {
-                console.log(error.reason);
             }
         });
     }
@@ -105,33 +104,36 @@ export default class SubmitPage extends Component {
 
         event.preventDefault();
 
-
         //Find the text field via the react ref
         const titelText = ReactDOM.findDOMNode(this.refs.rapportTitel).value.trim();
         const lengthNr = ReactDOM.findDOMNode(this.refs.rapportLength).value.trim();
         const depthNr = ReactDOM.findDOMNode(this.refs.rapportDepth).value.trim();
         const amountNr = ReactDOM.findDOMNode(this.refs.rapportAmount).value.trim();
-        //const substrartText = ReactDOM.findDOMNode(this.refs.rapportSubstrart).value.trim();
+        let date;
+        try{
+            date = (ReactDOM.findDOMNode(this.refs.rapportDate).value.trim());
+        } catch(e){}
 
 
-        if (lengthNr < 0 || lengthNr > 1000 || !lengthNr || amountNr < 0 || amountNr > 100 || !amountNr ||
-            depthNr < 0 || depthNr > 1000 || !depthNr || !titelText || hasNumbers(titelText) /*|| !substrartText
-        || hasNumbers(substrartText)*/) {
+        if (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/ || amountNr < 0 || amountNr > 100 || /*!amountNr ||*/
+            depthNr < 0 || depthNr > 1000 || /*!depthNr ||*/ !titelText || hasNumbers(titelText) || 0 === takeImg.length
+            || !this.state.useCurrPos && !Session.get('addedMarker')
+            /*|| !substrartText || hasNumbers(substrartText)*/) {
 
-            this.inputError(lengthNr < 0 || lengthNr > 1000 || !lengthNr, amountNr < 0 || amountNr > 100 || !amountNr,
-                depthNr < 0 || depthNr > 1000 || !depthNr, !titelText || hasNumbers(titelText)/*, !substrartText ||
-            hasNumbers(substrartText)*/);
-
+            this.inputError(lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/, amountNr < 0 || amountNr > 100 /*|| !amountNr*/,
+                depthNr < 0 || depthNr > 1000 /*|| !depthNr*/, !titelText || hasNumbers(titelText), 0 === takeImg.length,
+                (!this.state.useCurrPos && !Session.get('addedMarker'))
+                /*, !substrartText || hasNumbers(substrartText)*/);
 
         } else {
             Meteor.call(`reports.insert`, titelText, /*substrartText,*/ Number(lengthNr),
-                takeImg, posLat, posLong, Number(depthNr), Number(amountNr), markerId, this.state.useCurrPos);
+                takeImg, posLat, posLong, Number(depthNr), Number(amountNr), markerId,
+                this.state.useCurrPos, this.state.category, date);
 
             ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
             ReactDOM.findDOMNode(this.refs.rapportLength).value = '';
             ReactDOM.findDOMNode(this.refs.rapportDepth).value = '';
             ReactDOM.findDOMNode(this.refs.rapportAmount).value = '';
-            //ReactDOM.findDOMNode(this.refs.rapportSubstrart).value = '';
 
             takeImg = [];
             backToIndex(event);
@@ -177,22 +179,16 @@ export default class SubmitPage extends Component {
     render() {
         this.getPos();
 
-        if(!this.state.useCurrPos){
-            console.log("Bruker den andre pos");
-        }
-
         document.addEventListener("backbutton", this.onBackButtonDown, false);
-
         return (
 
 
             <div className="container">
                 <header>
-                    <h1>Ny rapport</h1>
-
                     <Button className="backBtn" bsStyle="primary" onClick={this.goBackToIndex.bind(this)}>
                         Tilbake
                     </Button>
+                    <h2>Ny {this.state.category.toLowerCase()} rapport</h2>
                 </header>
                 <form className="new-report">
                     <ul>
@@ -246,20 +242,35 @@ export default class SubmitPage extends Component {
                             ''
                             :
                             <li>
-                                <input
-                                    style={{height: 200}}
-                                    type="text"
-                                    ref="posForklaring"
-                                    placeholder="Beskrivelse"
-                                />
-
+                                <p className="errorText" hidden={!this.state.markerError}>
+                                    Du må legge til en posisjon
+                                </p>
                                 <MyMap report={null}/>
+                                <br/>
+                                <p className="errorText" hidden={!this.state.titelError}>
+                                    Dato må fylles inn
+                                </p>
+                                <FormGroup>
+                                    <ControlLabel>Dato:</ControlLabel>
+                                    <FormControl
+                                        type="date"
+                                        ref="rapportDate"
+                                    />
+                                </FormGroup>
+                                <br/>
+                                <FormGroup>
+                                    <ControlLabel>Beskrivelse:</ControlLabel>
+                                    <FormControl id="feedback" componentClass="textarea" placeholder="Forklar hvis du føler det er nødvendig.."/>
+                                </FormGroup>
                             </li>
                         }
 
 
 
                         <li>
+                            <p className="errorText" hidden={!this.state.pictureError}>
+                                Ingen bilder lastet opp
+                            </p>
                             <ButtonToolbar>
                                 <Button bsStyle="primary" onClick={this.takePicture.bind(this)}>
                                     Ta bilde

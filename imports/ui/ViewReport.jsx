@@ -48,12 +48,10 @@ export default class ViewReport extends Component {
                         Tilbake
                     </Button>
                 </header>
-                <ul>
                     <li>
                         {this.renderImg(report)}
                     </li>
                     <ShowReport report={report}/>
-                </ul>
                 <MyMap report={report}/>
                 <br/><br/>
             </div>
