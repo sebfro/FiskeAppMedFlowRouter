@@ -75,7 +75,6 @@ export default class MyMap extends Component {
 
                 if(this.props.report) {
                     console.log("Running");
-                    if (this.props.report.markerId) {
                         Markers.find({_id: this.props.report.markerId}).observe({
                             added: function (document) {
                                 const marker = new google.maps.Marker({
@@ -87,24 +86,7 @@ export default class MyMap extends Component {
                                 });
                             }
                         });
-                    } else {
-                        Markers.find({markerCreated: false}).observe({
-                            added: function (document) {
-                                const marker = new google.maps.Marker({
-                                    draggable: addedMarker,
-                                    animation: google.maps.Animation.DROP,
-                                    position: new google.maps.LatLng(document.lat, document.lng),
-                                    map: map.instance,
-                                    id: document._id,
-                                });
-                                Markers.update(document._id, {
-                                    $set: {markerCreated: true}
-                                });
-                            }
-                        });
-                    }
                 }
-
                 this.computation = c;
             });
         });

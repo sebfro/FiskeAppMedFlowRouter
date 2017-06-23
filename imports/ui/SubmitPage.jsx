@@ -125,7 +125,7 @@ export default class SubmitPage extends Component {
 
         } else {
             Meteor.call(`reports.insert`, titelText, /*substrartText,*/ Number(lengthNr),
-                takeImg, posLat, posLong, Number(depthNr), Number(amountNr), markerId );
+                takeImg, posLat, posLong, Number(depthNr), Number(amountNr), markerId, this.state.useCurrPos);
 
             ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
             ReactDOM.findDOMNode(this.refs.rapportLength).value = '';

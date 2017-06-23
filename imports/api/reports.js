@@ -53,7 +53,8 @@ Meteor.methods({
         console.log("Email er ferdig");
     },
 
-    'reports.insert'(titelText, /*substrartInput,*/ lengdeNr, img, posLat, posLong, depthInput, amountInput, markerId){
+    'reports.insert'(titelText, /*substrartInput,*/ lengdeNr, img, posLat, posLong,
+                     depthInput, amountInput, markerId, useCurrPos){
         check(titelText, String);
         //check(substrartInput, String);
         check(lengdeNr, Number);
@@ -64,8 +65,13 @@ Meteor.methods({
         if(!Meteor.userId()){
             throw new Meteor.Error('not-authorized');
         }
-
-        Markers.insert({lat: posLat, lng: posLong, markerCreated: false});
+        if(useCurrPos) {
+            Markers.insert({lat: posLong, lng: posLat, markerCreated: false});
+            markerId = Markers.findOne({markerCreated: false})._id;
+            Markers.update(markerId, {
+                $set: {markerCreated: true}
+            });
+        }
         Reports.insert({
             text: titelText,
             length: lengdeNr,
