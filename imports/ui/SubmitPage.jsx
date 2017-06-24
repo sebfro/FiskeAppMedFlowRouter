@@ -116,7 +116,7 @@ export default class SubmitPage extends Component {
 
 
         if (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/ || amountNr < 0 || amountNr > 100 || /*!amountNr ||*/
-            depthNr < 0 || depthNr > 1000 || /*!depthNr ||*/ !titelText || hasNumbers(titelText) || 0 === takeImg.length
+            depthNr < 0 || depthNr > 1000 || /*!depthNr ||*/ !titelText || hasNumbers(titelText) /*|| 0 === takeImg.length*/
             || !this.state.useCurrPos && !Session.get('addedMarker')
             /*|| !substrartText || hasNumbers(substrartText)*/) {
 
