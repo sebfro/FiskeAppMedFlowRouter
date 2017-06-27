@@ -26,14 +26,18 @@ if(Meteor.isClient){
     });
 }
 
-export function newReportValidated(){
+export default function newReportValidated(reportTitel, reportId, reportMarkerId){
     if(Meteor.isCordova) {
+        console.log("Sending notification");
         cordova.plugins.notification.local.schedule({
             id: 1,
-            title: "Message title",
-            message: "Message text2",
+            title: reportTitel + " har blitt oppdatert",
+            message: "Rapporten er validert.",
 
         });
+        console.log("Notification sent");
+
+        console.log("Notification follow up complete");
 
 
     }

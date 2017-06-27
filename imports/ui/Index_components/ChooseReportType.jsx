@@ -68,19 +68,19 @@ export default class ChooseReportType extends Component{
                 <div>
                     <Nav bsStyle="pills" justified>
                         <NavItem onClick={this.setShow.bind(this)}>
-                            Ny Rapport
+                            {this.props.pageTextNav.newReport}
                         </NavItem>
                     </Nav>
                         <Collapse in={this.state.show}>
                             <Nav bsStyle="pills" justified>
                                 <NavItem onClick={this.newReportFisk.bind(this)}>
-                                    Fiske Art
+                                    {this.props.pageTextNav.fish}
                                 </NavItem>
                                 <NavItem onClick={this.newReportKoral.bind(this)}>
-                                    Koral
+                                    {this.props.pageTextNav.coral}
                                 </NavItem>
                                 <NavItem onClick={this.newReportFremmed.bind(this)}>
-                                    Fremmed Art
+                                    {this.props.pageTextNav.unknown}
                                 </NavItem>
                             </Nav>
                         </Collapse>
@@ -117,3 +117,7 @@ export default class ChooseReportType extends Component{
         }
     }
 }
+
+ChooseReportType.propTypes = {
+    pageTextNav: PropTypes.object.isRequired,
+};

@@ -47,7 +47,7 @@ Meteor.methods({
         console.log("Email blir kjørt");
         Email.send({
             from: "sebastianfroyen@gmail.com",
-            to: "h144975@hib.no",
+            to: "sebastian17pepp@gmail.com",
             subject: "Meteor can send emails via gmail",
             text: "Dette er teksten",
         });
@@ -98,40 +98,20 @@ Meteor.methods({
         });
 
 },
-    'reports.remove'(reportId){
-        check(reportId, String);
-
-        Reports.remove(reportId);
-    },
     'reports.setChecked'(reportId, setChecked){
         check(reportId, String);
         check(setChecked, Boolean);
 
         Reports.update(reportId, { $set: { checked: setChecked } });
     },
-    'reports.setPrivate'(reportId, setToPrivate){
-        check(reportId, String);
-        check(setToPrivate, Boolean);
-
-        const report = Reports.findOne(reportId);
-    },
-    'reports.setPos'(titel, pos){
-        check(titel, String);
-        check(setShow, Boolean);
-
-        Reports.update(titel, {$set: { location: pos } });
-    },
-    'reports.getReport'(reportId){
-        check(reportId, String);
-
-        Reports.findOne({ _id: reportId })
-    },
-    'reports.update'(){
+    'reports.update'(reportId){
         check(reportId, String);
 
         Reports.update(reportId, {
             $set: {isValidated: true},
         });
-        this.newReportValidated();
+        console.log("About to send notification");
+        let report = Reports.findOne({_id: reportId});
+        newReportValidated(report.text, report._id, report.markerId);
     }
 });

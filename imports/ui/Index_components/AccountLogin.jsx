@@ -96,7 +96,7 @@ export default class AccountLogin extends Component {
             return (
                 <div>
                         <Button className="nyRapportBtn" bsStyle="primary" onClick={this.setShow.bind(this)}>
-                            Login
+                            {this.props.pageTextLogin.loginBtn}
                         </Button>
 
                         <Modal
@@ -108,11 +108,7 @@ export default class AccountLogin extends Component {
 
                         <ModalHeader>
                             <ModalTitle id="contained-modal-title">
-                                { !this.state.registrate ?
-                                    'Logg inn'
-                                    :
-                                    'Registrer'
-                                }
+                                {this.props.pageTextLogin.loginBtn}
                             </ModalTitle>
                         </ModalHeader>
                             <form>
@@ -127,7 +123,7 @@ export default class AccountLogin extends Component {
                                             name="email"
                                             type="email"
                                             label="Email address"
-                                            placeholder="Enter email"
+                                            placeholder={this.props.pageTextLogin.placeholderEmail}
                                         />
                                     </InputGroup>
                                 </FormGroup>
@@ -137,7 +133,7 @@ export default class AccountLogin extends Component {
                                             name="password"
                                             label="Password"
                                             type="password"
-                                            placeholder="Enter password"
+                                            placeholder={this.props.pageTextLogin.placeholderPass}
                                         />
                                     </InputGroup>
                                 </FormGroup>
@@ -149,7 +145,7 @@ export default class AccountLogin extends Component {
                                                 name="password2"
                                                 label="Password"
                                                 type="password"
-                                                placeholder="Enter password"
+                                                placeholder={this.props.pageTextLogin.placeholderPass}
                                             />
                                         </InputGroup>
                                     </FormGroup>
@@ -159,7 +155,7 @@ export default class AccountLogin extends Component {
                                                 name="firstname"
                                                 label="Fornavn"
                                                 type="text"
-                                                placeholder="Enter firstname"
+                                                placeholder={this.props.pageTextLogin.placeholderFname}
                                             />
                                         </InputGroup>
                                     </FormGroup>
@@ -169,7 +165,7 @@ export default class AccountLogin extends Component {
                                                 name="lastname"
                                                 label="Etternavn"
                                                 type="text"
-                                                placeholder="Enter lastname"
+                                                placeholder={this.props.pageTextLogin.placeholderLname}
                                             />
                                         </InputGroup>
                                     </FormGroup>
@@ -179,7 +175,7 @@ export default class AccountLogin extends Component {
                                                 name="phoneNumber"
                                                 label="Telefon nummer"
                                                 type="number"
-                                                placeholder="Enter telefon nummer"
+                                                placeholder={this.props.pageTextLogin.placeholderPhoneNr}
                                             />
                                         </InputGroup>
                                     </FormGroup>
@@ -188,7 +184,7 @@ export default class AccountLogin extends Component {
 
                             <Button onClick={this.login.bind(this)}>
                                 {this.state.registrate ?
-                                    'Registrer' : 'Login'
+                                    this.props.pageTextLogin.registerbtn : this.props.pageTextLogin.loginBtn
                                 }
                             </Button>
                             <br/><br/>
@@ -198,10 +194,12 @@ export default class AccountLogin extends Component {
                         <ModalFooter>
                             <Button type="submit" onClick={this.setRegistrate.bind(this)}>
                                 {!this.state.registrate ?
-                                    'Registrer' : 'Login'
+                                    this.props.pageTextLogin.registerbtn : this.props.pageTextLogin.loginBtn
                                 }
                             </Button>
-                            <Button onClick={this.setShow.bind(this)}>Close</Button>
+                            <Button onClick={this.setShow.bind(this)}>
+                                {this.props.pageTextLogin.closeBtn}
+                            </Button>
                         </ModalFooter>
                             </form>
                     </Modal>
@@ -219,3 +217,7 @@ export default class AccountLogin extends Component {
     }
 
 }
+
+AccountLogin.propTypes = {
+    pageTextLogin: PropTypes.object.isRequired,
+};

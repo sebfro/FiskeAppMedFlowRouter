@@ -16,7 +16,7 @@ Meteor.methods({
         });
     },
     'marker.insert'(lat, lng, curr){
-
+        Markers.insert({ lat: lat, lng: lng, current: curr});
     }
 
 });
