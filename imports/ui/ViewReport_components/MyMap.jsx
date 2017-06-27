@@ -3,11 +3,14 @@ import { Session } from 'meteor/session';
 import GoogleMap from '../../api/GoogleMap.js';
 import Markers from './markers';
 import { setLatLng, setMarkerId } from '../SubmitPage.jsx';
+import { Mongo } from 'meteor/mongo';
+import { Meteor } from 'meteor/meteor';
+import {createContainer} from 'meteor/react-meteor-data';
 
 let addedMarker = false;
 let markerId = "";
 
-export default class MyMap extends Component {
+class MyMap extends Component {
     constructor() {
         super();
         this.handleOnReady = this.handleOnReady.bind(this);
@@ -77,7 +80,8 @@ export default class MyMap extends Component {
 
                 if(this.props.report) {
                     console.log("Running");
-                        Markers.find({_id: this.props.report.markerId}).observe({
+                    console.log(this.props.markers);
+                    Markers.find({_id: this.props.report.markerId}).observe({
                             added: function (document) {
                                 const marker = new google.maps.Marker({
                                     draggable: addedMarker,
@@ -96,9 +100,10 @@ export default class MyMap extends Component {
 
     componentWillUnmount() {
         this.computation.stop();
-        Markers.update(markerId, {
+        Meteor.call('marker.updateCurrent', markerId);
+        /*Markers.update(markerId, {
             $set: {current: false},
-        });
+        });*/
     }
 
     render() {
@@ -115,4 +120,12 @@ export default class MyMap extends Component {
 
 MyMap.propTypes = {
     report: PropTypes.object,
+    markers: PropTypes.Collection
 };
+
+export default createContainer(() => {
+    Meteor.subscribe('markers', Session.get('marker.id'));
+    return {
+        markers: Markers.find({_id: Session.get('marker.id')}).fetch,
+    };
+}, MyMap);

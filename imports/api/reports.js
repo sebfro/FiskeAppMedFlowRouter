@@ -7,6 +7,7 @@ import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base'
 
 import Markers from '../ui/ViewReport_components/markers.jsx';
+import newReportValidated from '../../lib/router.jsx';
 
 //Reports komponent - her ligger alle rapportene lagret
 export const Reports = new Mongo.Collection('reports');
@@ -124,5 +125,13 @@ Meteor.methods({
         check(reportId, String);
 
         Reports.findOne({ _id: reportId })
+    },
+    'reports.update'(){
+        check(reportId, String);
+
+        Reports.update(reportId, {
+            $set: {isValidated: true},
+        });
+        this.newReportValidated();
     }
 });

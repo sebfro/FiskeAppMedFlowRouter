@@ -49,6 +49,21 @@ class Index extends Component {
         Meteor.logout();
     }
 
+    pushNotification(e){
+        e.preventDefault();
+        if(Meteor.isCordova){
+            cordova.plugins.notification.local.schedule({
+                id: 1,
+                title: "Knap i høyre bel tryyket på",
+                message: "Tittelene sier alt",
+
+            });
+            cordova.plugin.notification.local.on("click", function(notification){
+                console.log("Knap i høyre bel tryyket på");
+            })
+        }
+    }
+
     render() {
         console.log(Meteor.userId());
         return (
@@ -62,7 +77,7 @@ class Index extends Component {
                             <Button className="nyRapportBtn" bsStyle="primary" onClick={this.logOut.bind(this)}>
                                 Logg ut
                             </Button>
-                            <Button bsStyle="primary">
+                            <Button bsStyle="primary" onClick={this.pushNotification.bind(this)}>
                                 <Glyphicon glyph="align-justify"/>
                             </Button>
                         </div>

@@ -10,7 +10,33 @@ import StartPage from '../imports/ui/StartPage.jsx';
 if(Meteor.isClient){
     Meteor.startup(function(){
         GoogleMaps.load({ key: 'AIzaSyAoNnMKlsuYKXO0t5eY6749sRZ4W_QEVBw'});
+
+        if(Meteor.isCordova) {
+            cordova.plugins.notification.local.schedule({
+                id: 1,
+                title: "App omstartet",
+                message: "Ekstra info.",
+
+            });
+            cordova.plugin.notification.local.on("click", function(notification){
+                console.log("Clicked notification");
+            })
+
+        }
     });
+}
+
+export function newReportValidated(){
+    if(Meteor.isCordova) {
+        cordova.plugins.notification.local.schedule({
+            id: 1,
+            title: "Message title",
+            message: "Message text2",
+
+        });
+
+
+    }
 }
 
 //Disse sender bruker til forskjellige sider.
