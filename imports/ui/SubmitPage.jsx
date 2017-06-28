@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
@@ -28,6 +28,10 @@ export default class SubmitPage extends Component {
     //Setter state variabler
     constructor(props){
         super(props);
+        let category = Session.get('Category');
+        if(category === undefined){
+            category = '';
+        }
         this.state = {
             lengthError: false,
             amountError: false,
@@ -37,7 +41,8 @@ export default class SubmitPage extends Component {
             pictureError: false,
             markerError: false,
             useCurrPos: true,
-            category: Session.get('Category'),
+            category: category,
+            showNewReport: this.props.currentUser,
 
             pageText: {
                 placeholderSpecie: 'Enter what specie you believe it is',
@@ -103,8 +108,14 @@ export default class SubmitPage extends Component {
         };
     }
 
-    //Oppdaterer state variabler<
+    //Oppdaterer state variabler
     inputError(length, amount, depth, titel, picture, marker){
+        console.log(length);
+        console.log(amount);
+        console.log(depth);
+        console.log(titel);
+        console.log(picture);
+        console.log(marker);
         this.setState({
             lengthError: length,
             amountError: amount,
@@ -163,7 +174,7 @@ export default class SubmitPage extends Component {
     //Send inn alle variablene som skal være i rapport til report.js. Sjekker om det er noe galt med inputten og klaer da inputerror.
     //Sender de ellers videre.
     handleSubmit(event) {
-
+        console.log("handleSubmit");
         event.preventDefault();
 
         //Find the text field via the react ref
@@ -175,17 +186,17 @@ export default class SubmitPage extends Component {
         try{
             date = (ReactDOM.findDOMNode(this.refs.rapportDate).value.trim());
         } catch(e){}
-        console.log(titelText.length);
-
-        if (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/ || amountNr < 0 || amountNr > 100 || /*!amountNr ||*/
-            depthNr < 0 || depthNr > 1000 || /*!depthNr ||*/ !titelText || hasNumbers(titelText) || titelText.length > 30
-            || titelText.length < 30
-            || 0 === takeImg.length || !this.state.useCurrPos && !Session.get('addedMarker')
+        console.log("handleSubmit");
+        if      (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/ || amountNr < 0 || amountNr > 100 || /*!amountNr ||*/
+                depthNr < 0 || depthNr > 1000 || /*!depthNr ||*/ !titelText || hasNumbers(titelText) || titelText.length > 30
+                || 0 === takeImg.length || !this.state.useCurrPos && !Session.get('addedMarker')
             /*|| !substrartText || hasNumbers(substrartText)*/) {
+            console.log("handleSubmit");
 
-            this.inputError(lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/, amountNr < 0 || amountNr > 100 /*|| !amountNr*/,
+            this.inputError
+                (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/, amountNr < 0 || amountNr > 100 /*|| !amountNr*/,
                 depthNr < 0 || depthNr > 1000 /*|| !depthNr*/, !titelText || hasNumbers(titelText) || titelText.length > 30,
-                0 === takeImg.length, (!this.state.useCurrPos && !Session.get('addedMarker'))
+                0 === takeImg.length, !this.state.useCurrPos && !Session.get('addedMarker')
                 /*, !substrartText || hasNumbers(substrartText)*/);
 
         } else {
@@ -250,17 +261,19 @@ export default class SubmitPage extends Component {
             this.setState({
                 pageText: this.state.norwegian
             });
-            console.log(this.state.pageText.placeholderSpecie);
         }
     }
 
     componentWillMount(){
         this.setPageText();
+        this.getPos();
+    }
+
+    showNewReport(){
+        FlowRouter('/');
     }
 
     render() {
-        this.getPos();
-
         document.addEventListener("backbutton", this.onBackButtonDown, false);
         return (
 

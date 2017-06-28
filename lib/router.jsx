@@ -1,10 +1,13 @@
 import React from 'react';
 import { Accounts } from 'meteor/accounts-base';
+import { Meteor } from 'meteor/meteor';
 
 import Index from '../imports/ui/Index.jsx';
 import SubmitPage from '../imports/ui/SubmitPage.jsx';
 import ViewReport from '../imports/ui/ViewReport.jsx';
 import StartPage from '../imports/ui/StartPage.jsx';
+
+import { isLoggedIn, isVerified } from './helpMethods.js';
 
 //Starter googe maps api og gir den en nøkkel
 if(Meteor.isClient){
@@ -43,6 +46,14 @@ export default function newReportValidated(reportTitel, reportId, reportMarkerId
     }
 }
 
+function checkLoggedIn(context, doRedirect){
+    console.log(Meteor.user());
+    isVerified();
+    if(!isLoggedIn() || Session.get('report.id') === undefined && context.context.path === "/seRapport"){
+        doRedirect('/')
+    }
+}
+
 //Disse sender bruker til forskjellige sider.
 FlowRouter.route('/', {
     name: "index",
@@ -60,6 +71,7 @@ FlowRouter.route('/startPage', {
 
 FlowRouter.route('/nyRapport',{
     name: "nyRapport",
+    triggersEnter: checkLoggedIn,
     action (){
         ReactLayout.render(SubmitPage);
     }
@@ -67,6 +79,7 @@ FlowRouter.route('/nyRapport',{
 
 FlowRouter.route('/seRapport',{
     name: "seRapport",
+    triggersEnter: checkLoggedIn,
     action (){
         ReactLayout.render(ViewReport);
     }

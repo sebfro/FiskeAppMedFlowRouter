@@ -4,7 +4,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
-import { Accounts } from 'meteor/accounts-base'
+import { Accounts } from 'meteor/accounts-base';
+import { DDP } from 'meteor/ddp-client';
 
 import Markers from '../ui/ViewReport_components/markers.jsx';
 import newReportValidated from '../../lib/router.jsx';
@@ -13,6 +14,13 @@ import newReportValidated from '../../lib/router.jsx';
 export const Reports = new Mongo.Collection('reports');
 
 if (Meteor.isServer) {
+    let remote = DDP.connect('http://localhost:3030/');
+    Tasks = new Meteor.Collection('tasks', remote);
+
+    remote.subscribe('tasks', function() {
+        let tasks = Tasks.find();
+        console.log("Antall tasks: " + tasks.count());
+    });
     //This code only runs on the server
     Meteor.publish('reports', function reportsPublication(limit) {
         console.log(limit);
@@ -25,7 +33,6 @@ if (Meteor.isServer) {
         let domain = "smtp.gmail.com";
         let port = 587;
         process.env.MAIL_URL="smtp://" + username + ":" + pass + "@" + domain + ":" + port;
-
     })
 
 }

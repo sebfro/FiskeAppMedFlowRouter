@@ -98,11 +98,10 @@ export default class ViewReport extends Component {
 
     componentWillMount(){
         this.setPageText();
+        Session.set('addMarker', false);
     }
 
     render() {
-        Session.set('addMarker', false);
-
         let report = Reports.findOne({_id: Session.get('report.id')});
         if (report === undefined) {
             FlowRouter.go('/');
