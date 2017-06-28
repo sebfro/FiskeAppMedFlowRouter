@@ -25,7 +25,7 @@ class Index extends Component {
         }
         console.log(Session.get('language'));
         this.state = {
-            showTen : true,
+            showMoreBtn: true,
             pageText: {
                 title: 'Reports',
                 logIn: 'Login',
@@ -214,12 +214,26 @@ class Index extends Component {
     }
 
     componentWillMount(){
+        Session.set('limit', 10);
         if(Session.get('language') === undefined) {
             Session.set('language', 'norwegian');
             this.setPageText();
         } else {
             this.setPageText();
         }
+        console.log("Component will mount");
+        if(Session.get('limit') !== this.props.reports.length && this.props.reports.length > 0){
+            this.setState({
+                showMoreBtn: false
+            })
+        }
+    }
+    componentWillUpdate(){
+        /*if(Session.get('limit') !== this.props.reports.length && this.props.reports.length > 0){
+            this.setState({
+                showMoreBtn: false
+            })
+        }*/
     }
     changeLanguage(e){
         e.preventDefault();
@@ -230,6 +244,11 @@ class Index extends Component {
             Session.set('language', 'english');
             this.setPageText();
         }
+    }
+    setShowMoreBtn(e){
+        e.preventDefault();
+        Session.set('limit', Session.get('limit') + 10);
+        console.log(Session.get('limit'));
     }
 
     render() {
@@ -269,6 +288,12 @@ class Index extends Component {
                 <ListGroup>
                         {this.renderReports()}
                 </ListGroup>
+                {this.state.showMoreBtn ?
+                    <Button className="nyRapportBtn" bsStyle="primary" onClick={this.setShowMoreBtn.bind(this)}>
+                        Viss flere
+                    </Button>
+                    : ''
+                }
             </div>
         )
     }
@@ -280,9 +305,9 @@ Index.propTypes = {
 };
 
 export default createContainer(() => {
-    Meteor.subscribe('reports', 49);
+    Meteor.subscribe('reports', Session.get('limit'));
     return {
-        reports: Reports.find({}, {sort: {createdAt: -1}, limit: 49 }).fetch(),
+        reports: Reports.find({}, {sort: {createdAt: -1}, limit: Session.get('limit') }).fetch(),
         currentUser: Meteor.user(),
     };
 }, Index);
