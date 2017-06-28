@@ -14,8 +14,9 @@ export const Reports = new Mongo.Collection('reports');
 
 if (Meteor.isServer) {
     //This code only runs on the server
-    Meteor.publish('reports', function reportsPublication() {
-        return Reports.find({owner: this.userId});
+    Meteor.publish('reports', function reportsPublication(limit) {
+        console.log(limit);
+        return Reports.find({}, {sort: {createdAt: -1}, limit: limit, owner: this.userId});
     });
 
     Meteor.startup( function() {

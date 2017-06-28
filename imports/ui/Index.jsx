@@ -20,15 +20,18 @@ import { backToIndex } from '../../lib/helpMethods.js';
 class Index extends Component {
     constructor(props){
         super(props);
-        Session.set('language', 'norwegian');
+        if(Session.get('language') === undefined){
+            Session.set('language', 'norwegian');
+        }
+        console.log(Session.get('language'));
         this.state = {
+            showTen : true,
             pageText: {
                 title: 'Reports',
                 logIn: 'Login',
                 logOut: 'Log out',
                 showMore: 'Show more',
                 language: 'English',
-                languageBtn: 'Norwegian'
             },
             english: {
                 title: 'Reports',
@@ -36,14 +39,13 @@ class Index extends Component {
                 logOut: 'Log out',
                 showMore: 'Show more',
                 language: 'English',
-                langaugeBtn: 'Norsk'
             },
             norwegian: {
                 title: 'Rapporter',
                 logIn: 'Logg inn',
                 logOut: 'Logg ut',
                 showMore: 'Viss flere',
-                language: 'norsk'
+                language: 'Norsk'
             },
             pageTextNav: {
                 title: 'Rapporter',
@@ -96,25 +98,62 @@ class Index extends Component {
                 placeholderLname: 'Skriv inn etternavn',
                 placeholderPhoneNr: 'Skriv inn telefon nummer',
             },
+            pageTextPassRecovery: {
+                titel: 'Forgot password',
+                placeholderEmail: 'Enter email',
+                closeBtn: 'Close',
+                message: 'An email has been sent to your email.'
+            },
+            englishRecovery: {
+                titel: 'Forgot password',
+                placeholderEmail: 'Enter email',
+                closeBtn: 'Close',
+                message: 'An email has been sent to your email.'
+            },
+            norwegianRecovery: {
+                titel: 'Glemt passord',
+                placeholderEmail: 'Skriv inn email',
+                closeBtn: 'Lukk',
+                message: 'En mail har blitt sent til eposten din.'
+            },
+            pageTextReport: {
+                category: 'Category',
+                fish: 'Fish specie',
+                coral: 'Coral',
+                unknown: 'Unknown specie'
+            },
+            englishReport: {
+                category: 'Category',
+                fish: 'Fish specie',
+                coral: 'Coral',
+                unknown: 'Unknown specie'
+            },
+            norwegianReport: {
+                category: 'Kategori',
+                fish: 'Fiske art',
+                coral: 'koral',
+                unknown: 'fremmed art'
+            }
         };
     }
 
-    setPageText(e){
-        //e.preventDefault();
-        if(this.state.pageText.language === 'norsk') {
+    setPageText(){
+        if(Session.get('language') === "english") {
             this.setState({
                 pageText: this.state.english,
                 pageTextNav: this.state.englishNav,
-                pageTextLogin: this.state.englishLogin
+                pageTextLogin: this.state.englishLogin,
+                pageTextPassRecovery: this.state.englishRecovery,
+                pageTextReport: this.state.englishReport
             });
-            Session.set('language', 'english')
         } else {
             this.setState({
                 pageText: this.state.norwegian,
                 pageTextNav: this.state.norwegianNav,
-                pageTextLogin: this.state.norwegianLogin
+                pageTextLogin: this.state.norwegianLogin,
+                pageTextPassRecovery: this.state.norwegianRecovery,
+                pageTextReport: this.state.norwegianReport
             });
-            Session.set('language', 'norwegian')
         }
     }
 
@@ -129,9 +168,15 @@ class Index extends Component {
     //Kaller på report komponeneten og gjengir alle rapporter
     renderReports() {
         let reportArray = [];
+        let length = this.props.reports.length;
+        console.log(length);
+        if(this.state.showTen){
+            length = 10;
+        }
+
         for (let i = 0; i < this.props.reports.length; i++) {
             reportArray.push(
-                <Report key={i} report={this.props.reports[i]}/>
+                <Report key={i} report={this.props.reports[i]} pageTextReport={this.state.pageTextReport}/>
             );
         }
 
@@ -169,7 +214,22 @@ class Index extends Component {
     }
 
     componentWillMount(){
-        this.setPageText();
+        if(Session.get('language') === undefined) {
+            Session.set('language', 'norwegian');
+            this.setPageText();
+        } else {
+            this.setPageText();
+        }
+    }
+    changeLanguage(e){
+        e.preventDefault();
+        if(Session.get('language') === 'english'){
+            Session.set('language', 'norwegian');
+            this.setPageText();
+        } else {
+            Session.set('language', 'english');
+            this.setPageText();
+        }
     }
 
     render() {
@@ -188,9 +248,9 @@ class Index extends Component {
                                 <Glyphicon glyph="align-justify"/>
                             </Button>
                         </div>
-                        : <AccountLogin pageTextLogin={this.state.pageTextLogin}/>
+                        : <AccountLogin pageTextLogin={this.state.pageTextLogin} pageTextPassRecovery={this.state.pageTextPassRecovery}/>
                     }
-                    <Button className="nyRapportBtn" bsStyle="primary" onClick={this.setPageText.bind(this)}>
+                    <Button className="nyRapportBtn" bsStyle="primary" onClick={this.changeLanguage.bind(this)}>
                         {this.state.pageText.language}
                     </Button>
 
@@ -220,9 +280,9 @@ Index.propTypes = {
 };
 
 export default createContainer(() => {
-    Meteor.subscribe('reports', Meteor.userId());
+    Meteor.subscribe('reports', 49);
     return {
-        reports: Reports.find({}, {sort: {createdAt: -1}}).fetch(),
+        reports: Reports.find({}, {sort: {createdAt: -1}, limit: 49 }).fetch(),
         currentUser: Meteor.user(),
     };
 }, Index);

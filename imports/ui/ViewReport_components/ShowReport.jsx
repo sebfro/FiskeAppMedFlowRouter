@@ -22,28 +22,28 @@ export default class ShowReport extends Component {
             <row>
                 <ListGroup>
                     <ListGroupItem>
-                        <strong> Art: </strong> {this.props.report.text}
+                        <strong> {this.props.pageTextReport.specie}: </strong> {this.props.report.text}
                     </ListGroupItem>
                     <ListGroupItem>
-                        <strong>Kategori: </strong> {this.props.report.category}
+                        <strong>{this.props.pageTextReport.category}: </strong> {this.props.report.category}
                     </ListGroupItem>
                     <ListGroupItem>
-                        <strong>Dato: </strong> {moment(this.props.report.taken).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+                        <strong>{this.props.pageTextReport.date}: </strong> {moment(this.props.report.taken).format("dddd, MMMM Do YYYY, h:mm:ss a")}
                     </ListGroupItem>
                     <ListGroupItem>
-                        <strong>Antall: </strong> {this.props.report.amount}
+                        <strong>{this.props.pageTextReport.amount}: </strong> {this.props.report.amount}
                     </ListGroupItem>
                     <ListGroupItem>
-                        <strong>Lengde: </strong> {this.props.report.length} cm
+                        <strong>{this.props.pageTextReport.length}: </strong> {this.props.report.length} cm
                     </ListGroupItem>
                     <ListGroupItem>
-                        <strong>Dybde: </strong> {this.props.report.depth} meter
+                        <strong>{this.props.pageTextReport.depth}: </strong> {this.props.report.depth} meter
                     </ListGroupItem>
                     <ListGroupItem>
-                        <strong>Breddegrad: </strong> {this.props.report.latitude}
+                        <strong>{this.props.pageTextReport.latitude}: </strong> {this.props.report.latitude}
                     </ListGroupItem>
                     <ListGroupItem>
-                        <strong>Lengdegrad: </strong> {this.props.report.longitude}
+                        <strong>{this.props.pageTextReport.longitude}: </strong> {this.props.report.longitude}
                     </ListGroupItem>
                 </ListGroup>
             </row>
@@ -53,4 +53,5 @@ export default class ShowReport extends Component {
 
 ShowReport.propTypes = {
     report: PropTypes.object.isRequired,
+    pageTextReport: PropTypes.object.isRequired
 };

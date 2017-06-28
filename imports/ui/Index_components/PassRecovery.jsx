@@ -39,7 +39,7 @@ export default class PassRecovery extends Component{
         return(
             <div>
                 <Button onClick={this.setShow.bind(this)}>
-                    Glemt passord?
+                    {this.props.pageTextPassRecovery.titel}?
                 </Button>
                 <Modal
                     show={this.state.show}
@@ -48,7 +48,7 @@ export default class PassRecovery extends Component{
                 >
                     <ModalHeader>
                         <ModalTitle id="contained-modal-title">
-                            Glemt passord
+                            {this.props.pageTextPassRecovery.titel}
                         </ModalTitle>
                     </ModalHeader>
                     <form>
@@ -64,13 +64,13 @@ export default class PassRecovery extends Component{
                                             name="email2"
                                             type="email"
                                             label="Email address"
-                                            placeholder="Enter email"
+                                            placeholder={this.props.pageTextPassRecovery.placeholderEmail}
                                         />
                                     </InputGroup>
                                 </FormGroup>
                                 :
                                 <p>
-                                    En mail har blitt sent til eposten din.
+                                    {this.props.pageTextPassRecovery.message}
                                 </p>
                             }
                         </ModalBody>
@@ -82,7 +82,7 @@ export default class PassRecovery extends Component{
                                 : ''
                             }
                             <Button onClick={this.setShow.bind(this)}>
-                                Lukk
+                                {this.props.pageTextPassRecovery.closeBtn}
                             </Button>
                         </ModalFooter>
                     </form>
@@ -91,3 +91,7 @@ export default class PassRecovery extends Component{
         );
     }
 }
+
+PassRecovery.propTypes = {
+    pageTextPassRecovery: PropTypes.object.isRequired,
+};

@@ -13,6 +13,57 @@ import { Carousel } from 'react-bootstrap';
 
 //ViewReport komponent - Hovedkomponent for visning av en rapport
 export default class ViewReport extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            pageText: {
+                report: 'Report',
+                backBtn: 'Back',
+                language: 'English'
+            },
+            english: {
+                report: 'Report',
+                backBtn: 'Back',
+                language: 'English'
+            },
+            norwegian: {
+                report: 'Rapport',
+                backBtn: 'Tilbake',
+                language: 'Norsk'
+            },
+            pageTextReport: {
+                specie: 'Specie',
+                category: 'Category',
+                amount: 'Amount',
+                length: 'Length',
+                depth: 'Depth',
+                latitude: 'Latitude',
+                longitude: 'Longitude',
+                date: 'Date'
+            },
+            englishReport: {
+                specie: 'Specie',
+                category: 'Category',
+                amount: 'Amount',
+                length: 'Length',
+                depth: 'Depth',
+                latitude: 'Latitude',
+                longitude: 'Longitude',
+                date: 'Date'
+            },
+            norwegianReport: {
+                specie: 'Art',
+                category: 'kategori',
+                amount: 'Antall',
+                length: 'Lengde',
+                depth: 'Dybde',
+                latitude: 'Breddegrad',
+                longitude: 'Lengdegrad',
+                date: 'Dato'
+            },
+        }
+    }
+
 
     renderImg(report) {
         return report.photo.map((photo) => (
@@ -31,6 +82,24 @@ export default class ViewReport extends Component {
         FlowRouter.go('/');
     }
 
+    setPageText(){
+        if(Session.get('language') === "english") {
+            this.setState({
+                pageText: this.state.english,
+                pageTextReport: this.state.englishReport,
+            });
+        } else {
+            this.setState({
+                pageText: this.state.norwegian,
+                pageTextReport: this.state.norwegianReport,
+            });
+        }
+    }
+
+    componentWillMount(){
+        this.setPageText();
+    }
+
     render() {
         Session.set('addMarker', false);
 
@@ -42,16 +111,16 @@ export default class ViewReport extends Component {
         return (
             <div className="container">
                 <header>
-                    <h1>Rapport</h1>
+                    <h1>{this.state.pageText.report}</h1>
 
                     <Button className="nyRapportBtn" bsStyle="primary" onClick={this.backToIndex.bind(this)}>
-                        Tilbake
+                        {this.state.pageText.backBtn}
                     </Button>
                 </header>
                     <li>
                         {this.renderImg(report)}
                     </li>
-                    <ShowReport report={report}/>
+                    <ShowReport report={report} pageTextReport={this.state.pageTextReport}/>
                 <MyMap report={report}/>
                 <br/><br/>
             </div>

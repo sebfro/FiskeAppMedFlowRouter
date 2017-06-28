@@ -38,6 +38,68 @@ export default class SubmitPage extends Component {
             markerError: false,
             useCurrPos: true,
             category: Session.get('Category'),
+
+            pageText: {
+                placeholderSpecie: 'Enter what specie you believe it is',
+                placeholderLength: 'Enter length (cm)',
+                placeholderDepth: 'Enter depth (meter',
+                placeholderAmount: 'Enter amount',
+                placeholderDescription: 'Explain if you believe its necessary..',
+                photoTakenHereBtn: 'Did you take the picture here?',
+                takePicBtn: 'Take picture',
+                getPicBtn: 'Get picture',
+                backBtn: 'Back',
+                date: 'Date',
+                description: 'Description',
+                errorSpecie: 'Specie cannot include numbers, be blank or longer than 30 characters',
+                errorPicture: 'No picture uploaded',
+                errorPos: 'You must add position',
+                errorDate: 'Date must be entered',
+                errorLength: 'Length must be between 1 and 999',
+                errorDepth: 'Depth must be between 0 and 999',
+                errorAmount: 'Amount must be between 0 and 99'
+            },
+            english: {
+                placeholderSpecie: 'Enter what specie you believe it is',
+                placeholderLength: 'Enter length (cm)',
+                placeholderDepth: 'Enter depth (meter',
+                placeholderAmount: 'Enter amount',
+                placeholderDescription: 'Explain if you believe its necessary..',
+                photoTakenHereBtn: 'Did you take the picture here?',
+                takePicBtn: 'Take picture',
+                getPicBtn: 'Get picture',
+                backBtn: 'Back',
+                date: 'Date',
+                description: 'Description',
+                errorSpecie: 'Specie cannot include numbers, be blank or longer than 30 characters',
+                errorPicture: 'No picture uploaded',
+                errorPos: 'You must add position',
+                errorDate: 'Date must be entered',
+                errorLength: 'Length must be between 1 and 999',
+                errorDepth: 'Depth must be between 0 and 999',
+                errorAmount: 'Amount must be between 0 and 99'
+
+            },
+            norwegian: {
+                placeholderSpecie: 'Skriv inn hvilken art du tror det er',
+                placeholderLength: 'Skriv inn lengde (cm)',
+                placeholderDepth: 'Skriv inn dybde (meter',
+                placeholderAmount: 'Skriv inn antall',
+                placeholderDescription: 'Forklar hvis du føler det er nødvendig..',
+                photoTakenHereBtn: 'Tok du bilde her?',
+                takePicBtn: 'Ta bilde',
+                getPicBtn: 'Hent bilde',
+                backBtn: 'Tilbake',
+                date: 'Dato',
+                description: 'Beskrivelse',
+                errorSpecie: 'Art kan ikke inneholde tall, være blank eller være lengre enn 30 bokstaver',
+                errorPicture: 'Ingen bilder lastet opp',
+                errorPos: 'En posisjon må legges til',
+                errorDate: 'Dato må fylles inn',
+                errorLength: 'Lengde må være mellpm 1 og 999',
+                errorDepth: 'Dybde må være mellom 0 og 999',
+                errorAmount: 'Antall må være mellom 0 og 99'
+            }
         };
     }
 
@@ -113,16 +175,17 @@ export default class SubmitPage extends Component {
         try{
             date = (ReactDOM.findDOMNode(this.refs.rapportDate).value.trim());
         } catch(e){}
-
+        console.log(titelText.length);
 
         if (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/ || amountNr < 0 || amountNr > 100 || /*!amountNr ||*/
-            depthNr < 0 || depthNr > 1000 || /*!depthNr ||*/ !titelText || hasNumbers(titelText) /*|| 0 === takeImg.length*/
-            || !this.state.useCurrPos && !Session.get('addedMarker')
+            depthNr < 0 || depthNr > 1000 || /*!depthNr ||*/ !titelText || hasNumbers(titelText) || titelText.length > 30
+            || titelText.length < 30
+            || 0 === takeImg.length || !this.state.useCurrPos && !Session.get('addedMarker')
             /*|| !substrartText || hasNumbers(substrartText)*/) {
 
             this.inputError(lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/, amountNr < 0 || amountNr > 100 /*|| !amountNr*/,
-                depthNr < 0 || depthNr > 1000 /*|| !depthNr*/, !titelText || hasNumbers(titelText), 0 === takeImg.length,
-                (!this.state.useCurrPos && !Session.get('addedMarker'))
+                depthNr < 0 || depthNr > 1000 /*|| !depthNr*/, !titelText || hasNumbers(titelText) || titelText.length > 30,
+                0 === takeImg.length, (!this.state.useCurrPos && !Session.get('addedMarker'))
                 /*, !substrartText || hasNumbers(substrartText)*/);
 
         } else {
@@ -176,6 +239,25 @@ export default class SubmitPage extends Component {
         backToIndex(e);
     }
 
+    setPageText(){
+        if(Session.get('language') === 'english'){
+            console.log("Teksten blir satt til engelsk");
+            this.setState({
+                pageText: this.state.english
+            })
+        } else {
+            console.log("Teksten blir satt til norsk");
+            this.setState({
+                pageText: this.state.norwegian
+            });
+            console.log(this.state.pageText.placeholderSpecie);
+        }
+    }
+
+    componentWillMount(){
+        this.setPageText();
+    }
+
     render() {
         this.getPos();
 
@@ -194,48 +276,48 @@ export default class SubmitPage extends Component {
                     <ul>
                         <li>
                             <p className="errorText" hidden={!this.state.titelError}>
-                                Art kan ikke inneholde tall eller være blank
+                                {this.state.pageText.errorSpecie}
                             </p>
                             <input
                                 type="text"
                                 ref="rapportTitel"
-                                placeholder="Skriv inn hvilken art du tror det er"
+                                placeholder={this.state.pageText.placeholderSpecie}
                             />
                         </li>
                         <li>
                             <p className="errorText" hidden={!this.state.lengthError}>
-                                Lengde må være mellom 1 og 999
+                                {this.state.pageText.errorLength}
                             </p>
                             <input
                                 type="number"
                                 ref="rapportLength"
-                                placeholder="Skriv inn lengde (cm)"
+                                placeholder={this.state.pageText.placeholderLength}
                             />
                         </li>
                         <li>
                             <p className="errorText" hidden={!this.state.depthError}>
-                                Dybde må være mellom 0 og 999
+                                {this.state.pageText.errorDepth}
                             </p>
                             <input
                                 type="number"
                                 ref="rapportDepth"
-                                placeholder="Skriv inn dybde (meter)"
+                                placeholder={this.state.pageText.placeholderDepth}
                             />
                         </li>
                         <li>
                             <p className="errorText" hidden={!this.state.amountError}>
-                                Antall må være mellom 0 og 99
+                                {this.state.pageText.errorAmount}
                             </p>
                             <input
                                 type="number"
                                 ref="rapportAmount"
-                                placeholder="Skriv inn antall"
+                                placeholder={this.state.pageText.placeholderAmount}
                             />
                         </li>
 
                         <li>
                             <Button bsStyle="primary" onClick={this.changePos.bind(this)}>
-                                Tok du bilde her?
+                                {this.state.pageText.photoTakenHereBtn}
                             </Button>
                         </li>
                         {this.state.useCurrPos ?
@@ -243,15 +325,15 @@ export default class SubmitPage extends Component {
                             :
                             <li>
                                 <p className="errorText" hidden={!this.state.markerError}>
-                                    Du må legge til en posisjon
+                                    {this.state.pageText.errorPos}
                                 </p>
                                 <MyMap report={null}/>
                                 <br/>
                                 <p className="errorText" hidden={!this.state.titelError}>
-                                    Dato må fylles inn
+                                    {this.state.pageText.errorDate}
                                 </p>
                                 <FormGroup>
-                                    <ControlLabel>Dato:</ControlLabel>
+                                    <ControlLabel>{this.state.pageText.date}:</ControlLabel>
                                     <FormControl
                                         type="date"
                                         ref="rapportDate"
@@ -259,8 +341,12 @@ export default class SubmitPage extends Component {
                                 </FormGroup>
                                 <br/>
                                 <FormGroup>
-                                    <ControlLabel>Beskrivelse:</ControlLabel>
-                                    <FormControl id="feedback" componentClass="textarea" placeholder="Forklar hvis du føler det er nødvendig.."/>
+                                    <ControlLabel>{this.state.pageText.description}:</ControlLabel>
+                                    <FormControl
+                                        id="feedback"
+                                        componentClass="textarea"
+                                        placeholder={this.state.pageText.placeholderDescription}
+                                    />
                                 </FormGroup>
                             </li>
                         }
@@ -269,14 +355,14 @@ export default class SubmitPage extends Component {
 
                         <li>
                             <p className="errorText" hidden={!this.state.pictureError}>
-                                Ingen bilder lastet opp
+                                {this.state.pageText.errorPicture}
                             </p>
                             <ButtonToolbar>
                                 <Button bsStyle="primary" onClick={this.takePicture.bind(this)}>
-                                    Ta bilde
+                                    {this.state.pageText.takePicBtn}
                                 </Button>
                                 <Button bsStyle="primary" onClick={this.getPictureFromStorage.bind(this)}>
-                                    Hent bilde
+                                    {this.state.pageText.getPicBtn}
                                 </Button>
                             </ButtonToolbar>
                         </li>

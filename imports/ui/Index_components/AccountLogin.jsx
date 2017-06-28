@@ -188,7 +188,7 @@ export default class AccountLogin extends Component {
                                 }
                             </Button>
                             <br/><br/>
-                            <PassRecovery/>
+                            <PassRecovery pageTextPassRecovery={this.props.pageTextPassRecovery}/>
 
                         </ModalBody>
                         <ModalFooter>
@@ -220,4 +220,5 @@ export default class AccountLogin extends Component {
 
 AccountLogin.propTypes = {
     pageTextLogin: PropTypes.object.isRequired,
+    pageTextPassRecovery: PropTypes.object.isRequired
 };

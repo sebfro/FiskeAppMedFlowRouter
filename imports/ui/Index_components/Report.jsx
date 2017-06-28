@@ -24,7 +24,15 @@ export default class Report extends Component {
         FlowRouter.go('/seRapport');
     }
 
-
+    renderCategory(){
+        if(this.props.report.category === "Koral"){
+            return this.props.pageTextReport.coral;
+        } else if(this.props.report.category === "Fiske art"){
+            return this.props.pageTextReport.fish;
+        } else {
+            return this.props.pageTextReport.unknown;
+        }
+    }
 
     render() {
         // Give reports a different className when they are checked off,
@@ -33,7 +41,10 @@ export default class Report extends Component {
         if (Meteor.userId() === this.props.report.owner) {
             return (
                     <ListGroupItem header={this.props.report.text} onClick={this.setShow.bind(this)}>
-                        <strong>Kategori: </strong>{this.props.report.category}, {moment(this.props.report.taken).format("MMMM Do YYYY")}
+                        <strong>{this.props.pageTextReport.category}: </strong>
+                        {/*this.props.report.category*/}
+                        {this.renderCategory()}
+                        , {moment(this.props.report.taken).format("MMMM Do YYYY")}
                     </ListGroupItem>
 
             );
@@ -47,4 +58,5 @@ Report.propTypes = {
     //This component gets the report to display thorugh a React prop
     //we can use propTypes to indicate it is required
     report: PropTypes.object.isRequired,
+    pageTextReport: PropTypes.object.isRequired
 };
