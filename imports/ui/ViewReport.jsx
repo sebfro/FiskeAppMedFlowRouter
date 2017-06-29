@@ -1,7 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Button} from 'react-bootstrap';
+import {createContainer} from 'meteor/react-meteor-data';
 
 import {Reports} from '../api/reports';
 import ShowImg from './ViewReport_components/ShowImg.jsx';
@@ -128,3 +129,15 @@ export default class ViewReport extends Component {
 
     }
 }
+/*
+ViewReport.propTypes = {
+    report: PropTypes.object.isRequired,
+};
+
+export default createContainer(() => {
+    Meteor.subscribe('reports', Session.get('report.id'));
+    return {
+        reports: Reports.findOne({_id: Session.get('report.id')}),
+    };
+}, ViewReport);
+*/

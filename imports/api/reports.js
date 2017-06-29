@@ -19,12 +19,16 @@ if (Meteor.isServer) {
 
     remote.subscribe('tasks', function() {
         let tasks = Tasks.find();
+        console.log("Antall tasks kommer under");
         console.log("Antall tasks: " + tasks.count());
     });
     //This code only runs on the server
     Meteor.publish('reports', function reportsPublication(limit) {
-        console.log(limit);
         return Reports.find({}, {sort: {createdAt: -1}, limit: limit, owner: this.userId});
+    });
+
+    Meteor.publish('reports.adminPage', function reportsPublication(){
+        return Reports.find();
     });
 
     Meteor.startup( function() {
@@ -52,14 +56,12 @@ Meteor.methods({
         }
     },
     'sendAEmail'(){
-        console.log("Email blir kjørt");
         Email.send({
             from: "sebastianfroyen@gmail.com",
             to: "sebastian17pepp@gmail.com",
             subject: "Meteor can send emails via gmail",
             text: "Dette er teksten",
         });
-        console.log("Email er ferdig");
     },
 
     'reports.insert'(titelText, /*substrartInput,*/ lengdeNr, img, posLat, posLong,
@@ -67,7 +69,6 @@ Meteor.methods({
         check(titelText, String);
         //check(substrartInput, String);
         check(lengdeNr, Number);
-        console.log("er i insert");
 
 
         //Make sure user is logged in before inserting a report
@@ -90,7 +91,7 @@ Meteor.methods({
             text: titelText,
             length: lengdeNr,
             photo: img,
-            epost: Meteor.user().emails[0].address,
+            user: Meteor.user().emails[0].address,
             latitude: posLat,
             longitude: posLong,
             depth: depthInput,
@@ -102,7 +103,8 @@ Meteor.methods({
             //substrart: substrartInput,
             owner: Meteor.userId(),
             isValidated: false,
-            isCheckout: false,
+            checkedOut: false,
+            reportFeedback: '',
         });
 
 },
@@ -118,8 +120,7 @@ Meteor.methods({
         Reports.update(reportId, {
             $set: {isValidated: true},
         });
-        console.log("About to send notification");
         let report = Reports.findOne({_id: reportId});
         newReportValidated(report.text, report._id, report.markerId);
-    }
+    },
 });
