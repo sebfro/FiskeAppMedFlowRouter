@@ -13,12 +13,14 @@ import Report from './Index_components/Report.jsx';
 import ChooseReportType from './Index_components/ChooseReportType.jsx';
 import AccountsUIWrapper from './AcountsUIWrapper.jsx';
 import AccountLogin from './Index_components/AccountLogin.jsx';
+import LoginScreen from './Index_components/LoginScreen';
 
 export default class StartPage extends Component {
 
 
     render(){
         return(
+            <div>
             <nav className="navbar navbar-default navbar-fixed-top">
                 <div className="container">
                     <div className="navbar-header">
@@ -42,6 +44,8 @@ export default class StartPage extends Component {
                     </div>
                 </div>
             </nav>
+                <LoginScreen/>
+            </div>
         );
     }
 }

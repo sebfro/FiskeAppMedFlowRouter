@@ -70,6 +70,7 @@ export default class ChooseReportType extends Component {
         Meteor.logout();
     }
     render() {
+        let q = true;
         if (Meteor.userId()) {
             console.log(this.props.pageTextNav.logOut);
             return(
