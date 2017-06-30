@@ -12,8 +12,6 @@ import Report from './Index_components/Report.jsx';
 import ChooseReportType from './Index_components/ChooseReportType.jsx';
 import AccountsUIWrapper from './AcountsUIWrapper.jsx';
 import AccountLogin from './Index_components/AccountLogin.jsx';
-import { setPageTextNav } from './Index_components/ChooseReportType.jsx';
-import { backToIndex } from '../../lib/helpMethods.js';
 
 
 //Index komponent - Gjengir hovedsiden til applikasjonen
@@ -48,22 +46,28 @@ class Index extends Component {
                 language: 'Norsk'
             },
             pageTextNav: {
-                title: 'Rapporter',
                 logIn: 'Logg inn',
                 logOut: 'Logg ut',
-                showMore: 'Viss flere'
+                newReport: 'New report',
+                fish: 'Fish species',
+                coral: 'Coral',
+                unknown: 'Unknown species',
             },
             englishNav: {
+                logIn: 'Login',
+                logOut: 'Log out',
                 newReport: 'New report',
                 fish: 'Fish species',
                 coral: 'Coral',
                 unknown: 'Unknown species',
             },
             norwegianNav: {
+                logIn: 'Logg inn',
+                logOut: 'Logg ut',
                 newReport: 'Ny rapport',
                 fish: 'Fiske art',
-                coral: 'koral',
-                unknown: 'fremmed art',
+                coral: 'Koral',
+                unknown: 'Fremmed art',
             },
             pageTextLogin: {
                 loginBtn: 'Login',
@@ -253,7 +257,8 @@ class Index extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="pageContainer">
+                <ChooseReportType pageTextNav={this.state.pageTextNav}/>
                 <header>
                     { this.props.currentUser ?
                         <div>
@@ -282,7 +287,6 @@ class Index extends Component {
 
                 </header>
 
-                <ChooseReportType pageTextNav={this.state.pageTextNav}/>
                 <br/><br/>
 
                 <ListGroup>

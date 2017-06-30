@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Button} from 'react-bootstrap';
-import {createContainer} from 'meteor/react-meteor-data';
 
 import {Reports} from '../api/reports';
 import ShowImg from './ViewReport_components/ShowImg.jsx';
@@ -109,7 +108,7 @@ export default class ViewReport extends Component {
         }
         document.addEventListener("backbutton", this.onBackButtonDown, false);
         return (
-            <div className="container">
+            <div className="pageContainer">
                 <header>
                     <h1>{this.state.pageText.report}</h1>
 

@@ -278,7 +278,7 @@ export default class SubmitPage extends Component {
         return (
 
 
-            <div className="container">
+            <div className="pageContainer">
                 <header>
                     <Button className="backBtn" bsStyle="primary" onClick={this.goBackToIndex.bind(this)}>
                         Tilbake

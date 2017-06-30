@@ -44,6 +44,7 @@ class MyMap extends Component {
             Tracker.autorun(c => {
                 google.maps.event.addListener(map.instance, 'click', function(event) {
                     if(Session.get('addMarker') && !addedMarker){
+                        console.log("Addeventlistener");
                         addedMarker = true;
                         Session.set('addedMarker', true);
                         Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng(), current: true });
@@ -56,7 +57,6 @@ class MyMap extends Component {
                 const markers = {};
 
                 Markers.find({current: true}).observe({
-
                     added: function(document) {
                         const marker = new google.maps.Marker({
                             draggable: addedMarker,
@@ -65,6 +65,7 @@ class MyMap extends Component {
                             map: map.instance,
                             id: document._id,
                         });
+                        console.log("current: true found");
                         if(Session.get('addMarker')) {
                             google.maps.event.addListener(marker, 'dragend', function (event) {
                                 Markers.update(marker.id, {
@@ -81,6 +82,7 @@ class MyMap extends Component {
                 });
 
                 if(this.props.report) {
+                    console.log("in this.props.report");
                     console.log("Running");
                     console.log(this.props.markers);
                     Markers.find({_id: this.props.report.markerId}).observe({

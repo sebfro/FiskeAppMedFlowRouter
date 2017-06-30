@@ -14,14 +14,14 @@ import newReportValidated from '../../lib/router.jsx';
 export const Reports = new Mongo.Collection('reports');
 
 if (Meteor.isServer) {
-    let remote = DDP.connect('http://localhost:3030/');
+    /*let remote = DDP.connect('http://localhost:3030/');
     Tasks = new Meteor.Collection('tasks', remote);
 
     remote.subscribe('tasks', function() {
         let tasks = Tasks.find();
         console.log("Antall tasks kommer under");
         console.log("Antall tasks: " + tasks.count());
-    });
+    });*/
     //This code only runs on the server
     Meteor.publish('reports', function reportsPublication(limit) {
         return Reports.find({}, {sort: {createdAt: -1}, limit: limit, owner: this.userId});
