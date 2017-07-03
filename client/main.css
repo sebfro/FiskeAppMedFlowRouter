@@ -1,6 +1,10 @@
 /* CSS declarations go here */
 
-
+.jumbotron {
+    background-color: #f4511e; /* Orange */
+    color: #ffffff;
+    text-align: center;
+}
 
 body {
     background: #eee !important;
@@ -195,7 +199,14 @@ li a:hover {
 
 .backBtn {
     float: right;
-    position: relative;
+    padding-top: 5%;
+    padding-right: 8%;
+}
+
+.flagBtn {
+    float: right;
+    padding-top: 14%;
+    padding-right: 24%;
 }
 
 .nyRapportBtn {

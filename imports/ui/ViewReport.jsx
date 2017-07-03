@@ -6,6 +6,7 @@ import {Button} from 'react-bootstrap';
 import {Reports} from '../api/reports';
 import ShowImg from './ViewReport_components/ShowImg.jsx';
 import ShowReport from './ViewReport_components/ShowReport.jsx';
+import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
 import GoogleMap from './ViewReport_components/MyMap.jsx';
 import MyMap from "./ViewReport_components/MyMap";
 import { Carousel } from 'react-bootstrap';
@@ -110,11 +111,9 @@ export default class ViewReport extends Component {
         return (
             <div className="pageContainer">
                 <header>
+                    <NavBarBackBtn/>
+                    <br/><br/>
                     <h1>{this.state.pageText.report}</h1>
-
-                    <Button className="nyRapportBtn" bsStyle="primary" onClick={this.backToIndex.bind(this)}>
-                        {this.state.pageText.backBtn}
-                    </Button>
                 </header>
                     <li>
                         {this.renderImg(report)}

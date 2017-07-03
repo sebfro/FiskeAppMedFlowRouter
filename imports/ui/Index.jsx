@@ -1,171 +1,66 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
-import { Accounts } from 'meteor/accounts-base';
+import {Meteor} from 'meteor/meteor';
+import {Accounts} from 'meteor/accounts-base';
 import {createContainer} from 'meteor/react-meteor-data';
-import { Button, ButtonGroup, Nav, Navbar, ListGroup, Glyphicon } from 'react-bootstrap';
+import {Button, ButtonGroup, Nav, Navbar, ListGroup, Glyphicon} from 'react-bootstrap';
 
 
 import {Reports} from '../api/reports.js';
 
 import Report from './Index_components/Report.jsx';
 import ChooseReportType from './Index_components/ChooseReportType.jsx';
-import AccountsUIWrapper from './AcountsUIWrapper.jsx';
-import AccountLogin from './Index_components/AccountLogin.jsx';
+import {
+    pageText,
+    norwegian,
+    english,
+    norwegianNav,
+    englishNav,
+    norwegianLogin,
+    englishLogin,
+    norwegianRecovery,
+    englishRecovery,
+    norwegianReport,
+    englishReport
+} from '../../lib/pagetext.js';
 
 
 //Index komponent - Gjengir hovedsiden til applikasjonen
 class Index extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        if(Session.get('language') === undefined){
+        if (Session.get('language') === undefined) {
             Session.set('language', 'norwegian');
         }
-        console.log(Session.get('language'));
         this.state = {
+            language: Session.get('language'),
             showMoreBtn: true,
-            pageText: {
-                title: 'Reports',
-                logIn: 'Login',
-                logOut: 'Log out',
-                showMore: 'Show more',
-                language: 'English',
-            },
-            english: {
-                title: 'Reports',
-                logIn: 'Login',
-                logOut: 'Log out',
-                showMore: 'Show more',
-                language: 'English',
-            },
-            norwegian: {
-                title: 'Rapporter',
-                logIn: 'Logg inn',
-                logOut: 'Logg ut',
-                showMore: 'Viss flere',
-                language: 'Norsk'
-            },
-            pageTextNav: {
-                logIn: 'Logg inn',
-                logOut: 'Logg ut',
-                newReport: 'New report',
-                fish: 'Fish species',
-                coral: 'Coral',
-                unknown: 'Unknown species',
-            },
-            englishNav: {
-                logIn: 'Login',
-                logOut: 'Log out',
-                newReport: 'New report',
-                fish: 'Fish species',
-                coral: 'Coral',
-                unknown: 'Unknown species',
-            },
-            norwegianNav: {
-                logIn: 'Logg inn',
-                logOut: 'Logg ut',
-                newReport: 'Ny rapport',
-                fish: 'Fiske art',
-                coral: 'Koral',
-                unknown: 'Fremmed art',
-            },
-            pageTextLogin: {
-                loginBtn: 'Login',
-                registerbtn: 'Register',
-                closeBtn: 'Close',
-                forgotPassbtn: 'Forgot password?',
-                placeholderEmail: 'Enter email',
-                placeholderPass: 'Enter passord',
-                placeholderFname: 'Enter firstname',
-                placeholderLname: 'Enter lastname',
-                placeholderPhoneNr: 'Enter phone number',
-            },
-            englishLogin: {
-                loginBtn: 'Login',
-                registerbtn: 'Register',
-                closeBtn: 'Close',
-                forgotPassbtn: 'Forgot password?',
-                placeholderEmail: 'Enter email',
-                placeholderPass: 'Enter passord',
-                placeholderFname: 'Enter firstname',
-                placeholderLname: 'Enter lastname',
-                placeholderPhoneNr: 'Enter phone number',
-            },
-            norwegianLogin: {
-                loginBtn: 'Logg inn',
-                registerbtn: 'Registrer',
-                closeBtn: 'Lukk',
-                forgotPassbtn: 'Glemt passord?',
-                placeholderEmail: 'Skriv inn email',
-                placeholderPass: 'Skriv inn passord',
-                placeholderFname: 'Skriv inn fornavn',
-                placeholderLname: 'Skriv inn etternavn',
-                placeholderPhoneNr: 'Skriv inn telefon nummer',
-            },
-            pageTextPassRecovery: {
-                titel: 'Forgot password',
-                placeholderEmail: 'Enter email',
-                closeBtn: 'Close',
-                message: 'An email has been sent to your email.'
-            },
-            englishRecovery: {
-                titel: 'Forgot password',
-                placeholderEmail: 'Enter email',
-                closeBtn: 'Close',
-                message: 'An email has been sent to your email.'
-            },
-            norwegianRecovery: {
-                titel: 'Glemt passord',
-                placeholderEmail: 'Skriv inn email',
-                closeBtn: 'Lukk',
-                message: 'En mail har blitt sent til eposten din.'
-            },
-            pageTextReport: {
-                category: 'Category',
-                fish: 'Fish specie',
-                coral: 'Coral',
-                unknown: 'Unknown specie'
-            },
-            englishReport: {
-                category: 'Category',
-                fish: 'Fish specie',
-                coral: 'Coral',
-                unknown: 'Unknown specie'
-            },
-            norwegianReport: {
-                category: 'Kategori',
-                fish: 'Fiske art',
-                coral: 'koral',
-                unknown: 'fremmed art'
-            }
+            pageText: null,
+            pageTextNav: null,
+            pageTextLogin: null,
+            pageTextPassRecovery: null,
+            pageTextReport: null
         };
     }
 
-    setPageText(){
-        if(Session.get('language') === "english") {
+    setPageText() {
+        if (Session.get('language') === "english") {
             this.setState({
-                pageText: this.state.english,
-                pageTextNav: this.state.englishNav,
-                pageTextLogin: this.state.englishLogin,
-                pageTextPassRecovery: this.state.englishRecovery,
-                pageTextReport: this.state.englishReport
+                pageText: english,
+                pageTextNav: englishNav,
+                pageTextLogin: englishLogin,
+                pageTextPassRecovery: englishRecovery,
+                pageTextReport: englishReport
             });
         } else {
             this.setState({
-                pageText: this.state.norwegian,
-                pageTextNav: this.state.norwegianNav,
-                pageTextLogin: this.state.norwegianLogin,
-                pageTextPassRecovery: this.state.norwegianRecovery,
-                pageTextReport: this.state.norwegianReport
+                pageText: norwegian,
+                pageTextNav: norwegianNav,
+                pageTextLogin: norwegianLogin,
+                pageTextPassRecovery: norwegianRecovery,
+                pageTextReport: norwegianReport
             });
         }
-    }
-
-
-    //Sender bruker til nyrapport siden
-    newReport(event) {
-        event.preventDefault();
-        FlowRouter.go("/nyRapport");
     }
 
 
@@ -173,8 +68,7 @@ class Index extends Component {
     renderReports() {
         let reportArray = [];
         let length = this.props.reports.length;
-        console.log(length);
-        if(this.state.showTen){
+        if (this.state.showTen) {
             length = 10;
         }
 
@@ -187,110 +81,75 @@ class Index extends Component {
         return reportArray;
     }
 
-    sendEmail(e){
-        e.preventDefault();
-        FlowRouter.go('/startPage')
-    }
-
-    logOut(e){
-        e.preventDefault();
-        Meteor.logout();
-    }
-
-    pushNotification(e){
-        e.preventDefault();
-        if(Meteor.isCordova){
-            cordova.plugins.notification.local.schedule({
-                id: 1,
-                title: "Knap i høyre bel tryyket på",
-                message: "Tittelene sier alt",
-
-            });
-            cordova.plugin.notification.local.on("click", function(notification){
-                console.log("Knap i høyre bel tryyket på");
-            })
-        }
-    }
-
-    updateReport(e){
-        e.preventDefault();
-        Meteor.call('reports.update', "mdWbmNK5RDHgP9uqv")
-    }
-
-    componentWillMount(){
+    componentWillMount() {
         Session.set('limit', 10);
-        if(Session.get('language') === undefined) {
+        if (Session.get('language') === undefined) {
             Session.set('language', 'norwegian');
             this.setPageText();
         } else {
             this.setPageText();
         }
-        console.log("Component will mount");
-        if(Session.get('limit') !== this.props.reports.length && this.props.reports.length > 0){
+        if (Session.get('limit') !== this.props.reports.length && this.props.reports.length > 0) {
             this.setState({
                 showMoreBtn: false
             })
         }
     }
-    componentWillUpdate(){
-        /*if(Session.get('limit') !== this.props.reports.length && this.props.reports.length > 0){
-            this.setState({
-                showMoreBtn: false
-            })
-        }*/
-    }
-    changeLanguage(e){
+
+
+    changeLanguage(e) {
         e.preventDefault();
-        if(Session.get('language') === 'english'){
+        if (Session.get('language') === 'english') {
             Session.set('language', 'norwegian');
-            this.setPageText();
         } else {
             Session.set('language', 'english');
-            this.setPageText();
         }
+        this.setPageText();
     }
-    setShowMoreBtn(e){
+
+    setShowMoreBtn(e) {
         e.preventDefault();
         Session.set('limit', Session.get('limit') + 10);
         console.log(Session.get('limit'));
     }
 
+    showFlag(){
+        if(this.state.language === 'english'){
+            return "/united_kingdom_flag_icon.png"
+        } else {
+            return "/norway_flag_icon.png"
+        }
+    }
+
+    flagBtn() {
+        const backBtnStyle = {
+            float: 'right',
+            paddingTop: 14,
+            paddingRight: 24,
+        };
+        return (
+            <button type="button" className="btn btn-link" style={backBtnStyle}
+                    onClick={this.changeLanguage.bind(this)}>
+                <span><img src={this.showFlag()} height={20} width={20} alt=""/></span>
+            </button>
+        );
+    }
+
     render() {
         return (
             <div className="pageContainer">
-                <ChooseReportType pageTextNav={this.state.pageTextNav}/>
+                <ChooseReportType pageTextNav={this.state.pageTextNav} flagBtn={this.flagBtn()}/>
+                <br/><br/>
                 <header>
-                    { this.props.currentUser ?
-                        <div>
-                            <Button className="nyRapportBtn" bsStyle="primary" onClick={this.logOut.bind(this)}>
-                                {this.state.pageText.logOut}
-                            </Button>
-                            <Button bsStyle="primary" onClick={this.pushNotification.bind(this)}>
-                                <Glyphicon glyph="align-justify"/>
-                            </Button>
-                            <Button bsStyle="primary" onClick={this.updateReport.bind(this)}>
-                                <Glyphicon glyph="align-justify"/>
-                            </Button>
-                        </div>
-                        : <AccountLogin pageTextLogin={this.state.pageTextLogin} pageTextPassRecovery={this.state.pageTextPassRecovery}/>
-                    }
-                    <Button className="nyRapportBtn" bsStyle="primary" onClick={this.changeLanguage.bind(this)}>
-                        {this.state.pageText.language}
-                    </Button>
-
-
                     <h1>
                         {this.state.pageText.title}
                     </h1>
-
-                    <AccountsUIWrapper pageTextLogin={this.state.pageTextLogin}/>
-
+                    { /*<AccountsUIWrapper pageTextLogin={this.state.pageTextLogin}/>*/ }
                 </header>
 
-                <br/><br/>
 
                 <ListGroup>
-                        {this.renderReports()}
+                    {this.renderReports()}
                 </ListGroup>
                 {this.state.showMoreBtn ?
                     <Button className="nyRapportBtn" bsStyle="primary" onClick={this.setShowMoreBtn.bind(this)}>
@@ -311,7 +170,7 @@ Index.propTypes = {
 export default createContainer(() => {
     Meteor.subscribe('reports', Session.get('limit'));
     return {
-        reports: Reports.find({}, {sort: {createdAt: -1}, limit: Session.get('limit') }).fetch(),
+        reports: Reports.find({}, {sort: {createdAt: -1}, limit: Session.get('limit')}).fetch(),
         currentUser: Meteor.user(),
     };
 }, Index);

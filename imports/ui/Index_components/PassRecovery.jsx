@@ -4,14 +4,19 @@ import { Meteor } from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import { Accounts } from 'meteor/accounts-base';
 import { Button, ButtonGroup, Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, FormGroup,
-    InputGroup, FormControl, Overlay, Tooltip } from 'react-bootstrap';
+    InputGroup, FormControl, Overlay, Tooltip, Col } from 'react-bootstrap';
 
+import {englishRecovery, norwegianRecovery} from '../../../lib/pagetext.js';
 export default class PassRecovery extends Component{
     constructor(props){
         super(props);
+        if(Session.get('language') === undefined){
+            Session.set('language', 'norwegian');
+        }
         this.state = {
             show: false,
-            sent: false
+            sent: false,
+            pageText: null,
         }
     }
 
@@ -34,13 +39,24 @@ export default class PassRecovery extends Component{
         })
     }
 
+    componentWillMount(){
+        if(Session.get('Language') === 'english'){
+            this.state.pageText = englishRecovery;
+        } else {
+            this.state.pageText = norwegianRecovery;
+        }
+    }
+
 
     render(){
+        /*
+         <Button onClick={this.setShow.bind(this)}>
+         {this.state.pageTextPassRecovery.titel}?
+         </Button>
+         */
         return(
             <div>
-                <Button onClick={this.setShow.bind(this)}>
-                    {this.props.pageTextPassRecovery.titel}?
-                </Button>
+                <a onClick={this.setShow.bind(this)}>{this.state.pageText.titel}?</a>
                 <Modal
                     show={this.state.show}
                     container={this}
@@ -48,7 +64,7 @@ export default class PassRecovery extends Component{
                 >
                     <ModalHeader>
                         <ModalTitle id="contained-modal-title">
-                            {this.props.pageTextPassRecovery.titel}
+                            {this.state.pageText.titel}
                         </ModalTitle>
                     </ModalHeader>
                     <form>
@@ -56,7 +72,7 @@ export default class PassRecovery extends Component{
                             {!this.state.sent ?
                                 <FormGroup>
                                     <InputGroup>
-                                        <InputGroup.Addon> @ </InputGroup.Addon>
+                                        <Col smOffset={6} sm={10}>
                                         <p className="errorText" hidden={!this.state.emailErr}>
 
                                         </p>
@@ -64,13 +80,14 @@ export default class PassRecovery extends Component{
                                             name="email2"
                                             type="email"
                                             label="Email address"
-                                            placeholder={this.props.pageTextPassRecovery.placeholderEmail}
+                                            placeholder={this.state.pageText.placeholderEmail}
                                         />
+                                        </Col>
                                     </InputGroup>
                                 </FormGroup>
                                 :
                                 <p>
-                                    {this.props.pageTextPassRecovery.message}
+                                    {this.state.pageText.message}
                                 </p>
                             }
                         </ModalBody>
@@ -82,7 +99,7 @@ export default class PassRecovery extends Component{
                                 : ''
                             }
                             <Button onClick={this.setShow.bind(this)}>
-                                {this.props.pageTextPassRecovery.closeBtn}
+                                {this.state.pageText.closeBtn}
                             </Button>
                         </ModalFooter>
                     </form>
@@ -91,7 +108,3 @@ export default class PassRecovery extends Component{
         );
     }
 }
-
-PassRecovery.propTypes = {
-    pageTextPassRecovery: PropTypes.object.isRequired,
-};

@@ -86,9 +86,6 @@ export default class AccountLogin extends Component {
         e.preventDefault();
     }
 
-    forgotPass(e){
-
-    }
 
     render(){
 

@@ -7,6 +7,7 @@ import {Button, ButtonToolbar, Radio, Checkbox, FormGroup, FormControl, ControlL
 import { hasNumbers, backToIndex, dataURItoBlob } from '../../lib/helpMethods.js';
 import MyMap from './ViewReport_components/MyMap.jsx';
 import Markers from './ViewReport_components/markers.jsx';
+import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
 
 let takeImg = [];
 let posLong;
@@ -280,9 +281,8 @@ export default class SubmitPage extends Component {
 
             <div className="pageContainer">
                 <header>
-                    <Button className="backBtn" bsStyle="primary" onClick={this.goBackToIndex.bind(this)}>
-                        Tilbake
-                    </Button>
+                    <NavBarBackBtn/>
+                    <br/><br/>
                     <h2>Ny {this.state.category.toLowerCase()} rapport</h2>
                 </header>
                 <form className="new-report">

@@ -42,7 +42,6 @@ export default class Report extends Component {
             return (
                     <ListGroupItem header={this.props.report.text} onClick={this.setShow.bind(this)}>
                         <strong>{this.props.pageTextReport.category}: </strong>
-                        {/*this.props.report.category*/}
                         {this.renderCategory()}
                         , {moment(this.props.report.taken).format("MMMM Do YYYY")}
                     </ListGroupItem>

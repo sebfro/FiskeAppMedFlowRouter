@@ -6,6 +6,7 @@ import Index from '../imports/ui/Index.jsx';
 import SubmitPage from '../imports/ui/SubmitPage.jsx';
 import ViewReport from '../imports/ui/ViewReport.jsx';
 import StartPage from '../imports/ui/StartPage.jsx';
+import LoginScreen from '../imports/ui/LoginScreen.jsx';
 
 import { isLoggedIn, isVerified } from './helpMethods.js';
 
@@ -48,15 +49,17 @@ export default function newReportValidated(reportTitel, reportId, reportMarkerId
 
 function checkLoggedIn(context, doRedirect){
     console.log(Meteor.user());
-    isVerified();
-    if(!isLoggedIn() || Session.get('report.id') === undefined && context.context.path === "/seRapport"){
-        doRedirect('/')
+    //isVerified();
+    console.log(isLoggedIn());
+    if(!isLoggedIn() || (Session.get('report.id') === undefined && context.context.path === "/seRapport")){
+        doRedirect('/login')
     }
 }
 
 //Disse sender bruker til forskjellige sider.
 FlowRouter.route('/', {
     name: "index",
+    triggersEnter: checkLoggedIn,
     action (){
         ReactLayout.render(Index);
     }
@@ -85,6 +88,13 @@ FlowRouter.route('/seRapport',{
     }
 });
 
+FlowRouter.route('/login', {
+    name: "loginScreen",
+    action(){
+        ReactLayout.render(LoginScreen);
+    }
+});
+
 FlowRouter.route('/verify-email/:token',{
     action: function(){
         let token = FlowRouter.getParam("token");
@@ -92,5 +102,11 @@ FlowRouter.route('/verify-email/:token',{
         Accounts.verifyEmail(token, function(err){
             FlowRouter.go("/");
         });
+    }
+});
+
+FlowRouter.route('/blog/:postId', {
+    action: function(params, queryParams) {
+        console.log("Yeah! We are on the post:", params);
     }
 });
