@@ -7,7 +7,7 @@ import {Factory} from 'meteor/dburles:factory'
 import React from 'react';
 import {shallow} from 'enzyme';
 import {chai, assert} from 'meteor/practicalmeteor:chai';
-import {Reports} from '../api/reports.js';
+import {Reports} from '../../lib/reports.js';
 
 if (Meteor.isServer) {
     describe('Reports', function () {

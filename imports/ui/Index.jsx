@@ -6,7 +6,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {Button, ButtonGroup, Nav, Navbar, ListGroup, Glyphicon} from 'react-bootstrap';
 
 
-import {Reports} from '../api/reports.js';
+import {Reports} from '../../lib/reports.js';
 
 import Report from './Index_components/Report.jsx';
 import ChooseReportType from './Index_components/ChooseReportType.jsx';

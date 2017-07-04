@@ -17,16 +17,9 @@ export default class ShowImg extends Component {
     }
 
     render() {
-        if(!this.state.enLarge) {
             return (
-                <img className="smallImg" src={this.props.img} height={80} width={80} onClick={this.setenLarge.bind(this)}/>
+                <img src={this.props.img}/>
             );
-        } else {
-            return (
-                <img className="bigImg" src={this.props.img} onClick={this.setenLarge.bind(this)}/>
-
-            );
-        }
     }
 }
 
