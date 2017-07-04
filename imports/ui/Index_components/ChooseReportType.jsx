@@ -58,7 +58,7 @@ export default class ChooseReportType extends Component {
     logOut(e) {
         e.preventDefault();
         Meteor.logout();
-        FlowRouter.go('/login');
+        FlowRouter.go('/');
     }
 
     render() {

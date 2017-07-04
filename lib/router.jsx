@@ -48,17 +48,17 @@ export default function newReportValidated(reportTitel, reportId, reportMarkerId
 }
 
 function checkLoggedIn(context, doRedirect){
-    console.log(Meteor.user());
     //isVerified();
+    console.log("Is logged in:");
     console.log(isLoggedIn());
     if(!isLoggedIn() || (Session.get('report.id') === undefined && context.context.path === "/seRapport")){
-        doRedirect('/login')
+        doRedirect('/')
     }
 }
 
 //Disse sender bruker til forskjellige sider.
-FlowRouter.route('/', {
-    name: "index",
+FlowRouter.route('/homepage', {
+    name: "homepage",
     triggersEnter: checkLoggedIn,
     action (){
         ReactLayout.render(Index);
@@ -88,7 +88,7 @@ FlowRouter.route('/seRapport',{
     }
 });
 
-FlowRouter.route('/login', {
+FlowRouter.route('/', {
     name: "loginScreen",
     action(){
         ReactLayout.render(LoginScreen);

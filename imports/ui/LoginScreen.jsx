@@ -47,7 +47,14 @@ export default class LoginScreen extends Component {
                         alert(err.reason)
                     } else {
                         console.log("User created");
-                        FlowRouter.go('/');
+                        Meteor.call('sendVerificationLink', (err, response) => {
+                            if(err){
+                                alert(err.reason);
+                            } else {
+                                alert('En email har blitt sendt til din epost for verifisering!', 'success');
+                            }
+                        });
+                        FlowRouter.go('/homepage');
                     }
                 });
             } else {
@@ -59,7 +66,7 @@ export default class LoginScreen extends Component {
                 if (err) {
                     console.log(err);
                 } else {
-                    FlowRouter.go('/');
+                    FlowRouter.go('/homepage');
                 }
             });
         }

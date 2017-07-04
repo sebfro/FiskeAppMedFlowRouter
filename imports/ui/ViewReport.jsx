@@ -73,14 +73,14 @@ export default class ViewReport extends Component {
     }
 
     backToIndex() {
-        FlowRouter.go("/");
+        FlowRouter.go("/homepage");
     }
 
     onBackButtonDown(e){
         e.preventDefault();
         e.stopPropagation();
 
-        FlowRouter.go('/');
+        FlowRouter.go('/homepage');
     }
 
     setPageText(){
@@ -105,7 +105,7 @@ export default class ViewReport extends Component {
     render() {
         let report = Reports.findOne({_id: Session.get('report.id')});
         if (report === undefined) {
-            FlowRouter.go('/');
+            FlowRouter.go('/homepage');
         }
         document.addEventListener("backbutton", this.onBackButtonDown, false);
         return (

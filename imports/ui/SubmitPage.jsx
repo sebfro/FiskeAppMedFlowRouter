@@ -241,7 +241,7 @@ export default class SubmitPage extends Component {
         if(markerId){
             this.removeMarker();
         }
-        FlowRouter.go('/');
+        FlowRouter.go('/homepage');
     }
 
     goBackToIndex(e){
@@ -271,7 +271,7 @@ export default class SubmitPage extends Component {
     }
 
     showNewReport(){
-        FlowRouter('/');
+        FlowRouter('/homepage');
     }
 
     render() {

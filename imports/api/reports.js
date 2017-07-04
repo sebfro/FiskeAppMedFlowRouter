@@ -5,6 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import { Accounts } from 'meteor/accounts-base';
+import { Email } from 'meteor/email';
 import { DDP } from 'meteor/ddp-client';
 
 import Markers from '../ui/ViewReport_components/markers.jsx';
@@ -49,10 +50,25 @@ Meteor.methods({
             return Accounts.sendVerificationEmail(userId);
         }
     },
-    'sendPassRevoveryLink'(email){
+    'sendPassRecoveryLink'(email){
         let user = Meteor.users.findOne({address: email});
         if(user){
-            Accounts.forgotPassword()
+            Accounts.forgotPassword({email: email},function(err){
+                if(err){
+                    console.log(err.reason);
+                } else {
+                    console.log("It worked");
+                }
+            });
+            /*
+            Accounts.forgotPassword(user._id, function(err){
+                if(err){
+                    console.log(err.reason);
+                } else {
+                    console.log("It worked");
+                }
+            })
+            */
         }
     },
     'sendAEmail'(){

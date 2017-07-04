@@ -21,7 +21,7 @@ export default class StartPage extends Component {
     backToIndex(e) {
         e.preventDefault();
         console.log("Back btn pressed");
-        FlowRouter.go("/");
+        FlowRouter.go("/homepage");
     }
 
     render() {
