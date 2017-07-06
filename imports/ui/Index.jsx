@@ -168,8 +168,10 @@ Index.propTypes = {
 };
 
 export default createContainer(() => {
+    let loaded = false;
     Meteor.subscribe('reports', Session.get('limit'));
     return {
+        loaded: loaded,
         reports: Reports.find({}, {sort: {createdAt: -1}, limit: Session.get('limit')}).fetch(),
         currentUser: Meteor.user(),
     };
