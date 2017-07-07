@@ -171,7 +171,7 @@ Index.propTypes = {
 export default createContainer(() => {
     let loaded = false;
     let fields = {text: 1, user: 1,
-        isValidated: 1, checkedOut: 1,
+        isValidated: 1, createdAt: 1,
         scientist: 1, category: 1, owner: 1,
         markerId: 1, taken: 1
     };
