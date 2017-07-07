@@ -27,7 +27,7 @@ class MyMap extends Component {
         } else {
             return {
                 center: new google.maps.LatLng(60.399975, 5.303949),
-                zoom: 15,
+                zoom: 5,
             }
         }
 
@@ -36,7 +36,6 @@ class MyMap extends Component {
 
 
     handleOnReady(name) {
-        console.log(this.props.markers);
         Session.set('addedMarker', false);
         let addedMarker = false;
         let markerPos = { lat: 60, lng: 5};
@@ -44,11 +43,9 @@ class MyMap extends Component {
             Tracker.autorun(c => {
                 google.maps.event.addListener(map.instance, 'click', function(event) {
                     if(Session.get('addMarker') && !addedMarker){
-                        console.log("Addeventlistener");
                         addedMarker = true;
                         Session.set('addedMarker', true);
                         Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng(), current: true });
-                        console.log(event.latLng.lat() + " " + event.latLng.lng());
                         markerPos = { lat: event.latLng.lat(), lng: event.latLng.lng() };
                         setLatLng(event.latLng.lng(), event.latLng.lat());
                     }
@@ -65,7 +62,6 @@ class MyMap extends Component {
                             map: map.instance,
                             id: document._id,
                         });
-                        console.log("current: true found");
                         if(Session.get('addMarker')) {
                             google.maps.event.addListener(marker, 'dragend', function (event) {
                                 Markers.update(marker.id, {
@@ -82,9 +78,6 @@ class MyMap extends Component {
                 });
 
                 if(this.props.report) {
-                    console.log("in this.props.report");
-                    console.log("Running");
-                    console.log(this.props.markers);
                     Markers.find({_id: this.props.report.markerId}).observe({
                             added: function (document) {
                                 const marker = new google.maps.Marker({
@@ -97,13 +90,13 @@ class MyMap extends Component {
                             }
                         });
                 }
-                this.computation = c;
+
             });
         });
     }
 
     componentWillUnmount() {
-        this.computation.stop();
+
         Meteor.call('marker.updateCurrent', markerId);
         /*Markers.update(markerId, {
             $set: {current: false},
@@ -122,10 +115,7 @@ class MyMap extends Component {
     }
 }
 
-MyMap.propTypes = {
-    report: PropTypes.object,
-    markers: PropTypes.object.isRequired
-};
+
 
 export default createContainer(() => {
     Meteor.subscribe('markers', Session.get('marker.id'));

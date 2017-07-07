@@ -143,6 +143,7 @@ class Index extends Component {
                 <header>
                     <h1>
                         {this.state.pageText.title}
+
                     </h1>
                     { /*<AccountsUIWrapper pageTextLogin={this.state.pageTextLogin}/>*/ }
                 </header>
@@ -169,10 +170,17 @@ Index.propTypes = {
 
 export default createContainer(() => {
     let loaded = false;
-    Meteor.subscribe('reports', Session.get('limit'));
+    let fields = {text: 1, user: 1,
+        isValidated: 1, checkedOut: 1,
+        scientist: 1, category: 1, owner: 1,
+        markerId: 1, taken: 1
+    };
+
+    //Meteor.subscribe('reports', Session.get('limit'), fields);
+    Meteor.subscribe('reports.reportingToolList', fields);
     return {
         loaded: loaded,
-        reports: Reports.find({}, {sort: {createdAt: -1}, limit: Session.get('limit')}).fetch(),
+        reports: Reports.find({}, {sort: {createdAt: -1}, fields: fields}).fetch(),
         currentUser: Meteor.user(),
     };
 }, Index);

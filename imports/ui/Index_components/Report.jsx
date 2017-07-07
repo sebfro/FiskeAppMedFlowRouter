@@ -37,7 +37,7 @@ export default class Report extends Component {
     render() {
         // Give reports a different className when they are checked off,
         // so that we can style them nicely in css
-        const reportClassName = this.props.report.checked ? 'checked' : '';
+        //const reportClassName = this.props.report.checked ? 'checked' : '';
         if (Meteor.userId() === this.props.report.owner) {
             return (
                     <ListGroupItem header={this.props.report.text} onClick={this.setShow.bind(this)}>

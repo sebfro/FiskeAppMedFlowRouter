@@ -26,5 +26,5 @@ export default class ShowImg extends Component {
 ShowImg.propTypes = {
     //This component gets the report to display thorugh a React prop
     //we can use proprTypes to indicate it is required
-    img: PropTypes.object.isRequired,
+    img: PropTypes.string.isRequired,
 };

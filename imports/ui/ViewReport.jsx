@@ -68,10 +68,10 @@ class ViewReport extends Component {
 
     renderImg() {
         let imgArray = [];
-        for (let i = 0; i < this.props.report[0].photo.length; i++) {
+        for (let i = 0; i < this.props.report.photo.length; i++) {
             imgArray.push(
                 <CarouselItem>
-                    <ShowImg key={i} img={this.props.report[0].photo[i]}/>
+                    <ShowImg key={i} img={this.props.report.photo[i]}/>
                 </CarouselItem>
             )
         }
@@ -79,7 +79,7 @@ class ViewReport extends Component {
         return <Carousel>{imgArray}</Carousel>;
 
         /*
-        return this.props.report[0].photo.map((photo) => (
+        return this.props.report.photo.map((photo) => (
             <ShowImg key={photo._id} img={photo}/>
         ));
         */
@@ -116,44 +116,46 @@ class ViewReport extends Component {
     }
 
     render() {
-        let report = Reports.findOne({_id: Session.get('report.id')});
-        if (report === undefined) {
-            FlowRouter.go('/homepage');
-        }
-        console.log("Dette er titelen til rapporten");
-        console.log("Dette er titelen til rapporten");
-        console.log("Dette er titelen til rapporten");
-        console.log("Dette er titelen til rapporten");
-        console.log(this.props.report[0].text);
         document.addEventListener("backbutton", this.onBackButtonDown, false);
-        return (
-            <div className="pageContainer">
-                <header>
-                    <NavBarBackBtn/>
-                    <br/><br/>
-                    <h1>{this.state.pageText.report}</h1>
-                </header>
+        if(this.props.report) {
+            return (
+                <div className="pageContainer">
+                    <header>
+                        <NavBarBackBtn/>
+                        <br/><br/>
+                        <h1>{this.state.pageText.report}</h1>
+                    </header>
                     <li>
                         {this.renderImg()}
                     </li>
-                    <ShowReport report={this.props.report[0]} pageTextReport={this.state.pageTextReport}/>
-                <MyMap report={this.props.report[0]}/>
-                <br/><br/>
-            </div>
+                    <ShowReport report={this.props.report} pageTextReport={this.state.pageTextReport}/>
+                    <MyMap report={this.props.report}/>
+                    <br/><br/>
+                </div>
 
-        );
+            );
+        } else {
+            return null;
+        }
 
     }
 }
 
-ViewReport.propTypes = {
-    report: PropTypes.array.isRequired,
-};
 
 export default createContainer(() => {
     let rId = Session.get('report.id');
-    Meteor.subscribe('reports.findOne', rId);
+    let fields = {
+        text: 1, length: 1, photo: 1,
+        user: 1, latitude: 1, longitude: 1,
+        depth: 1, amount: 1, markerId: 1,
+        taken: 1, reportFeedback: 1,
+    };
+    let reportSub = Meteor.subscribe('reports.findOne', rId, fields);
+    let report;
+    if(reportSub.ready()){
+        report = Reports.findOne({_id: rId}, {fields: fields});
+    }
     return {
-        report: Reports.find({_id: rId}).fetch(),
+        report: report,
     };
 }, ViewReport);

@@ -45,6 +45,11 @@ export default class ShowReport extends Component {
                     <ListGroupItem>
                         <strong>{this.props.pageTextReport.longitude}: </strong> {this.props.report.longitude}
                     </ListGroupItem>
+                    {this.props.pageTextReport.reportFeedback === "" ?
+                        null : <ListGroupItem>
+                            <strong>Tilbakemelding: </strong> {this.props.report.reportFeedback}
+                        </ListGroupItem>
+                    }
                 </ListGroup>
             </row>
         );
