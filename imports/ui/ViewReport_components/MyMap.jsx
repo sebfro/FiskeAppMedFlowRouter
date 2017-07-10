@@ -78,17 +78,13 @@ class MyMap extends Component {
                 });
 
                 if(this.props.report) {
-                    Markers.find({_id: this.props.report.markerId}).observe({
-                            added: function (document) {
-                                const marker = new google.maps.Marker({
-                                    draggable: addedMarker,
-                                    animation: google.maps.Animation.DROP,
-                                    position: new google.maps.LatLng(document.lat, document.lng),
-                                    map: map.instance,
-                                    id: document._id,
-                                });
-                            }
-                        });
+                    const marker = new google.maps.Marker({
+                        draggable: false,
+                        animation: google.maps.Animation.DROP,
+                        position: new google.maps.LatLng(this.props.report.longitude, this.props.report.latitude),
+                        map: map.instance,
+                        id: this.props.report._id,
+                    });
                 }
 
             });

@@ -6,8 +6,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {Button, ButtonGroup, Nav, Navbar, ListGroup, Glyphicon} from 'react-bootstrap';
 
 
-import {Reports} from '../../lib/reports.js';
-
+import {Reports, remote} from '../../lib/reports.js';
 import Report from './Index_components/Report.jsx';
 import ChooseReportType from './Index_components/ChooseReportType.jsx';
 import {
@@ -173,14 +172,15 @@ export default createContainer(() => {
     let fields = {text: 1, user: 1,
         isValidated: 1, createdAt: 1,
         scientist: 1, category: 1, owner: 1,
-        markerId: 1, taken: 1
+        markerId: 1, taken: 1,
     };
-
     //Meteor.subscribe('reports', Session.get('limit'), fields);
-    Meteor.subscribe('reports.reportingToolList', fields);
+    let user = Meteor.userId();
+    remote.subscribe('reports.reportingToolList', fields, user);
+
     return {
         loaded: loaded,
-        reports: Reports.find({}, {sort: {createdAt: -1}, fields: fields}).fetch(),
+        reports: Reports.find({owner: user}, {sort: {createdAt: -1}, fields: fields}).fetch(),
         currentUser: Meteor.user(),
     };
 }, Index);

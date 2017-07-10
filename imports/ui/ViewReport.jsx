@@ -3,7 +3,7 @@ import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Button} from 'react-bootstrap';
 
-import {Reports} from '../../lib/reports';
+import {Reports, remote} from '../../lib/reports';
 import ShowImg from './ViewReport_components/ShowImg.jsx';
 import ShowReport from './ViewReport_components/ShowReport.jsx';
 import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
@@ -148,9 +148,9 @@ export default createContainer(() => {
         text: 1, length: 1, photo: 1,
         user: 1, latitude: 1, longitude: 1,
         depth: 1, amount: 1, markerId: 1,
-        taken: 1, reportFeedback: 1,
+        taken: 1, reportFeedback: 1, category: 1
     };
-    let reportSub = Meteor.subscribe('reports.findOne', rId, fields);
+    let reportSub = remote.subscribe('reports.findOne', rId, fields);
     let report;
     if(reportSub.ready()){
         report = Reports.findOne({_id: rId}, {fields: fields});

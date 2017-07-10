@@ -8,6 +8,7 @@ import { hasNumbers, backToIndex, dataURItoBlob } from '../../lib/helpMethods.js
 import MyMap from './ViewReport_components/MyMap.jsx';
 import Markers from './ViewReport_components/markers.jsx';
 import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
+import {remote} from '../../lib/reports.js';
 
 let takeImg = [];
 let posLong;
@@ -201,9 +202,9 @@ export default class SubmitPage extends Component {
                 /*, !substrartText || hasNumbers(substrartText)*/);
 
         } else {
-            Meteor.call(`reports.insert`, titelText, /*substrartText,*/ Number(lengthNr),
+            remote.call(`reports.insert`, titelText, /*substrartText,*/ Number(lengthNr),
                 takeImg, posLat, posLong, Number(depthNr), Number(amountNr), markerId,
-                this.state.useCurrPos, this.state.category, date);
+                this.state.useCurrPos, this.state.category, date, Meteor.user().emails[0].address, Meteor.userId());
 
             ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
             ReactDOM.findDOMNode(this.refs.rapportLength).value = '';
