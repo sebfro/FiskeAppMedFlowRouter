@@ -112,12 +112,6 @@ export default class SubmitPage extends Component {
 
     //Oppdaterer state variabler
     inputError(length, amount, depth, titel, picture, marker){
-        console.log(length);
-        console.log(amount);
-        console.log(depth);
-        console.log(titel);
-        console.log(picture);
-        console.log(marker);
         this.setState({
             lengthError: length,
             amountError: amount,
@@ -176,7 +170,6 @@ export default class SubmitPage extends Component {
     //Send inn alle variablene som skal være i rapport til report.js. Sjekker om det er noe galt med inputten og klaer da inputerror.
     //Sender de ellers videre.
     handleSubmit(event) {
-        console.log("handleSubmit");
         event.preventDefault();
 
         //Find the text field via the react ref
@@ -188,12 +181,10 @@ export default class SubmitPage extends Component {
         try{
             date = (ReactDOM.findDOMNode(this.refs.rapportDate).value.trim());
         } catch(e){}
-        console.log("handleSubmit");
         if      (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/ || amountNr < 0 || amountNr > 100 || /*!amountNr ||*/
                 depthNr < 0 || depthNr > 1000 || /*!depthNr ||*/ !titelText || hasNumbers(titelText) || titelText.length > 30
                 || 0 === takeImg.length || !this.state.useCurrPos && !Session.get('addedMarker')
             /*|| !substrartText || hasNumbers(substrartText)*/) {
-            console.log("handleSubmit");
 
             this.inputError
                 (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/, amountNr < 0 || amountNr > 100 /*|| !amountNr*/,
@@ -254,12 +245,10 @@ export default class SubmitPage extends Component {
 
     setPageText(){
         if(Session.get('language') === 'english'){
-            console.log("Teksten blir satt til engelsk");
             this.setState({
                 pageText: this.state.english
             })
         } else {
-            console.log("Teksten blir satt til norsk");
             this.setState({
                 pageText: this.state.norwegian
             });

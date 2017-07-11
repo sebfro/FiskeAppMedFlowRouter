@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base';
 import {createContainer} from 'meteor/react-meteor-data';
-import {Button, ButtonGroup, Nav, Navbar, ListGroup, Glyphicon} from 'react-bootstrap';
+import {Button, Panel, ListGroup, ButtonGroup} from 'react-bootstrap';
 
 
 import {Reports, remote} from '../../lib/reports.js';
+import {Loading_feedback} from './Common_components/Loading_feedback.jsx'
 import Report from './Index_components/Report.jsx';
 import ChooseReportType from './Index_components/ChooseReportType.jsx';
 import {
@@ -22,6 +23,13 @@ import {
     norwegianReport,
     englishReport
 } from '../../lib/pagetext.js';
+import Header from './Common_components/Header.jsx';
+import ShowMoreBtn from './Index_components/ShowMoreBtn.jsx';
+
+const panelStyle = {
+    paddingTop: 10,
+};
+
 
 
 //Index komponent - Gjengir hovedsiden til applikasjonen
@@ -88,11 +96,6 @@ class Index extends Component {
         } else {
             this.setPageText();
         }
-        if (Session.get('limit') !== this.props.reports.length && this.props.reports.length > 0) {
-            this.setState({
-                showMoreBtn: false
-            })
-        }
     }
 
 
@@ -104,12 +107,6 @@ class Index extends Component {
             Session.set('language', 'english');
         }
         this.setPageText();
-    }
-
-    setShowMoreBtn(e) {
-        e.preventDefault();
-        Session.set('limit', Session.get('limit') + 10);
-        console.log(Session.get('limit'));
     }
 
     showFlag(){
@@ -135,30 +132,26 @@ class Index extends Component {
     }
 
     render() {
-        return (
-            <div className="pageContainer">
-                <ChooseReportType pageTextNav={this.state.pageTextNav} flagBtn={this.flagBtn()}/>
-                <br/><br/>
-                <header>
-                    <h1>
-                        {this.state.pageText.title}
-
-                    </h1>
-                    { /*<AccountsUIWrapper pageTextLogin={this.state.pageTextLogin}/>*/ }
-                </header>
+        if(this.props.reports) {
+            return (
+                <div className="pageContainer">
+                    <ChooseReportType pageTextNav={this.state.pageTextNav} flagBtn={this.flagBtn()}/>
+                    <br/><br/>
 
 
-                <ListGroup>
-                    {this.renderReports()}
-                </ListGroup>
-                {this.state.showMoreBtn ?
-                    <Button className="nyRapportBtn" bsStyle="primary" onClick={this.setShowMoreBtn.bind(this)}>
-                        Viss flere
-                    </Button>
-                    : ''
-                }
-            </div>
-        )
+
+                    {this.props.reports ?
+                        <Panel style={panelStyle} bsStyle="primary" collapsible defaultExpanded header="Panel heading">
+                            <ListGroup fill>
+                                {this.renderReports()}
+                                <ShowMoreBtn/>
+                            </ListGroup>
+                        </Panel> : <Loading_feedback/>}
+                </div>
+            )
+        } else {
+            return <Loading_feedback/>;
+        }
     }
 }
 
@@ -176,11 +169,12 @@ export default createContainer(() => {
     };
     //Meteor.subscribe('reports', Session.get('limit'), fields);
     let user = Meteor.userId();
-    remote.subscribe('reports.reportingToolList', fields, user);
+    remote.subscribe('reports.reportingToolList', fields, user, Session.get('limit'));
 
     return {
         loaded: loaded,
-        reports: Reports.find({owner: user}, {sort: {createdAt: -1}, fields: fields}).fetch(),
+        reports: Reports.find({owner: user}, {sort: {createdAt: -1},
+            limit: Session.get('limit'), fields: fields}).fetch(),
         currentUser: Meteor.user(),
     };
 }, Index);

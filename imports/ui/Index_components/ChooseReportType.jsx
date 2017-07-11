@@ -2,6 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import {Meteor} from 'meteor/meteor';
 
 import {isVerified} from '../../../lib/helpMethods.js';
+import Header from '../Common_components/Header.jsx';
+
 export default class ChooseReportType extends Component {
     constructor(props) {
         super(props);
@@ -51,7 +53,6 @@ export default class ChooseReportType extends Component {
     }
 
     setSession() {
-        console.log("Marker has been set");
         Session.set('addMarker', true);
     }
 

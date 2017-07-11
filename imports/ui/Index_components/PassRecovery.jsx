@@ -29,7 +29,6 @@ export default class PassRecovery extends Component{
     sendEmail(e){
         e.preventDefault();
         let email = $('[name=email2]').val();
-        console.log(email);
         Meteor.call('sendPassRecoveryLink', email);
         this.setState({
             sent: true

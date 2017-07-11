@@ -4,6 +4,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {Button} from 'react-bootstrap';
 
 import {Reports, remote} from '../../lib/reports';
+import  { Loading_feedback } from './Common_components/Loading_feedback.jsx';
 import ShowImg from './ViewReport_components/ShowImg.jsx';
 import ShowReport from './ViewReport_components/ShowReport.jsx';
 import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
@@ -135,7 +136,7 @@ class ViewReport extends Component {
 
             );
         } else {
-            return null;
+            return (<Loading_feedback/>);
         }
 
     }

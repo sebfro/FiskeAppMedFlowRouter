@@ -49,8 +49,6 @@ export default function newReportValidated(reportTitel, reportId, reportMarkerId
 
 function checkLoggedIn(context, doRedirect){
     //isVerified();
-    console.log("Is logged in:");
-    console.log(isLoggedIn());
     if(!isLoggedIn() || (Session.get('report.id') === undefined && context.context.path === "/seRapport")){
         doRedirect('/')
     }
@@ -98,15 +96,9 @@ FlowRouter.route('/', {
 FlowRouter.route('/verify-email/:token',{
     action: function(){
         let token = FlowRouter.getParam("token");
-        console.log(token);
         Accounts.verifyEmail(token, function(err){
             FlowRouter.go("/");
         });
     }
 });
 
-FlowRouter.route('/blog/:postId', {
-    action: function(params, queryParams) {
-        console.log("Yeah! We are on the post:", params);
-    }
-});

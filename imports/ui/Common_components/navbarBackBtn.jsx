@@ -6,7 +6,6 @@ export default class NavBarBackBtn extends Component {
 
     backToIndex(e) {
         e.preventDefault();
-        console.log("Back btn pressed");
         FlowRouter.go("/homepage");
     }
 

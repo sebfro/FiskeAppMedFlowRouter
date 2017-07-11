@@ -25,7 +25,6 @@ if(Meteor.isServer){
 
 Meteor.methods({
     'file-upload'(fileInfo, fileData){
-        console.log("received file " + fileInfo.name + " data: " + fileData);
         FS.writeFile(fileInfo.name, fileData);
     }
 

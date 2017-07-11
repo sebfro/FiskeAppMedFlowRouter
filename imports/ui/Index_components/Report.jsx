@@ -1,9 +1,14 @@
 import React, {Component, PropTypes} from 'react';
 import { Button, ButtonGroup, NavItem, ListGroupItem } from 'react-bootstrap';
-
+import {Loading_feedback} from '../Common_components/Loading_feedback.jsx'
 
 import {Meteor} from 'meteor/meteor';
-
+const checkMarkStyle = {
+    color: 'green',
+    margin: 'auto',
+    position: 'relative',
+    scale: 4000,
+};
 
 //Report komponent - Viser frem en rapport
 export default class Report extends Component {
@@ -44,11 +49,13 @@ export default class Report extends Component {
                         <strong>{this.props.pageTextReport.category}: </strong>
                         {this.renderCategory()}
                         , {moment(this.props.report.taken).format("MMMM Do YYYY")}
+                        {this.props.report.isValidated ?
+                        <span className="glyphicon glyphicon-ok" style={checkMarkStyle}/>: null}
                     </ListGroupItem>
 
             );
         } else {
-            return null;
+            return <Loading_feedback/>;
         }
     }
 }

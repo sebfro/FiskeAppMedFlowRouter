@@ -26,10 +26,6 @@ export default class LoginScreen extends Component {
         let lastName = $('[name=lastname]').val();
         let phoneNr = $('[name=phoneNr]').val();
 
-        console.log(password2);
-        console.log(password);
-
-        console.log(this.state.register);
         if (this.state.register) {
             if(password === password2){
                 const user = {
@@ -46,7 +42,6 @@ export default class LoginScreen extends Component {
                     if (err) {
                         alert(err.reason)
                     } else {
-                        console.log("User created");
                         Meteor.call('sendVerificationLink', (err, response) => {
                             if(err){
                                 alert(err.reason);
@@ -61,7 +56,6 @@ export default class LoginScreen extends Component {
                 alert("Passwords do not match!");
             }
         } else {
-            console.log("Loginwithpassword");
             Meteor.loginWithPassword(email, password, function (err) {
                 if (err) {
                     console.log(err);
@@ -123,7 +117,6 @@ export default class LoginScreen extends Component {
 
     setRegister(e) {
         e.preventDefault();
-        console.log("Setting register");
         this.setState({
             register: !this.state.register
         })
