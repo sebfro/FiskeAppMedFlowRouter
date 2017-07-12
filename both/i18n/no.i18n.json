@@ -1,0 +1,57 @@
+{
+  "_locale": "nb-NO",
+  "_namespace": "common",
+  "navbar": {
+    "fishSpecies": "Fiske art",
+    "coralSpecies": "Koral art",
+    "unknownSpecies": "Fremmed art",
+    "logout": "Logg ut"
+  },
+  "index": {
+    "category": "Kategori: "
+  },
+  "showMoreBtn": {
+    "showMore": "Viss flere"
+  },
+
+  "loginform": {
+    "Login": "Logg inn",
+    "Email": "Skriv inn email...",
+    "Password": "Skriv inn passord...",
+    "ForgotPassword": "Glemt passord?"
+  },
+
+  "showReport": {
+    "user": "Bruker: ",
+    "species": "Art: ",
+    "date": "Dato: ",
+    "latitude": "Breddegrad: ",
+    "longitude": "Lengdegrad: ",
+    "amount": "Antall: ",
+    "depth": "Dybde: ",
+    "length": "Lengde: ",
+    "feedback": "Tilbakemelding: "
+  },
+
+  "viewReport": {
+    "report": "Rapport"
+  },
+
+  "submitPage": {
+    "new": "Ny ",
+    "report": " rapport",
+    "optional": "valgfri",
+    "enterSpecies": "Skriv inn hvilken art du tror det er",
+    "enterLength": "Skriv inn lengde (cm)",
+    "enterDepth": "Skriv inn dybde (meter)",
+    "enterAmount": "Skriv inn antall",
+    "didYouTakeImgHereBtn": "Tok du bilde her",
+    "takeImgBtn": "Ta bilde",
+    "getImgBtn": "Hent bilde",
+    "sendBtn": "Send",
+    "description": "Beskrivelse:",
+    "descriptionPlaceholder": "Forklar hvis du føler det er nødvendig..",
+    "date": "Dato:"
+  }
+
+}

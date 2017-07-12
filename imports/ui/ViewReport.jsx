@@ -2,6 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Button} from 'react-bootstrap';
+import i18n from 'meteor/universe:i18n';
 
 import {Reports, remote} from '../../lib/reports';
 import  { Loading_feedback } from './Common_components/Loading_feedback.jsx';
@@ -12,6 +13,7 @@ import GoogleMap from './ViewReport_components/MyMap.jsx';
 import MyMap from "./ViewReport_components/MyMap";
 import { Carousel, CarouselItem } from 'react-bootstrap';
 
+const T = i18n.createComponent();
 
 //ViewReport komponent - Hovedkomponent for visning av en rapport
 class ViewReport extends Component {
@@ -124,7 +126,7 @@ class ViewReport extends Component {
                     <header>
                         <NavBarBackBtn/>
                         <br/><br/>
-                        <h1>{this.state.pageText.report}</h1>
+                        <h1><T>common.viewReport.report</T></h1>
                     </header>
                     <li>
                         {this.renderImg()}

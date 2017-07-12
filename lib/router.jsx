@@ -1,6 +1,7 @@
 import React from 'react';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
+import i18n from 'meteor/universe:i18n';
 
 import Index from '../imports/ui/Index.jsx';
 import SubmitPage from '../imports/ui/SubmitPage.jsx';
@@ -13,14 +14,20 @@ import { isLoggedIn, isVerified } from './helpMethods.js';
 //Starter googe maps api og gir den en nøkkel
 if(Meteor.isClient){
     Meteor.startup(function(){
+        process.UNIVERSE_I18N_LOCALES='all';
         GoogleMaps.load({ key: 'AIzaSyAoNnMKlsuYKXO0t5eY6749sRZ4W_QEVBw'});
+        if(localStorage.getItem('language')){
+            i18n.setLocale(localStorage.getItem('language'))
+        } else {
+            i18n.setLocale('nb-NO')
+        }
+
 
         if(Meteor.isCordova) {
             cordova.plugins.notification.local.schedule({
                 id: 1,
                 title: "App omstartet",
                 message: "Ekstra info.",
-
             });
             cordova.plugin.notification.local.on("click", function(notification){
                 console.log("Clicked notification");

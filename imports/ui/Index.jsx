@@ -4,6 +4,7 @@ import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Button, Panel, ListGroup, ButtonGroup} from 'react-bootstrap';
+import i18n from 'meteor/universe:i18n';
 
 
 import {Reports, remote} from '../../lib/reports.js';
@@ -11,7 +12,6 @@ import {Loading_feedback} from './Common_components/Loading_feedback.jsx'
 import Report from './Index_components/Report.jsx';
 import ChooseReportType from './Index_components/ChooseReportType.jsx';
 import {
-    pageText,
     norwegian,
     english,
     norwegianNav,
@@ -25,11 +25,10 @@ import {
 } from '../../lib/pagetext.js';
 import Header from './Common_components/Header.jsx';
 import ShowMoreBtn from './Index_components/ShowMoreBtn.jsx';
+import FlagBtn from './Index_components/flagButton.jsx';
 
-const panelStyle = {
-    paddingTop: 10,
-};
-
+const panelStyle = { paddingTop: 10 };
+const T = i18n.createComponent();
 
 
 //Index komponent - Gjengir hovedsiden til applikasjonen
@@ -81,7 +80,7 @@ class Index extends Component {
 
         for (let i = 0; i < this.props.reports.length; i++) {
             reportArray.push(
-                <Report key={i} report={this.props.reports[i]} pageTextReport={this.state.pageTextReport}/>
+                <Report key={i} report={this.props.reports[i]}/>
             );
         }
 
@@ -98,44 +97,11 @@ class Index extends Component {
         }
     }
 
-
-    changeLanguage(e) {
-        e.preventDefault();
-        if (Session.get('language') === 'english') {
-            Session.set('language', 'norwegian');
-        } else {
-            Session.set('language', 'english');
-        }
-        this.setPageText();
-    }
-
-    showFlag(){
-        if(this.state.language === 'english'){
-            return "/united_kingdom_flag_icon.png"
-        } else {
-            return "/norway_flag_icon.png"
-        }
-    }
-
-    flagBtn() {
-        const backBtnStyle = {
-            float: 'right',
-            paddingTop: 14,
-            paddingRight: 24,
-        };
-        return (
-            <button type="button" className="btn btn-link" style={backBtnStyle}
-                    onClick={this.changeLanguage.bind(this)}>
-                <span><img src={this.showFlag()} height={20} width={20} alt=""/></span>
-            </button>
-        );
-    }
-
     render() {
         if(this.props.reports) {
             return (
                 <div className="pageContainer">
-                    <ChooseReportType pageTextNav={this.state.pageTextNav} flagBtn={this.flagBtn()}/>
+                    <ChooseReportType/>
                     <br/><br/>
 
 

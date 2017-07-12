@@ -1,6 +1,9 @@
-import React, {Component, PropTypes} from 'react';
-import { Button, ButtonGroup, NavItem, ListGroupItem } from 'react-bootstrap';
+import React, {Component} from 'react';
+import { ListGroupItem } from 'react-bootstrap';
+import i18n from 'meteor/universe:i18n';
+
 import {Loading_feedback} from '../Common_components/Loading_feedback.jsx'
+import GetCategory from '../Common_components/getCategory.jsx'
 
 import {Meteor} from 'meteor/meteor';
 const checkMarkStyle = {
@@ -9,14 +12,10 @@ const checkMarkStyle = {
     position: 'relative',
     scale: 4000,
 };
+const T = i18n.createComponent();
 
 //Report komponent - Viser frem en rapport
 export default class Report extends Component {
-
-    //Sletter en rapport
-    deleteReport() {
-        Meteor.call('reports.remove', this.props.report._id);
-    }
 
     //Åpner en ny side som viser en rapports innehold
     setShow(event) {
@@ -29,16 +28,6 @@ export default class Report extends Component {
         FlowRouter.go('/seRapport');
     }
 
-    renderCategory(){
-        if(this.props.report.category === "Koral"){
-            return this.props.pageTextReport.coral;
-        } else if(this.props.report.category === "Fiske art"){
-            return this.props.pageTextReport.fish;
-        } else {
-            return this.props.pageTextReport.unknown;
-        }
-    }
-
     render() {
         // Give reports a different className when they are checked off,
         // so that we can style them nicely in css
@@ -46,8 +35,8 @@ export default class Report extends Component {
         if (Meteor.userId() === this.props.report.owner) {
             return (
                     <ListGroupItem header={this.props.report.text} onClick={this.setShow.bind(this)}>
-                        <strong>{this.props.pageTextReport.category}: </strong>
-                        {this.renderCategory()}
+                        <strong><T>common.index.category</T> </strong>
+                        <GetCategory category={this.props.report.category}/>
                         , {moment(this.props.report.taken).format("MMMM Do YYYY")}
                         {this.props.report.isValidated ?
                         <span className="glyphicon glyphicon-ok" style={checkMarkStyle}/>: null}
@@ -59,10 +48,3 @@ export default class Report extends Component {
         }
     }
 }
-
-Report.propTypes = {
-    //This component gets the report to display thorugh a React prop
-    //we can use propTypes to indicate it is required
-    report: PropTypes.object.isRequired,
-    pageTextReport: PropTypes.object.isRequired
-};

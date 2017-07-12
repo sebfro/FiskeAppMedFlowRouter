@@ -1,0 +1,57 @@
+{
+  "_locale": "en-US",
+  "_namespace": "common",
+  "navbar": {
+    "fishSpecies": "Fish species",
+    "coralSpecies": "Coral species",
+    "unknownSpecies": "Unknown species",
+    "logout": "Logout"
+  },
+  "index": {
+    "category": "Category: "
+  },
+  "showMoreBtn": {
+    "showMore": "Show more"
+  },
+
+  "loginform": {
+    "Login": "Login",
+    "Email": "Enter email...",
+    "Password": "Enter password...",
+    "ForgotPassword": "Forgot password?"
+  },
+
+  "showReport": {
+    "user": "User: ",
+    "species": "Species: ",
+    "date": "Date: ",
+    "latitude": "Latitude: ",
+    "longitude": "Longitude: ",
+    "amount": "Amount: ",
+    "depth": "Depth: ",
+    "length": "Length: ",
+    "feedback": "Feedback: "
+  },
+
+  "viewReport": {
+    "report": "Report"
+  },
+
+  "submitPage": {
+    "new": "New ",
+    "report": " report",
+    "optional": "optional",
+    "enterSpecies": "Enter what species you believe it is..",
+    "enterLength": "Enter length (cm)",
+    "enterDepth": "Enter depth (meter)",
+    "enterAmount": "Enter amount",
+    "didYouTakeImgHereBtn": "Did you take the image here?",
+    "takeImgBtn": "Take picture",
+    "getImgBtn": "Get picture",
+    "sendBtn": "Send",
+    "description": "Description:",
+    "descriptionPlaceholder": "Explain if you believe it's necessary..",
+    "date": "Date:"
+  }
+
+}

@@ -3,17 +3,20 @@ import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Button, ButtonToolbar, Radio, Checkbox, FormGroup, FormControl, ControlLabel, InputGroup, Collapse} from 'react-bootstrap';
+import i18n from 'meteor/universe:i18n';
 
 import { hasNumbers, backToIndex, dataURItoBlob } from '../../lib/helpMethods.js';
 import MyMap from './ViewReport_components/MyMap.jsx';
 import Markers from './ViewReport_components/markers.jsx';
 import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
 import {remote} from '../../lib/reports.js';
+import GetCategory from './Common_components/getCategory.jsx';
 
 let takeImg = [];
 let posLong;
 let posLat;
 let markerId;
+const T = i18n.createComponent();
 
 export function setLatLng(lat, lng){
     posLat = lat;
@@ -260,10 +263,6 @@ export default class SubmitPage extends Component {
         this.getPos();
     }
 
-    showNewReport(){
-        FlowRouter('/homepage');
-    }
-
     render() {
         document.addEventListener("backbutton", this.onBackButtonDown, false);
         return (
@@ -273,7 +272,11 @@ export default class SubmitPage extends Component {
                 <header>
                     <NavBarBackBtn/>
                     <br/><br/>
-                    <h2>Ny {this.state.category.toLowerCase()} rapport</h2>
+                    <h2>
+                        <T>common.submitPage.new</T>
+                        <GetCategory category={Session.get('Category')}/>
+                        <T>common.submitPage.report</T>
+                    </h2>
                 </header>
                 <form className="new-report">
                     <ul>
@@ -284,7 +287,7 @@ export default class SubmitPage extends Component {
                             <input
                                 type="text"
                                 ref="rapportTitel"
-                                placeholder={this.state.pageText.placeholderSpecie}
+                                placeholder={i18n.__('common.submitPage.enterSpecies')}
                             />
                         </li>
                         <li>
@@ -294,7 +297,7 @@ export default class SubmitPage extends Component {
                             <input
                                 type="number"
                                 ref="rapportLength"
-                                placeholder={this.state.pageText.placeholderLength}
+                                placeholder={i18n.__('common.submitPage.enterLength')}
                             />
                         </li>
                         <li>
@@ -304,7 +307,7 @@ export default class SubmitPage extends Component {
                             <input
                                 type="number"
                                 ref="rapportDepth"
-                                placeholder={this.state.pageText.placeholderDepth}
+                                placeholder={i18n.__('common.submitPage.enterDepth')}
                             />
                         </li>
                         <li>
@@ -314,7 +317,7 @@ export default class SubmitPage extends Component {
                             <input
                                 type="number"
                                 ref="rapportAmount"
-                                placeholder={this.state.pageText.placeholderAmount}
+                                placeholder={i18n.__('common.submitPage.enterAmount')}
                             />
                         </li>
 
@@ -336,7 +339,7 @@ export default class SubmitPage extends Component {
                                     {this.state.pageText.errorDate}
                                 </p>
                                 <FormGroup>
-                                    <ControlLabel>{this.state.pageText.date}:</ControlLabel>
+                                    <ControlLabel>{i18n.__('common.submitPage.date')}</ControlLabel>
                                     <FormControl
                                         type="date"
                                         ref="rapportDate"
@@ -344,11 +347,11 @@ export default class SubmitPage extends Component {
                                 </FormGroup>
                                 <br/>
                                 <FormGroup>
-                                    <ControlLabel>{this.state.pageText.description}:</ControlLabel>
+                                    <ControlLabel>{i18n.__('common.submitPage.description')}</ControlLabel>
                                     <FormControl
                                         id="feedback"
                                         componentClass="textarea"
-                                        placeholder={this.state.pageText.placeholderDescription}
+                                        placeholder={i18n.__('common.submitPage.descriptionPlaceholder')}
                                     />
                                 </FormGroup>
                             </li>
@@ -362,16 +365,16 @@ export default class SubmitPage extends Component {
                             </p>
                             <ButtonToolbar>
                                 <Button bsStyle="primary" onClick={this.takePicture.bind(this)}>
-                                    {this.state.pageText.takePicBtn}
+                                    <T>common.submitPage.takeImgBtn</T>
                                 </Button>
                                 <Button bsStyle="primary" onClick={this.getPictureFromStorage.bind(this)}>
-                                    {this.state.pageText.getPicBtn}
+                                    <T>common.submitPage.getImgBtn</T>
                                 </Button>
                             </ButtonToolbar>
                         </li>
                         <li>
                             <Button bsStyle="primary" onClick={this.handleSubmit.bind(this)}>
-                                Send
+                                <T>common.submitPage.sendBtn</T>
                             </Button>
                         </li>
                     </ul>

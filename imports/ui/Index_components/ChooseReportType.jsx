@@ -1,8 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import {Meteor} from 'meteor/meteor';
+import i18n from 'meteor/universe:i18n';
 
 import {isVerified} from '../../../lib/helpMethods.js';
-import Header from '../Common_components/Header.jsx';
+import FlagBtn from "./flagButton.jsx";
+
+const T = i18n.createComponent();
 
 export default class ChooseReportType extends Component {
     constructor(props) {
@@ -75,7 +78,7 @@ export default class ChooseReportType extends Component {
                                     <span className="icon-bar"/>
                                 </button>
 
-                                {this.props.flagBtn}
+                                <FlagBtn/>
 
                                 <a className="navbar-brand" href="#">
                                     <img src="/imrlogo.png" height={20} width={200} alt=""/>
@@ -83,14 +86,14 @@ export default class ChooseReportType extends Component {
                             </div>
                             <div className="collapse navbar-collapse" id="myNavbar">
                                 <ul className="nav navbar-nav navbar-right">
-                                    <li><a onClick={this.newReportFisk.bind(this)}>{this.props.pageTextNav.fish}</a>
+                                    <li><a onClick={this.newReportFisk.bind(this)}><T>common.navbar.fishSpecies</T></a>
                                     </li>
-                                    <li><a onClick={this.newReportKoral.bind(this)}>{this.props.pageTextNav.coral}</a>
+                                    <li><a onClick={this.newReportKoral.bind(this)}><T>common.navbar.coralSpecies</T></a>
                                     </li>
                                     <li><a
-                                        onClick={this.newReportFremmed.bind(this)}>{this.props.pageTextNav.unknown}</a>
+                                        onClick={this.newReportFremmed.bind(this)}><T>common.navbar.unknownSpecies</T></a>
                                     </li>
-                                    <li><a onClick={this.logOut.bind(this)}>{this.props.pageTextNav.logOut}</a></li>
+                                    <li><a onClick={this.logOut.bind(this)}><T>common.navbar.logout</T></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -100,8 +103,3 @@ export default class ChooseReportType extends Component {
             );
     }
 }
-
-ChooseReportType.propTypes = {
-    pageTextNav: PropTypes.object.isRequired,
-    flagBtn: PropTypes.object.isRequired,
-};
