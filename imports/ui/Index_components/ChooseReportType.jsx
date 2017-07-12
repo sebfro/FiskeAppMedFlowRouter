@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import {Meteor} from 'meteor/meteor';
 import i18n from 'meteor/universe:i18n';
 

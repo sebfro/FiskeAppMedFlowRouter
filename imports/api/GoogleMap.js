@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Random } from 'meteor/random';
 import { createContainer } from 'meteor/react-meteor-data';
 
-class GoogleMap extends React.Component {
+class GoogleMap extends Component {
     componentDidMount() {
         GoogleMaps.load(this.props.options || {});
         this.forceUpdate();
@@ -39,14 +39,6 @@ class GoogleMap extends React.Component {
         );
     }
 }
-
-GoogleMap.propTypes = {
-    loaded: PropTypes.bool.isRequired,
-    onReady: PropTypes.func.isRequired,
-    options: PropTypes.object,
-    mapOptions: PropTypes.func.isRequired,
-    children: PropTypes.node,
-};
 
 GoogleMapContainer = createContainer(
     () => ({ loaded: GoogleMaps.loaded() }),

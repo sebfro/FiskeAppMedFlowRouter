@@ -1,7 +1,5 @@
-import React, {Component, PropTypes} from 'react';
-import {Meteor} from 'meteor/meteor';
+import React, {Component} from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
-import {Button} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
 
 import {Reports, remote} from '../../lib/reports';
@@ -9,7 +7,6 @@ import  { Loading_feedback } from './Common_components/Loading_feedback.jsx';
 import ShowImg from './ViewReport_components/ShowImg.jsx';
 import ShowReport from './ViewReport_components/ShowReport.jsx';
 import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
-import GoogleMap from './ViewReport_components/MyMap.jsx';
 import MyMap from "./ViewReport_components/MyMap";
 import { Carousel, CarouselItem } from 'react-bootstrap';
 

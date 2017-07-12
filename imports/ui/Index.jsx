@@ -1,9 +1,7 @@
-import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
+import React, {Component} from 'react';
 import {Meteor} from 'meteor/meteor';
-import {Accounts} from 'meteor/accounts-base';
 import {createContainer} from 'meteor/react-meteor-data';
-import {Button, Panel, ListGroup, ButtonGroup} from 'react-bootstrap';
+import {Panel, ListGroup,} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
 
 
@@ -23,12 +21,9 @@ import {
     norwegianReport,
     englishReport
 } from '../../lib/pagetext.js';
-import Header from './Common_components/Header.jsx';
 import ShowMoreBtn from './Index_components/ShowMoreBtn.jsx';
-import FlagBtn from './Index_components/flagButton.jsx';
 
 const panelStyle = { paddingTop: 10 };
-const T = i18n.createComponent();
 
 
 //Index komponent - Gjengir hovedsiden til applikasjonen
@@ -121,11 +116,6 @@ class Index extends Component {
     }
 }
 
-Index.propTypes = {
-    reports: PropTypes.array.isRequired,
-    currentUser: PropTypes.object,
-};
-
 export default createContainer(() => {
     let loaded = false;
     let fields = {text: 1, user: 1,
@@ -133,7 +123,6 @@ export default createContainer(() => {
         scientist: 1, category: 1, owner: 1,
         markerId: 1, taken: 1,
     };
-    //Meteor.subscribe('reports', Session.get('limit'), fields);
     let user = Meteor.userId();
     remote.subscribe('reports.reportingToolList', fields, user, Session.get('limit'));
 

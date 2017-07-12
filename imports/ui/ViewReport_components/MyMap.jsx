@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Session } from 'meteor/session';
 import GoogleMap from '../../api/GoogleMap.js';
 import Markers from './markers';

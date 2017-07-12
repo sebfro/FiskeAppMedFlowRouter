@@ -1,19 +1,5 @@
-import React, {Component, PropTypes} from 'react';
-import ReactDOM from 'react-dom';
-import {Meteor} from 'meteor/meteor';
-import {Accounts} from 'meteor/accounts-base';
+import React, {Component} from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
-import {Button, ButtonGroup, Nav, Navbar, NavItem, Collapse, Image} from 'react-bootstrap';
-
-
-import {Reports} from '../../lib/reports.js';
-
-
-import Report from './Index_components/Report.jsx';
-import ChooseReportType from './Index_components/ChooseReportType.jsx';
-import AccountsUIWrapper from './AcountsUIWrapper.jsx';
-import AccountLogin from './Index_components/AccountLogin.jsx';
-import LoginScreen from './LoginScreen';
 
 export default class StartPage extends Component {
 //<span className="glyphicon glyphicon-arrow-right"/>

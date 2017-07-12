@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 
 //ShowImg komponent - gjengir et bilde på skjerm
 export default class ShowImg extends Component {
@@ -22,9 +22,3 @@ export default class ShowImg extends Component {
             );
     }
 }
-
-ShowImg.propTypes = {
-    //This component gets the report to display thorugh a React prop
-    //we can use proprTypes to indicate it is required
-    img: PropTypes.string.isRequired,
-};
