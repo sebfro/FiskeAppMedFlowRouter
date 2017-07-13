@@ -18,8 +18,29 @@
     "Login": "Logg inn",
     "Email": "Skriv inn email...",
     "Password": "Skriv inn passord...",
-    "ForgotPassword": "Glemt passord?"
+    "ForgotPassword": "Glemt passord?",
+    "firstname": "Fornavn..",
+    "lastname": "Etternavn..",
+    "passRep": "Gjenta passord",
+    "phoneNr": "Telefon nr",
+    "remMe": "Husk meg",
+    "passLabel": "Passord",
+    "emailLabel": "Email",
+    "signIn": "Logg inn",
+    "createAcc": "Lag bruker",
+    "register": "Registrer",
+    "incorrectPass": "Feil passord",
+    "invalidEmail": "Emailen er ikke skrevet korrekt!",
+    "emptyEmail": "Må skrive inn email!"
   },
+  "passRecovery": {
+    "forgotPass": "Glemt passord",
+    "Email": "Email addresse",
+    "errMail": "Finner ikke emailen",
+    "closeBtn": "Lukk",
+    "mailSent": "En mail har blitt sendt til emailen din."
+  },
+
 
   "showReport": {
     "user": "Bruker: ",
@@ -52,6 +73,16 @@
     "description": "Beskrivelse:",
     "descriptionPlaceholder": "Forklar hvis du føler det er nødvendig..",
     "date": "Dato:"
+  },
+
+  "submitPageError": {
+    "errorSpecie": "Art kan ikke inneholde tall, være blank eller være lengre enn 30 bokstaver",
+    "errorPicture": "Ingen bilder lastet opp",
+    "errorPos": "En posisjon må legges til",
+    "errorDate": "Dato må fylles inn",
+    "errorLength": "Lengde må være mellpm 1 og 999",
+    "errorDepth": "Dybde må være mellom 0 og 999",
+    "errorAmount": "Antall må være mellom 0 og 99"
   }
 
 }

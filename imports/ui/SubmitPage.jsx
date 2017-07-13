@@ -48,68 +48,6 @@ export default class SubmitPage extends Component {
             useCurrPos: true,
             category: category,
             showNewReport: this.props.currentUser,
-
-            pageText: {
-                placeholderSpecie: 'Enter what specie you believe it is',
-                placeholderLength: 'Enter length (cm)',
-                placeholderDepth: 'Enter depth (meter',
-                placeholderAmount: 'Enter amount',
-                placeholderDescription: 'Explain if you believe its necessary..',
-                photoTakenHereBtn: 'Did you take the picture here?',
-                takePicBtn: 'Take picture',
-                getPicBtn: 'Get picture',
-                backBtn: 'Back',
-                date: 'Date',
-                description: 'Description',
-                errorSpecie: 'Specie cannot include numbers, be blank or longer than 30 characters',
-                errorPicture: 'No picture uploaded',
-                errorPos: 'You must add position',
-                errorDate: 'Date must be entered',
-                errorLength: 'Length must be between 1 and 999',
-                errorDepth: 'Depth must be between 0 and 999',
-                errorAmount: 'Amount must be between 0 and 99'
-            },
-            english: {
-                placeholderSpecie: 'Enter what specie you believe it is',
-                placeholderLength: 'Enter length (cm)',
-                placeholderDepth: 'Enter depth (meter',
-                placeholderAmount: 'Enter amount',
-                placeholderDescription: 'Explain if you believe its necessary..',
-                photoTakenHereBtn: 'Did you take the picture here?',
-                takePicBtn: 'Take picture',
-                getPicBtn: 'Get picture',
-                backBtn: 'Back',
-                date: 'Date',
-                description: 'Description',
-                errorSpecie: 'Specie cannot include numbers, be blank or longer than 30 characters',
-                errorPicture: 'No picture uploaded',
-                errorPos: 'You must add position',
-                errorDate: 'Date must be entered',
-                errorLength: 'Length must be between 1 and 999',
-                errorDepth: 'Depth must be between 0 and 999',
-                errorAmount: 'Amount must be between 0 and 99'
-
-            },
-            norwegian: {
-                placeholderSpecie: 'Skriv inn hvilken art du tror det er',
-                placeholderLength: 'Skriv inn lengde (cm)',
-                placeholderDepth: 'Skriv inn dybde (meter',
-                placeholderAmount: 'Skriv inn antall',
-                placeholderDescription: 'Forklar hvis du føler det er nødvendig..',
-                photoTakenHereBtn: 'Tok du bilde her?',
-                takePicBtn: 'Ta bilde',
-                getPicBtn: 'Hent bilde',
-                backBtn: 'Tilbake',
-                date: 'Dato',
-                description: 'Beskrivelse',
-                errorSpecie: 'Art kan ikke inneholde tall, være blank eller være lengre enn 30 bokstaver',
-                errorPicture: 'Ingen bilder lastet opp',
-                errorPos: 'En posisjon må legges til',
-                errorDate: 'Dato må fylles inn',
-                errorLength: 'Lengde må være mellpm 1 og 999',
-                errorDepth: 'Dybde må være mellom 0 og 999',
-                errorAmount: 'Antall må være mellom 0 og 99'
-            }
         };
     }
 
@@ -248,20 +186,8 @@ export default class SubmitPage extends Component {
         backToIndex(e);
     }
 
-    setPageText(){
-        if(Session.get('language') === 'english'){
-            this.setState({
-                pageText: this.state.english
-            })
-        } else {
-            this.setState({
-                pageText: this.state.norwegian
-            });
-        }
-    }
 
     componentWillMount(){
-        this.setPageText();
         this.getPos();
     }
 
@@ -284,7 +210,7 @@ export default class SubmitPage extends Component {
                     <ul>
                         <li>
                             <p className="errorText" hidden={!this.state.titelError}>
-                                {this.state.pageText.errorSpecie}
+                                <T>common.submitPageError.errorSpecie</T>
                             </p>
                             <input
                                 type="text"
@@ -294,7 +220,7 @@ export default class SubmitPage extends Component {
                         </li>
                         <li>
                             <p className="errorText" hidden={!this.state.lengthError}>
-                                {this.state.pageText.errorLength}
+                                <T>common.submitPageError.errorLength</T>
                             </p>
                             <input
                                 type="number"
@@ -304,7 +230,7 @@ export default class SubmitPage extends Component {
                         </li>
                         <li>
                             <p className="errorText" hidden={!this.state.depthError}>
-                                {this.state.pageText.errorDepth}
+                                <T>common.submitPageError.errorDepth</T>
                             </p>
                             <input
                                 type="number"
@@ -314,7 +240,7 @@ export default class SubmitPage extends Component {
                         </li>
                         <li>
                             <p className="errorText" hidden={!this.state.amountError}>
-                                {this.state.pageText.errorAmount}
+                                <T>common.submitPageError.errorAmount</T>
                             </p>
                             <input
                                 type="number"
@@ -333,12 +259,12 @@ export default class SubmitPage extends Component {
                             :
                             <li>
                                 <p className="errorText" hidden={!this.state.markerError}>
-                                    {this.state.pageText.errorPos}
+                                    <T>common.submitPageError.errorPos</T>
                                 </p>
                                 <MyMap report={null}/>
                                 <br/>
                                 <p className="errorText" hidden={!this.state.titelError}>
-                                    {this.state.pageText.errorDate}
+                                    <T>common.submitPageError.errorDate</T>
                                 </p>
                                 <FormGroup>
                                     <ControlLabel>{i18n.__('common.submitPage.date')}</ControlLabel>
@@ -363,7 +289,7 @@ export default class SubmitPage extends Component {
 
                         <li>
                             <p className="errorText" hidden={!this.state.pictureError}>
-                                {this.state.pageText.errorPicture}
+                                <T>common.submitPageError.errorPicture</T>
                             </p>
                             <ButtonToolbar>
                                 <Button bsStyle="primary" onClick={this.takePicture.bind(this)}>

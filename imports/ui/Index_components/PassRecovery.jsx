@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
-import { Accounts } from 'meteor/accounts-base';
-import { Button, ButtonGroup, Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, FormGroup,
-    InputGroup, FormControl, Overlay, Tooltip, Col } from 'react-bootstrap';
+import { Button, Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, FormGroup,
+    InputGroup, FormControl, Col } from 'react-bootstrap';
+import i18n from 'meteor/universe:i18n';
 
 import {englishRecovery, norwegianRecovery} from '../../../lib/pagetext.js';
+
+const T = i18n.createComponent();
+
 export default class PassRecovery extends Component{
     constructor(props){
         super(props);
@@ -45,14 +47,9 @@ export default class PassRecovery extends Component{
 
 
     render(){
-        /*
-         <Button onClick={this.setShow.bind(this)}>
-         {this.state.pageTextPassRecovery.titel}?
-         </Button>
-         */
         return(
             <div>
-                <a onClick={this.setShow.bind(this)}>{this.state.pageText.titel}?</a>
+                <a onClick={this.setShow.bind(this)}><T>common.passRecovery.forgotPass</T>?</a>
                 <Modal
                     show={this.state.show}
                     container={this}
@@ -60,7 +57,7 @@ export default class PassRecovery extends Component{
                 >
                     <ModalHeader>
                         <ModalTitle id="contained-modal-title">
-                            {this.state.pageText.titel}
+                            <T>common.passRecovery.forgotPass</T>
                         </ModalTitle>
                     </ModalHeader>
                     <form>
@@ -69,21 +66,21 @@ export default class PassRecovery extends Component{
                                 <FormGroup>
                                     <InputGroup>
                                         <Col smOffset={6} sm={10}>
-                                        <p className="errorText" hidden={!this.state.emailErr}>
+                                        <p className="errorText" hidden={<T>c</T>}>
 
                                         </p>
                                         <FormControl
                                             name="email2"
                                             type="email"
-                                            label="Email address"
-                                            placeholder={this.state.pageText.placeholderEmail}
+                                            label={i18n.__('common.passRecovery.Email')}
+                                            placeholder={i18n.__('common.loginform.Email')}
                                         />
                                         </Col>
                                     </InputGroup>
                                 </FormGroup>
                                 :
                                 <p>
-                                    {this.state.pageText.message}
+                                    <T>common.passRecovery.mailSent</T>
                                 </p>
                             }
                         </ModalBody>
@@ -95,7 +92,7 @@ export default class PassRecovery extends Component{
                                 : ''
                             }
                             <Button onClick={this.setShow.bind(this)}>
-                                {this.state.pageText.closeBtn}
+                                <T>common.passRecovery.closeBtn</T>
                             </Button>
                         </ModalFooter>
                     </form>

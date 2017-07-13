@@ -18,7 +18,28 @@
     "Login": "Login",
     "Email": "Enter email...",
     "Password": "Enter password...",
-    "ForgotPassword": "Forgot password?"
+    "ForgotPassword": "Forgot password?",
+    "firstname": "Firstname..",
+    "lastname": "Lastname..",
+    "passRep": "Repeat password",
+    "phoneNr": "Phone nr..",
+    "remMe": "Remeber me",
+    "passLabel": "Password",
+    "emailLabel": "Email",
+    "signIn": "Sign in",
+    "createAcc": "Create account",
+    "register": "Register",
+    "incorrectPass": "Incorrect password",
+    "invalidEmail": "You have entered an invalid email address!",
+    "emptyEmail": "Email can't be empty!"
+  },
+
+  "passRecovery": {
+    "forgotPass": "Forgot password",
+    "Email": "Email address",
+    "errMail": "Cannot find email",
+    "closeBtn": "Close",
+    "mailSent": "A mail has been sent to your email."
   },
 
   "showReport": {
@@ -52,6 +73,16 @@
     "description": "Description:",
     "descriptionPlaceholder": "Explain if you believe it's necessary..",
     "date": "Date:"
+  },
+
+  "submitPageError": {
+    "errorSpecie": "Specie cannot include numbers, be blank or longer than 30 characters",
+    "errorPicture": "No picture uploaded",
+    "errorPos": "You must add position",
+    "errorDate": "Date must be entered",
+    "errorLength": "Length must be between 1 and 999",
+    "errorDepth": "Depth must be between 0 and 999",
+    "errorAmount": "Amount must be between 0 and 99"
   }
 
 }

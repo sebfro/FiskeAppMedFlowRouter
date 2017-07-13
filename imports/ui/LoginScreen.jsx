@@ -1,19 +1,26 @@
 import React, {Component} from 'react';
-import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
-import {Accounts} from 'meteor/accounts-base';
-import {
-    Button, FormGroup, FormControl, Col, ControlLabel, Form, Checkbox, InputGroup
-} from 'react-bootstrap';
+import { Button, FormGroup, FormControl, Col, ControlLabel, Form, Checkbox } from 'react-bootstrap';
+import i18n from 'meteor/universe:i18n';
 
 import PassRecovery from './Index_components/PassRecovery.jsx';
+import {validateEmail, register, login} from '../../lib/loginMethods.js';
+
+const T = i18n.createComponent();
+
 
 export default class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
             register: false,
-        }
+            emailError: null,
+            passError: null,
+            fNameError: null,
+            lNameError: null,
+            phoneError: null
+        };
+        this.login = this.login.bind(this);
     }
 
     login(e) {
@@ -26,43 +33,25 @@ export default class LoginScreen extends Component {
         let phoneNr = $('[name=phoneNr]').val();
 
         if (this.state.register) {
-            if(password === password2){
-                const user = {
-                    email: email,
-                    password: password,
-                    profile: {
-                        lastname: lastName,
-                        firstname: firstName,
-                        phoneNr: phoneNr
-                    }
-                };
-
-                Accounts.createUser(user, (err) => {
-                    if (err) {
-                        alert(err.reason)
-                    } else {
-                        Meteor.call('sendVerificationLink', (err, response) => {
-                            if(err){
-                                alert(err.reason);
-                            } else {
-                                alert('En email har blitt sendt til din epost for verifisering!', 'success');
-                            }
-                        });
-                        FlowRouter.go('/homepage');
-                    }
-                });
-            } else {
-                alert("Passwords do not match!");
-            }
+            register(email, password, password2, firstName, lastName, phoneNr);
+            console.log(typeof phoneNr);
+            this.setState({
+                fNameError: firstName === "" ? 'error' : null,
+                lNameError: lastName === "" ? 'error' : null,
+                phoneError: phoneNr === "" ? 'error' : null,
+            })
         } else {
-            Meteor.loginWithPassword(email, password, function (err) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    FlowRouter.go('/homepage');
-                }
-            });
+            login(email, password);
         }
+
+        let validEmail = validateEmail(email);
+
+        this.setState({
+            emailError: validEmail,
+            passError: password === "" || validEmail === null ? 'error' : null,
+        });
+
+        console.log(this.state.fNameError);
     }
 
     registerUI() {
@@ -70,43 +59,47 @@ export default class LoginScreen extends Component {
         if (this.state.register) {
             return (
                 <div>
-                    <FormGroup>
+                    <FormGroup validationState={this.state.passError}>
                         <Col sm={10}>
                             <FormControl
                                 name="password2"
                                 type="password"
-                                placeholder="Repeat password"
+                                placeholder={i18n.__('common.loginform.passRep')}
                                 required={true}/>
+                            <FormControl.Feedback/>
                         </Col>
                     </FormGroup>
 
-                    <FormGroup>
+                    <FormGroup validationState={this.state.fNameError}>
                         <Col md={10}>
                             <FormControl
                                 name="firstname"
                                 type="text"
-                                placeholder="Firstname"
+                                placeholder={i18n.__('common.loginform.firstname')}
                                 required={true}/>
+                            <FormControl.Feedback/>
                         </Col>
                     </FormGroup>
 
-                    <FormGroup>
+                    <FormGroup validationState={this.state.lNameError}>
                         <Col md={10}>
                             <FormControl
                                 name="lastname"
                                 type="text"
-                                placeholder="Lastname"
+                                placeholder={i18n.__('common.loginform.lastname')}
                                 required={true}/>
+                            <FormControl.Feedback/>
                         </Col>
                     </FormGroup>
 
-                    <FormGroup>
+                    <FormGroup validationState={this.state.phoneError}>
                         <Col md={10}>
                             <FormControl
                                 name="phoneNr"
                                 type="number"
-                                placeholder="Phone Number"
+                                placeholder={i18n.__('common.loginform.phoneNr')}
                                 required={true}/>
+                            <FormControl.Feedback/>
                         </Col>
                     </FormGroup>
                 </div>
@@ -125,32 +118,35 @@ export default class LoginScreen extends Component {
         return (
             <div className="wrapper">
                 <Form className="form-signin" horizontal>
-                    <FormGroup controlId="formHorizontalEmail">
+                    <FormGroup controlId="formHorizontalEmail" validationState={this.state.emailError}>
                         <h2 className="form-signin-heading">
-                            {this.state.register ? 'Create account' : 'Sign in'}
+                            {this.state.register ? <T>common.loginform.createAcc</T> :
+                                <T>common.loginform.signIn</T>}
                         </h2>
                         <Col componentClass={ControlLabel} sm={2}>
-                            Email
+                            <T>common.loginform.emailLabel</T>
                         </Col>
                         <Col sm={10}>
                             <FormControl
                                 name="email"
                                 type="email"
-                                placeholder="Email"
+                                placeholder={i18n.__('common.loginform.Email')}
                                 required={true}/>
+                            <FormControl.Feedback/>
                         </Col>
                     </FormGroup>
 
-                    <FormGroup controlId="formHorizontalPassword">
+                    <FormGroup controlId="formHorizontalPassword" validationState={this.state.passError}>
                         <Col componentClass={ControlLabel} sm={2}>
-                            Password
+                            <T>common.loginform.passLabel</T>
                         </Col>
                         <Col md={10}>
                             <FormControl
                                 name="password"
                                 type="password"
-                                placeholder="Password"
+                                placeholder={i18n.__('common.loginform.Password')}
                                 required={true}/>
+                            <FormControl.Feedback/>
                         </Col>
                     </FormGroup>
 
@@ -158,13 +154,13 @@ export default class LoginScreen extends Component {
 
                     <FormGroup>
                         <Col smOffset={2} sm={10}>
-                            <Checkbox>Remember me</Checkbox>
+                            <Checkbox><T>common.loginform.remMe</T></Checkbox>
                         </Col>
                     </FormGroup>
 
                     <FormGroup>
                         <Col smOffset={2} sm={10}>
-                            <a onClick={this.setRegister.bind(this)}>Register</a>
+                            <a onClick={this.setRegister.bind(this)}><T>common.loginform.register</T></a>
                             <PassRecovery/>
                         </Col>
                     </FormGroup>
@@ -173,7 +169,8 @@ export default class LoginScreen extends Component {
                         <Col smOffset={2} sm={10}>
                             <Button className="btn btn-lg btn-primary btn-block" type="submit"
                                     onClick={this.login.bind(this)}>
-                                {this.state.register ? 'Create account' : 'Sign in'}
+                                {this.state.register ? <T>common.loginform.createAcc</T> :
+                                    <T>common.loginform.signIn</T>}
                             </Button>
                         </Col>
                     </FormGroup>
