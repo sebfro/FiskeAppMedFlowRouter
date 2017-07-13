@@ -183,6 +183,8 @@ export default class SubmitPage extends Component {
         let date;
         try{
             date = (ReactDOM.findDOMNode(this.refs.rapportDate).value.trim());
+            console.log("Date ype");
+            console.log(typeof date);
         } catch(e){}
         if      (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/ || amountNr < 0 || amountNr > 100 || /*!amountNr ||*/
                 depthNr < 0 || depthNr > 1000 || /*!depthNr ||*/ !titelText || hasNumbers(titelText) || titelText.length > 30
@@ -323,7 +325,7 @@ export default class SubmitPage extends Component {
 
                         <li>
                             <Button bsStyle="primary" onClick={this.changePos.bind(this)}>
-                                {this.state.pageText.photoTakenHereBtn}
+                                <T>common.submitPage.didYouTakeImgHereBtn</T>
                             </Button>
                         </li>
                         {this.state.useCurrPos ?
@@ -341,7 +343,7 @@ export default class SubmitPage extends Component {
                                 <FormGroup>
                                     <ControlLabel>{i18n.__('common.submitPage.date')}</ControlLabel>
                                     <FormControl
-                                        type="date"
+                                        type="datetime-local"
                                         ref="rapportDate"
                                     />
                                 </FormGroup>

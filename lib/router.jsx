@@ -22,12 +22,16 @@ if(Meteor.isClient){
             i18n.setLocale('nb-NO')
         }
 
+        console.log("Here are all languages");
+        console.log(i18n.getLanguages());
+
 
         if(Meteor.isCordova) {
             cordova.plugins.notification.local.schedule({
                 id: 1,
                 title: "App omstartet",
                 message: "Ekstra info.",
+
             });
             cordova.plugin.notification.local.on("click", function(notification){
                 console.log("Clicked notification");
