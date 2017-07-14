@@ -44,7 +44,6 @@ export default class LoginScreen extends Component {
 
         if (this.state.register) {
             register(email, password, password2, firstName, lastName, phoneNr);
-            console.log(typeof phoneNr);
             this.setState({
                 fNameError: firstName === "" ? 'error' : null,
                 lNameError: lastName === "" ? 'error' : null,
@@ -55,13 +54,12 @@ export default class LoginScreen extends Component {
         }
 
         let validEmail = validateEmail(email);
-
+        let passErr = !this.state.register ? (password === "" || validEmail === null ? 'error' : null) :
+            (password === password2 && password !== "" && password2 !== "" ? null : 'error');
         this.setState({
             emailError: validEmail,
-            passError: password === "" || validEmail === null ? 'error' : null,
+            passError: passErr,
         });
-
-        console.log(this.state.fNameError);
     }
 
     registerUI() {
