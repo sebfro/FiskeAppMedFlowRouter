@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from 'react-dom';
 import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import i18n from 'meteor/universe:i18n';
@@ -10,7 +9,7 @@ import ViewReport from '../imports/ui/ViewReport.jsx';
 import StartPage from '../imports/ui/StartPage.jsx';
 import LoginScreen from '../imports/ui/LoginScreen.jsx';
 
-import { isLoggedIn, isVerified } from './helpMethods.js';
+import { isLoggedIn } from './helpMethods.js';
 
 //Starter googe maps api og gir den en nøkkel
 if(Meteor.isClient){
@@ -22,10 +21,6 @@ if(Meteor.isClient){
         } else {
             i18n.setLocale('nb-NO')
         }
-
-        console.log("Here are all languages");
-        console.log(i18n.getLanguages());
-
 
         if(Meteor.isCordova) {
             cordova.plugins.notification.local.schedule({

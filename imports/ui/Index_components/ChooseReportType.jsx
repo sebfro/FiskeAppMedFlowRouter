@@ -5,6 +5,7 @@ import i18n from 'meteor/universe:i18n';
 import {isVerified} from '../../../lib/helpMethods.js';
 import FlagBtn from "./flagButton.jsx";
 
+
 const T = i18n.createComponent();
 
 export default class ChooseReportType extends Component {
@@ -39,6 +40,7 @@ export default class ChooseReportType extends Component {
         }
 
     }
+
 
     notVerified() {
         alert("Du må verifisere emailen din før du kan sende inn rapporter.");

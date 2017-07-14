@@ -5,7 +5,6 @@ import i18n from 'meteor/universe:i18n';
 
 import PassRecovery from './Index_components/PassRecovery.jsx';
 import {validateEmail, register, login} from '../../lib/loginMethods.js';
-import FBLogin from './facebookLogin.jsx';
 
 const T = i18n.createComponent();
 
@@ -24,7 +23,17 @@ export default class LoginScreen extends Component {
         this.login = this.login.bind(this);
     }
 
-    login(e) {
+    login(e) {function validateEmail(mail){
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+        {
+            return (null)
+        }
+
+        let msg = mail === "" ? "common.loginform.emptyEmail" : "common.loginform.invalidEmail"
+
+        alert(i18n.__(msg));
+        return ('error')
+    }
         e.preventDefault();
         let email = $('[name=email]').val();
         let password = $('[name=password]').val();
@@ -177,7 +186,6 @@ export default class LoginScreen extends Component {
                             </Button>
                         </Col>
                     </FormGroup>
-                    <FBLogin/>
                 </Form>
             </div>
         )
