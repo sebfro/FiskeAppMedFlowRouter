@@ -5,6 +5,7 @@ import i18n from 'meteor/universe:i18n';
 
 import PassRecovery from './Index_components/PassRecovery.jsx';
 import {validateEmail, register, login} from '../../lib/loginMethods.js';
+import FBLogin from './facebookLogin.jsx';
 
 const T = i18n.createComponent();
 
@@ -114,6 +115,8 @@ export default class LoginScreen extends Component {
         })
     }
 
+
+
     render() {
         return (
             <div className="wrapper">
@@ -174,6 +177,7 @@ export default class LoginScreen extends Component {
                             </Button>
                         </Col>
                     </FormGroup>
+                    <FBLogin/>
                 </Form>
             </div>
         )

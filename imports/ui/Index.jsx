@@ -94,6 +94,7 @@ class Index extends Component {
 
 
     render() {
+        console.log(this.props.users);
         if(this.props.reports) {
             return (
                 <div className="pageContainer">
@@ -126,11 +127,12 @@ export default createContainer(() => {
     };
     let user = Meteor.userId();
     remote.subscribe('reports.reportingToolList', fields, user, Session.get('limit'));
-
+    remote.subscribe('users');
     return {
         loaded: loaded,
         reports: Reports.find({owner: user}, {sort: {createdAt: -1},
             limit: Session.get('limit'), fields: fields}).fetch(),
+        users: Meteor.users,
         currentUser: Meteor.user(),
     };
 }, Index);
