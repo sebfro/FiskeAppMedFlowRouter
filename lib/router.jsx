@@ -34,6 +34,11 @@ if(Meteor.isClient){
             })
 
         }
+
+        AdminConfig = {
+            name: 'My App',
+            adminEmails: ['sebastian17pepp@gmail.com']
+        };
     });
 }
 

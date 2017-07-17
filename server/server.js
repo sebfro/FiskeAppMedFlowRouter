@@ -3,7 +3,6 @@
  */
 import {Meteor} from 'meteor/meteor'
 import {Accounts} from 'meteor/accounts-base';
-import { AccountsServer } from 'meteor/accounts-base';
 
 export const remote = DDP.connect('http://172.16.251.182:3030/');
 
@@ -14,7 +13,12 @@ if (Meteor.isServer) {
         let domain = "smtp.gmail.com";
         let port = 587;
         process.env.MAIL_URL="smtp://" + username + ":" + pass + "@" + domain + ":" + port;
-    })
+    });
+
+    AdminConfig = {
+        name: 'My App',
+        adminEmails: ['sebastian17pepp@gmail.com']
+    };
 }
 
     Meteor.publish('createUser', function createUser(user, pass2){
@@ -57,6 +61,12 @@ Meteor.methods({
                 FlowRouter.go('/homepage');
             }
         });
+    },
+    "sendVerificationEmail"(userId){
+        console.log("Sending email");
+        let id = userId;
+        Accounts.sendVerificationEmail(userId);
+        console.log("done");
     }
 });
 

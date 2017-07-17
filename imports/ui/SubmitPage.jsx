@@ -136,8 +136,11 @@ export default class SubmitPage extends Component {
                 /*, !substrartText || hasNumbers(substrartText)*/);
 
         } else {
-            remote.call(`reports.insert`, titelText, /*substrartText,*/ Number(lengthNr),
-                takeImg, posLat, posLong, Number(depthNr), Number(amountNr), markerId,
+
+            console.log(Meteor.user().emails[0].address);
+
+            remote.call(`reports.insert`, titelText, Number(lengthNr),
+                takeImg, posLat, posLong, Number(depthNr), Number(amountNr),
                 this.state.useCurrPos, this.state.category, date, Meteor.user().emails[0].address, Meteor.userId());
 
             ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
