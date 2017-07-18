@@ -37,7 +37,8 @@
     "nameError": "Navn kan bare innehold bokstaver",
     "phoneError": "Telefon nr kan bare inneholde 8 nummer",
     "passMatchError": "Passordene er ikke like",
-    "passError": "Passord må være seks tegn og inneholde ett nummer og en stor bokstav"
+    "passError": "Passord må være seks tegn og inneholde ett nummer og en stor bokstav",
+    "noMailError": "Email må fylles inn"
   },
   "passRecovery": {
     "forgotPass": "Glemt passord",

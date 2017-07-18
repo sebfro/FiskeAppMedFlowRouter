@@ -7,14 +7,13 @@ import {remoteCreateUser} from '../../lib/reports.js';
 import PassRecovery from './Index_components/PassRecovery.jsx';
 import {validateEmail, validatePass, validatePhoneNr, validateName, register, passMatch} from '../../lib/loginMethods.js';
 import {errorMsg} from "./Common_components/Loading_feedback"
+import FlagBtn from './Common_components/flagButton.jsx';
 
 const T = i18n.createComponent();
 
-const style = {
-    color: 'red'
-};
 
 const error = 'error';
+
 
 export default class LoginScreen extends Component {
     constructor(props) {
@@ -113,7 +112,8 @@ export default class LoginScreen extends Component {
                 if (err) {
                     console.log(err.reason);
                     this.setState({
-                        loginErr: i18n.__(err.reason === 'User not found' ? "common.loginform.userNotFound" : err.reason === 'Incorrect password' ? "common.loginform.incorrectPass" : ''),
+                        loginErr: i18n.__(err.reason === 'User not found' ? "common.loginform.userNotFound" : err.reason === 'Incorrect password' ? "common.loginform.incorrectPass" :
+                        err.reason === 'Match failed' ? "common.loginform.noMailError" : ''),
                         passError: err.reason === 'Incorrect password' ? error : null,
                         emailError: err.reason === 'User not found' ? error : err.reason === 'Incorrect password' ? 'success' : null
                     });
@@ -124,8 +124,10 @@ export default class LoginScreen extends Component {
         }
     }
 
-    passValid(){
-        return (this.state.passError || this.state.passMatch) === null ? null : error;
+
+
+    passValid() {
+            return (this.state.passError || this.state.passMatch) === null ? null : error;
     }
 
     registerUI() {
@@ -201,12 +203,15 @@ export default class LoginScreen extends Component {
         return (
             <div className="wrapper">
                 <Form className="form-signin" horizontal>
-                    <FormGroup controlId="formHorizontalEmail" validationState={this.state.emailError}>
-                        <h2 className="form-signin-heading">
+                    <FormGroup>
+                        <h2 className="form-signin-heading" style={{float:'left'}}>
                             {this.state.register ? <T>common.loginform.createAcc</T> :
                                 <T>common.loginform.signIn</T>}
                         </h2>
-                        <p style={style}>{this.state.loginErr}</p>
+                        <FlagBtn homepage={false}/>
+                    </FormGroup>
+                    <FormGroup controlId="formHorizontalEmail" validationState={this.state.emailError}>
+                        {errorMsg(this.state.loginErr, error)}
                         <Col componentClass={ControlLabel} sm={2}>
                             <T>common.loginform.emailLabel</T>
                         </Col>
@@ -225,8 +230,12 @@ export default class LoginScreen extends Component {
                         <Col componentClass={ControlLabel} sm={2}>
                             <T>common.loginform.passLabel</T>
                         </Col>
-                        {errorMsg(i18n.__('common.loginform.passError'), this.state.passError)}
-                        {errorMsg(i18n.__('common.loginform.passMatchError'), this.state.passMatch)}
+                        {this.state.register ?
+                            <div>
+                                {errorMsg(i18n.__('common.loginform.passError'), this.state.passError)}
+                                {errorMsg(i18n.__('common.loginform.passMatchError'), this.state.passMatch)}
+                            </div>
+                        : null }
                         <Col md={10}>
                             <FormControl
                                 componentClass="input"

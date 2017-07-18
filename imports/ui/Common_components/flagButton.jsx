@@ -2,15 +2,18 @@ import React, {Component} from 'react';
 import {NavItem} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
 
-const style = {
+const homepageStyle = {
     float: 'right',
     paddingTop: 14,
     paddingRight: 24,
 };
 
+const loginStyle = {
+    float: 'right',
+    paddingTop: 20,
+};
+
 export default class FlagBtn extends Component {
-
-
     constructor(props){
         super(props);
         this.state = {
@@ -20,7 +23,6 @@ export default class FlagBtn extends Component {
     }
 
     changeLanguage(){
-        console.log("In change langauge");
         i18n.getLocale() === 'en-US' ? this.setLanguage('nb-NO') :
             this.setLanguage('en-US');
         this.showFlag();
@@ -33,7 +35,6 @@ export default class FlagBtn extends Component {
 
     showFlag(){
         let flag;
-        console.log("Showflag");
         if(i18n.getLocale() === 'en-US'){
             flag = "/united_kingdom_flag_icon.png"
         } else {
@@ -47,7 +48,7 @@ export default class FlagBtn extends Component {
 
     render(){
         return(
-            <NavItem onClick={this.changeLanguage.bind(this)} style={style}>
+            <NavItem onClick={this.changeLanguage.bind(this)} style={this.props.homepage ? homepageStyle : loginStyle}>
                 <img src={this.state.flag} height={20} width={20} alt=""/>
             </NavItem>
         )

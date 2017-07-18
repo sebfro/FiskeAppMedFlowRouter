@@ -37,7 +37,8 @@
     "nameError": "Name can only contain letters",
     "phoneError": "Phone number can only contain 8 numbers",
     "passMatchError": "Passwords do not match",
-    "passError": "Password must be 6 characters with one number adn one big letter"
+    "passError": "Password must be 6 characters with one number adn one big letter",
+    "noMailError": "Email must be filled"
   },
 
   "passRecovery": {

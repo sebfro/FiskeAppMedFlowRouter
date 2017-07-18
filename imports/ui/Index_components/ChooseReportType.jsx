@@ -3,7 +3,7 @@ import {Meteor} from 'meteor/meteor';
 import i18n from 'meteor/universe:i18n';
 
 import {isVerified} from '../../../lib/helpMethods.js';
-import FlagBtn from "./flagButton.jsx";
+import FlagBtn from "../Common_components/flagButton.jsx";
 
 
 const T = i18n.createComponent();
@@ -63,6 +63,13 @@ export default class ChooseReportType extends Component {
 
     logOut(e) {
         e.preventDefault();
+        localStorage.removeItem('limit');
+        localStorage.removeItem('report.id');
+        localStorage.removeItem('error');
+        localStorage.removeItem('addedMarker');
+        localStorage.removeItem('addMarker');
+        localStorage.removeItem('Category');
+        localStorage.removeItem('marker.id');
         Meteor.logout();
         FlowRouter.go('/');
     }
@@ -80,7 +87,7 @@ export default class ChooseReportType extends Component {
                                     <span className="icon-bar"/>
                                 </button>
 
-                                <FlagBtn/>
+                                <FlagBtn homepage={true}/>
 
                                 <a className="navbar-brand" href="#">
                                     <img src="/imrlogo.png" height={20} width={200} alt=""/>

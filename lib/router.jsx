@@ -42,7 +42,7 @@ if(Meteor.isClient){
     });
 }
 
-export default function newReportValidated(reportTitel, reportId, reportMarkerId){
+/*export default function newReportValidated(reportTitel, reportId, reportMarkerId){
     if(Meteor.isCordova) {
         console.log("Sending notification");
         cordova.plugins.notification.local.schedule({
@@ -58,11 +58,16 @@ export default function newReportValidated(reportTitel, reportId, reportMarkerId
 
     }
 }
+*/
 
 function checkLoggedIn(context, doRedirect){
     //isVerified();
-    if(!isLoggedIn() || (Session.get('report.id') === undefined && context.context.path === "/seRapport")){
-        doRedirect('/')
+    if(!isLoggedIn()){
+        doRedirect('/');
+    }
+
+    if (((localStorage.getItem('report.id') === undefined && context.context.path === "/seRapport"))) {
+        doRedirect('/homepage');
     }
 }
 
@@ -109,6 +114,10 @@ FlowRouter.route('/verify-email/:token',{
     action: function(){
         let token = FlowRouter.getParam("token");
         Accounts.verifyEmail(token, function(err){
+            if(err){
+                console.log(err.reason);
+                console.log(err.message);
+            }
             FlowRouter.go("/");
         });
     }
