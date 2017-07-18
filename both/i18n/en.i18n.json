@@ -31,7 +31,13 @@
     "register": "Register",
     "incorrectPass": "Incorrect password",
     "invalidEmail": "You have entered an invalid email address!",
-    "emptyEmail": "Email can't be empty!"
+    "emptyEmail": "Email can't be empty!",
+    "userNotFound": "User not found.",
+    "emailExist": "Email already exists.",
+    "nameError": "Name can only contain letters",
+    "phoneError": "Phone number can only contain 8 numbers",
+    "passMatchError": "Passwords do not match",
+    "passError": "Password must be 6 characters with one number adn one big letter"
   },
 
   "passRecovery": {

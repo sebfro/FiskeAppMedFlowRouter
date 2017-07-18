@@ -1,13 +1,20 @@
 import React, {Component} from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
-import { Button, FormGroup, FormControl, Col, ControlLabel, Form, Checkbox } from 'react-bootstrap';
+import {Button, FormGroup, FormControl, Col, ControlLabel, Form, Checkbox} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
+import {remoteCreateUser} from '../../lib/reports.js';
 
 import PassRecovery from './Index_components/PassRecovery.jsx';
-import {validateEmail, register, login} from '../../lib/loginMethods.js';
+import {validateEmail, validatePass, validatePhoneNr, validateName, register, passMatch} from '../../lib/loginMethods.js';
+import {errorMsg} from "./Common_components/Loading_feedback"
 
 const T = i18n.createComponent();
 
+const style = {
+    color: 'red'
+};
+
+const error = 'error';
 
 export default class LoginScreen extends Component {
     constructor(props) {
@@ -18,48 +25,107 @@ export default class LoginScreen extends Component {
             passError: null,
             fNameError: null,
             lNameError: null,
-            phoneError: null
+            phoneError: null,
+            loginErr: '',
+            passMatch: null,
         };
         this.login = this.login.bind(this);
     }
 
-    login(e) {function validateEmail(mail){
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
-        {
-            return (null)
-        }
-
-        let msg = mail === "" ? "common.loginform.emptyEmail" : "common.loginform.invalidEmail"
-
-        alert(i18n.__(msg));
-        return ('error')
+    setStateForInput(password, password2, firstName, lastName, phoneNr){
+        console.log("Hei");
+        this.setState({
+            passError: validatePass(password),
+            fNameError: validateName(firstName),
+            lNameError: validateName(lastName),
+            phoneError: validatePhoneNr(phoneNr),
+            passMatch: passMatch(password2, password) ? null : error,
+        })
     }
+
+    login(e) {
+
         e.preventDefault();
+
+        console.log(this.state.register);
+
         let email = $('[name=email]').val();
         let password = $('[name=password]').val();
         let password2 = $('[name=password2]').val();
-        let firstName= $('[name=firstname]').val();
+        let firstName = $('[name=firstname]').val();
         let lastName = $('[name=lastname]').val();
         let phoneNr = $('[name=phoneNr]').val();
 
         if (this.state.register) {
-            register(email, password, password2, firstName, lastName, phoneNr);
-            this.setState({
-                fNameError: firstName === "" ? 'error' : null,
-                lNameError: lastName === "" ? 'error' : null,
-                phoneError: phoneNr === "" ? 'error' : null,
-            })
-        } else {
-            login(email, password);
-        }
+            let errors = register(email, password, password2, firstName, lastName, phoneNr);
 
-        let validEmail = validateEmail(email);
-        let passErr = !this.state.register ? (password === "" || validEmail === null ? 'error' : null) :
-            (password === password2 && password !== "" && password2 !== "" ? null : 'error');
-        this.setState({
-            emailError: validEmail,
-            passError: passErr,
-        });
+
+            if(errors) {
+                const user = {
+                    email: email,
+                    password: password,
+                    profile: {
+                        lastname: lastName,
+                        firstname: firstName,
+                        phoneNr: phoneNr
+                    }
+                };
+                Accounts.createUser(user, (err) => {
+                    if (err) {
+                        console.log(err.reason);
+                        let loginErr = '';
+                        let emailErr = null;
+                        if (err.reason === "Email already exists.") {
+                            loginErr = i18n.__("common.loginform.emailExist");
+                            emailErr = error;
+                        }
+                        this.setState({
+                            loginErr: loginErr,
+                            emailError: emailErr
+                        });
+                        this.setStateForInput(password, password2, firstName, lastName, phoneNr);
+                    } else {
+                        remoteCreateUser.call('sendVerificationEmail', Meteor.userId(), (err, response) => {
+                            if (response) {
+                                alert(response);
+                                alert('En email har blitt sendt til din epost for verifisering!', 'success');
+                            } else if (err) {
+                                console.log(err.reason);
+                                console.log(err.message);
+                            }
+                        });
+                        FlowRouter.go('/homepage');
+                    }
+                });
+            } else {
+                let validMail = validateEmail(email);
+
+                this.setState({
+                    loginErr: i18n.__(validMail === null ? '' : email === "" ? "common.loginform.emptyEmail" : "common.loginform.invalidEmail"),
+                    emailError: validMail
+
+                });
+                this.setStateForInput(password, password2, firstName, lastName, phoneNr);
+
+            }
+        } else {
+            Meteor.loginWithPassword(email, password, (err) => {
+                if (err) {
+                    console.log(err.reason);
+                    this.setState({
+                        loginErr: i18n.__(err.reason === 'User not found' ? "common.loginform.userNotFound" : err.reason === 'Incorrect password' ? "common.loginform.incorrectPass" : ''),
+                        passError: err.reason === 'Incorrect password' ? error : null,
+                        emailError: err.reason === 'User not found' ? error : err.reason === 'Incorrect password' ? 'success' : null
+                    });
+                } else {
+                    FlowRouter.go('/homepage');
+                }
+            });
+        }
+    }
+
+    passValid(){
+        return (this.state.passError || this.state.passMatch) === null ? null : error;
     }
 
     registerUI() {
@@ -67,46 +133,54 @@ export default class LoginScreen extends Component {
         if (this.state.register) {
             return (
                 <div>
-                    <FormGroup validationState={this.state.passError}>
+                    <FormGroup validationState={this.passValid()}>
                         <Col sm={10}>
                             <FormControl
+                                componentClass="input"
                                 name="password2"
                                 type="password"
                                 placeholder={i18n.__('common.loginform.passRep')}
-                                required={true}/>
+                            />
                             <FormControl.Feedback/>
                         </Col>
                     </FormGroup>
 
                     <FormGroup validationState={this.state.fNameError}>
+                        {errorMsg(i18n.__('common.loginform.nameError'), this.state.fNameError)}
                         <Col md={10}>
                             <FormControl
+                                componentClass="input"
                                 name="firstname"
                                 type="text"
                                 placeholder={i18n.__('common.loginform.firstname')}
-                                required={true}/>
+                            />
                             <FormControl.Feedback/>
                         </Col>
                     </FormGroup>
 
                     <FormGroup validationState={this.state.lNameError}>
+                        {errorMsg(i18n.__('common.loginform.nameError'), this.state.lNameError)}
                         <Col md={10}>
                             <FormControl
+                                componentClass="input"
                                 name="lastname"
                                 type="text"
                                 placeholder={i18n.__('common.loginform.lastname')}
-                                required={true}/>
+                            />
                             <FormControl.Feedback/>
                         </Col>
                     </FormGroup>
 
                     <FormGroup validationState={this.state.phoneError}>
+                        {errorMsg(i18n.__('common.loginform.phoneError'), this.state.phoneError)}
                         <Col md={10}>
                             <FormControl
+                                componentClass="input"
                                 name="phoneNr"
                                 type="number"
+                                pattern="^\d{4}-\d{3}-\d{4}$"
                                 placeholder={i18n.__('common.loginform.phoneNr')}
-                                required={true}/>
+                            />
                             <FormControl.Feedback/>
                         </Col>
                     </FormGroup>
@@ -123,7 +197,6 @@ export default class LoginScreen extends Component {
     }
 
 
-
     render() {
         return (
             <div className="wrapper">
@@ -133,11 +206,13 @@ export default class LoginScreen extends Component {
                             {this.state.register ? <T>common.loginform.createAcc</T> :
                                 <T>common.loginform.signIn</T>}
                         </h2>
+                        <p style={style}>{this.state.loginErr}</p>
                         <Col componentClass={ControlLabel} sm={2}>
                             <T>common.loginform.emailLabel</T>
                         </Col>
                         <Col sm={10}>
                             <FormControl
+                                componentClass="input"
                                 name="email"
                                 type="email"
                                 placeholder={i18n.__('common.loginform.Email')}
@@ -146,12 +221,15 @@ export default class LoginScreen extends Component {
                         </Col>
                     </FormGroup>
 
-                    <FormGroup controlId="formHorizontalPassword" validationState={this.state.passError}>
+                    <FormGroup controlId="formHorizontalPassword" validationState={this.passValid()}>
                         <Col componentClass={ControlLabel} sm={2}>
                             <T>common.loginform.passLabel</T>
                         </Col>
+                        {errorMsg(i18n.__('common.loginform.passError'), this.state.passError)}
+                        {errorMsg(i18n.__('common.loginform.passMatchError'), this.state.passMatch)}
                         <Col md={10}>
                             <FormControl
+                                componentClass="input"
                                 name="password"
                                 type="password"
                                 placeholder={i18n.__('common.loginform.Password')}

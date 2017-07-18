@@ -31,7 +31,13 @@
     "register": "Registrer",
     "incorrectPass": "Feil passord",
     "invalidEmail": "Emailen er ikke skrevet korrekt!",
-    "emptyEmail": "Må skrive inn email!"
+    "emptyEmail": "Må skrive inn email!",
+    "userNotFound": "Finner ikke bruker.",
+    "emailExist": "Emailen er allerede registrert.",
+    "nameError": "Navn kan bare innehold bokstaver",
+    "phoneError": "Telefon nr kan bare inneholde 8 nummer",
+    "passMatchError": "Passordene er ikke like",
+    "passError": "Passord må være seks tegn og inneholde ett nummer og en stor bokstav"
   },
   "passRecovery": {
     "forgotPass": "Glemt passord",

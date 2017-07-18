@@ -1,10 +1,8 @@
 import React from 'react';
 
-const loaderStyle = {
-    border: 16,
-    borderColor: '#f3f3f3',
-    bordertop: 16,
-
+const style = {
+    color: 'red',
+    paddingLeft: 17,
 };
 
 export const Loading_feedback = () => (
@@ -13,3 +11,7 @@ export const Loading_feedback = () => (
         {/*<p className="loader_text">Loading...</p>*/}
     </div>
 );
+
+export function errorMsg(msg, show){
+    return show === 'error' ? (<p style={style}> {msg} </p>) : null
+}
