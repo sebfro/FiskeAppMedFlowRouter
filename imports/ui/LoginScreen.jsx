@@ -8,6 +8,7 @@ import PassRecovery from './Index_components/PassRecovery.jsx';
 import {validateEmail, validatePass, validatePhoneNr, validateName, register, passMatch} from '../../lib/loginMethods.js';
 import {errorMsg} from "./Common_components/Loading_feedback"
 import FlagBtn from './Common_components/flagButton.jsx';
+import FBLogin from './login_components/facebookLogin.jsx';
 
 const T = i18n.createComponent();
 
@@ -271,6 +272,7 @@ export default class LoginScreen extends Component {
                             </Button>
                         </Col>
                     </FormGroup>
+                    <FBLogin/>
                 </Form>
             </div>
         )

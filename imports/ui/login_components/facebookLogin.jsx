@@ -46,7 +46,7 @@ export default class FBLogin extends Component {
 
     statusChangeCallback(response) {
         console.log('statusChangeCallback');
-        console.log(response);
+        console.log(response.authResponse);
         if (response.status === 'connected') {
             localStorage.setItem('loggedInWith', 'facebook');
             FlowRouter.go('/homepage');
@@ -77,7 +77,8 @@ export default class FBLogin extends Component {
     render() {
         return (
             <div>
-                <Button bsStyle="primary" onClick={this.handleFBLogin.bind(this)}>
+                <Button className="btn btn-lg btn-primary btn-block"
+                        onClick={this.handleFBLogin.bind(this)}>
                     <span className="fa fa-facebook"/> Sign in with Facebook
                 </Button>
 

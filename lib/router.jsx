@@ -9,11 +9,14 @@ import ViewReport from '../imports/ui/ViewReport.jsx';
 import StartPage from '../imports/ui/StartPage.jsx';
 import LoginScreen from '../imports/ui/LoginScreen.jsx';
 
-import { isLoggedIn } from './helpMethods.js';
+import { isLoggedIn, loadFbLoginApiOnLoad } from './helpMethods.js';
 
 //Starter googe maps api og gir den en nøkkel
 if(Meteor.isClient){
     Meteor.startup(function(){
+
+        loadFbLoginApiOnLoad();
+
         process.UNIVERSE_I18N_LOCALES='all';
         GoogleMaps.load({ key: 'AIzaSyAoNnMKlsuYKXO0t5eY6749sRZ4W_QEVBw'});
         if(localStorage.getItem('language')){
