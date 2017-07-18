@@ -21,7 +21,7 @@ export default class ChooseReportType extends Component {
     newReportFisk(e) {
         e.preventDefault();
         if (isVerified()) {
-            Session.set('Category', "Fiske art");
+            localStorage.setItem('Category', 'Fiske art');
             this.setSession();
             FlowRouter.go("/nyRapport");
         } else {
@@ -32,7 +32,7 @@ export default class ChooseReportType extends Component {
     newReportKoral(e) {
         e.preventDefault();
         if (isVerified()) {
-            Session.set('Category', "Koral");
+            localStorage.setItem('Category', "Koral");
             this.setSession();
             FlowRouter.go("/nyRapport");
         } else {
@@ -49,7 +49,7 @@ export default class ChooseReportType extends Component {
     newReportFremmed(e) {
         e.preventDefault();
         if (isVerified()) {
-            Session.set('Category', "Fremmed art");
+            localStorage.setItem('Category', "Fremmed art");
             this.setSession();
             FlowRouter.go("/nyRapport");
         } else {

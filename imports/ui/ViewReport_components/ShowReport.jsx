@@ -23,7 +23,7 @@ export default class ShowReport extends Component {
                         <strong><T>common.index.category</T></strong> <GetCategory category={this.props.report.category}/>
                     </ListGroupItem>
                     <ListGroupItem>
-                        <strong><T>common.showReport.date</T></strong> {moment(this.props.report.taken).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+                        <strong><T>common.showReport.date</T></strong> {moment(this.props.report.taken).format("dddd, MMMM Do YYYY")}
                     </ListGroupItem>
                     <ListGroupItem>
                         <strong><T>common.showReport.amount</T></strong> {this.props.report.amount}

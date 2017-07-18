@@ -36,15 +36,15 @@ class MyMap extends Component {
 
 
     handleOnReady(name) {
-        Session.set('addedMarker', false);
+        localStorage.setItem('addedMarker', false)
         let addedMarker = false;
         let markerPos = { lat: 60, lng: 5};
         GoogleMaps.ready(name, map => {
             Tracker.autorun(c => {
                 google.maps.event.addListener(map.instance, 'click', function(event) {
-                    if(Session.get('addMarker') && !addedMarker){
+                    if(localStorage.getItem('addMarker') && !addedMarker){
                         addedMarker = true;
-                        Session.set('addedMarker', true);
+                        localStorage.setItem('addedMarker', true);
                         Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng(), current: true });
                         markerPos = { lat: event.latLng.lat(), lng: event.latLng.lng() };
                         setLatLng(event.latLng.lng(), event.latLng.lat());
@@ -62,7 +62,7 @@ class MyMap extends Component {
                             map: map.instance,
                             id: document._id,
                         });
-                        if(Session.get('addMarker')) {
+                        if(localStorage.getItem('addMarker')) {
                             google.maps.event.addListener(marker, 'dragend', function (event) {
                                 Markers.update(marker.id, {
                                     $set: {lat: event.latLng.lat(), lng: event.latLng.lng()},
@@ -114,8 +114,8 @@ class MyMap extends Component {
 
 
 export default createContainer(() => {
-    Meteor.subscribe('markers', Session.get('marker.id'));
+    Meteor.subscribe('markers', localStorage.getItem('marker.id'));
     return {
-        markers: Markers.find({_id: Session.get('marker.id')}).fetch,
+        markers: Markers.find({_id: localStorage.getItem('marker.id')}).fetch,
     };
 }, MyMap);

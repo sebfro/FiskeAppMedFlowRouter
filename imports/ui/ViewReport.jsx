@@ -143,7 +143,7 @@ class ViewReport extends Component {
 
 
 export default createContainer(() => {
-    let rId = Session.get('report.id');
+    let rId = localStorage.getItem('report.id');
     let fields = {
         text: 1, length: 1, photo: 1,
         user: 1, latitude: 1, longitude: 1,

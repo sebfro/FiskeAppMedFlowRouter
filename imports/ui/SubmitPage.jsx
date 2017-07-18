@@ -33,7 +33,7 @@ export default class SubmitPage extends Component {
     //Setter state variabler
     constructor(props){
         super(props);
-        let category = Session.get('Category');
+        let category = localStorage.getItem('Category');
         if(category === undefined){
             category = '';
         }
@@ -121,21 +121,31 @@ export default class SubmitPage extends Component {
         let date;
         try{
             date = (ReactDOM.findDOMNode(this.refs.rapportDate).value.trim());
-            console.log("Date ype");
-            console.log(typeof date);
+            date = new Date(date);
+            console.log(date);
         } catch(e){}
         if      (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/ || amountNr < 0 || amountNr > 100 || /*!amountNr ||*/
                 depthNr < 0 || depthNr > 1000 || /*!depthNr ||*/ !titelText || hasNumbers(titelText) || titelText.length > 30
-                || 0 === takeImg.length || !this.state.useCurrPos && !Session.get('addedMarker')
+                || 0 === takeImg.length || !this.state.useCurrPos && !localStorage.getItem('addedMarker')
             /*|| !substrartText || hasNumbers(substrartText)*/) {
 
             this.inputError
                 (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/, amountNr < 0 || amountNr > 100 /*|| !amountNr*/,
                 depthNr < 0 || depthNr > 1000 /*|| !depthNr*/, !titelText || hasNumbers(titelText) || titelText.length > 30,
-                0 === takeImg.length, !this.state.useCurrPos && !Session.get('addedMarker')
+                0 === takeImg.length, !this.state.useCurrPos && !localStorage.getItem('addedMarker')
                 /*, !substrartText || hasNumbers(substrartText)*/);
 
         } else {
+
+            if(Object.prototype.toString.call(date) === "[object date]"){
+                if(isNaN(date.getTime())){
+                    console.log("invalid");
+                } else {
+                    console.log("valid");
+                }
+            } else {
+                console.log("not date");
+            }
 
             console.log(Meteor.user().emails[0].address);
 
@@ -205,7 +215,7 @@ export default class SubmitPage extends Component {
                     <br/><br/>
                     <h2>
                         <T>common.submitPage.new</T>
-                        <GetCategory category={Session.get('Category')}/>
+                        <GetCategory category={localStorage.getItem('Category')}/>
                         <T>common.submitPage.report</T>
                     </h2>
                 </header>
@@ -272,7 +282,7 @@ export default class SubmitPage extends Component {
                                 <FormGroup>
                                     <ControlLabel>{i18n.__('common.submitPage.date')}</ControlLabel>
                                     <FormControl
-                                        type="datetime-local"
+                                        type="date"
                                         ref="rapportDate"
                                     />
                                 </FormGroup>

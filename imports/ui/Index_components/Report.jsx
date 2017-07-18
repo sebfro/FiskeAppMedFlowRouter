@@ -22,9 +22,9 @@ export default class Report extends Component {
         event.preventDefault();
 
         let id = this.props.report._id;
-        Session.set('report.id', id);
-        Session.set('addMarker', false);
-        Session.set('marker.id', this.props.report.markerId);
+        localStorage.setItem('report.id', id);
+        localStorage.setItem('addMarker', false);
+        localStorage.setItem('marker.id', this.props.report.markerId);
         FlowRouter.go('/seRapport');
     }
 
