@@ -22,7 +22,7 @@
     "firstname": "Fornavn..",
     "lastname": "Etternavn..",
     "passRep": "Gjenta passord",
-    "phoneNr": "Telefon nr",
+    "phoneNr": "Telefon nr (valgfri)",
     "remMe": "Husk meg",
     "passLabel": "Passord",
     "emailLabel": "Email",
@@ -35,7 +35,7 @@
     "userNotFound": "Finner ikke bruker.",
     "emailExist": "Emailen er allerede registrert.",
     "nameError": "Navn kan bare innehold bokstaver",
-    "phoneError": "Telefon nr kan bare inneholde 8 nummer",
+    "phoneError": "Telefon nr kan bare inneholde 8 nummer eller være tom",
     "passMatchError": "Passordene er ikke like",
     "passError": "Passord må være seks tegn og inneholde ett nummer og en stor bokstav",
     "noMailError": "Email må fylles inn"

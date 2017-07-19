@@ -50,6 +50,7 @@ export default class FBLogin extends Component {
         if (response.status === 'connected') {
             localStorage.setItem('loggedInWith', 'facebook');
             FB.api('/me?fields=name,id,email', function(res){
+                console.log("WEEE");
                 localStorage.setItem('FB.name', res.name);
                 localStorage.setItem('FB.email', res.email);
                 localStorage.setItem('FB.status', response.status);
@@ -63,6 +64,7 @@ export default class FBLogin extends Component {
         } else {
             console.log("Please log into this facebook.");
         }
+        console.log("Hallo");
     }
 
     checkLoginState() {

@@ -52,3 +52,5 @@ momentjs:moment
 twbs:bootstrap
 universe:i18n
 sach:flow-db-admin
+accounts-facebook
+service-configuration

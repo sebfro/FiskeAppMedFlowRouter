@@ -8,7 +8,7 @@ import PassRecovery from './Index_components/PassRecovery.jsx';
 import {validateEmail, validatePass, validatePhoneNr, validateName, register, passMatch} from '../../lib/loginMethods.js';
 import {errorMsg} from "./Common_components/Loading_feedback"
 import FlagBtn from './Common_components/flagButton.jsx';
-import FBLogin from './login_components/facebookLogin.jsx';
+import FBLogin from './login_components/facebookLogin';
 
 const T = i18n.createComponent();
 
@@ -33,7 +33,6 @@ export default class LoginScreen extends Component {
     }
 
     setStateForInput(password, password2, firstName, lastName, phoneNr){
-        console.log("Hei");
         this.setState({
             passError: validatePass(password),
             fNameError: validateName(firstName),
@@ -259,7 +258,6 @@ export default class LoginScreen extends Component {
                             <PassRecovery/>
                         </Col>
                     </FormGroup>
-
                     <FormGroup>
                         <Col smOffset={2} sm={10}>
                             <Button className="btn btn-lg btn-primary btn-block" type="submit"

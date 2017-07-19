@@ -22,7 +22,7 @@
     "firstname": "Firstname..",
     "lastname": "Lastname..",
     "passRep": "Repeat password",
-    "phoneNr": "Phone nr..",
+    "phoneNr": "Phone nr.. (valgfri)",
     "remMe": "Remeber me",
     "passLabel": "Password",
     "emailLabel": "Email",
@@ -35,7 +35,7 @@
     "userNotFound": "User not found.",
     "emailExist": "Email already exists.",
     "nameError": "Name can only contain letters",
-    "phoneError": "Phone number can only contain 8 numbers",
+    "phoneError": "Phone number can only contain 8 numbers or empty",
     "passMatchError": "Passwords do not match",
     "passError": "Password must be 6 characters with one number adn one big letter",
     "noMailError": "Email must be filled"
