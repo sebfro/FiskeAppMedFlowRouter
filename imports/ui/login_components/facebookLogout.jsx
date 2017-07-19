@@ -37,15 +37,16 @@ export default class FBLogout extends Component {
         this.loadFbLoginApi();
     }
 
-
     handleFBLogout(e) {
         e.preventDefault();
-        FB.logout(function(res){
-            if(res.status === "unknown") {
+        FB.getLoginStatus( (res) => {
+            if(res && res.status === 'connected'){
                 clearLocalStorage();
+                FB.logout();
+            } else {
                 FlowRouter.go('/');
             }
-        });
+        })
     }
 
     render() {

@@ -22,6 +22,7 @@ import {
     englishReport
 } from '../../lib/pagetext.js';
 import ShowMoreBtn from './Index_components/ShowMoreBtn.jsx';
+import {loggedInToFacebook} from "../../lib/helpMethods"
 
 const panelStyle = { paddingTop: 10 };
 
@@ -83,6 +84,8 @@ class Index extends Component {
     }
 
     componentWillMount() {
+
+        loggedInToFacebook();
         Session.set('limit', 10);
         if (Session.get('language') === undefined) {
             Session.set('language', 'norwegian');

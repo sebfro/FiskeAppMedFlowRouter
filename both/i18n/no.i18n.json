@@ -2,8 +2,8 @@
   "_locale": "nb-NO",
   "_namespace": "common",
   "navbar": {
-    "fishSpecies": "Fiske art",
-    "coralSpecies": "Koral art",
+    "fishSpecies": "Fiskefunn",
+    "coralSpecies": "Korall",
     "unknownSpecies": "Fremmed art",
     "logout": "Logg ut"
   },
@@ -11,7 +11,7 @@
     "category": "Kategori: "
   },
   "showMoreBtn": {
-    "showMore": "Viss flere"
+    "showMore": "Vis flere"
   },
 
   "loginform": {

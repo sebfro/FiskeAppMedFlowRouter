@@ -4,7 +4,7 @@
   "navbar": {
     "fishSpecies": "Fish species",
     "coralSpecies": "Coral species",
-    "unknownSpecies": "Unknown species",
+    "unknownSpecies": "Introduced species",
     "logout": "Logout"
   },
   "index": {
