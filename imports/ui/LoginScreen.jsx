@@ -44,10 +44,7 @@ export default class LoginScreen extends Component {
     }
 
     login(e) {
-
         e.preventDefault();
-
-        console.log(this.state.register);
 
         let email = $('[name=email]').val();
         let password = $('[name=password]').val();

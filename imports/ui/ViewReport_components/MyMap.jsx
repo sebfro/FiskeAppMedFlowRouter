@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import { Session } from 'meteor/session';
 import GoogleMap from '../../api/GoogleMap.js';
 import Markers from './markers';
 import { setLatLng, setMarkerId } from '../SubmitPage.jsx';
-import { Mongo } from 'meteor/mongo';
 import { Meteor } from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 
@@ -36,13 +34,15 @@ class MyMap extends Component {
 
 
     handleOnReady(name) {
-        localStorage.setItem('addedMarker', false)
+        localStorage.setItem('addedMarker', false);
         let addedMarker = false;
         let markerPos = { lat: 60, lng: 5};
         GoogleMaps.ready(name, map => {
             Tracker.autorun(c => {
                 google.maps.event.addListener(map.instance, 'click', function(event) {
+                    console.log("Clicked");
                     if(localStorage.getItem('addMarker') && !addedMarker){
+                        console.log("In if");
                         addedMarker = true;
                         localStorage.setItem('addedMarker', true);
                         Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng(), current: true });

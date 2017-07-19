@@ -15,7 +15,7 @@ export default class FBLogin extends Component {
                 appId: '1865081020422422',
                 cookie: true,  // enable cookies to allow the server to access
                 // the session
-                xfbml: true,  // parse social plugins on this page
+                xfbml: false,  // parse social plugins on this page, if your not using any set it to false, true if you are
                 version: 'v2.8' // use version 2.1
             });
         };
@@ -46,13 +46,17 @@ export default class FBLogin extends Component {
 
     statusChangeCallback(response) {
         console.log('statusChangeCallback');
-        console.log(response.authResponse);
+        console.log(response);
         if (response.status === 'connected') {
             localStorage.setItem('loggedInWith', 'facebook');
-            FlowRouter.go('/homepage');
-            FB.api('/me', function(res){
-                localStorage.setItem('name', res.name);
-                console.log(res);
+            FB.api('/me?fields=name,id,email', function(res){
+                localStorage.setItem('FB.name', res.name);
+                localStorage.setItem('FB.email', res.email);
+                localStorage.setItem('FB.status', response.status);
+                localStorage.setItem('FB.loginToken', response.authResponse.accessToken);
+                localStorage.setItem('FB.loginTokenExpires', response.authResponse.expiresIn);
+                localStorage.setItem('FB.userId', response.authResponse.userID);
+                FlowRouter.go('/homepage');
             })
         } else if (response.status === 'not_authorized') {
             console.log("Please log into this app.");
@@ -70,7 +74,8 @@ export default class FBLogin extends Component {
     handleFBLogin(e) {
         e.preventDefault();
         FB.login(this.checkLoginState(), {
-            scope: 'email'
+            scope: 'email',
+            return_scopes: true
         });
     }
 

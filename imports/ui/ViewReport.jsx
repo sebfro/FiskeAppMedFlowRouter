@@ -112,7 +112,7 @@ class ViewReport extends Component {
 
     componentWillMount(){
         this.setPageText();
-        Session.set('addMarker', false);
+        localStorage.setItem('addMarker', false);
     }
 
     render() {

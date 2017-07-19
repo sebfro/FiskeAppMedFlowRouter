@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
 import i18n from 'meteor/universe:i18n';
-import {Button} from 'react-bootstrap';
+import {clearLocalStorage} from "../../../lib/helpMethods"
 
 const T = i18n.createComponent();
 
@@ -21,7 +21,6 @@ export default class FBLogout extends Component {
                 version: 'v2.8' // use version 2.1
             });
         };
-
         console.log("Loading fb api");
         // Load the SDK asynchronously
         (function (d, s, id) {
@@ -43,7 +42,7 @@ export default class FBLogout extends Component {
         e.preventDefault();
         FB.logout(function(res){
             if(res.status === "unknown") {
-                localStorage.setItem('loggedInWith', '');
+                clearLocalStorage();
                 FlowRouter.go('/');
             }
         });

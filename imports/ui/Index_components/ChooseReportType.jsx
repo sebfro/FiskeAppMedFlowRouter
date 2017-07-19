@@ -2,8 +2,9 @@ import React, {Component} from 'react';
 import {Meteor} from 'meteor/meteor';
 import i18n from 'meteor/universe:i18n';
 
-import {isVerified} from '../../../lib/helpMethods.js';
+import {isVerified, clearLocalStorage} from '../../../lib/helpMethods.js';
 import FlagBtn from "../Common_components/flagButton.jsx";
+import FBLogout from '../login_components/facebookLogout.jsx';
 
 
 const T = i18n.createComponent();
@@ -58,57 +59,54 @@ export default class ChooseReportType extends Component {
     }
 
     setSession() {
-        Session.set('addMarker', true);
+        localStorage.setItem('addMarker', true);
     }
 
     logOut(e) {
         e.preventDefault();
-        localStorage.removeItem('limit');
-        localStorage.removeItem('report.id');
-        localStorage.removeItem('error');
-        localStorage.removeItem('addedMarker');
-        localStorage.removeItem('addMarker');
-        localStorage.removeItem('Category');
-        localStorage.removeItem('marker.id');
+        clearLocalStorage();
         Meteor.logout();
         FlowRouter.go('/');
     }
 
     render() {
-            return (
-                <div>
-                    <nav className="navbar navbar-default navbar-fixed-top">
-                        <div className="container">
-                            <div className="navbar-header">
-                                <button type="button" className="navbar-toggle" data-toggle="collapse"
-                                        data-target="#myNavbar">
-                                    <span className="icon-bar"/>
-                                    <span className="icon-bar"/>
-                                    <span className="icon-bar"/>
-                                </button>
+        return (
+            <div>
+                <nav className="navbar navbar-default navbar-fixed-top">
+                    <div className="container">
+                        <div className="navbar-header">
+                            <button type="button" className="navbar-toggle" data-toggle="collapse"
+                                    data-target="#myNavbar">
+                                <span className="icon-bar"/>
+                                <span className="icon-bar"/>
+                                <span className="icon-bar"/>
+                            </button>
 
-                                <FlagBtn homepage={true}/>
+                            <FlagBtn homepage={true}/>
 
-                                <a className="navbar-brand" href="#">
-                                    <img src="/imrlogo.png" height={20} width={200} alt=""/>
-                                </a>
-                            </div>
-                            <div className="collapse navbar-collapse" id="myNavbar">
-                                <ul className="nav navbar-nav navbar-right">
-                                    <li><a onClick={this.newReportFisk.bind(this)}><T>common.navbar.fishSpecies</T></a>
-                                    </li>
-                                    <li><a onClick={this.newReportKoral.bind(this)}><T>common.navbar.coralSpecies</T></a>
-                                    </li>
-                                    <li><a
-                                        onClick={this.newReportFremmed.bind(this)}><T>common.navbar.unknownSpecies</T></a>
-                                    </li>
-                                    <li><a onClick={this.logOut.bind(this)}><T>common.navbar.logout</T></a></li>
-                                </ul>
-                            </div>
+                            <a className="navbar-brand" href="#">
+                                <img src="/imrlogo.png" height={20} width={200} alt=""/>
+                            </a>
                         </div>
-                    </nav>
+                        <div className="collapse navbar-collapse" id="myNavbar">
+                            <ul className="nav navbar-nav navbar-right">
+                                <li><a onClick={this.newReportFisk.bind(this)}><T>common.navbar.fishSpecies</T></a>
+                                </li>
+                                <li><a onClick={this.newReportKoral.bind(this)}><T>common.navbar.coralSpecies</T></a>
+                                </li>
+                                <li><a
+                                    onClick={this.newReportFremmed.bind(this)}><T>common.navbar.unknownSpecies</T></a>
+                                </li>
+                                {localStorage.getItem('loggedInWith') === 'facebook' ?
+                                    <li><FBLogout/></li> :
+                                    <li><a onClick={this.logOut.bind(this)}><T>common.navbar.logout</T></a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
 
-                </div>
-            );
+            </div>
+        );
     }
 }
