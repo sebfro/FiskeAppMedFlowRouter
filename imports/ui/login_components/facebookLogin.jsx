@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Button} from 'react-bootstrap';
 
+import {Loading_feedback} from "../Common_components/Loading_feedback"
 
 export default class FBLogin extends Component {
     constructor(props) {
@@ -49,7 +50,7 @@ export default class FBLogin extends Component {
         console.log(response);
         if (response.status === 'connected') {
             localStorage.setItem('loggedInWith', 'facebook');
-            FB.api('/me?fields=name,id,email', function(res){
+            FB.api('/me?fields=name,id,email', function (res) {
                 console.log("WEEE");
                 localStorage.setItem('FB.name', res.name);
                 localStorage.setItem('FB.email', res.email);
@@ -81,17 +82,22 @@ export default class FBLogin extends Component {
         });
     }
 
+    loginButton() {
+                return (
+                    <div>
+                        <Button className="btn btn-lg btn-primary btn-block"
+                                onClick={this.handleFBLogin.bind(this)}>
+                            <span className="fa fa-facebook"/> Sign in with Facebook
+                        </Button>
+                    </div>
+                )
+
+    }
+
     render() {
         return (
             <div>
-                <Button className="btn btn-lg btn-primary btn-block"
-                        onClick={this.handleFBLogin.bind(this)}>
-                    <span className="fa fa-facebook"/> Sign in with Facebook
-                </Button>
-
-
-                <p id="status"/>
-
+                {this.loginButton()}
             </div>
         );
     }

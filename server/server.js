@@ -5,6 +5,7 @@ import {Meteor} from 'meteor/meteor'
 import {Accounts} from 'meteor/accounts-base';
 
 export const remote = DDP.connect('http://172.16.251.182:3030/');
+export const remoteApp = DDP.connect('http://172.16.251.182:3000/');
 
 if (Meteor.isServer) {
     Meteor.startup( function() {
@@ -13,72 +14,53 @@ if (Meteor.isServer) {
         let domain = "smtp.gmail.com";
         let port = 587;
         process.env.MAIL_URL="smtp://" + username + ":" + pass + "@" + domain + ":" + port;
+
+        ServiceConfiguration.configurations.remove({
+            service: "facebook"
+        });
+
+        ServiceConfiguration.configurations.insert({
+            service: "facebook",
+            appId: '1865081020422422',
+            secret: 'bdd2aa5d0567a4796a1dd7c5c3d8ef67'
+        });
     });
 
     AdminConfig = {
         name: 'My App',
         adminEmails: ['sebastian17pepp@gmail.com']
     };
+
+    Meteor.publish('facebook.Email', function() {
+        console.log("YYYYYYYYYYYYYY");
+        console.log(Meteor.user().services.facebook.email);
+        return Meteor.users.find({_id: this.userId}, {fields: {'services.facebook.email': 1}});
+    })
 }
 
-    Meteor.publish('createUser', function createUser(user, pass2){
-        console.log("in createUser");
-        if (validateEmail(user.email) && user.profile.firstname !== "" && user.profile.lastname !== "" && user.profile.phoneNr !== "" && user.password === pass2) {
-            try{
-                Accounts.createUser(user);
-                remote.call('sendVerificationLink', this.userId);
-                return true;
-            } catch (e){
-                return false;
-            }
 
-        }
-    });
 
 Meteor.methods({
 
-    "registerUser"(user, pass2){
-        console.log("registerUser");
-        if (validateEmail(user.email) && user.profile.firstname !== "" && user.profile.lastname !== "" && user.profile.phoneNr !== "" && user.password === pass2) {
-            try{
-                Accounts.createUser(user);
-                validationEmail(Meteor.userId);
-                return true;
-            } catch (e){
-                console.log(e);
-                console.log("error");
-                return false;
-            }
-        }
-    },
-
-    "loginUser"(email, pass){
-        Meteor.loginWithPassword(email, pass, function (err) {
-            if (err) {
-                console.log(err.reason);
-                console.log(err);
-            } else {
-                FlowRouter.go('/homepage');
-            }
-        });
-    },
     "sendVerificationEmail"(userId){
         console.log("Sending email");
         let id = userId;
         Accounts.sendVerificationEmail(userId);
         console.log("done");
+    },
+
+    "facebook.showMail"(user, userId){
+        console.log("facebook.showMail");
+        console.log(Meteor.userId());
+        const user2 = Meteor.users.findOne(userId);
+        console.log(user);
+        console.log(user2);
+        let options = {
+            email: user2.services.facebook.email,
+        };
+
+        Meteor.users.update(userId, {
+            $push: { profile : options}
+        })
     }
 });
-
-function validateEmail(mail){
-    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)
-}
-
-function validationEmail(user){
-    console.log("Sending mail");
-    let userId = user ? user : Meteor.userId();
-
-    if(userId){
-        return Accounts.sendVerificationEmail(userId);
-    }
-}

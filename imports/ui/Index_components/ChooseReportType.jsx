@@ -85,7 +85,7 @@ export default class ChooseReportType extends Component {
                             <FlagBtn homepage={true}/>
 
                             <a className="navbar-brand" href="#">
-                                <img src="/imrlogo.png" height={20} width={200} alt=""/>
+                                <img src="/imrlogomini.png" style={{"height" : "100%", "width" : "30%"}} alt=""/>
                             </a>
                         </div>
                         <div className="collapse navbar-collapse" id="myNavbar">

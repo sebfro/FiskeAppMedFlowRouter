@@ -2,13 +2,15 @@ import React, {Component} from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Button, FormGroup, FormControl, Col, ControlLabel, Form, Checkbox} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
-import {remoteCreateUser} from '../../lib/reports.js';
+import {remoteApp, remote} from '../../lib/reports.js';
+import {Meteor} from 'meteor/meteor';
 
 import PassRecovery from './Index_components/PassRecovery.jsx';
 import {validateEmail, validatePass, validatePhoneNr, validateName, register, passMatch} from '../../lib/loginMethods.js';
 import {errorMsg} from "./Common_components/Loading_feedback"
 import FlagBtn from './Common_components/flagButton.jsx';
 import FBLogin from './login_components/facebookLogin';
+import FacebookLogin from './login_components/loginFacebook.jsx';
 
 const T = i18n.createComponent();
 
@@ -81,7 +83,7 @@ export default class LoginScreen extends Component {
                         });
                         this.setStateForInput(password, password2, firstName, lastName, phoneNr);
                     } else {
-                        remoteCreateUser.call('sendVerificationEmail', Meteor.userId(), (err, response) => {
+                        remoteApp.call('sendVerificationEmail', Meteor.userId(), (err, response) => {
                             if (response) {
                                 alert(response);
                                 alert('En email har blitt sendt til din epost for verifisering!', 'success');
@@ -268,6 +270,7 @@ export default class LoginScreen extends Component {
                         </Col>
                     </FormGroup>
                     <FBLogin/>
+                    <FacebookLogin/>
                 </Form>
             </div>
         )
