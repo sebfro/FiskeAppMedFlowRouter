@@ -20,14 +20,16 @@ export default class FacebookLogin extends Component {
                 console.log(Meteor.user());
                 console.log(Meteor.user().profile);
                 remoteApp.call('facebook.showMail', Meteor.user(), Meteor.userId());
+                FlowRouter.go('/homepage')
             }
         });
     }
 
     render(){
         return(
-            <Button onClick={this.handleLogin.bind(this)}>
-                Login to facebook
+            <Button className="btn btn-lg btn-primary btn-block"
+                    onClick={this.handleLogin.bind(this)}>
+                <span className="fa fa-facebook"/> Login to facebook
             </Button>
         )
     }

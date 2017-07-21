@@ -28,7 +28,7 @@ if (Meteor.isServer) {
 
     AdminConfig = {
         name: 'My App',
-        adminEmails: ['sebastian17pepp@gmail.com']
+        adminEmails: ['sebastianfroyen@gmail.com']
     };
 
     Meteor.publish('facebook.Email', function() {
@@ -55,12 +55,32 @@ Meteor.methods({
         const user2 = Meteor.users.findOne(userId);
         console.log(user);
         console.log(user2);
-        let options = {
-            email: user2.services.facebook.email,
-        };
 
-        Meteor.users.update(userId, {
-            $push: { profile : options}
-        })
+
+        let setObject = {};
+        //let emailPath = "email";
+        let fNamePath = "lastname";
+        let lNamePath = "firstname";
+        setObject[fNamePath] = user2.services.facebook.first_name;
+        setObject[lNamePath] = user2.services.facebook.last_name;
+        //setObject[emailPath] = user2.services.facebook.email;
+
+
+        let setObject2 = {};
+        let addressPath = 'address';
+        let verifiedPath = 'verified';
+        setObject2[addressPath] = user2.services.facebook.email;
+        setObject2[verifiedPath] = true;
+
+        let emails = [setObject2];
+
+        try {
+
+            Meteor.users.update(userId, {
+                $set: {profile : setObject, emails}
+            })
+        } catch (e) {
+            console.log(e.message);
+        }
     }
 });

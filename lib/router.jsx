@@ -38,7 +38,7 @@ if(Meteor.isClient){
 
         AdminConfig = {
             name: 'My App',
-            adminEmails: ['sebastian17pepp@gmail.com']
+            adminEmails: ['sebastianfroyen@gmail.com']
         };
     });
 }
@@ -50,7 +50,6 @@ if(Meteor.isClient){
             id: 1,
             title: reportTitel + " har blitt oppdatert",
             message: "Rapporten er validert.",
-
         });
         console.log("Notification sent");
 
@@ -172,7 +171,7 @@ FlowRouter.route('/verify-email/:token',{
                 console.log(err.reason);
                 console.log(err.message);
             }
-            FlowRouter.go("/");
+            FlowRouter.go("/homepage");
         });
     }
 });
