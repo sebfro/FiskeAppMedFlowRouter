@@ -1,29 +1,30 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
-import {Button, ButtonToolbar, Radio, Checkbox, FormGroup, FormControl, ControlLabel, InputGroup, Collapse} from 'react-bootstrap';
+import {Button, ButtonToolbar, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
 
-import { hasNumbers, backToIndex, dataURItoBlob } from '../../lib/helpMethods.js';
+import {hasNumbers, backToIndex, dataURItoBlob} from '../../lib/helpMethods.js';
 import MyMap from './ViewReport_components/MyMap.jsx';
 import Markers from './ViewReport_components/markers.jsx';
 import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
 import {remote} from '../../lib/reports.js';
 import GetCategory from './Common_components/getCategory.jsx';
+import ShowImg from './Common_components/ShowImg.jsx';
 
-let takeImg = [];
+let takenImg = [];
 let posLong;
 let posLat;
 let markerId;
 const T = i18n.createComponent();
 
-export function setLatLng(lat, lng){
+export function setLatLng(lat, lng) {
     posLat = lat;
     posLong = lng;
 }
 
-export function setMarkerId(id){
+export function setMarkerId(id) {
     markerId = id;
 }
 
@@ -31,10 +32,10 @@ export function setMarkerId(id){
 export default class SubmitPage extends Component {
 
     //Setter state variabler
-    constructor(props){
+    constructor(props) {
         super(props);
         let category = localStorage.getItem('Category');
-        if(category === undefined){
+        if (category === undefined) {
             category = '';
         }
         this.state = {
@@ -48,11 +49,15 @@ export default class SubmitPage extends Component {
             useCurrPos: true,
             category: category,
             showNewReport: this.props.currentUser,
+            images: [],
+            imgLimitReached: false,
         };
+
+        this.removeImg = this.removeImg.bind(this);
     }
 
     //Oppdaterer state variabler
-    inputError(length, amount, depth, titel, picture, marker){
+    inputError(length, amount, depth, titel, picture, marker) {
         this.setState({
             lengthError: length,
             amountError: amount,
@@ -62,50 +67,78 @@ export default class SubmitPage extends Component {
             markerError: marker
         })
     }
-    changePos(e){
+
+    changePos(e) {
         e.preventDefault();
         this.setState({
             useCurrPos: !this.state.useCurrPos
         })
     }
+
     //Henter bilde fra mobilens minne
     getPictureFromStorage(event) {
         event.preventDefault();
-        if (Meteor.isCordova) {
-            let cameraOptions = {
-                height: 600,
-                width: 800,
-                quality: 100,
-                sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-            };
-            MeteorCamera.getPicture(cameraOptions, function (error, data) {
-                if (!error) {
-                    takeImg.push(data);
-                } else {
-                    console.log(error.reason);
-                }
-            });
+        if (takenImg.length < 3) {
+            if (Meteor.isCordova) {
+                let cameraOptions = {
+                    height: 600,
+                    width: 800,
+                    quality: 100,
+                    sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+                };
+                MeteorCamera.getPicture(cameraOptions, (error, data) => {
+                    if (!error) {
+                        takenImg.push(data);
+                        this.setState({
+                            images: takenImg
+                        });
+
+                        console.log(this.state.images);
+                    } else {
+                        console.log(error.reason);
+                    }
+                });
+            } else {
+                alert("Can only get images from storage on Android or IOS");
+            }
         } else {
-            alert("Can only get images from storage on Android or IOS");
+            this.setLimitReached(true);
         }
+    }
+
+    setLimitReached(reached){
+        this.setState({
+            imgLimitReached: reached,
+        })
     }
 
     //Ta bilde med kamera
     takePicture(event) {
         event.preventDefault();
-        let cameraOptions = {
-            height: 600,
-            width: 800,
-            quality: 100,
-            correctOrientation: true,
-        };
-        MeteorCamera.getPicture(cameraOptions, function (error, data) {
-            if (!error) {
-                //takeImg.push(data);
-                takeImg.push(data);
-            } else {
-            }
-        });
+        console.log(takenImg);
+        if (takenImg.length < 3) {
+            let cameraOptions = {
+                height: 600,
+                width: 800,
+                quality: 100,
+                correctOrientation: true,
+            };
+            MeteorCamera.getPicture(cameraOptions, (error, data) => {
+                if (!error) {
+                    //takenImg.push(data);
+                    takenImg.push(data);
+                    this.setState({
+                        images: takenImg
+                    });
+
+                    console.log(this.state.images);
+                } else {
+                }
+            });
+        } else {
+            console.log("Can't add more imgs");
+            this.setLimitReached(true);
+        }
     }
 
     //Send inn alle variablene som skal være i rapport til report.js. Sjekker om det er noe galt med inputten og klaer da inputerror.
@@ -119,26 +152,27 @@ export default class SubmitPage extends Component {
         const depthNr = ReactDOM.findDOMNode(this.refs.rapportDepth).value.trim();
         const amountNr = ReactDOM.findDOMNode(this.refs.rapportAmount).value.trim();
         let date;
-        try{
+        try {
             date = (ReactDOM.findDOMNode(this.refs.rapportDate).value.trim());
             date = new Date(date);
             console.log(date);
-        } catch(e){}
-        if      (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/ || amountNr < 0 || amountNr > 100 || /*!amountNr ||*/
-                depthNr < 0 || depthNr > 1000 || /*!depthNr ||*/ !titelText || hasNumbers(titelText) || titelText.length > 30
-                || 0 === takeImg.length || !this.state.useCurrPos && !localStorage.getItem('addedMarker')
-            /*|| !substrartText || hasNumbers(substrartText)*/) {
+        } catch (e) {
+        }
+        if (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/ || amountNr < 0 || amountNr > 100 || /*!amountNr ||*/
+            depthNr < 0 || depthNr > 1000 || /*!depthNr ||*/ !titelText || hasNumbers(titelText) || titelText.length > 30
+            || 0 === takenImg.length || !this.state.useCurrPos && !localStorage.getItem('addedMarker')
+        /*|| !substrartText || hasNumbers(substrartText)*/) {
 
             this.inputError
-                (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/, amountNr < 0 || amountNr > 100 /*|| !amountNr*/,
+            (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/, amountNr < 0 || amountNr > 100 /*|| !amountNr*/,
                 depthNr < 0 || depthNr > 1000 /*|| !depthNr*/, !titelText || hasNumbers(titelText) || titelText.length > 30,
-                0 === takeImg.length, !this.state.useCurrPos && !localStorage.getItem('addedMarker')
+                0 === takenImg.length, !this.state.useCurrPos && !localStorage.getItem('addedMarker')
                 /*, !substrartText || hasNumbers(substrartText)*/);
 
         } else {
 
-            if(Object.prototype.toString.call(date) === "[object date]"){
-                if(isNaN(date.getTime())){
+            if (Object.prototype.toString.call(date) === "[object date]") {
+                if (isNaN(date.getTime())) {
                     console.log("invalid");
                 } else {
                     console.log("valid");
@@ -150,7 +184,7 @@ export default class SubmitPage extends Component {
             console.log(Meteor.user().emails[0].address);
 
             remote.call(`reports.insert`, titelText, Number(lengthNr),
-                takeImg, posLat, posLong, Number(depthNr), Number(amountNr),
+                takenImg, posLat, posLong, Number(depthNr), Number(amountNr),
                 this.state.useCurrPos, this.state.category, date, Meteor.user().emails[0].address, Meteor.userId());
 
             ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
@@ -158,49 +192,56 @@ export default class SubmitPage extends Component {
             ReactDOM.findDOMNode(this.refs.rapportDepth).value = '';
             ReactDOM.findDOMNode(this.refs.rapportAmount).value = '';
 
-            takeImg = [];
+            takenImg = [];
             backToIndex(event);
         }
     }
 
 
     //Henter nåværende posisjonb
-    getPos(){
+    getPos() {
         navigator.geolocation.getCurrentPosition(this.onSuccess, this.onFailure);
     }
+
     //Mottar posisjons objekt og lagrer breddegrad og lengdegrad
-    onSuccess(pos){
+    onSuccess(pos) {
         posLat = pos.coords.longitude;
         posLong = pos.coords.latitude;
     }
-    onFailure(){
+
+    onFailure() {
         this.setState({
             useCurrPos: false
         })
     }
 
-    removeMarker(){
+    removeMarker() {
         Markers.remove(markerId);
     }
 
-    onBackButtonDown(e){
+    onBackButtonDown(e) {
         e.preventDefault();
         e.stopPropagation();
-        if(markerId){
+        if (markerId) {
             this.removeMarker();
         }
         FlowRouter.go('/homepage');
     }
 
-    goBackToIndex(e){
-        if(markerId){
-            this.removeMarker()
+    removeImg(index) {
+        if (0 < index < 4) {
+            takenImg.splice(index, 1);
+            this.setState({
+                images: takenImg
+            });
         }
-        backToIndex(e);
+        if(index < 3){
+            this.setLimitReached(false);
+        }
     }
 
 
-    componentWillMount(){
+    componentWillMount() {
         this.getPos();
     }
 
@@ -299,10 +340,12 @@ export default class SubmitPage extends Component {
                         }
 
 
-
                         <li>
                             <p className="errorText" hidden={!this.state.pictureError}>
                                 <T>common.submitPageError.errorPicture</T>
+                            </p>
+                            <p className="errorText" hidden={!this.state.imgLimitReached}>
+                                <T>common.submitPageError.imgLimitErr</T>
                             </p>
                             <ButtonToolbar>
                                 <Button bsStyle="primary" onClick={this.takePicture.bind(this)}>
@@ -313,6 +356,7 @@ export default class SubmitPage extends Component {
                                 </Button>
                             </ButtonToolbar>
                         </li>
+                        <ShowImg photo={this.state.images} removeImg={this.removeImg}/>
                         <li>
                             <Button bsStyle="primary" onClick={this.handleSubmit.bind(this)}>
                                 <T>common.submitPage.sendBtn</T>

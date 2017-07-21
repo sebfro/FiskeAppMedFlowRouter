@@ -82,6 +82,10 @@
     "date": "Date:"
   },
 
+  "ShowImgSubmitPage": {
+    "deleteBtn": "Remove"
+  },
+
   "submitPageError": {
     "errorSpecie": "Specie cannot include numbers, be blank or longer than 30 characters",
     "errorPicture": "No picture uploaded",
@@ -89,7 +93,8 @@
     "errorDate": "Date must be entered",
     "errorLength": "Length must be between 1 and 999",
     "errorDepth": "Depth must be between 0 and 999",
-    "errorAmount": "Amount must be between 0 and 99"
+    "errorAmount": "Amount must be between 0 and 99",
+    "imgLimitErr": "Can only upload three images at a time, delete a photo if you want to upload a different one"
   }
 
 }

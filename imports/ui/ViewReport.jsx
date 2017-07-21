@@ -78,15 +78,6 @@ class ViewReport extends Component {
 
         return <Carousel>{imgArray}</Carousel>;
 
-        /*
-        return this.props.report.photo.map((photo) => (
-            <ShowImg key={photo._id} img={photo}/>
-        ));
-        */
-    }
-
-    backToIndex() {
-        FlowRouter.go("/homepage");
     }
 
     onBackButtonDown(e){

@@ -82,6 +82,10 @@
     "date": "Dato:"
   },
 
+  "ShowImgSubmitPage": {
+    "deleteBtn": "Fjern"
+  },
+
   "submitPageError": {
     "errorSpecie": "Art kan ikke inneholde tall, være blank eller være lengre enn 30 bokstaver",
     "errorPicture": "Ingen bilder lastet opp",
@@ -89,7 +93,8 @@
     "errorDate": "Dato må fylles inn",
     "errorLength": "Lengde må være mellpm 1 og 999",
     "errorDepth": "Dybde må være mellom 0 og 999",
-    "errorAmount": "Antall må være mellom 0 og 99"
+    "errorAmount": "Antall må være mellom 0 og 99",
+    "imgLimitErr": "Kan kunne laste opp tre bilder, fjern ett viss du vil ha et annet bilde"
   }
 
 }
