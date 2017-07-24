@@ -9,7 +9,9 @@
     "logout": "Logout"
   },
   "index": {
-    "category": "Category: "
+    "category": "Category: ",
+    "verified": "Verified reports",
+    "unVerified": "Unverified reports"
   },
   "showMoreBtn": {
     "showMore": "Show more"

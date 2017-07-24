@@ -9,7 +9,9 @@
     "logout": "Logg ut"
   },
   "index": {
-    "category": "Kategori: "
+    "category": "Kategori: ",
+    "verified": "Verifiserte rapporter",
+    "unVerified": "Uverifiserte rapporter"
   },
   "showMoreBtn": {
     "showMore": "Vis flere"

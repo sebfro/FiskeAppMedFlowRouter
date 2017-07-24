@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
-import {Panel, ListGroup,} from 'react-bootstrap';
+import {Panel, ListGroup, PanelGroup} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
 
 
@@ -24,7 +24,7 @@ import {
 import ShowMoreBtn from './Index_components/ShowMoreBtn.jsx';
 import {loggedInToFacebook} from "../../lib/helpMethods"
 
-const panelStyle = { paddingTop: 10 };
+const panelStyle = {paddingTop: 10};
 
 
 //Index komponent - Gjengir hovedsiden til applikasjonen
@@ -68,19 +68,41 @@ class Index extends Component {
 
     //Kaller på report komponeneten og gjengir alle rapporter
     renderReports() {
-        let reportArray = [];
+        let verifiedReportArray = [];
+        let unVerifiedReportArray = [];
         let length = this.props.reports.length;
         if (this.state.showTen) {
             length = 10;
         }
 
         for (let i = 0; i < this.props.reports.length; i++) {
-            reportArray.push(
-                <Report key={i} report={this.props.reports[i]}/>
-            );
+            if (this.props.reports[i].isValidated) {
+                verifiedReportArray.push(
+                    <Report key={i} report={this.props.reports[i]}/>
+                );
+            } else {
+                unVerifiedReportArray.push(
+                    <Report key={i} report={this.props.reports[i]}/>
+                );
+            }
         }
 
-        return reportArray;
+        return (
+                <PanelGroup>
+                    <Panel style={panelStyle} bsStyle="primary" collapsible defaultExpanded header={i18n.__('common.index.verified')}>
+                        <ListGroup fill>
+                            {verifiedReportArray}
+                            <ShowMoreBtn/>
+                        </ListGroup>
+                    </Panel>
+                    <Panel  bsStyle="primary" collapsible defaultExpanded header={i18n.__('common.index.unVerified')}>
+                        <ListGroup fill>
+                            {unVerifiedReportArray}
+                            <ShowMoreBtn/>
+                        </ListGroup>
+                    </Panel>
+                </PanelGroup>
+        );
     }
 
     componentWillMount() {
@@ -97,21 +119,15 @@ class Index extends Component {
 
 
     render() {
-        if(this.props.reports) {
+        if (this.props.reports) {
             return (
                 <div className="pageContainer">
                     <ChooseReportType/>
                     <br/><br/>
 
-
-
                     {this.props.reports ?
-                        <Panel style={panelStyle} bsStyle="primary" collapsible defaultExpanded header="Panel heading">
-                            <ListGroup fill>
-                                {this.renderReports()}
-                                <ShowMoreBtn/>
-                            </ListGroup>
-                        </Panel> : <Loading_feedback/>}
+                        this.renderReports()
+                        : <Loading_feedback/>}
                 </div>
             )
         } else {
@@ -122,17 +138,20 @@ class Index extends Component {
 
 export default createContainer(() => {
     let loaded = false;
-    let fields = {text: 1, user: 1,
+    let fields = {
+        text: 1, user: 1,
         isValidated: 1, createdAt: 1,
         scientist: 1, category: 1, owner: 1,
         markerId: 1, taken: 1,
     };
     let user = Meteor.userId();
-    remote.subscribe('reports.reportingToolList', fields, user, Session.get('limit'));
+    remote.subscribe('reports.reportingToolList', user, Session.get('limit'));
     return {
         loaded: loaded,
-        reports: Reports.find({owner: user}, {sort: {createdAt: -1},
-            limit: Session.get('limit'), fields: fields}).fetch(),
+        reports: Reports.find({owner: user}, {
+            sort: {createdAt: -1},
+            limit: Session.get('limit'), fields: fields
+        }).fetch(),
         currentUser: Meteor.user(),
     };
 }, Index);
