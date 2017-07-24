@@ -24,6 +24,31 @@ if (Meteor.isServer) {
             appId: '1865081020422422',
             secret: 'bdd2aa5d0567a4796a1dd7c5c3d8ef67'
         });
+
+        if(Meteor.isCordova) {
+            Push.Configure({
+                apn: {
+                    certData: Assets.getText('apnDevCert.pem'),
+                    keyData: Assets.getText('apnDevKey.pem'),
+                    passphrase: 'xxxxxxxxx',
+                    production: true,
+                    //gateway: 'gateway.push.apple.com',
+                },
+                gcm: {
+                    apiKey: 'AIzaSyAubjLNgGBCYH1K75fy1X-Vk4rioTm6MDE',
+                    projectNumber: 151119787186
+                }
+                // production: true,
+                // 'sound' true,
+                // 'badge' true,
+                // 'alert' true,
+                // 'vibrate' true,
+                // 'sendInterval': 15000, Configurable interval between sending
+                // 'sendBatchSize': 1, Configurable number of notifications to send per batch
+                // 'keepNotifications': false,
+//
+            });
+        }
     });
 
     AdminConfig = {

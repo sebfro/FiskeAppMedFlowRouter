@@ -43,6 +43,29 @@ if(Meteor.isClient){
             name: 'My App',
             adminEmails: ['sebastianfroyen@gmail.com']
         };
+        if(Meteor.isCordova) {
+            Push.Configure({
+                android: {
+                    senderID: 151119787186,
+                    alert: true,
+                    badge: true,
+                    sound: true,
+                    vibrate: true,
+                    clearNotifications: true
+                    // icon: '',
+                    // iconColor: ''
+                },
+                ios: {
+                    alert: true,
+                    badge: true,
+                    sound: true
+                }
+            });
+
+            App.configurePlugin('phonegap-plugin-push', {
+                SENDER_ID: 151119787186
+            });
+        }
     });
 }
 
