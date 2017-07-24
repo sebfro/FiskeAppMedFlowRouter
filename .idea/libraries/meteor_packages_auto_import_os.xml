@@ -4,12 +4,17 @@
       <sourceFilesUrls>
         <item url="file://$USER_HOME$/.meteor/packages/caching-compiler/1.1.9/os/caching-compiler.js" />
         <item url="file://$USER_HOME$/.meteor/packages/caching-compiler/1.1.9/os/multi-file-caching-compiler.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/raix_eventstate/0.0.4/os/packages/raix_eventstate.js" />
         <item url="file://$USER_HOME$/.meteor/packages/callback-hook/1.0.10/os/hook.js" />
         <item url="file://$USER_HOME$/.meteor/packages/caching-html-compiler/1.1.2/os/caching-html-compiler.js" />
         <item url="file://$USER_HOME$/.meteor/packages/cfs_access-point/0.1.49/os/packages/cfs_access-point.js" />
         <item url="file://$USER_HOME$/.meteor/packages/cfs_collection/0.5.5/os/packages/cfs_collection.js" />
         <item url="file://$USER_HOME$/.meteor/packages/cfs_base-package/0.0.30/os/packages/cfs_base-package.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/os/lib/common/notifications.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/os/lib/common/main.js" />
         <item url="file://$USER_HOME$/.meteor/packages/cfs_collection-filters/0.2.4/os/packages/cfs:collection-filters.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/os/lib/server/push.api.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/os/lib/server/server.js" />
         <item url="file://$USER_HOME$/.meteor/packages/cfs_data-man/0.0.6/os/packages/cfs:data-man.js" />
         <item url="file://$USER_HOME$/.meteor/packages/cfs_filesystem/0.1.2/os/packages/cfs:filesystem.js" />
         <item url="file://$USER_HOME$/.meteor/packages/cfs_file/0.1.17/os/packages/cfs_file.js" />
@@ -513,12 +518,17 @@
     <CLASSES>
       <root url="file://$USER_HOME$/.meteor/packages/caching-compiler/1.1.9/os/caching-compiler.js" />
       <root url="file://$USER_HOME$/.meteor/packages/caching-compiler/1.1.9/os/multi-file-caching-compiler.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/raix_eventstate/0.0.4/os/packages/raix_eventstate.js" />
       <root url="file://$USER_HOME$/.meteor/packages/callback-hook/1.0.10/os/hook.js" />
       <root url="file://$USER_HOME$/.meteor/packages/caching-html-compiler/1.1.2/os/caching-html-compiler.js" />
       <root url="file://$USER_HOME$/.meteor/packages/cfs_access-point/0.1.49/os/packages/cfs_access-point.js" />
       <root url="file://$USER_HOME$/.meteor/packages/cfs_collection/0.5.5/os/packages/cfs_collection.js" />
       <root url="file://$USER_HOME$/.meteor/packages/cfs_base-package/0.0.30/os/packages/cfs_base-package.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/os/lib/common/notifications.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/os/lib/common/main.js" />
       <root url="file://$USER_HOME$/.meteor/packages/cfs_collection-filters/0.2.4/os/packages/cfs:collection-filters.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/os/lib/server/push.api.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/os/lib/server/server.js" />
       <root url="file://$USER_HOME$/.meteor/packages/cfs_data-man/0.0.6/os/packages/cfs:data-man.js" />
       <root url="file://$USER_HOME$/.meteor/packages/cfs_filesystem/0.1.2/os/packages/cfs:filesystem.js" />
       <root url="file://$USER_HOME$/.meteor/packages/cfs_file/0.1.17/os/packages/cfs_file.js" />

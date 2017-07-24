@@ -51,6 +51,7 @@
         <item url="file://$USER_HOME$/.meteor/packages/kadira_blaze-layout/2.1.0/web.cordova/packages/kadira_blaze-layout.js" />
         <item url="file://$USER_HOME$/.meteor/packages/aldeed_template-extension/3.4.3/web.cordova/packages/aldeed:template-extension.js" />
         <item url="file://$USER_HOME$/.meteor/packages/momentjs_moment/2.18.1/web.cordova/export.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/raix_eventstate/0.0.4/web.cordova/packages/raix_eventstate.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/integration/pending.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/integration/fixtures/regression/1794/simple-ui.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/integration/fixtures/regression/1794/issue-1794.js" />
@@ -65,8 +66,11 @@
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/integration/fixtures/retries/async.js" />
         <item url="file://$USER_HOME$/.meteor/packages/aldeed_tabular/1.4.2/web.cordova/client/tableRecords.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/integration/fixtures/retries/early-pass.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/web.cordova/lib/client/cordova.js" />
         <item url="file://$USER_HOME$/.meteor/packages/aldeed_tabular/1.4.2/web.cordova/client/tabular.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/web.cordova/lib/client/client.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/integration/fixtures/retries/hooks.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/web.cordova/lib/common/notifications.js" />
         <item url="file://$USER_HOME$/.meteor/packages/aldeed_tabular/1.4.2/web.cordova/client/util.js" />
         <item url="file://$USER_HOME$/.meteor/packages/aldeed_tabular/1.4.2/web.cordova/.npm/package/node_modules/datatables/media/js/jquery.dataTables.js" />
         <item url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/integration/fixtures/options/grep.js" />
@@ -746,6 +750,7 @@
       <root url="file://$USER_HOME$/.meteor/packages/kadira_blaze-layout/2.1.0/web.cordova/packages/kadira_blaze-layout.js" />
       <root url="file://$USER_HOME$/.meteor/packages/aldeed_template-extension/3.4.3/web.cordova/packages/aldeed:template-extension.js" />
       <root url="file://$USER_HOME$/.meteor/packages/momentjs_moment/2.18.1/web.cordova/export.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/raix_eventstate/0.0.4/web.cordova/packages/raix_eventstate.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/integration/pending.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/integration/fixtures/regression/1794/simple-ui.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/integration/fixtures/regression/1794/issue-1794.js" />
@@ -760,8 +765,11 @@
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/integration/fixtures/retries/async.js" />
       <root url="file://$USER_HOME$/.meteor/packages/aldeed_tabular/1.4.2/web.cordova/client/tableRecords.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/integration/fixtures/retries/early-pass.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/web.cordova/lib/client/cordova.js" />
       <root url="file://$USER_HOME$/.meteor/packages/aldeed_tabular/1.4.2/web.cordova/client/tabular.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/web.cordova/lib/client/client.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/integration/fixtures/retries/hooks.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/web.cordova/lib/common/notifications.js" />
       <root url="file://$USER_HOME$/.meteor/packages/aldeed_tabular/1.4.2/web.cordova/client/util.js" />
       <root url="file://$USER_HOME$/.meteor/packages/aldeed_tabular/1.4.2/web.cordova/.npm/package/node_modules/datatables/media/js/jquery.dataTables.js" />
       <root url="file://$USER_HOME$/.meteor/packages/practicalmeteor_mocha/2.4.5_6/web.cordova/test/integration/fixtures/options/grep.js" />

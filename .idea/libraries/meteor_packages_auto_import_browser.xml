@@ -28,6 +28,7 @@
         <item url="file://$USER_HOME$/.meteor/packages/html-tools/1.0.11/web.browser/scanner.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ddp-common/1.2.8/web.browser/utils.js" />
         <item url="file://$USER_HOME$/.meteor/packages/html-tools/1.0.11/web.browser/templatetag.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/raix_eventstate/0.0.4/web.browser/packages/raix_eventstate.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ddp-common/1.2.8/web.browser/namespace.js" />
         <item url="file://$USER_HOME$/.meteor/packages/html-tools/1.0.11/web.browser/tokenize.js" />
         <item url="file://$USER_HOME$/.meteor/packages/ddp-common/1.2.8/web.browser/heartbeat.js" />
@@ -39,8 +40,12 @@
         <item url="file://$USER_HOME$/.meteor/packages/htmljs/1.0.11/web.browser/preamble.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/lib/router.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/test/client/_helpers.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/web.browser/lib/client/browser.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/test/client/triggers.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/web.browser/lib/client/client.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/web.browser/lib/common/notifications.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/test/common/fast_render_route.js" />
+        <item url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/web.browser/lib/common/main.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/router.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/group.js" />
         <item url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/_init.js" />
@@ -723,6 +728,7 @@
       <root url="file://$USER_HOME$/.meteor/packages/html-tools/1.0.11/web.browser/scanner.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ddp-common/1.2.8/web.browser/utils.js" />
       <root url="file://$USER_HOME$/.meteor/packages/html-tools/1.0.11/web.browser/templatetag.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/raix_eventstate/0.0.4/web.browser/packages/raix_eventstate.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ddp-common/1.2.8/web.browser/namespace.js" />
       <root url="file://$USER_HOME$/.meteor/packages/html-tools/1.0.11/web.browser/tokenize.js" />
       <root url="file://$USER_HOME$/.meteor/packages/ddp-common/1.2.8/web.browser/heartbeat.js" />
@@ -734,8 +740,12 @@
       <root url="file://$USER_HOME$/.meteor/packages/htmljs/1.0.11/web.browser/preamble.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/lib/router.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/test/client/_helpers.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/web.browser/lib/client/browser.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/test/client/triggers.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/web.browser/lib/client/client.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/web.browser/lib/common/notifications.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/test/common/fast_render_route.js" />
+      <root url="file://$USER_HOME$/.meteor/packages/raix_push/3.0.2/web.browser/lib/common/main.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/router.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/group.js" />
       <root url="file://$USER_HOME$/.meteor/packages/kadira_flow-router/2.12.1/web.browser/client/_init.js" />

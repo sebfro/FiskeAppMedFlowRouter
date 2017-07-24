@@ -1,2 +1,4 @@
+cordova-plugin-device@1.1.5
 cordova-plugin-dialogs@1.1.6
 de.appplant.cordova.plugin.local-notification@0.8.5
+phonegap-plugin-push@1.5.2
