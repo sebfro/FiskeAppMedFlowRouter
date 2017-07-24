@@ -8,12 +8,12 @@ export const remote = DDP.connect('http://172.16.251.182:3030/');
 export const remoteApp = DDP.connect('http://172.16.251.182:3000/');
 
 if (Meteor.isServer) {
-    Meteor.startup( function() {
+    Meteor.startup(function () {
         let username = encodeURIComponent("sebastianfroyen@gmail.com");
         let pass = encodeURIComponent("Rhkwxexty69");
         let domain = "smtp.gmail.com";
         let port = 587;
-        process.env.MAIL_URL="smtp://" + username + ":" + pass + "@" + domain + ":" + port;
+        process.env.MAIL_URL = "smtp://" + username + ":" + pass + "@" + domain + ":" + port;
 
         ServiceConfiguration.configurations.remove({
             service: "facebook"
@@ -31,7 +31,7 @@ if (Meteor.isServer) {
         adminEmails: ['sebastianfroyen@gmail.com']
     };
 
-    Meteor.publish('facebook.Email', function() {
+    Meteor.publish('facebook.Email', function () {
         console.log("YYYYYYYYYYYYYY");
         console.log(Meteor.user().services.facebook.email);
         return Meteor.users.find({_id: this.userId}, {fields: {'services.facebook.email': 1}});
@@ -39,17 +39,16 @@ if (Meteor.isServer) {
 }
 
 
-
 Meteor.methods({
 
-    "sendVerificationEmail"(userId){
+    "sendVerificationEmail"(userId) {
         console.log("Sending email");
         let id = userId;
         Accounts.sendVerificationEmail(userId);
         console.log("done");
     },
 
-    "facebook.showMail"(user, userId){
+    "facebook.showMail"(user, userId) {
         console.log("facebook.showMail");
         console.log(Meteor.userId());
         const user2 = Meteor.users.findOne(userId);
@@ -77,7 +76,66 @@ Meteor.methods({
         try {
 
             Meteor.users.update(userId, {
-                $set: {profile : setObject, emails}
+                $set: {profile: setObject, emails}
+            })
+        } catch (e) {
+            console.log(e.message);
+        }
+    },
+
+    'changeProfileName'(fName, lName, userId) {
+        user = Meteor.users.findOne(userId);
+
+        let setObject = {};
+        let fNamePath = "firstname";
+        let lNamePath = "lastname";
+        let phoneNrPath = "phoneNr";
+        setObject[fNamePath] = fName;
+        setObject[lNamePath] = lName;
+        setObject[phoneNrPath] = user.profile.phoneNr;
+
+        try {
+            Meteor.users.update(userId, {
+                $set: {profile: setObject}
+            })
+        } catch (e) {
+            console.log(e.message);
+        }
+    },
+
+    'changeProfileEmail'(email, userId) {
+        let setObject2 = {};
+        let addressPath = 'address';
+        let verifiedPath = 'verified';
+        setObject2[addressPath] = email;
+        setObject2[verifiedPath] = false;
+
+        let emails = [setObject2];
+
+        try {
+
+            Meteor.users.update(userId, {
+                $set: {emails}
+            })
+        } catch (e) {
+            console.log(e.message);
+        }
+    },
+
+    'changeProfilePhoneNr'(pNr, userId) {
+        user = Meteor.users.findOne(userId);
+
+        let setObject = {};
+        let fNamePath = "firstname";
+        let lNamePath = "lastname";
+        let phoneNrPath = "phoneNr";
+        setObject[fNamePath] = user.profile.firstname;
+        setObject[lNamePath] = user.profile.lastname;
+        setObject[phoneNrPath] = pNr;
+
+        try {
+            Meteor.users.update(userId, {
+                $set: {profile: setObject}
             })
         } catch (e) {
             console.log(e.message);

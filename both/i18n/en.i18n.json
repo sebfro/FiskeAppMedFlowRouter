@@ -95,6 +95,21 @@
     "errorDepth": "Depth must be between 0 and 999",
     "errorAmount": "Amount must be between 0 and 99",
     "imgLimitErr": "Can only upload three images at a time, delete a photo if you want to upload a different one"
+  },
+
+  "profilePageError": {
+    "errorName": "Name can only contain letters. Both forename and last name must be filled in.",
+    "errorEmail": "Email must contain.",
+    "errorPhone": "Can only contain numbers and must be a total of 8 numbers",
+    "change": "Change",
+    "name": "Name",
+    "phoneNr": "Phone number",
+    "email": "Email",
+    "sendEmailVerification": "Send verification email",
+    "firstname": "Forename",
+    "lastname": "last name",
+    "addPhoneNr": "Add phone number",
+    "changePhoneNr": "Change"
   }
 
 }

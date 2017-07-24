@@ -95,6 +95,21 @@
     "errorDepth": "Dybde må være mellom 0 og 999",
     "errorAmount": "Antall må være mellom 0 og 99",
     "imgLimitErr": "Kan kunne laste opp tre bilder, fjern ett viss du vil ha et annet bilde"
+  },
+
+  "profilePageError": {
+    "errorName": "Navn kan bare inneholde bokstaver. Både fornavn og etternavn må fylles inn.",
+    "errorEmail": "Email må inneholde @.",
+    "errorPhone": "Kan bare inneholde nummer og må være 8 tall",
+    "change": "Endre",
+    "name": "Navn",
+    "phoneNr": "Telefon nummer",
+    "email": "Email",
+    "sendEmailVerification": "Send verifiserings email",
+    "firstname": "Fornavn",
+    "lastname": "Etternavn",
+    "addPhoneNr": "Legg til nummer",
+    "changePhoneNr": "Endre"
   }
 
 }
