@@ -13,6 +13,7 @@ import ProfilePage from '../imports/ui/ProfilePage.jsx';
 
 import { isLoggedIn } from './helpMethods.js';
 import ChooseReportType from "../imports/ui/Index_components/ChooseReportType";
+import NavbarBackBtn from "../imports/ui/Common_components/navbarBackBtn.jsx";
 
 //Starter googe maps api og gir den en nøkkel
 if(Meteor.isClient){
@@ -66,7 +67,7 @@ function checkLoggedIn(context, doRedirect){
 
 function renderMainLayout(component){
     mount(MainLayout, {
-        header: <ChooseReportType/>,
+        header: <NavbarBackBtn/>,
         content: component,
     })
 }

@@ -69,6 +69,11 @@ export default class ChooseReportType extends Component {
         FlowRouter.go('/');
     }
 
+    goToProfilePage(e){
+        e.preventDefault();
+        FlowRouter.go('/profil')
+    }
+
     render() {
         return (
             <div>
@@ -96,6 +101,9 @@ export default class ChooseReportType extends Component {
                                 </li>
                                 <li><a
                                     onClick={this.newReportFremmed.bind(this)}><T>common.navbar.unknownSpecies</T></a>
+                                </li>
+                                <li><a
+                                    onClick={this.goToProfilePage.bind(this)}><T>common.navbar.profilePage</T></a>
                                 </li>
                                 {localStorage.getItem('loggedInWith') === 'facebook' ?
                                     <li><FBLogout/></li> :
