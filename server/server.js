@@ -25,30 +25,40 @@ if (Meteor.isServer) {
             secret: 'bdd2aa5d0567a4796a1dd7c5c3d8ef67'
         });
 
-        if(Meteor.isCordova) {
             Push.Configure({
-                apn: {
+                /*
+                    apn: {
                     certData: Assets.getText('apnDevCert.pem'),
                     keyData: Assets.getText('apnDevKey.pem'),
                     passphrase: 'xxxxxxxxx',
                     production: true,
                     //gateway: 'gateway.push.apple.com',
                 },
+                */
                 gcm: {
                     apiKey: 'AAAAIy9w9LI:APA91bEO7j-6mJ3kBYCJ_YYf-sn8wkxmCLd7Ikicnl7eh_wgzHUPrZTxbvrmjcNUowZCm03GXkJpGK5LUYp7sptPSCGT9n1wAhw_sGsYI3UptsyyKOalYMsHF_vFTQwe9_dVTdf1S7yb',
                     projectNumber: 151119787186
-                }
-                // production: true,
-                // 'sound' true,
-                // 'badge' true,
-                // 'alert' true,
-                // 'vibrate' true,
+                },
+                fcm: {
+                    apiKey: 'AAAAIy9w9LI:APA91bEO7j-6mJ3kBYCJ_YYf-sn8wkxmCLd7Ikicnl7eh_wgzHUPrZTxbvrmjcNUowZCm03GXkJpGK5LUYp7sptPSCGT9n1wAhw_sGsYI3UptsyyKOalYMsHF_vFTQwe9_dVTdf1S7yb',
+                    projectNumber: 151119787186
+                },
+                production: false,
+                'sound': true,
+                'badge': true,
+                'alert': true,
+                'vibrate': true,
                 // 'sendInterval': 15000, Configurable interval between sending
                 // 'sendBatchSize': 1, Configurable number of notifications to send per batch
                 // 'keepNotifications': false,
 //
             });
-        }
+
+        Push.allow({
+            send: function(userId, notification) {
+                return true; // Allow all users to send
+            }
+        });
     });
 
     AdminConfig = {
@@ -98,6 +108,34 @@ if(Meteor.startup()){
 
 
 Meteor.methods({
+
+    "notify"(userId){
+        console.log('in notify');
+        Push.send({
+            from: 'IMR',
+            title: 'Verifisert rapport',
+            text: 'Denne rapporten har blitt verifisert',
+            badge: 1,
+            query: {
+                userId: userId
+            }
+        });
+
+        console.log('Ferdig i notify');
+
+        /*
+        Push.send({
+        from: 'push',
+        title: 'Hello',
+        text: 'world',
+        badge: 1, //optional, use it to set badge count of the receiver when the app is in background.
+        query: {
+            // Ex. send to a specific user if using accounts:
+            userId: 'xxxxxxxxx'
+        }
+         */
+
+    },
 
     "sendVerificationEmail"(userId) {
         console.log("Sending email");

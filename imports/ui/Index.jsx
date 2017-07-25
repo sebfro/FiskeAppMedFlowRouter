@@ -23,6 +23,8 @@ import {
 } from '../../lib/pagetext.js';
 import ShowMoreBtn from './Index_components/ShowMoreBtn.jsx';
 import {loggedInToFacebook} from "../../lib/helpMethods";
+import {Button} from 'react-bootstrap';
+import {remoteApp} from "../../lib/reports";
 
 const panelStyle = {paddingTop: 10};
 
@@ -117,6 +119,13 @@ class Index extends Component {
         }
     }
 
+    notify(e){
+        e.preventDefault();
+        console.log('notify button pressed');
+        remoteApp.call('notify', Meteor.userId());
+        console.log('Notify button done');
+    }
+
 
     render() {
         if (this.props.reports) {
@@ -128,6 +137,9 @@ class Index extends Component {
                     {this.props.reports ?
                         this.renderReports()
                         : <Loading_feedback/>}
+                        <Button onClick={this.notify.bind(this)}>
+                            Notify
+                        </Button>
                 </div>
             )
         } else {
