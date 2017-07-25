@@ -35,7 +35,7 @@ if (Meteor.isServer) {
                     //gateway: 'gateway.push.apple.com',
                 },
                 gcm: {
-                    apiKey: 'AIzaSyAubjLNgGBCYH1K75fy1X-Vk4rioTm6MDE',
+                    apiKey: 'AAAAIy9w9LI:APA91bEO7j-6mJ3kBYCJ_YYf-sn8wkxmCLd7Ikicnl7eh_wgzHUPrZTxbvrmjcNUowZCm03GXkJpGK5LUYp7sptPSCGT9n1wAhw_sGsYI3UptsyyKOalYMsHF_vFTQwe9_dVTdf1S7yb',
                     projectNumber: 151119787186
                 }
                 // production: true,

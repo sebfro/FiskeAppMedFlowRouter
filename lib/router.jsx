@@ -51,8 +51,8 @@ if(Meteor.isClient){
                     badge: true,
                     sound: true,
                     vibrate: true,
-                    clearNotifications: true
-                    // icon: '',
+                    clearNotifications: true,
+                    icon: 'logo',
                     // iconColor: ''
                 },
                 ios: {

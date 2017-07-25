@@ -269,7 +269,6 @@ export default class LoginScreen extends Component {
                             </Button>
                         </Col>
                     </FormGroup>
-                    <FBLogin/>
                     <FacebookLogin/>
                 </Form>
             </div>

@@ -22,7 +22,7 @@ import {
     englishReport
 } from '../../lib/pagetext.js';
 import ShowMoreBtn from './Index_components/ShowMoreBtn.jsx';
-import {loggedInToFacebook} from "../../lib/helpMethods"
+import {loggedInToFacebook} from "../../lib/helpMethods";
 
 const panelStyle = {paddingTop: 10};
 
