@@ -44,10 +44,10 @@ if (Meteor.isServer) {
                     projectNumber: 151119787186
                 },
                 production: false,
-                'sound': true,
-                'badge': true,
-                'alert': true,
-                'vibrate': true,
+                sound: true,
+                badge: true,
+                alert: true,
+                vibrate: true,
                 // 'sendInterval': 15000, Configurable interval between sending
                 // 'sendBatchSize': 1, Configurable number of notifications to send per batch
                 // 'keepNotifications': false,
@@ -83,6 +83,13 @@ if (Meteor.isServer) {
             });
         })
     }
+
+    let users = Meteor.users.find();
+
+    users.forEach(function(u){
+        console.log(u);
+        Push.appCollection.insert({userId: u._id});
+    })
 }
 
 
@@ -109,8 +116,51 @@ if(Meteor.startup()){
 
 Meteor.methods({
 
+    serverNotification: function(text, title){
+        let badge = 1;
+        Push.send({
+            from: 'push',
+            title: title,
+            text: text,
+            badge: badge,
+            payload: {
+                title: title,
+                text: text,
+                historyId: result
+            },
+            query: {
+                //this will send to all users
+            }
+        })
+    },
+
+    userNotification: function(text, title, userId) {
+        let badge = 1;
+        Push.send({
+            from: 'push',
+            title: title,
+            text: text,
+            badge: badge,
+            payload: {
+                title: title,
+                text: text,
+                historyId: result
+            },
+            query: {
+                userId: userId
+            }
+        })
+    },
+
+    removeHistory: function() {
+        NotificationHistory.remove({}, (err) => {
+            console.log('All history removed');
+        })
+    },
+
     "notify"(userId){
         console.log('in notify');
+        Push.debug = true;
         Push.send({
             from: 'IMR',
             title: 'Verifisert rapport',

@@ -14,6 +14,7 @@ import ProfilePage from '../imports/ui/ProfilePage.jsx';
 import { isLoggedIn } from './helpMethods.js';
 import ChooseReportType from "../imports/ui/Index_components/ChooseReportType";
 import NavbarBackBtn from "../imports/ui/Common_components/navbarBackBtn.jsx";
+import {remoteApp} from "./reports";
 
 //Starter googe maps api og gir den en nøkkel
 if(Meteor.isClient){
@@ -60,7 +61,14 @@ if(Meteor.isClient){
             App.configurePlugin('phonegap-plugin-push', {
                 SENDER_ID: 151119787186
             });
-
+            Push.addListener('token', (token) => {
+                PUSH_TOKEN = token;
+                remoteApp.call('raix:push-update', {
+                    appName: 'myApp',
+                    token: token,
+                    userId: ''
+                });
+            });
     });
 }
 

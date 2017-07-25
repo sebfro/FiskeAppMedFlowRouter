@@ -128,6 +128,10 @@ class Index extends Component {
 
 
     render() {
+        Push.addListener('Token', function(token) {
+            console.log(JSON.stringify(token));
+            console.log("Push.addlistener");
+        });
         if (this.props.reports) {
             return (
                 <div className="pageContainer">
