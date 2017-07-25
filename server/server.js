@@ -60,8 +60,41 @@ if (Meteor.isServer) {
         console.log("YYYYYYYYYYYYYY");
         console.log(Meteor.user().services.facebook.email);
         return Meteor.users.find({_id: this.userId}, {fields: {'services.facebook.email': 1}});
-    })
+    });
+
+    if (Meteor.isCordova) {
+        Meteor.startup(() => {
+            Push.send({
+                from: 'Test',
+                title: 'Hello',
+                text: 'World',
+                badge: 12,
+                query: {}
+            });
+        })
+    }
 }
+
+
+
+/*
+if(Meteor.startup()){
+    Push.send({
+        from: 'push',
+        title: 'Hello',
+        text: 'world',
+        badge: 1, //optional, use it to set badge count of the receiver when the app is in background.
+        query: {
+            // Ex. send to a specific user if using accounts:
+            userId: 'HmgNeXt3EYg9QHKeC'
+        } // Query the appCollection
+        // token: appId or token eg. "{ apn: token }"
+        // tokens: array of appId's or tokens
+        // payload: user data
+        // delayUntil: Date
+    });
+}
+ */
 
 
 Meteor.methods({
