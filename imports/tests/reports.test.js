@@ -1,5 +1,5 @@
 /**
- * Created by sebastian on 02.06.17.
+ *  Created by sebastian on 02.06.17.
  */
 import {Meteor} from 'meteor/meteor';
 import { Random } from 'meteor/random';
