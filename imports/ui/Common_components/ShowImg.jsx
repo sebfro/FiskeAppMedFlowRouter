@@ -38,14 +38,12 @@ export default class ShowImg extends Component {
                     </Thumbnail>
                 </Col>
             );
-            console.log("added image");
         }
 
         return imgArray
     }
 
     render() {
-        console.log("in showimg");
         if (this.props.photo.length === 0) {
             return ( null )
         } else {

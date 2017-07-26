@@ -58,14 +58,12 @@ class ProfileReport extends Component {
                 })
             }
         } else {
-            console.log("setting editName");
             this.setState({editName: !this.state.editName})
         }
     }
 
     setEditEmail(e) {
         e.preventDefault();
-        console.log("editemail");
         if (this.state.editEmail) {
             let mail = $('[name=email]').val();
             let err = validateEmail(mail);
@@ -74,13 +72,11 @@ class ProfileReport extends Component {
                 emailError: err
             });
             if (err !== 'error') {
-                console.log("changeEmail");
                 remoteApp.call('changeProfileEmail', mail, Meteor.userId());
                 this.setState({
                     editEmail: !this.state.editEmail
                 })
             } else if(mail === '') {
-                console.log("Mail is empty");
                 this.setState({
                     editEmail: !this.state.editEmail,
                     emailError: null,
@@ -111,7 +107,6 @@ class ProfileReport extends Component {
                     editPhone: !this.state.editPhone
                 })
             } else if(phoneNr === ''){
-                console.log("else if");
                 this.setState({
                     editPhone: !this.state.editPhone,
                     phoneError: null,

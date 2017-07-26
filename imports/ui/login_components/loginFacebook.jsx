@@ -15,7 +15,6 @@ export default class FacebookLogin extends Component {
             if (err) {
                 console.log('Handle errors here: ', err);
             } else {
-                console.log("Logget inn med facebook");
                 console.log(Meteor.userId());
                 console.log(Meteor.user());
                 console.log(Meteor.user().profile);

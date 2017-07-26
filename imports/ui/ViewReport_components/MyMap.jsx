@@ -40,9 +40,7 @@ class MyMap extends Component {
         GoogleMaps.ready(name, map => {
             Tracker.autorun(c => {
                 google.maps.event.addListener(map.instance, 'click', function(event) {
-                    console.log("Clicked");
                     if(localStorage.getItem('addMarker') && !addedMarker){
-                        console.log("In if");
                         addedMarker = true;
                         localStorage.setItem('addedMarker', true);
                         Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng(), current: true });

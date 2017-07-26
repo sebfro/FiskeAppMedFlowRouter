@@ -92,8 +92,6 @@ export default class SubmitPage extends Component {
                         this.setState({
                             images: takenImg
                         });
-
-                        console.log(this.state.images);
                     } else {
                         console.log(error.reason);
                     }
@@ -130,13 +128,10 @@ export default class SubmitPage extends Component {
                     this.setState({
                         images: takenImg
                     });
-
-                    console.log(this.state.images);
                 } else {
                 }
             });
         } else {
-            console.log("Can't add more imgs");
             this.setLimitReached(true);
         }
     }
@@ -155,7 +150,6 @@ export default class SubmitPage extends Component {
         try {
             date = (ReactDOM.findDOMNode(this.refs.rapportDate).value.trim());
             date = new Date(date);
-            console.log(date);
         } catch (e) {
         }
         if (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/ || amountNr < 0 || amountNr > 100 || /*!amountNr ||*/

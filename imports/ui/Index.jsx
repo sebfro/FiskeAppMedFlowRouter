@@ -24,7 +24,7 @@ import {
 import ShowMoreBtn from './Index_components/ShowMoreBtn.jsx';
 import {loggedInToFacebook} from "../../lib/helpMethods";
 import {Button} from 'react-bootstrap';
-import {remoteApp} from "../../lib/reports";
+import {remoteApp} from "../../lib/reports.js";
 
 const panelStyle = {paddingTop: 10};
 

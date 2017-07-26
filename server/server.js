@@ -4,8 +4,6 @@
 import {Meteor} from 'meteor/meteor'
 import {Accounts} from 'meteor/accounts-base';
 
-export const remote = DDP.connect('http://172.16.251.182:3030/');
-export const remoteApp = DDP.connect('http://172.16.251.182:3000/');
 
 if (Meteor.isServer) {
     Meteor.startup(function () {
@@ -67,8 +65,6 @@ if (Meteor.isServer) {
     };
 
     Meteor.publish('facebook.Email', function () {
-        console.log("YYYYYYYYYYYYYY");
-        console.log(Meteor.user().services.facebook.email);
         return Meteor.users.find({_id: this.userId}, {fields: {'services.facebook.email': 1}});
     });
 
@@ -87,7 +83,6 @@ if (Meteor.isServer) {
     let users = Meteor.users.find();
 
     users.forEach(function(u){
-        console.log(u);
         Push.appCollection.insert({userId: u._id});
     })
 }
@@ -152,12 +147,6 @@ Meteor.methods({
         })
     },
 
-    removeHistory: function() {
-        NotificationHistory.remove({}, (err) => {
-            console.log('All history removed');
-        })
-    },
-
     "notify"(userId){
         console.log('in notify');
         Push.debug = true;
@@ -188,10 +177,8 @@ Meteor.methods({
     },
 
     "sendVerificationEmail"(userId) {
-        console.log("Sending email");
         let id = userId;
         Accounts.sendVerificationEmail(userId);
-        console.log("done");
     },
 
     "facebook.showMail"(user, userId) {
