@@ -192,25 +192,6 @@ export default class SubmitPage extends Component {
         }
     }
 
-
-    //Henter nåværende posisjonb
-    getPos() {
-        navigator.geolocation.getCurrentPosition(this.onSuccess, this.onFailure);
-    }
-
-    //Mottar posisjons objekt og lagrer breddegrad og lengdegrad
-    onSuccess(pos) {
-        posLat = pos.coords.longitude;
-        posLong = pos.coords.latitude;
-    }
-
-    onFailure() {
-        this.setState({
-            useCurrPos: false,
-            gpsOff: true
-        })
-    }
-
     removeMarker() {
         Markers.remove(markerId);
     }
@@ -236,12 +217,31 @@ export default class SubmitPage extends Component {
         }
     }
 
-
+    //Henter brukers nåværende posisjon
     componentWillMount() {
-        this.getPos();
+        navigator.geolocation.getCurrentPosition((pos) => {
+            posLat = pos.coords.longitude;
+            posLong = pos.coords.latitude;
+            if(posLat === null || posLong === null || posLong === undefined || posLat === undefined){
+                console.log("Poslat eller poslong er null");
+                this.setState({
+                    useCurrPos: false,
+                    gpsOff: true
+                })
+            }
+        }, () => {
+            console.log("onFailure");
+            this.setState({
+                useCurrPos: false,
+                gpsOff: true
+            })
+        });
     }
 
     render() {
+        console.log(posLong);
+        console.log(posLat);
+        console.log(this.state.gpsOff);
         document.addEventListener("backbutton", this.onBackButtonDown, false);
         return (
 
@@ -298,7 +298,7 @@ export default class SubmitPage extends Component {
                                 placeholder={i18n.__('common.submitPage.enterAmount')}
                             />
                         </li>
-                        {this.state.gpsOff ? null :
+                        {this.state.gpsOff ? '' :
                             <li>
                                 <Button bsStyle="primary" onClick={this.changePos.bind(this)}>
                                     <T>common.submitPage.didYouTakeImgHereBtn</T>
