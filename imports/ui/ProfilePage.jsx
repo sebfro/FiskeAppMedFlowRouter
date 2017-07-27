@@ -7,7 +7,7 @@ import {remoteApp} from '../../lib/reports.js';
 import {validateEmail, validatePhoneNr, validateName} from "../../lib/loginMethods"
 import {errorMsg} from "./Common_components/Loading_feedback"
 
-import {Loading_feedback} from './Common_components/Loading_feedback.jsx'
+import {Loading_feedback} from './Common_components/Loading_feedback.jsx';
 
 const style = {inline: true};
 const T = i18n.createComponent();
@@ -24,6 +24,7 @@ class ProfileReport extends Component {
             nameError: null,
             emailError: null,
             phoneError: null,
+            showPopup: false,
         };
     }
 
@@ -207,8 +208,6 @@ class ProfileReport extends Component {
                         </ButtonToolbar>
 
                     </ListGroupItem>
-
-
                 </ListGroup>
             )
         } else {
