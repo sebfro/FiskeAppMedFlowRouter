@@ -177,7 +177,6 @@ Meteor.methods({
     },
 
     "sendVerificationEmail"(userId) {
-        console.log('I sendverificationEmail');
         let id = userId;
         Accounts.sendVerificationEmail(userId);
     },
