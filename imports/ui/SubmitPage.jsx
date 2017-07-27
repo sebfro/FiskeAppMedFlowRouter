@@ -51,6 +51,7 @@ export default class SubmitPage extends Component {
             showNewReport: this.props.currentUser,
             images: [],
             imgLimitReached: false,
+            gpsOff: false,
         };
 
         this.removeImg = this.removeImg.bind(this);
@@ -104,7 +105,7 @@ export default class SubmitPage extends Component {
         }
     }
 
-    setLimitReached(reached){
+    setLimitReached(reached) {
         this.setState({
             imgLimitReached: reached,
         })
@@ -205,7 +206,8 @@ export default class SubmitPage extends Component {
 
     onFailure() {
         this.setState({
-            useCurrPos: false
+            useCurrPos: false,
+            gpsOff: true
         })
     }
 
@@ -229,7 +231,7 @@ export default class SubmitPage extends Component {
                 images: takenImg
             });
         }
-        if(index < 3){
+        if (index < 3) {
             this.setLimitReached(false);
         }
     }
@@ -296,12 +298,13 @@ export default class SubmitPage extends Component {
                                 placeholder={i18n.__('common.submitPage.enterAmount')}
                             />
                         </li>
-
-                        <li>
-                            <Button bsStyle="primary" onClick={this.changePos.bind(this)}>
-                                <T>common.submitPage.didYouTakeImgHereBtn</T>
-                            </Button>
-                        </li>
+                        {this.state.gpsOff ? null :
+                            <li>
+                                <Button bsStyle="primary" onClick={this.changePos.bind(this)}>
+                                    <T>common.submitPage.didYouTakeImgHereBtn</T>
+                                </Button>
+                            </li>
+                        }
                         {this.state.useCurrPos ?
                             ''
                             :
