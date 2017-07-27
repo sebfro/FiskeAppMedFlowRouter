@@ -4,8 +4,6 @@ import {Button} from 'react-bootstrap';
 import {Meteor} from 'meteor/meteor';
 import {remoteApp} from "../../../lib/reports";
 
-import {Loading_feedback} from "../Common_components/Loading_feedback"
-
 
 export default class FacebookLogin extends Component {
 

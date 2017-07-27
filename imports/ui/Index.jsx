@@ -5,7 +5,7 @@ import {Panel, ListGroup, PanelGroup} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
 
 
-import {Reports, remote} from '../../lib/reports.js';
+import {Reports, remote, remoteApp} from '../../lib/reports.js';
 import {Loading_feedback} from './Common_components/Loading_feedback.jsx'
 import Report from './Index_components/Report.jsx';
 import ChooseReportType from './Index_components/ChooseReportType.jsx';
@@ -24,7 +24,6 @@ import {
 import ShowMoreBtn from './Index_components/ShowMoreBtn.jsx';
 import {loggedInToFacebook} from "../../lib/helpMethods";
 import {Button} from 'react-bootstrap';
-import {remoteApp} from "../../lib/reports.js";
 
 const panelStyle = {paddingTop: 10};
 

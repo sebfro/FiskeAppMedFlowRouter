@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Button, FormGroup, FormControl, Col, ControlLabel, Form, Checkbox} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
-import {remoteApp, remote} from '../../lib/reports.js';
+import {remoteApp} from '../../lib/reports.js';
 import {Meteor} from 'meteor/meteor';
 
 import PassRecovery from './Index_components/PassRecovery.jsx';
