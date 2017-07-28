@@ -5,7 +5,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {Button, ButtonToolbar, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
 
-import {hasNumbers, backToIndex, dataURItoBlob} from '../../lib/helpMethods.js';
+import {hasNumbers, backToIndex} from '../../lib/helpMethods.js';
 import MyMap from './ViewReport_components/MyMap.jsx';
 import Markers from './ViewReport_components/markers.jsx';
 import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
@@ -257,8 +257,8 @@ export default class SubmitPage extends Component {
                     </h2>
                 </header>
                 <form className="new-report">
-                    <ul>
-                        <li>
+                    <ul className="submitPageUls">
+                        <li className="submitPageLis">
                             <p className="errorText" hidden={!this.state.titelError}>
                                 <T>common.submitPageError.errorSpecie</T>
                             </p>
@@ -268,7 +268,7 @@ export default class SubmitPage extends Component {
                                 placeholder={i18n.__('common.submitPage.enterSpecies')}
                             />
                         </li>
-                        <li>
+                        <li className="submitPageLis">
                             <p className="errorText" hidden={!this.state.lengthError}>
                                 <T>common.submitPageError.errorLength</T>
                             </p>
@@ -278,7 +278,7 @@ export default class SubmitPage extends Component {
                                 placeholder={i18n.__('common.submitPage.enterLength')}
                             />
                         </li>
-                        <li>
+                        <li className="submitPageLis">
                             <p className="errorText" hidden={!this.state.depthError}>
                                 <T>common.submitPageError.errorDepth</T>
                             </p>
@@ -288,7 +288,7 @@ export default class SubmitPage extends Component {
                                 placeholder={i18n.__('common.submitPage.enterDepth')}
                             />
                         </li>
-                        <li>
+                        <li className="submitPageLis">
                             <p className="errorText" hidden={!this.state.amountError}>
                                 <T>common.submitPageError.errorAmount</T>
                             </p>
@@ -299,7 +299,7 @@ export default class SubmitPage extends Component {
                             />
                         </li>
                         {this.state.gpsOff ? null :
-                            <li>
+                            <li className="submitPageLis">
                                 <Button bsStyle="primary" onClick={this.changePos.bind(this)}>
                                     <T>common.submitPage.didYouTakeImgHereBtn</T>
                                 </Button>
@@ -308,7 +308,7 @@ export default class SubmitPage extends Component {
                         {this.state.useCurrPos ?
                             ''
                             :
-                            <li>
+                            <li className="submitPageLis">
                                 <p className="errorText" hidden={!this.state.markerError}>
                                     <T>common.submitPageError.errorPos</T>
                                 </p>
@@ -337,7 +337,7 @@ export default class SubmitPage extends Component {
                         }
 
 
-                        <li>
+                        <li className="submitPageLis">
                             <p className="errorText" hidden={!this.state.pictureError}>
                                 <T>common.submitPageError.errorPicture</T>
                             </p>
@@ -354,7 +354,7 @@ export default class SubmitPage extends Component {
                             </ButtonToolbar>
                         </li>
                         <ShowImg photo={this.state.images} removeImg={this.removeImg}/>
-                        <li>
+                        <li className="submitPageLis">
                             <Button bsStyle="primary" onClick={this.handleSubmit.bind(this)}>
                                 <T>common.submitPage.sendBtn</T>
                             </Button>

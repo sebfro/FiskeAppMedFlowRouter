@@ -8,7 +8,6 @@ import i18n from 'meteor/universe:i18n';
 import {Reports, remote} from '../../lib/reports.js';
 import {Loading_feedback} from './Common_components/Loading_feedback.jsx'
 import Report from './Index_components/Report.jsx';
-import ChooseReportType from './Index_components/ChooseReportType.jsx';
 import {
     norwegian,
     english,
@@ -25,6 +24,7 @@ import ShowMoreBtn from './Index_components/ShowMoreBtn.jsx';
 import {loggedInToFacebook} from "../../lib/helpMethods";
 import {Button} from 'react-bootstrap';
 import {remoteApp} from "../../lib/reports.js";
+import NavBar from './Common_components/NavBar.jsx';
 
 const panelStyle = {paddingTop: 10};
 
@@ -72,10 +72,6 @@ class Index extends Component {
     renderReports() {
         let verifiedReportArray = [];
         let unVerifiedReportArray = [];
-        let length = this.props.reports.length;
-        if (this.state.showTen) {
-            length = 10;
-        }
 
         for (let i = 0; i < this.props.reports.length; i++) {
             if (this.props.reports[i].isValidated) {
@@ -135,8 +131,8 @@ class Index extends Component {
         if (this.props.reports) {
             return (
                 <div className="pageContainer">
-                    <ChooseReportType/>
-                    <br/><br/>
+                    <NavBar/>
+                    <br/><br/><br/>
 
                     {this.props.reports ?
                         this.renderReports()

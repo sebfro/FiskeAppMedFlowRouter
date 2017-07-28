@@ -183,37 +183,7 @@ form {
     outline: 0;
 }
 
-ul {
-    margin: 0;
-    padding: 0;
-    background: white;
-}
 
-/*
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
-
-li {
-    float: left;
-}
-
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover {
-    background-color: #111;
-}
- */
 
 .deleteBtn {
     float: right;
@@ -250,12 +220,7 @@ li a:hover {
     padding: 5px;
 }
 
-li {
-    position: relative;
-    list-style: none;
-    padding: 15px;
-    border-bottom: #eee solid 1px;
-}
+
 
 li .text {
     margin-left: 10px;
@@ -297,10 +262,7 @@ header .hide-completed {
     }
 }
 
-.scroll-area {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-}
+
 
 .smallImg {
     margin: 5px;
@@ -327,4 +289,16 @@ header .hide-completed {
     position: absolute;
 }
 
+.submitPageUls {
+    margin: 0;
+    padding: 0;
+    background: white;
+}
+
+.submitPageLis {
+    position: relative;
+    list-style: none;
+    padding: 15px;
+    border-bottom: #eee solid 1px;
+}
 

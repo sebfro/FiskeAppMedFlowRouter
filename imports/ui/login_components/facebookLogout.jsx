@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
 import i18n from 'meteor/universe:i18n';
 import {clearLocalStorage} from "../../../lib/helpMethods"
+import {NavItem} from 'react-bootstrap'
 
 const T = i18n.createComponent();
 
@@ -51,9 +52,9 @@ export default class FBLogout extends Component {
 
     render() {
         return (
-                <a onClick={this.handleFBLogout.bind(this)}>
+                <NavItem onClick={this.handleFBLogout.bind(this)}>
                     <span className="fa fa-facebook"/> <T>common.navbar.logout</T>
-                </a>
+                </NavItem>
         );
     }
 }
