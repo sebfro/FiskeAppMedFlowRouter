@@ -33,22 +33,3 @@ export default class NavBarBackBtn extends Component {
         );
     }
 }
-/*
-<Navbar.Header>
-                        <NavbarBrand>
-                            <img src="/imrlogomini.png" style={{"height": "30%", "width": "10%"}} alt="imr logo"/>
-                        </NavbarBrand>
-                    </Navbar.Header>
- */
-/*
-<div>
-                <Navbar fixedTop={true}>
-                    <Nav pullRight>
-                        <NavItem type="button" className="btn btn-link" style={backBtnStyle} aria-hidden="true"
-                                 onClick={this.backToIndex.bind(this)}>
-                            <span className="glyphicon glyphicon-arrow-right"/>
-                        </NavItem>
-                    </Nav>
-                </Navbar>
-            </div>
- */
