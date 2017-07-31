@@ -16,3 +16,7 @@ App.accessRule('https://www.facebook.com/connect/ping:1');
 App.accessRule('http://hi-07586.imr.no:3000/');
 App.accessRule('http://hi-07586.imr.no:3000/_oauth/facebook?close');
 App.accessRule('*');
+
+App.configurePlugin('phonegap-plugin-push',{
+    SENDER_ID: 151119787186
+});

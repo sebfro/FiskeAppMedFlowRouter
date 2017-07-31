@@ -53,7 +53,7 @@ if(Meteor.isClient){
                     sound: true,
                     vibrate: true,
                     clearNotifications: true,
-                    icon: 'logo',
+                    icon: 'imrlogomini.png',
                     // iconColor: ''
                 },
             });

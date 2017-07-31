@@ -17,16 +17,17 @@ export default class NavBarBackBtn extends Component {
 
     render() {
         let backBtnStyle = {
-            float: 'right',
-            paddingTop: 14,
-            paddingRight: 24,
+            paddingLeft: 50000,
         };
         return (
-                <Navbar fixedTop={true}>
-                    <Nav pullRight>
-                        <NavItem type="button" className="btn btn-link" style={backBtnStyle} aria-hidden="true"
-                                 onClick={(e) => {e.preventDefault(); FlowRouter.go("/homepage");}}>
-                            <span className="glyphicon glyphicon-arrow-right"/>
+                <Navbar fixedTop={true} height={1} pullRight>
+                    <Nav pullLeft>
+                        <NavItem
+                                 type="button"
+                                 aria-hidden="true"
+                                 onClick={(e) => {e.preventDefault();
+                                 FlowRouter.go("/homepage");}}>
+                            <div className="glyphicon glyphicon-arrow-left"/>
                         </NavItem>
                     </Nav>
                 </Navbar>
