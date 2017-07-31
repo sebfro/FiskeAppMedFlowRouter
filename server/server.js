@@ -3,6 +3,7 @@
  */
 import {Meteor} from 'meteor/meteor'
 import {Accounts} from 'meteor/accounts-base';
+import { ServiceConfiguration } from 'meteor/service-configuration';
 
 
 if (Meteor.isServer) {
@@ -12,7 +13,7 @@ if (Meteor.isServer) {
         let domain = "smtp.gmail.com";
         let port = 587;
         process.env.MAIL_URL = "smtp://" + username + ":" + pass + "@" + domain + ":" + port;
-
+/*
         ServiceConfiguration.configurations.remove({
             service: "facebook"
         });
@@ -21,6 +22,16 @@ if (Meteor.isServer) {
             service: "facebook",
             appId: '1865081020422422',
             secret: 'bdd2aa5d0567a4796a1dd7c5c3d8ef67'
+        });
+*/
+        ServiceConfiguration.configurations.upsert({
+            service: 'facebook'
+        },{
+            $set: {
+                appId: '1865081020422422',
+                loginStyle: "popup",
+                secret: 'bdd2aa5d0567a4796a1dd7c5c3d8ef67'
+            }
         });
 
             Push.Configure({
@@ -177,11 +188,10 @@ Meteor.methods({
     },
 
     "sendVerificationEmail"(userId) {
-        let id = userId;
         Accounts.sendVerificationEmail(userId);
     },
 
-    "facebook.showMail"(user, userId) {
+    'facebook.showMail'(user, userId) {
         console.log("facebook.showMail");
         console.log(Meteor.userId());
         const user2 = Meteor.users.findOne(userId);
@@ -191,11 +201,14 @@ Meteor.methods({
 
         let setObject = {};
         //let emailPath = "email";
-        let fNamePath = "lastname";
-        let lNamePath = "firstname";
+        let fNamePath = "firstname";
+        let lNamePath = "lastname";
         setObject[fNamePath] = user2.services.facebook.first_name;
         setObject[lNamePath] = user2.services.facebook.last_name;
         //setObject[emailPath] = user2.services.facebook.email;
+
+        console.log("Fornavn " + user2.services.facebook.first_name);
+        console.log("Etternavn" + user2.services.facebook.last_name);
 
 
         let setObject2 = {};

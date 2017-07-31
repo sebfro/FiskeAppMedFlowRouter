@@ -53,6 +53,7 @@ twbs:bootstrap
 universe:i18n
 sach:flow-db-admin
 accounts-facebook@1.2.1
-service-configuration@1.0.11
+service-configuration
 raix:push
 dynamic-import
+facebook-oauth

@@ -4,16 +4,14 @@ import {Button} from 'react-bootstrap';
 import {Meteor} from 'meteor/meteor';
 import {remoteApp} from "../../../lib/reports";
 
-import {Loading_feedback} from "../Common_components/Loading_feedback"
-
-
 export default class FacebookLogin extends Component {
 
     handleLogin(e){
         e.preventDefault();
         Meteor.loginWithFacebook({requestPermissions: ['public_profile', 'email']}, (err) => {
             if (err) {
-                console.log('Handle errors here: ', err);
+                console.log('Handle errors here: ', err.message);
+                console.log(err.reason);
             } else {
                 console.log(Meteor.userId());
                 console.log(Meteor.user());

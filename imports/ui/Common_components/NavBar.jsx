@@ -3,9 +3,11 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {Meteor} from 'meteor/meteor';
 import {Nav, Navbar, NavItem, NavbarBrand} from 'react-bootstrap';
 import FlagBtn from './flagButton.jsx';
+import i18n from 'meteor/universe:i18n';
 
 import {isVerified, clearLocalStorage} from '../../../lib/helpMethods.js';
-import FBLogout from '../login_components/facebookLogout.jsx';
+
+const T = i18n.createComponent();
 
 export default class NavBar extends Component {
 //<span className="glyphicon glyphicon-arrow-right"/>
@@ -109,14 +111,8 @@ export default class NavBar extends Component {
                                 </NavItem>
                                 <FlagBtn loginScreen={true}/>
                                 <NavItem onClick={this.logOut.bind(this)}>
-                                    Logout regular
+                                    <T>common.navbar.logout</T>
                                 </NavItem>
-                                <FBLogout/>
-                                {localStorage.getItem('loggedInWith') !== 'facebook' ?
-                                    <NavItem onClick={this.logOut.bind(this)}>
-                                        Logout regular
-                                    </NavItem> : <FBLogout/>
-                                }
                             </Nav>
                         </Navbar.Collapse>
                 </Navbar>
