@@ -226,6 +226,7 @@ Meteor.methods({
             })
         } catch (e) {
             console.log(e.message);
+            console.log("Meteor.users.update, fikk error");
         }
     },
 
