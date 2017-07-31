@@ -157,3 +157,11 @@ FlowRouter.route('/profil',{
         renderMainLayout(<ProfilePage/>)
     }
 });
+
+FlowRouter.route('/_oauth/facebook?close', {
+    name: "facebookLogin",
+    triggersEnter: checkLoggedIn,
+    action(){
+        FlowRouter.go("/homepage");
+    }
+});

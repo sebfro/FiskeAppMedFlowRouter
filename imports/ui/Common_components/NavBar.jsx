@@ -108,9 +108,13 @@ export default class NavBar extends Component {
                                     Profil
                                 </NavItem>
                                 <FlagBtn loginScreen={true}/>
-                                {localStorage.getItem('loggedInWith') === 'faccebook' ?
+                                <NavItem onClick={this.logOut.bind(this)}>
+                                    Logout regular
+                                </NavItem>
+                                <FBLogout/>
+                                {localStorage.getItem('loggedInWith') !== 'facebook' ?
                                     <NavItem onClick={this.logOut.bind(this)}>
-                                        Logout
+                                        Logout regular
                                     </NavItem> : <FBLogout/>
                                 }
                             </Nav>

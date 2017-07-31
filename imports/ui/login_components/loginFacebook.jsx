@@ -19,6 +19,7 @@ export default class FacebookLogin extends Component {
                 console.log(Meteor.user());
                 console.log(Meteor.user().profile);
                 remoteApp.call('facebook.showMail', Meteor.user(), Meteor.userId());
+                localStorage.setItem('loggedInWith', 'facebook');
                 FlowRouter.go('/homepage')
             }
         });

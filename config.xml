@@ -1,1 +1,2 @@
-<access origin="*" />
+<allow-intent href="*"/>
+<access origin="*"/>
