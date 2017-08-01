@@ -112,7 +112,15 @@
     "firstname": "Fornavn",
     "lastname": "Etternavn",
     "addPhoneNr": "Legg til nummer",
-    "changePhoneNr": "Endre"
+    "changePhoneNr": "Endre",
+    "cancelBtn": "Cancel"
+  },
+
+  "alertMessages": {
+    "emailVerification": "Verifiserings link har blitt sendt til din email",
+    "verifyEmail": "Du må verifisere emailen din først",
+    "invalidEmail": "Uvalidert email",
+    "emailSent": "Email har blitt sent"
   }
 
 }

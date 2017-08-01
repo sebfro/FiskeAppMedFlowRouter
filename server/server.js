@@ -49,10 +49,12 @@ if (Meteor.isServer) {
                     apiKey: 'AAAAIy9w9LI:APA91bEO7j-6mJ3kBYCJ_YYf-sn8wkxmCLd7Ikicnl7eh_wgzHUPrZTxbvrmjcNUowZCm03GXkJpGK5LUYp7sptPSCGT9n1wAhw_sGsYI3UptsyyKOalYMsHF_vFTQwe9_dVTdf1S7yb',
                     projectNumber: 151119787186
                 },
+                /*
                 fcm: {
                     apiKey: 'AAAAIy9w9LI:APA91bEO7j-6mJ3kBYCJ_YYf-sn8wkxmCLd7Ikicnl7eh_wgzHUPrZTxbvrmjcNUowZCm03GXkJpGK5LUYp7sptPSCGT9n1wAhw_sGsYI3UptsyyKOalYMsHF_vFTQwe9_dVTdf1S7yb',
                     projectNumber: 151119787186
                 },
+                */
                 production: false,
                 sound: true,
                 badge: true,
@@ -127,14 +129,16 @@ Meteor.methods({
         console.log('serverNotification');
         let badge = 1;
         Push.send({
-            from: 'push',
-            title: title,
-            text: text,
-            badge: badge,
-            payload: {
+            from: 'Test',
+            title: 'Hello',
+            text: 'World',
+            badge: 1,
+            /*
+                payload: {
                 title: title,
                 text: text,
             },
+            */
             query: {
                 //this will send to all users
             }
@@ -146,9 +150,9 @@ Meteor.methods({
         console.log('userNotification');
         let badge = 1;
         Push.send({
-            from: 'push',
-            title: title,
-            text: text,
+            from: 'Test',
+            title: 'Hello',
+            text: 'World',
             badge: badge,
             payload: {
                 title: title,

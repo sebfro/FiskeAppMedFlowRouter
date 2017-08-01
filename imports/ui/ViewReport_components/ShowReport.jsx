@@ -3,7 +3,6 @@ import {ListGroupItem, ListGroup} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
 
 import GetCategory from '../Common_components/getCategory.jsx';
-import ShowImg from './ShowImg.jsx';
 
 const T = i18n.createComponent();
 

@@ -20,7 +20,7 @@ export default class NavBarBackBtn extends Component {
             paddingLeft: 50000,
         };
         return (
-                <Navbar fixedTop={true} height={1} pullRight>
+                <Navbar fixedTop={true}>
                     <Nav pullLeft>
                         <NavItem
                                  type="button"

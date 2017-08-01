@@ -140,7 +140,6 @@ export default class LoginScreen extends Component {
         if (this.state.register) {
             return (
                 <div>
-                    <h1>HHHHHHHHHAAAAAAAAAALLLLLLLLLLOOOOOOOOOOO</h1>
                     <FormGroup validationState={this.passValid()}>
                         <Col sm={10}>
                             <FormControl

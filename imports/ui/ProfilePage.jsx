@@ -5,7 +5,7 @@ import i18n from 'meteor/universe:i18n';
 import {ListGroup, ListGroupItem, FormGroup, FormControl, Button, Form, ButtonToolbar} from 'react-bootstrap'
 import {remoteApp} from '../../lib/reports.js';
 import {validateEmail, validatePhoneNr, validateName} from "../../lib/loginMethods"
-import {errorMsg} from "./Common_components/Loading_feedback"
+import {errorMsg} from "./Common_components/Loading_feedback";
 
 import {Loading_feedback} from './Common_components/Loading_feedback.jsx';
 
@@ -25,16 +25,18 @@ class ProfileReport extends Component {
             emailError: null,
             phoneError: null,
             showPopup: false,
+            fNameError: null,
+            lNameError: null
         };
     }
 
     verify(e) {
         e.preventDefault();
-        remoteApp.call('sendVerificationEmail', Meteor.userId(), (err, res) => {
-            if (res) {
-                alert("Email sendt");
-            } else {
-                alert("Error, email not sendt");
+        remoteApp.call('sendVerificationEmail', Meteor.userId(), () => {
+            if (Meteor.isCordova) {
+                navigator.notification.alert(i18n.__('common.alertMessages.emailVerification'), () => {
+                    console.log('notverified utført');
+                }, i18n.__('common.alertMessages.emailSent'), 'Ok')
             }
         })
     }
@@ -63,6 +65,11 @@ class ProfileReport extends Component {
         }
     }
 
+    cancelSetEditName(e){
+        e.preventDefault();
+        this.setState({editName: !this.state.editName})
+    }
+
     setEditEmail(e) {
         e.preventDefault();
         if (this.state.editEmail) {
@@ -77,7 +84,7 @@ class ProfileReport extends Component {
                 this.setState({
                     editEmail: !this.state.editEmail
                 })
-            } else if(mail === '') {
+            } else if (mail === '') {
                 this.setState({
                     editEmail: !this.state.editEmail,
                     emailError: null,
@@ -89,9 +96,14 @@ class ProfileReport extends Component {
         }
     }
 
+    cancelSetEditEmail(e){
+        e.preventDefault();
+        this.setState({editEmail: !this.state.editEmail})
+    }
+
     setEditPhone(e) {
         e.preventDefault();
-        if(this.state.editPhone){
+        if (this.state.editPhone) {
             let change = true;
             let phoneNr = $('[name=phoneNr]').val();
             let err = validatePhoneNr(phoneNr);
@@ -102,12 +114,12 @@ class ProfileReport extends Component {
             console.log(err);
             console.log(phoneNr);
             console.log(err !== 'error');
-            if(err !== 'error' && change){
+            if (err !== 'error' && change) {
                 remoteApp.call('changeProfilePhoneNr', phoneNr, Meteor.userId());
                 this.setState({
                     editPhone: !this.state.editPhone
                 })
-            } else if(phoneNr === ''){
+            } else if (phoneNr === '') {
                 this.setState({
                     editPhone: !this.state.editPhone,
                     phoneError: null,
@@ -118,20 +130,26 @@ class ProfileReport extends Component {
         }
     }
 
+    cancelSetEditPhone(e){
+        e.preventDefault();
+        this.setState({editPhone : !this.state.editPhone})
+    }
+
     render() {
         if (this.props.currentUser) {
             return (
                 <ListGroup fill>
                     <ListGroupItem header={i18n.__('common.profilePageError.name')}>
                         <p>
-                            <strong><T>common.profilePageError.name</T>: </strong> {this.props.currentUser.profile.firstname + " " + this.props.currentUser.profile.lastname}
+                            <strong><T>common.profilePageError.name</T>:
+                            </strong> {this.props.currentUser.profile.firstname + " " + this.props.currentUser.profile.lastname}
                         </p>
 
                         {this.state.editName ?
                             <Form inline>
                                 <div style={style}>
                                     {errorMsg(i18n.__('common.profilePageError.errorName'), this.state.nameError)}
-                                    <FormGroup controlId="formInlineName">
+                                    <FormGroup controlId="formInlineName" validationState={this.state.fNameError}>
                                         <FormControl
                                             type="text"
                                             placeholder={i18n.__('common.profilePageError.firstname')}
@@ -141,7 +159,7 @@ class ProfileReport extends Component {
                                         />
                                     </FormGroup>
 
-                                    <FormGroup controlId="formInlineName">
+                                    <FormGroup controlId="formInlineName" validationState={this.state.lNameError}>
                                         <FormControl
                                             type="text"
                                             placeholder={i18n.__('common.profilePageError.lastname')}
@@ -154,16 +172,24 @@ class ProfileReport extends Component {
                             </Form>
                             : null}
 
-                        <Button bsStyle="primary" onClick={this.setEditName.bind(this)}>
-                            {this.state.editName ? "Ok" : i18n.__('common.profilePageError.change')}
-                        </Button>
+                        <ButtonToolbar>
+                            <Button bsStyle="primary" onClick={this.setEditName.bind(this)}>
+                                {this.state.editName ? "Ok" : i18n.__('common.profilePageError.change')}
+                            </Button>
+                            {this.state.editName ?
+                                <Button bsStyle="primary" onClick={this.cancelSetEditName.bind(this)}>
+                                    {i18n.__('common.profilePageError.cancelBtn')}
+                                </Button> : null
+                            }
+                        </ButtonToolbar>
 
                     </ListGroupItem>
 
                     <ListGroupItem header={i18n.__('common.profilePageError.phoneNr')}>
 
                         {this.props.currentUser.profile.phoneNr === "" ? null :
-                            <p><strong><T>common.profilePageError.phoneNr</T>: </strong> {this.props.currentUser.profile.phoneNr} </p>}
+                            <p><strong><T>common.profilePageError.phoneNr</T>:
+                            </strong> {this.props.currentUser.profile.phoneNr} </p>}
                         {this.state.editPhone ?
                             <Form style={style}>
                                 {errorMsg(i18n.__('common.profilePageError.errorPhone'), this.state.phoneError)}
@@ -177,9 +203,13 @@ class ProfileReport extends Component {
                                 </FormGroup>
                             </Form>
                             : null}
+                            <ButtonToolbar>
                         {this.props.currentUser.profile.phoneNr === "" ?
                             <Button bsStyle="primary" onClick={this.setEditPhone.bind(this)}><T>common.profilePageError.addPhoneNr</T></Button> :
-                            <Button bsStyle="primary" onClick={this.setEditPhone.bind(this)}>{this.state.editPhone ? 'Ok' : i18n.__('common.profilePageError.change')}</Button>}
+                            <Button bsStyle="primary"
+                                    onClick={this.setEditPhone.bind(this)}>{this.state.editPhone ? 'Ok' : i18n.__('common.profilePageError.change')}</Button>}
+                                {this.state.editPhone ? <Button bsStyle="primary" onClick={this.cancelSetEditPhone.bind(this)}><T>common.profilePageError.cancelBtn</T></Button> : null}
+                            </ButtonToolbar>
                     </ListGroupItem>
 
                     <ListGroupItem header={i18n.__('common.profilePageError.email')}>
@@ -201,6 +231,11 @@ class ProfileReport extends Component {
                             <Button bsStyle="primary" onClick={this.setEditEmail.bind(this)}>
                                 {this.state.editEmail ? 'Ok' : i18n.__('common.profilePageError.change')}
                             </Button>
+                            {this.state.editEmail ?
+                                <Button bsStyle="primary" onClick={this.cancelSetEditEmail.bind(this)}>
+                                    {i18n.__('common.profilePageError.cancelBtn')}
+                                </Button> : null
+                            }
                             {!this.props.currentUser.emails[0].verified ?
                                 <Button bsStyle="primary" onClick={this.verify.bind(this)}>
                                     <T>common.profilePageError.sendEmailVerification</T>

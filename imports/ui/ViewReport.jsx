@@ -116,9 +116,9 @@ class ViewReport extends Component {
                         <br/><br/>
                         <h1><T>common.viewReport.report</T></h1>
                     </header>
-                    <li>
+                    
                         {this.renderImg()}
-                    </li>
+
                     <ShowReport report={this.props.report} pageTextReport={this.state.pageTextReport}/>
                     <MyMap report={this.props.report}/>
                     <br/><br/>

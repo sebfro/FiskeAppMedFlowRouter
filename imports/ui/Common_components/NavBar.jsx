@@ -50,8 +50,8 @@ export default class NavBar extends Component {
             emailVerified: true,
         });
         if (Meteor.isCordova) {
-            navigator.notification.alert("You must verify your email first.", () => {
-                console.log('notverified utført');}, 'Invalid email', 'Ok')
+            navigator.notification.alert(i18n.__('common.alertMessages.verifyEmail'), () => {
+                console.log('notverified utført');}, i18n.__('common.alertMessages.invalidEmail'), 'Ok')
         }
     }
 

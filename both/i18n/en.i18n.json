@@ -112,7 +112,15 @@
     "firstname": "Forename",
     "lastname": "last name",
     "addPhoneNr": "Add phone number",
-    "changePhoneNr": "Change"
+    "changePhoneNr": "Change",
+    "cancelBtn": "Cancel"
+  },
+
+  "alertMessages": {
+    "emailVerification": "Verification link has been sent to your email",
+    "verifyEmail": "You must verify your email first.",
+    "invalidEmail": "Invalid email",
+    "emailSent": "Email has been sent"
   }
 
 }

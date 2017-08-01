@@ -95,13 +95,6 @@ if(Meteor.isClient){
 
 
 function checkLoggedIn(context, doRedirect){
-    //isVerified();
-    console.log("checkLoggedIn");
-    console.log(localStorage.getItem('FB.status') !== 'connected');
-    console.log('connected');
-    console.log("LoggedIn");
-    console.log(isLoggedIn());
-    console.log(!isLoggedIn() || localStorage.getItem('FB.status') !== 'connected');
     if(!isLoggedIn() && localStorage.getItem('FB.status') !== 'connected'){
         doRedirect('/');
     }
