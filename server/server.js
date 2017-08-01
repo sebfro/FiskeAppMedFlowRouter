@@ -44,6 +44,7 @@ if (Meteor.isServer) {
                     //gateway: 'gateway.push.apple.com',
                 },
                 */
+
                 gcm: {
                     apiKey: 'AAAAIy9w9LI:APA91bEO7j-6mJ3kBYCJ_YYf-sn8wkxmCLd7Ikicnl7eh_wgzHUPrZTxbvrmjcNUowZCm03GXkJpGK5LUYp7sptPSCGT9n1wAhw_sGsYI3UptsyyKOalYMsHF_vFTQwe9_dVTdf1S7yb',
                     projectNumber: 151119787186
@@ -122,7 +123,7 @@ if(Meteor.startup()){
 
 Meteor.methods({
 
-    serverNotification: function(text, title){
+    'serverNotification': function(text, title){
         let badge = 1;
         Push.send({
             from: 'push',
@@ -140,7 +141,7 @@ Meteor.methods({
         })
     },
 
-    userNotification: function(text, title, userId) {
+    'userNotification': function(text, title, userId) {
         let badge = 1;
         Push.send({
             from: 'push',
@@ -160,7 +161,6 @@ Meteor.methods({
 
     "notify"(userId){
         console.log('in notify');
-        Push.debug = true;
         Push.send({
             from: 'IMR',
             title: 'Verifisert rapport',

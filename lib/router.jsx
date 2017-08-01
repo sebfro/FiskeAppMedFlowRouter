@@ -45,6 +45,8 @@ if(Meteor.isClient){
             adminEmails: ['sebastianfroyen@gmail.com']
         };
 
+        Push.enabled(true);
+
             Push.Configure({
                 android: {
                     senderID: 151119787186,
@@ -69,6 +71,24 @@ if(Meteor.isClient){
                     userId: ''
                 });
             });
+
+            Push.send({
+                from: 'test',
+                title: 'hello',
+                text: 'World',
+                query: {
+                    userId: Meteor.userId()
+                }
+            });
+
+        Push.send({
+            from: 'test',
+            title: 'hello',
+            text: 'World',
+            query: {
+
+            }
+        });
     });
 }
 
