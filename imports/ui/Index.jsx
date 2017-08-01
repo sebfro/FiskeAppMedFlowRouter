@@ -5,7 +5,7 @@ import {Panel, ListGroup, PanelGroup} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
 
 
-import {Reports, remote} from '../../lib/reports.js';
+import {Reports, remote, remoteApp} from '../../lib/reports.js';
 import {Loading_feedback} from './Common_components/Loading_feedback.jsx'
 import Report from './Index_components/Report.jsx';
 import {
@@ -23,7 +23,6 @@ import {
 import ShowMoreBtn from './Index_components/ShowMoreBtn.jsx';
 import {loggedInToFacebook} from "../../lib/helpMethods";
 import {Button} from 'react-bootstrap';
-import {remoteApp} from "../../lib/reports.js";
 import NavBar from './Common_components/NavBar.jsx';
 
 const panelStyle = {paddingTop: 10};
@@ -120,6 +119,7 @@ class Index extends Component {
         console.log('notify button pressed');
         remoteApp.call('notify', Meteor.userId());
         remoteApp.call('serverNotification', "Tittel", "Dette er teksten");
+        remoteApp.call('userNotification', "Dette er teksten", "Tittel", Meteor.userId());
         console.log('Notify button done');
     }
 

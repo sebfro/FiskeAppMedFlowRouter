@@ -124,6 +124,7 @@ if(Meteor.startup()){
 Meteor.methods({
 
     'serverNotification': function(text, title){
+        console.log('serverNotification');
         let badge = 1;
         Push.send({
             from: 'push',
@@ -133,15 +134,16 @@ Meteor.methods({
             payload: {
                 title: title,
                 text: text,
-                historyId: result
             },
             query: {
                 //this will send to all users
             }
-        })
+        });
+        console.log("serverNotification har blitt utført");
     },
 
     'userNotification': function(text, title, userId) {
+        console.log('userNotification');
         let badge = 1;
         Push.send({
             from: 'push',
@@ -151,12 +153,12 @@ Meteor.methods({
             payload: {
                 title: title,
                 text: text,
-                historyId: result
             },
             query: {
                 userId: userId
             }
-        })
+        });
+        console.log('ferdig i userNotification');
     },
 
     "notify"(userId){
