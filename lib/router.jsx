@@ -80,13 +80,13 @@ if(Meteor.isClient){
 
 
 function checkLoggedIn(context, doRedirect){
-    if(!isLoggedIn() && localStorage.getItem('FB.status') !== 'connected'){
+    /*if(!isLoggedIn() && localStorage.getItem('FB.status') !== 'connected'){
         doRedirect('/');
     }
 
     if (((localStorage.getItem('report.id') === undefined && context.context.path === "/seRapport"))) {
         doRedirect('/homepage');
-    }
+    }*/
 }
 
 function renderMainLayout(component){

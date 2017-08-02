@@ -146,8 +146,7 @@ class ProfileReport extends Component {
                         </p>
 
                         {this.state.editName ?
-                            <Form inline>
-                                <div style={style}>
+                            <Form>
                                     {errorMsg(i18n.__('common.profilePageError.errorName'), this.state.nameError)}
                                     <FormGroup controlId="formInlineName" validationState={this.state.fNameError}>
                                         <FormControl
@@ -155,7 +154,6 @@ class ProfileReport extends Component {
                                             placeholder={i18n.__('common.profilePageError.firstname')}
                                             componentClass="input"
                                             name="firstname"
-                                            style={style}
                                         />
                                     </FormGroup>
 
@@ -165,10 +163,8 @@ class ProfileReport extends Component {
                                             placeholder={i18n.__('common.profilePageError.lastname')}
                                             componentClass="input"
                                             name="lastname"
-                                            style={style}
                                         />
                                     </FormGroup>
-                                </div>
                             </Form>
                             : null}
 

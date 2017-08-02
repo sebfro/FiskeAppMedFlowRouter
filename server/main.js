@@ -5,15 +5,6 @@ import { check } from 'meteor/check';
 
 //const Reports = new Mongo.Collection('reports');
 
-if(Meteor.isServer){
-    Meteor.publish('reportColl', function reportsPublication(){
-
-    });
-
-    Meteor.methods({
-
-    })
-}
 
 
 /*
