@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 
+
 //ShowImg komponent - gjengir et bilde på skjerm
 export default class ShowImg extends Component {
 
@@ -18,7 +19,7 @@ export default class ShowImg extends Component {
 
     render() {
             return (
-                <img src={this.props.img}/>
+                <img src={this.props.img} className="carouselItemImg"/>
             );
     }
 }
