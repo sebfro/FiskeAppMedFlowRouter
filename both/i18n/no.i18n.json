@@ -41,7 +41,8 @@
     "phoneError": "Telefon nr kan bare inneholde 8 nummer eller være tom",
     "passMatchError": "Passordene er ikke like",
     "passError": "Passord må være seks tegn og inneholde ett nummer og en stor bokstav",
-    "noMailError": "Email må fylles inn"
+    "noMailError": "Email må fylles inn",
+    "fbLoginBtn": "Logg inn med facebook"
   },
   "passRecovery": {
     "forgotPass": "Glemt passord",

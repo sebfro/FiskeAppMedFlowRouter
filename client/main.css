@@ -23,7 +23,10 @@
     position: fixed;
     top: 40%;
     left: 44%;
+}
 
+.loginRegisterBtn {
+    float: left;
 }
 
 .loader_text {
@@ -55,7 +58,19 @@ body {
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
-.form-signin-heading,
+
+.form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+}
+
+form {
+    margin-top: 10px;
+    margin-bottom: -10px;
+    position: relative;
+}
 
 .checkbox {
     margin-bottom: 30px;
@@ -65,12 +80,6 @@ body {
     font-weight: normal;
 }
 
-.form-control {
-    position: relative;
-    font-size: 16px;
-    height: auto;
-    padding: 10px;
-}
 
 input[type="text"] {
     margin-bottom: -1px;
@@ -137,12 +146,6 @@ h1 {
     margin-bottom: 10px;
     display: inline-block;
     margin-right: 1em;
-}
-
-form {
-    margin-top: 10px;
-    margin-bottom: -10px;
-    position: relative;
 }
 
 .new-report input {

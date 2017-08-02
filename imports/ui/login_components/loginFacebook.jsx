@@ -2,7 +2,11 @@ import React, {Component} from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Button} from 'react-bootstrap';
 import {Meteor} from 'meteor/meteor';
+import i18n from 'meteor/universe:i18n';
+
 import {remoteApp} from "../../../lib/reports";
+
+const T = i18n.createComponent();
 
 export default class FacebookLogin extends Component {
 
@@ -27,7 +31,7 @@ export default class FacebookLogin extends Component {
         return(
             <Button className="btn btn-lg btn-primary btn-block"
                     onClick={this.handleLogin.bind(this)}>
-                <span className="fa fa-facebook"/> Login to facebook
+                <span className="fa fa-facebook"/> <T>common.loginform.fbLoginBtn</T>
             </Button>
         )
     }

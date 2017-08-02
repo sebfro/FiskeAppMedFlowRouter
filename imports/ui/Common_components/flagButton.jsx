@@ -19,7 +19,7 @@ export default class FlagBtn extends Component {
     changeLanguage() {
         i18n.getLocale() === 'en-US' ? i18n.setLocale('nb-NO') :
             i18n.setLocale('en-US');
-        localStorage.setItem('language', locale);
+        localStorage.setItem('language', i18n.getLocale());
         this.showFlag();
     }
 

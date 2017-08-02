@@ -17,7 +17,6 @@ import {
 import {errorMsg} from "./Common_components/Loading_feedback"
 import FlagBtn from './Common_components/flagButton.jsx';
 import FacebookLogin from './login_components/loginFacebook.jsx';
-import NavBar from './Common_components/NavBar.jsx';
 
 const T = i18n.createComponent();
 
@@ -99,6 +98,7 @@ export default class LoginScreen extends Component {
                                 console.log(err.message);
                             }
                         });
+                        localStorage.setItem('email', email);
                         FlowRouter.go('/homepage');
                     }
                 });
@@ -124,6 +124,7 @@ export default class LoginScreen extends Component {
                         emailError: err.reason === 'User not found' ? error : err.reason === 'Incorrect password' ? 'success' : null
                     });
                 } else {
+                    localStorage.setItem('email', email);
                     FlowRouter.go('/homepage');
                 }
             });
@@ -203,59 +204,62 @@ export default class LoginScreen extends Component {
         })
     }
 
+    componentWillMount(){
+        if(localStorage.getItem('email')){
+            $('[name=email]').val = localStorage.getItem('email');
+            //ReactDOM.findDOMNode(this.refs.rapportTitel).value
+        }
+    }
+
 
     render() {
         return (
-            <div>
-                <NavBar/>
-                <div className="wrapper">
-                    <Form className="form-signin" horizontal>
-                        <FormGroup>
-                            <h2 className="form-signin-heading" style={{float: 'left'}}>
-                                {this.state.register ? <T>common.loginform.createAcc</T> :
-                                    <T>common.loginform.signIn</T>}
-                            </h2>
-                            <FlagBtn loginScreen={false}/>
-                        </FormGroup>
-                        <FormGroup controlId="formHorizontalEmail" validationState={this.state.emailError}>
-                            {errorMsg(this.state.loginErr, error)}
-                            <Col componentClass={ControlLabel} sm={2}>
-                                <T>common.loginform.emailLabel</T>
-                            </Col>
-                            <Col sm={10}>
-                                <FormControl
-                                    componentClass="input"
-                                    name="email"
-                                    type="email"
-                                    placeholder={i18n.__('common.loginform.Email')}
-                                    required={true}/>
-                                <FormControl.Feedback/>
-                            </Col>
-                        </FormGroup>
+            <div className="wrapper">
+                <Form className="form-signin" horizontal>
+                    <FormGroup>
+                        <h2 className="form-signin-heading" style={{float: 'left'}}>
+                            {this.state.register ? <T>common.loginform.createAcc</T> :
+                                <T>common.loginform.signIn</T>}
+                        </h2>
+                        <FlagBtn loginScreen={false}/>
+                    </FormGroup>
+                    <FormGroup controlId="formHorizontalEmail" validationState={this.state.emailError}>
+                        {errorMsg(this.state.loginErr, error)}
+                        <Col md={10}>
+                            <ControlLabel><T>common.loginform.emailLabel</T></ControlLabel>
+                            <FormControl
+                                componentClass="input"
+                                name="email"
+                                type="email"
+                                placeholder={i18n.__('common.loginform.Email')}
+                                required={true}/>
+                            <FormControl.Feedback/>
+                        </Col>
+                    </FormGroup>
 
-                        <FormGroup controlId="formHorizontalPassword" validationState={this.passValid()}>
-                            <Col componentClass={ControlLabel} sm={2}>
-                                <T>common.loginform.passLabel</T>
-                            </Col>
-                            {this.state.register ?
-                                <div>
-                                    {errorMsg(i18n.__('common.loginform.passError'), this.state.passError)}
-                                    {errorMsg(i18n.__('common.loginform.passMatchError'), this.state.passMatch)}
-                                </div>
-                                : null}
-                            <Col md={10}>
-                                <FormControl
-                                    componentClass="input"
-                                    name="password"
-                                    type="password"
-                                    placeholder={i18n.__('common.loginform.Password')}
-                                    required={true}/>
-                                <FormControl.Feedback/>
-                            </Col>
-                        </FormGroup>
+                    <FormGroup controlId="formHorizontalPassword" validationState={this.passValid()}>
 
-                        {this.registerUI()}
+                        {this.state.register ?
+                            <div>
+                                {errorMsg(i18n.__('common.loginform.passError'), this.state.passError)}
+                                {errorMsg(i18n.__('common.loginform.passMatchError'), this.state.passMatch)}
+                            </div>
+                            : null}
+                        <Col md={10}>
+                            <ControlLabel><T>common.loginform.passLabel</T></ControlLabel>
+                            <FormControl
+                                componentClass="input"
+                                name="password"
+                                type="password"
+                                placeholder={i18n.__('common.loginform.Password')}
+                                required={true}/>
+                            <FormControl.Feedback/>
+                        </Col>
+                    </FormGroup>
 
+                    {this.registerUI()}
+
+                    <div>
                         <FormGroup>
                             <Col smOffset={2} sm={10}>
                                 <Checkbox><T>common.loginform.remMe</T></Checkbox>
@@ -268,18 +272,14 @@ export default class LoginScreen extends Component {
                                 <PassRecovery/>
                             </Col>
                         </FormGroup>
-                        <FormGroup>
-                            <Col smOffset={2} sm={10}>
-                                <Button className="btn btn-lg btn-primary btn-block" type="submit"
-                                        onClick={this.login.bind(this)}>
-                                    {this.state.register ? <T>common.loginform.createAcc</T> :
-                                        <T>common.loginform.signIn</T>}
-                                </Button>
-                            </Col>
-                        </FormGroup>
-                        <FacebookLogin/>
-                    </Form>
-                </div>
+                    </div>
+                    <Button className="btn btn-lg btn-primary btn-block" type="submit"
+                            onClick={this.login.bind(this)}>
+                        {this.state.register ? <T>common.loginform.createAcc</T> :
+                            <T>common.loginform.signIn</T>}
+                    </Button>
+                    <FacebookLogin/>
+                </Form>
             </div>
         )
     }
