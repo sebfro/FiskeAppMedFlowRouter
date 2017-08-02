@@ -34,7 +34,7 @@ export default class ShowImg extends Component {
             imgArray.push(
                 <Col xs={6} md={4}>
                     <Thumbnail src={this.props.photo[i]} alt="242x200">
-                        <Button bsStyle="primary" onClick={() => this.props.removeImg(i)} block><T>common.ShowImgSubmitPage.deleteBtn</T></Button>
+                        <Button className="addedImg" bsStyle="primary" onClick={() => this.props.removeImg(i)} block><T>common.ShowImgSubmitPage.deleteBtn</T></Button>
                     </Thumbnail>
                 </Col>
             );
