@@ -45,8 +45,6 @@ if(Meteor.isClient){
             adminEmails: ['sebastianfroyen@gmail.com']
         };
 
-        Push.enabled(true);
-
             Push.Configure({
                 android: {
                     senderID: 151119787186,
@@ -60,9 +58,6 @@ if(Meteor.isClient){
                 },
             });
 
-            App.configurePlugin('phonegap-plugin-push', {
-                SENDER_ID: 151119787186
-            });
             Push.addListener('token', (token) => {
                 PUSH_TOKEN = token;
                 remoteApp.call('raix:push-update', {
@@ -72,22 +67,12 @@ if(Meteor.isClient){
                 });
             });
 
-            Push.send({
-                from: 'test',
-                title: 'hello',
-                text: 'World',
-                query: {
-                    userId: Meteor.userId()
-                }
-            });
 
         Push.send({
             from: 'test',
             title: 'hello',
             text: 'World',
-            query: {
-
-            }
+            query: {}
         });
     });
 }

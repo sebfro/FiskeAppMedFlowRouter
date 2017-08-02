@@ -44,7 +44,6 @@ if (Meteor.isServer) {
                     //gateway: 'gateway.push.apple.com',
                 },
                 */
-
                 gcm: {
                     apiKey: 'AAAAIy9w9LI:APA91bEO7j-6mJ3kBYCJ_YYf-sn8wkxmCLd7Ikicnl7eh_wgzHUPrZTxbvrmjcNUowZCm03GXkJpGK5LUYp7sptPSCGT9n1wAhw_sGsYI3UptsyyKOalYMsHF_vFTQwe9_dVTdf1S7yb',
                     projectNumber: 151119787186
@@ -91,14 +90,24 @@ if (Meteor.isServer) {
                 badge: 12,
                 query: {}
             });
+
+            Push.send({
+                from: 'push',
+                title: 'Hello',
+                text: 'world',
+                badge: 1, //optional, use it to set badge count of the receiver when the app is in background.
+                query: {}
+            });
         })
     }
 
+    /*
     let users = Meteor.users.find();
 
     users.forEach(function(u){
         Push.appCollection.insert({userId: u._id});
     })
+    */
 }
 
 
