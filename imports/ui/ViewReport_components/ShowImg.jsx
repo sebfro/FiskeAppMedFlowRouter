@@ -19,7 +19,7 @@ export default class ShowImg extends Component {
 
     render() {
             return (
-                <img src={this.props.img} className="carouselItemImg"/>
+                <img width={900} height={500} src={this.props.img} className="carouselItemImg"/>
             );
     }
 }
