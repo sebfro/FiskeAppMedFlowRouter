@@ -27,7 +27,7 @@ if(Meteor.isClient){
             i18n.setLocale('nb-NO')
         }
 
-        if(Meteor.isCordova) {
+        /*if(Meteor.isCordova) {
             cordova.plugins.notification.local.schedule({
                 id: 1,
                 title: "App omstartet",
@@ -38,7 +38,7 @@ if(Meteor.isClient){
                 console.log("Clicked notification");
             })
 
-        }
+        }*/
 
         AdminConfig = {
             name: 'My App',
