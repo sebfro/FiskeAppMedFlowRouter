@@ -39,15 +39,17 @@ class MyMap extends Component {
         let markerPos = { lat: 60, lng: 5};
         GoogleMaps.ready(name, map => {
             Tracker.autorun(c => {
-                google.maps.event.addListener(map.instance, 'click', function(event) {
-                    if(localStorage.getItem('addMarker') && !addedMarker){
-                        addedMarker = true;
-                        localStorage.setItem('addedMarker', true);
-                        Markers.insert({ lat: event.latLng.lat(), lng: event.latLng.lng(), current: true });
-                        markerPos = { lat: event.latLng.lat(), lng: event.latLng.lng() };
-                        setLatLng(event.latLng.lng(), event.latLng.lat());
-                    }
-                });
+                if(this.props.report === null) {
+                    google.maps.event.addListener(map.instance, 'click', function (event) {
+                        if (localStorage.getItem('addMarker') && !addedMarker) {
+                            addedMarker = true;
+                            localStorage.setItem('addedMarker', true);
+                            Markers.insert({lat: event.latLng.lat(), lng: event.latLng.lng(), current: true});
+                            markerPos = {lat: event.latLng.lat(), lng: event.latLng.lng()};
+                            setLatLng(event.latLng.lng(), event.latLng.lat());
+                        }
+                    });
+                }
 
                 const markers = {};
 
