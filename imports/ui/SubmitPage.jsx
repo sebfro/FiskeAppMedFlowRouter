@@ -46,6 +46,7 @@ export default class SubmitPage extends Component {
             substrartError: false,
             pictureError: false,
             markerError: false,
+            dateError: false,
             useCurrPos: true,
             category: category,
             showNewReport: this.props.currentUser,
@@ -58,14 +59,15 @@ export default class SubmitPage extends Component {
     }
 
     //Oppdaterer state variabler
-    inputError(length, amount, depth, titel, picture, marker) {
+    inputError(length, amount, depth, titel, picture, marker, date) {
         this.setState({
             lengthError: length,
             amountError: amount,
             depthError: depth,
             titelError: titel,
             pictureError: picture,
-            markerError: marker
+            markerError: marker,
+            dateError: date,
         })
     }
 
@@ -142,6 +144,8 @@ export default class SubmitPage extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
+        let dateError = false;
+
         //Find the text field via the react ref
         const titelText = ReactDOM.findDOMNode(this.refs.rapportTitel).value.trim();
         const lengthNr = ReactDOM.findDOMNode(this.refs.rapportLength).value.trim();
@@ -152,16 +156,17 @@ export default class SubmitPage extends Component {
             date = (ReactDOM.findDOMNode(this.refs.rapportDate).value.trim());
             date = new Date(date);
         } catch (e) {
+            dateError = true;
         }
         if (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/ || amountNr < 0 || amountNr > 100 || /*!amountNr ||*/
             depthNr < 0 || depthNr > 1000 || /*!depthNr ||*/ !titelText || hasNumbers(titelText) || titelText.length > 30
-            || 0 === takenImg.length || !this.state.useCurrPos && !localStorage.getItem('addedMarker')
+            || 0 === takenImg.length || !this.state.useCurrPos && !localStorage.getItem('addedMarker') || dateError
         /*|| !substrartText || hasNumbers(substrartText)*/) {
 
             this.inputError
             (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/, amountNr < 0 || amountNr > 100 /*|| !amountNr*/,
                 depthNr < 0 || depthNr > 1000 /*|| !depthNr*/, !titelText || hasNumbers(titelText) || titelText.length > 30,
-                0 === takenImg.length, !this.state.useCurrPos && !localStorage.getItem('addedMarker')
+                0 === takenImg.length, !this.state.useCurrPos && !localStorage.getItem('addedMarker'), dateError
                 /*, !substrartText || hasNumbers(substrartText)*/);
 
         } else {
@@ -328,7 +333,7 @@ export default class SubmitPage extends Component {
                                 </p>
                                 <MyMap report={null}/>
                                 <br/>
-                                <p className="errorText" hidden={!this.state.titelError}>
+                                <p className="errorText" hidden={!this.state.dateError}>
                                     <T>common.submitPageError.errorDate</T>
                                 </p>
                                 <FormGroup>
