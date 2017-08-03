@@ -33,7 +33,7 @@ if (Meteor.isServer) {
                 secret: 'bdd2aa5d0567a4796a1dd7c5c3d8ef67'
             }
         });
-
+        /*
             Push.Configure({
                 /*
                     apn: {
@@ -43,17 +43,17 @@ if (Meteor.isServer) {
                     production: true,
                     //gateway: 'gateway.push.apple.com',
                 },
-                */
+
                 gcm: {
                     apiKey: 'AAAAIy9w9LI:APA91bEO7j-6mJ3kBYCJ_YYf-sn8wkxmCLd7Ikicnl7eh_wgzHUPrZTxbvrmjcNUowZCm03GXkJpGK5LUYp7sptPSCGT9n1wAhw_sGsYI3UptsyyKOalYMsHF_vFTQwe9_dVTdf1S7yb',
                     projectNumber: 151119787186
                 },
-                /*
+
                 fcm: {
                     apiKey: 'AAAAIy9w9LI:APA91bEO7j-6mJ3kBYCJ_YYf-sn8wkxmCLd7Ikicnl7eh_wgzHUPrZTxbvrmjcNUowZCm03GXkJpGK5LUYp7sptPSCGT9n1wAhw_sGsYI3UptsyyKOalYMsHF_vFTQwe9_dVTdf1S7yb',
                     projectNumber: 151119787186
                 },
-                */
+
                 production: false,
                 sound: true,
                 badge: true,
@@ -70,6 +70,7 @@ if (Meteor.isServer) {
                 return true; // Allow all users to send
             }
         });
+        */
     });
 
     AdminConfig = {
@@ -80,61 +81,12 @@ if (Meteor.isServer) {
     Meteor.publish('facebook.Email', function () {
         return Meteor.users.find({_id: this.userId}, {fields: {'services.facebook.email': 1}});
     });
-
-    if (Meteor.isCordova) {
-        Meteor.startup(() => {
-            Push.send({
-                from: 'Test',
-                title: 'Hello',
-                text: 'World',
-                badge: 12,
-                query: {}
-            });
-
-            Push.send({
-                from: 'push',
-                title: 'Hello',
-                text: 'world',
-                badge: 1, //optional, use it to set badge count of the receiver when the app is in background.
-                query: {}
-            });
-        })
-    }
-
-    /*
-    let users = Meteor.users.find();
-
-    users.forEach(function(u){
-        Push.appCollection.insert({userId: u._id});
-    })
-    */
 }
-
-
-
-/*
-if(Meteor.startup()){
-    Push.send({
-        from: 'push',
-        title: 'Hello',
-        text: 'world',
-        badge: 1, //optional, use it to set badge count of the receiver when the app is in background.
-        query: {
-            // Ex. send to a specific user if using accounts:
-            userId: 'HmgNeXt3EYg9QHKeC'
-        } // Query the appCollection
-        // token: appId or token eg. "{ apn: token }"
-        // tokens: array of appId's or tokens
-        // payload: user data
-        // delayUntil: Date
-    });
-}
- */
 
 
 Meteor.methods({
 
-    'serverNotification': function(text, title){
+    /*'serverNotification': function(text, title){
         console.log('serverNotification');
         let badge = 1;
         Push.send({
@@ -142,12 +94,7 @@ Meteor.methods({
             title: 'Hello',
             text: 'World',
             badge: 1,
-            /*
-                payload: {
-                title: title,
-                text: text,
-            },
-            */
+
             query: {
                 //this will send to all users
             }
@@ -185,22 +132,7 @@ Meteor.methods({
                 userId: userId
             }
         });
-
-        console.log('Ferdig i notify');
-
-        /*
-        Push.send({
-        from: 'push',
-        title: 'Hello',
-        text: 'world',
-        badge: 1, //optional, use it to set badge count of the receiver when the app is in background.
-        query: {
-            // Ex. send to a specific user if using accounts:
-            userId: 'xxxxxxxxx'
-        }
-         */
-
-    },
+    },*/
 
     "sendVerificationEmail"(userId) {
         Accounts.sendVerificationEmail(userId);

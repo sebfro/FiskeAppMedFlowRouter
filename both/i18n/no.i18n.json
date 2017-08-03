@@ -71,7 +71,7 @@
 
   "submitPage": {
     "new": "Ny ",
-    "report": " rapportering",
+    "reporting": " rapportering",
     "optional": "valgfri",
     "enterSpecies": "Skriv inn hvilken art du tror det er",
     "enterLength": "Skriv inn lengde (cm)",

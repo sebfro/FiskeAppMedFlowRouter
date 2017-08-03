@@ -45,6 +45,7 @@ if(Meteor.isClient){
             adminEmails: ['sebastianfroyen@gmail.com']
         };
 
+        /*
             Push.Configure({
                 android: {
                     senderID: 151119787186,
@@ -67,26 +68,26 @@ if(Meteor.isClient){
                 });
             });
 
-
         Push.send({
             from: 'test',
             title: 'hello',
             text: 'World',
             query: {}
         });
+        */
     });
 }
 
 
 
 function checkLoggedIn(context, doRedirect){
-    /*if(!isLoggedIn() && localStorage.getItem('FB.status') !== 'connected'){
+    if(!isLoggedIn() && localStorage.getItem('FB.status') !== 'connected'){
         doRedirect('/');
     }
 
     if (((localStorage.getItem('report.id') === undefined && context.context.path === "/seRapport"))) {
         doRedirect('/homepage');
-    }*/
+    }
 }
 
 function renderMainLayout(component){

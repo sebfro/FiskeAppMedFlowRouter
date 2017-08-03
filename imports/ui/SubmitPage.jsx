@@ -267,7 +267,7 @@ export default class SubmitPage extends Component {
                     <br/><br/>
                     <h2>
                         <GetCategory category={localStorage.getItem('Category')}/>
-                        <T>common.submitPage.report</T>
+                        <T>common.submitPage.reporting</T>
                     </h2>
                 </header>
                 <form className="new-report">
