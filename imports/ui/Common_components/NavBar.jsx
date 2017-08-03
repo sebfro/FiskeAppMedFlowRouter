@@ -88,7 +88,7 @@ export default class NavBar extends Component {
                 <Navbar fixedTop={true}>
                     <Navbar.Header>
                         <NavbarBrand>
-                            <img src="/imrlogomini.png" style={{"height": "30%", "width": "10%"}} alt="imr logo"/>
+                            <img src="/imrlogomini.png" style={{"height": "90%", "width": "30%"}} alt="imr logo"/>
 
                         </NavbarBrand>
                         <Navbar.Toggle/>
@@ -96,18 +96,18 @@ export default class NavBar extends Component {
                         <Navbar.Collapse>
                             <Nav>
                                 <NavItem onClick={this.newReportFisk.bind(this)}>
-                                    Fiske art
+                                    <T>common.navbar.fishSpecies</T>
                                 </NavItem>
                                 <NavItem onClick={this.newReportFremmed.bind(this)}>
-                                    Fremmed art
+                                    <T>commen.navbar.unknownSpecies</T>
                                 </NavItem>
                                 <NavItem onClick={this.newReportKoral.bind(this)}>
-                                    Korall
+                                    <T>common.navbar.coralSpecies</T>
                                 </NavItem>
                             </Nav>
                             <Nav pullRight>
                                 <NavItem onClick={this.goToProfilePage.bind(this)}>
-                                    Profil
+                                    <T>common.navbar.profilePage</T>
                                 </NavItem>
                                 <FlagBtn loginScreen={true}/>
                                 <NavItem onClick={this.logOut.bind(this)}>

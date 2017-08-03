@@ -71,7 +71,7 @@
 
   "submitPage": {
     "new": "New ",
-    "report": " report",
+    "report": " reporting",
     "optional": "optional",
     "enterSpecies": "Enter what species you believe it is..",
     "enterLength": "Enter length (cm)",

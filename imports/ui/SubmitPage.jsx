@@ -251,7 +251,6 @@ export default class SubmitPage extends Component {
                     <NavBarBackBtn/>
                     <br/><br/>
                     <h2>
-                        <T>common.submitPage.new</T>
                         <GetCategory category={localStorage.getItem('Category')}/>
                         <T>common.submitPage.report</T>
                     </h2>
