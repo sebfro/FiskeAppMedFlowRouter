@@ -7,7 +7,7 @@ import  { Loading_feedback } from './Common_components/Loading_feedback.jsx';
 import ShowImg from './ViewReport_components/ShowImg.jsx';
 import ShowReport from './ViewReport_components/ShowReport.jsx';
 import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
-import MyMap from "./ViewReport_components/MyMap";
+import MyMap from './ViewReport_components/MyMap.jsx';
 import { Carousel, CarouselItem } from 'react-bootstrap';
 
 const T = i18n.createComponent();

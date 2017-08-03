@@ -241,6 +241,21 @@ export default class SubmitPage extends Component {
         this.getPos();
     }
 
+    confirmSubmit(e){
+        if (Meteor.isCordova) {
+            navigator.notification.confirm(
+                'Vil fullføre rapporteringen?',
+                (buttonIndex) => {
+                    if (buttonIndex === 1) {
+                        this.handleSubmit(e);
+                    }
+                },
+                'Bekreft',
+                ['Send', 'Avbryt']
+            )
+        }
+    }
+
     render() {
         document.addEventListener("backbutton", this.onBackButtonDown, false);
         return (
@@ -354,7 +369,7 @@ export default class SubmitPage extends Component {
                         </li>
                         <ShowImg photo={this.state.images} removeImg={this.removeImg}/>
                         <li className="submitPageLis">
-                            <Button bsStyle="primary" onClick={this.handleSubmit.bind(this)}>
+                            <Button bsStyle="primary" onClick={this.confirmSubmit.bind(this)}>
                                 <T>common.submitPage.sendBtn</T>
                             </Button>
                         </li>

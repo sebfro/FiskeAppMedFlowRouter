@@ -283,7 +283,6 @@ export default class LoginScreen extends Component {
                     </Button>
                     <FacebookLogin/>
                 </Form>
-                <MyMap/>
             </div>
         )
     }
