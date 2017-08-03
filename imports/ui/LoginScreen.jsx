@@ -17,7 +17,6 @@ import {
 import {errorMsg} from "./Common_components/Loading_feedback"
 import FlagBtn from './Common_components/flagButton.jsx';
 import FacebookLogin from './login_components/loginFacebook.jsx';
-import MyMap from './ViewReport_components/MyMap.jsx';
 
 const T = i18n.createComponent();
 
@@ -210,8 +209,6 @@ export default class LoginScreen extends Component {
             $('[name=email]').val = localStorage.getItem('email');
             //ReactDOM.findDOMNode(this.refs.rapportTitel).value
         }
-
-        localStorage.setItem('addMarker', false);
     }
 
 
