@@ -4,7 +4,6 @@ import {Nav, Navbar, NavItem, NavbarBrand} from 'react-bootstrap';
 
 
 
-
 export default class NavBarBackBtn extends Component {
 //<span className="glyphicon glyphicon-arrow-right"/>
     constructor(props) {
@@ -20,21 +19,11 @@ export default class NavBarBackBtn extends Component {
             paddingLeft: 50000,
         };
         return (
-                <Navbar fixedTop={true}>
-                    <Navbar.Header>
-                        <NavbarBrand>
-                            <img src="/hiLogoBig.png" style={{"height": "45%", "width": "15%"}} alt="imr logo"/>
-                        </NavbarBrand>
-                    </Navbar.Header>
-                    <Nav pullRight>
-                        <NavItem
-                                 type="button"
-                                 aria-hidden="true"
-                                 onClick={(e) => {e.preventDefault();
-                                 FlowRouter.go("/homepage");}}>
-                            <div className="glyphicon glyphicon-arrow-right"/>
+                <Navbar fixedTop={true} className="removeUlLiDot" >
+                            <img src="/hiLogoBig.png" className="bigLogo" style={{"height": "auto", "maxHeight": "50px", "width": "200px"}} alt="imr logo"/>
+                        <NavItem onClick={(e) => {e.preventDefault(); FlowRouter.go("/homepage");}}>
+                            <img src="/right_arrow_icon.png" className="backArrow" style={{"height": "auto", "maxHeight": "30px", "width": "30px"}} alt="back button"/>
                         </NavItem>
-                    </Nav>
                 </Navbar>
         );
     }

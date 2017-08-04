@@ -87,9 +87,8 @@ export default class NavBar extends Component {
             <div>
                 <Navbar fixedTop={true}>
                     <Navbar.Header>
-                        <NavbarBrand>
-                            <img src="/imrlogomini.png" style={{"height": "45%", "width": "15%"}} alt="imr logo"/>
-
+                    <NavbarBrand>
+                            <img src="/hiLogoBig.png" style={{"height": "auto", "maxHeight": "50px", "width": "200px"}} alt="imr logo"/>
                         </NavbarBrand>
                         <Navbar.Toggle/>
                     </Navbar.Header>

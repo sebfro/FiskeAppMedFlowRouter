@@ -95,7 +95,7 @@
     "errorPicture": "Ingen bilder lastet opp",
     "errorPos": "En posisjon må legges til",
     "errorDate": "Dato må fylles inn",
-    "errorLength": "Lengde må være mellpm 1 og 999",
+    "errorLength": "Lengde må være mellom 1 og 999",
     "errorDepth": "Dybde må være mellom 0 og 999",
     "errorAmount": "Antall må være mellom 0 og 99",
     "imgLimitErr": "Kan kunne laste opp tre bilder, fjern ett viss du vil ha et annet bilde"

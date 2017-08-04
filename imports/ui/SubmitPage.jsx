@@ -258,6 +258,11 @@ export default class SubmitPage extends Component {
                 'Bekreft',
                 ['Send', 'Avbryt']
             )
+        } else {
+            let r = confirm("Press a button!");
+            if (r === true) {
+                this.handleSubmit(e);
+            }
         }
     }
 

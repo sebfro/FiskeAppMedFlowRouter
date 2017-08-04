@@ -17,6 +17,8 @@ import {
 import {errorMsg} from "./Common_components/Loading_feedback"
 import FlagBtn from './Common_components/flagButton.jsx';
 import FacebookLogin from './login_components/loginFacebook.jsx';
+import NavBar from './Common_components/NavBar.jsx';
+import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
 
 const T = i18n.createComponent();
 
@@ -215,6 +217,7 @@ export default class LoginScreen extends Component {
     render() {
         return (
             <div className="wrapper">
+                <NavBar/>
                 <Form className="form-signin" horizontal>
                     <FormGroup>
                         <h2 className="form-signin-heading" style={{float: 'left'}}>

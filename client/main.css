@@ -11,6 +11,26 @@
     margin: 0 auto;
 }
 
+.bigLogo {
+    position: absolute;
+    left: 1em;
+    top: 0.7em;
+}
+
+.removeUlLiDot {
+    list-style-type: none;
+}
+
+.backArrow {
+    position: fixed;
+    top: 0.7em;
+    right: 1em;
+}
+
+.bigLogo {
+    float: right;
+}
+
 .loader {
     border: 16px solid #f3f3f3;
     border-radius: 50%;
