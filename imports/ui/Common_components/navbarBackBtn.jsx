@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
-import {Nav, Navbar, NavItem} from 'react-bootstrap';
+import {Nav, Navbar, NavItem, NavbarBrand} from 'react-bootstrap';
 
 
 
@@ -21,13 +21,18 @@ export default class NavBarBackBtn extends Component {
         };
         return (
                 <Navbar fixedTop={true}>
-                    <Nav pullLeft>
+                    <Navbar.Header>
+                        <NavbarBrand>
+                            <img src="/hiLogoBig.png" style={{"height": "45%", "width": "15%"}} alt="imr logo"/>
+                        </NavbarBrand>
+                    </Navbar.Header>
+                    <Nav pullRight>
                         <NavItem
                                  type="button"
                                  aria-hidden="true"
                                  onClick={(e) => {e.preventDefault();
                                  FlowRouter.go("/homepage");}}>
-                            <div className="glyphicon glyphicon-arrow-left"/>
+                            <div className="glyphicon glyphicon-arrow-right"/>
                         </NavItem>
                     </Nav>
                 </Navbar>
