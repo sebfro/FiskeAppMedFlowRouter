@@ -17,10 +17,15 @@ export default class FacebookLogin extends Component {
                 console.log('Handle errors here: ', err.message);
                 console.log(err.reason);
             } else {
-                console.log(Meteor.userId());
-                console.log(Meteor.user());
-                console.log(Meteor.user().profile);
-                remoteApp.call('facebook.showMail', Meteor.user(), Meteor.userId());
+                Meteor.call('facebook.showMail', (err, res) =>{
+                    if(err){
+                        console.log(err.message);
+                        console.log(err.reason);
+                    } else {
+                        console.log(res.message);
+                        console.log(res.reason);
+                    }
+                });
                 localStorage.setItem('loggedInWith', 'facebook');
                 FlowRouter.go('/homepage')
             }

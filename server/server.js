@@ -135,27 +135,36 @@ Meteor.methods({
         });
     },*/
 
-    "reports.insert"(titelText, lengdeNr, img, posLat, posLong,
+    'testUserId'(){
+
+        console.log(this.userId);
+        console.log(Meteor.userId());
+    },
+
+    'reports.insert'(titelText, lengdeNr, img, posLat, posLong,
                      depthInput, amountInput, useCurrPos, category, date, mail, brukerId){
         console.log("Her kommer brukerIdene jeg har");
         console.log("Brukerid som ble sent fra klient");
         console.log(brukerId);
         console.log("BrukerId generert på server");
+        console.log(this.userId);
         console.log(Meteor.userId());
+        console.log("Bruker kommer under");
+        console.log(Meteor.users.findOne(Meteor.userId));
 
         remote.call("reports.insert", titelText, lengdeNr, img, posLat, posLong,
-            depthInput, amountInput, useCurrPos, category, date, Meteor.user().emails[0].address, Meteor.userId());
+            depthInput, amountInput, useCurrPos, category, date, mail, Meteor.userId());
     },
 
-    "sendVerificationEmail"(userId) {
-        Accounts.sendVerificationEmail(userId);
+    "sendVerificationEmail"() {
+        Accounts.sendVerificationEmail(Meteor.userId());
     },
 
-    'facebook.showMail'(user, userId) {
+    'facebook.showMail'() {
         console.log("facebook.showMail");
         console.log(Meteor.userId());
-        const user2 = Meteor.users.findOne(userId);
-        console.log(user);
+        userId = Meteor.userId();
+        const user2 = Meteor.users.findOne(Meteor.userId());
         console.log(user2);
 
 
@@ -190,8 +199,9 @@ Meteor.methods({
         }
     },
 
-    'changeProfileName'(fName, lName, userId) {
-        user = Meteor.users.findOne(userId);
+    'changeProfileName'(fName, lName) {
+        let userId = Meteor.userId();
+        let user = Meteor.users.findOne(userId);
 
         let setObject = {};
         let fNamePath = "firstname";
@@ -202,6 +212,7 @@ Meteor.methods({
         setObject[phoneNrPath] = user.profile.phoneNr;
 
         try {
+
             Meteor.users.update(userId, {
                 $set: {profile: setObject}
             })
@@ -210,7 +221,8 @@ Meteor.methods({
         }
     },
 
-    'changeProfileEmail'(email, userId) {
+    'changeProfileEmail'(email) {
+        let userId = Meteor.userId();
         let setObject2 = {};
         let addressPath = 'address';
         let verifiedPath = 'verified';
@@ -229,8 +241,9 @@ Meteor.methods({
         }
     },
 
-    'changeProfilePhoneNr'(pNr, userId) {
-        user = Meteor.users.findOne(userId);
+    'changeProfilePhoneNr'(pNr) {
+        let userId = Meteor.userId();
+        let user = Meteor.users.findOne(userId);
 
         let setObject = {};
         let fNamePath = "firstname";

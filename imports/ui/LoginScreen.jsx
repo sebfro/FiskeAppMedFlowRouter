@@ -93,7 +93,7 @@ export default class LoginScreen extends Component {
                         });
                         this.setStateForInput(password, password2, firstName, lastName, phoneNr);
                     } else {
-                        remoteApp.call('sendVerificationEmail', Meteor.userId(), (err, response) => {
+                        Meteor.call('sendVerificationEmail', (err, response) => {
                             if (response) {
                                 alert(response);
                                 alert('En email har blitt sendt til din epost for verifisering!', 'success');

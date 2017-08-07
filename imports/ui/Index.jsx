@@ -117,10 +117,8 @@ class Index extends Component {
     notify(e){
         e.preventDefault();
         console.log('notify button pressed');
-        remoteApp.call('notify', Meteor.userId());
-        remoteApp.call('serverNotification', "Tittel", "Dette er teksten");
-        remoteApp.call('userNotification', "Dette er teksten", "Tittel", Meteor.userId());
-        console.log('Notify button done');
+        Meteor.call('testUserId');
+        console.log("ferdig");
     }
 
 

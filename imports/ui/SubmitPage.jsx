@@ -29,7 +29,7 @@ export function setMarkerId(id) {
 }
 
 //SubmitPage komponent - Gjengir side for å lage nye rapport og sden in.
-export default class SubmitPage extends Component {
+class SubmitPage extends Component {
 
     //Setter state variabler
     constructor(props) {
@@ -186,7 +186,7 @@ export default class SubmitPage extends Component {
 
             console.log(Meteor.user().emails[0].address);
 
-            remoteApp.call(`reports.insert`, titelText, Number(lengthNr),
+            Meteor.call(`reports.insert`, titelText, Number(lengthNr),
                 takenImg, posLat, posLong, Number(depthNr), Number(amountNr),
                 this.state.useCurrPos, this.state.category, date, Meteor.user().emails[0].address, Meteor.userId());
 
@@ -398,3 +398,9 @@ export default class SubmitPage extends Component {
         )
     }
 }
+
+export default createContainer(() => {
+    return {
+        currentUser: Meteor.user(),
+    };
+}, SubmitPage);

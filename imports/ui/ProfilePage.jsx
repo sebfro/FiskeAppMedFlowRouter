@@ -32,7 +32,7 @@ class ProfileReport extends Component {
 
     verify(e) {
         e.preventDefault();
-        remoteApp.call('sendVerificationEmail', Meteor.userId(), () => {
+        Meteor.call('sendVerificationEmail', () => {
             if (Meteor.isCordova) {
                 navigator.notification.alert(i18n.__('common.alertMessages.emailVerification'), () => {
                     console.log('notverified utført');
@@ -52,7 +52,7 @@ class ProfileReport extends Component {
             let err = fNameErr === 'error' || lNameErr === 'error' ? 'error' : null;
             this.setState({nameError: err});
             if (err !== 'error') {
-                remoteApp.call('changeProfileName', fName, lName, Meteor.userId());
+                Meteor.call('changeProfileName', fName, lName);
                 this.setState({editName: !this.state.editName})
             } else if (fName === '' && lName === '') {
                 this.setState({
@@ -80,7 +80,17 @@ class ProfileReport extends Component {
                 emailError: err
             });
             if (err !== 'error') {
-                remoteApp.call('changeProfileEmail', mail, Meteor.userId());
+                try {
+                    Meteor.call('changeProfileEmail', mail);
+                } catch(err) {
+                    if (Meteor.isCordova) {
+                        navigator.notification.alert("Kunne ikke opppdatere email", () => {
+                        }, "Kunne ikke oppdatere email2", 'Ok');
+                    } else {
+                        confirm("Denne er kun for testing i nettleser. Trykk OK for å gå videre!");
+                    }
+                }
+                Meteor.call('changeProfileEmail', mail);
                 this.setState({
                     editEmail: !this.state.editEmail
                 })
@@ -115,7 +125,7 @@ class ProfileReport extends Component {
             console.log(phoneNr);
             console.log(err !== 'error');
             if (err !== 'error' && change) {
-                remoteApp.call('changeProfilePhoneNr', phoneNr, Meteor.userId());
+                Meteor.call('changeProfilePhoneNr', phoneNr);
                 this.setState({
                     editPhone: !this.state.editPhone
                 })
