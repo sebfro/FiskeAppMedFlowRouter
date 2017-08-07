@@ -4,6 +4,7 @@ import Markers from './markers';
 import { setLatLng, setMarkerId } from '../SubmitPage.jsx';
 import { Meteor } from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
+import {Button} from 'react-bootstrap'
 
 let addedMarker = false;
 let markerId = "";
@@ -99,14 +100,25 @@ class MyMap extends Component {
         });*/
     }
 
+    removeMarker(e){
+        e.preventDefault();
+    }
+
     render() {
         return (
+            <div>
             <GoogleMap
                 onReady={this.handleOnReady}
                 mapOptions={this.handleMapOptions}
             >
                 Loading!
             </GoogleMap>
+
+                <Button onClick={this.removeMarker.bind(this)}>
+                    Fjern markør
+                </Button>
+
+            </div>
         );
     }
 }

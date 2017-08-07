@@ -215,10 +215,27 @@ export default class LoginScreen extends Component {
         }
     }
 
+    testNr(e){
+        e.preventDefault();
+        //rapportAmount
+        let testNr = ReactDOM.findDOMNode(this.refs.rapportAmount).value.trim();
+        console.log(nrWithinLimit(testNr, 100));
+    }
+
 
     render() {
         return (
             <div className="wrapper">
+                <p className="errorText" hidden={!this.state.amountError}>
+                    <T>common.submitPageError.errorAmount</T>
+                </p>
+                <input
+                    type="number"
+                    name="testNr"
+                    ref="rapportAmount"
+                    placeholder={i18n.__('common.submitPage.enterAmount')}
+                />
+                <button onClick={this.testNr.bind(this)}>Test</button>
 
                 <Form className="form-signin" horizontal>
                     <FormGroup>

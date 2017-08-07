@@ -24,7 +24,7 @@ export default class NavBar extends Component {
     newReportFisk(e) {
         e.preventDefault();
         if (isVerified()) {
-            localStorage.setItem('Category', 'Fiske art');
+            localStorage.setItem('Category', "Fiske art");
             this.setSession();
             FlowRouter.go("/nyRapport");
         } else {

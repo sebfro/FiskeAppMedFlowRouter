@@ -4,6 +4,7 @@
 import {Meteor} from 'meteor/meteor'
 import {Accounts} from 'meteor/accounts-base';
 import { ServiceConfiguration } from 'meteor/service-configuration';
+import {remote} from "../lib/reports";
 
 
 if (Meteor.isServer) {
@@ -133,6 +134,18 @@ Meteor.methods({
             }
         });
     },*/
+
+    "reports.insert"(titelText, lengdeNr, img, posLat, posLong,
+                     depthInput, amountInput, useCurrPos, category, date, mail, brukerId){
+        console.log("Her kommer brukerIdene jeg har");
+        console.log("Brukerid som ble sent fra klient");
+        console.log(brukerId);
+        console.log("BrukerId generert på server");
+        console.log(Meteor.userId());
+
+        remote.call("reports.insert", titelText, lengdeNr, img, posLat, posLong,
+            depthInput, amountInput, useCurrPos, category, date, Meteor.user().emails[0].address, Meteor.userId());
+    },
 
     "sendVerificationEmail"(userId) {
         Accounts.sendVerificationEmail(userId);

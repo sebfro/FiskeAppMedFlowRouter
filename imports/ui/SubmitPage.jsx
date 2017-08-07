@@ -9,7 +9,7 @@ import {hasNumbers, backToIndex, onlyNumbers, nrWithinLimit} from '../../lib/hel
 import MyMap from './ViewReport_components/MyMap.jsx';
 import Markers from './ViewReport_components/markers.jsx';
 import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
-import {remote} from '../../lib/reports.js';
+import {remote, remoteApp} from '../../lib/reports.js';
 import GetCategory from './Common_components/getCategory.jsx';
 import ShowImg from './Common_components/ShowImg.jsx';
 
@@ -164,14 +164,11 @@ export default class SubmitPage extends Component {
 
         }
 
-        console.log("LengthNr type og verdi");
-        console.log(typeof lengthNr);
-        console.log(lengthNr);
-        if (nrWithinLimit(lengthNr, 1000) || nrWithinLimit(amountNr, 1000) || nrWithinLimit(depthNr, 1000)|| !titelText || hasNumbers(titelText) || titelText.length > 30
+        if (nrWithinLimit(lengthNr, 1000) || nrWithinLimit(amountNr, 100) || nrWithinLimit(depthNr, 1000)|| !titelText || hasNumbers(titelText) || titelText.length > 30
             || 0 === takenImg.length || !this.state.useCurrPos && !localStorage.getItem('addedMarker') || dateError) {
 
             this.inputError
-            (nrWithinLimit(lengthNr, 1000), nrWithinLimit(amountNr, 1000),
+            (nrWithinLimit(lengthNr, 1000), nrWithinLimit(amountNr, 100),
                 nrWithinLimit(depthNr, 1000), !titelText || hasNumbers(titelText) || titelText.length > 30,
                 0 === takenImg.length, !this.state.useCurrPos && !localStorage.getItem('addedMarker'), dateError);
 
@@ -189,7 +186,7 @@ export default class SubmitPage extends Component {
 
             console.log(Meteor.user().emails[0].address);
 
-            remote.call(`reports.insert`, titelText, Number(lengthNr),
+            remoteApp.call(`reports.insert`, titelText, Number(lengthNr),
                 takenImg, posLat, posLong, Number(depthNr), Number(amountNr),
                 this.state.useCurrPos, this.state.category, date, Meteor.user().emails[0].address, Meteor.userId());
 
