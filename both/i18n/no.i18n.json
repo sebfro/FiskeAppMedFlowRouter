@@ -42,7 +42,8 @@
     "passMatchError": "Passordene er ikke like",
     "passError": "Passord må være seks tegn og inneholde ett nummer og en stor bokstav",
     "noMailError": "Email må fylles inn",
-    "fbLoginBtn": "Logg inn med facebook"
+    "fbLoginBtn": "Logg inn med facebook",
+    "newPassLabel": "Gjenta passord"
   },
   "passRecovery": {
     "forgotPass": "Glemt passord",
@@ -77,7 +78,7 @@
     "enterLength": "Skriv inn lengde (cm)",
     "enterDepth": "Skriv inn dybde (meter)",
     "enterAmount": "Skriv inn antall",
-    "didYouTakeImgHereBtn": "Tok du bilde her",
+    "didYouTakeImgHereBtn": "Merk av på kart",
     "takeImgBtn": "Ta bilde",
     "getImgBtn": "Hent bilde",
     "sendBtn": "Send",

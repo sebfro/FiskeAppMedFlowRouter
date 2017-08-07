@@ -42,7 +42,8 @@
     "passMatchError": "Passwords do not match",
     "passError": "Password must be 6 characters with one number adn one big letter",
     "noMailError": "Email must be filled",
-    "fbLoginBtn": "Login with facebook"
+    "fbLoginBtn": "Login with facebook",
+    "newPassLabel": "Repeat password"
   },
 
   "passRecovery": {
@@ -77,7 +78,7 @@
     "enterLength": "Enter length (cm)",
     "enterDepth": "Enter depth (meter)",
     "enterAmount": "Enter amount",
-    "didYouTakeImgHereBtn": "Did you take the image here?",
+    "didYouTakeImgHereBtn": "Mark on map",
     "takeImgBtn": "Take picture",
     "getImgBtn": "Get picture",
     "sendBtn": "Send",

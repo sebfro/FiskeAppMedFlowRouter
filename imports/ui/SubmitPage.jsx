@@ -5,7 +5,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {Button, ButtonToolbar, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
 
-import {hasNumbers, backToIndex} from '../../lib/helpMethods.js';
+import {hasNumbers, backToIndex, onlyNumbers, nrWithinLimit} from '../../lib/helpMethods.js';
 import MyMap from './ViewReport_components/MyMap.jsx';
 import Markers from './ViewReport_components/markers.jsx';
 import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
@@ -156,18 +156,24 @@ export default class SubmitPage extends Component {
             date = (ReactDOM.findDOMNode(this.refs.rapportDate).value.trim());
             date = new Date(date);
         } catch (e) {
-            dateError = true;
+            if (!this.state.useCurrPos) {
+                dateError = true;
+            } else {
+                date = new Date();
+            }
+
         }
-        if (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/ || amountNr < 0 || amountNr > 100 || /*!amountNr ||*/
-            depthNr < 0 || depthNr > 1000 || /*!depthNr ||*/ !titelText || hasNumbers(titelText) || titelText.length > 30
-            || 0 === takenImg.length || !this.state.useCurrPos && !localStorage.getItem('addedMarker') || dateError
-        /*|| !substrartText || hasNumbers(substrartText)*/) {
+
+        console.log("LengthNr type og verdi");
+        console.log(typeof lengthNr);
+        console.log(lengthNr);
+        if (nrWithinLimit(lengthNr, 1000) || nrWithinLimit(amountNr, 1000) || nrWithinLimit(depthNr, 1000)|| !titelText || hasNumbers(titelText) || titelText.length > 30
+            || 0 === takenImg.length || !this.state.useCurrPos && !localStorage.getItem('addedMarker') || dateError) {
 
             this.inputError
-            (lengthNr < 0 || lengthNr > 1000 /*|| !lengthNr*/, amountNr < 0 || amountNr > 100 /*|| !amountNr*/,
-                depthNr < 0 || depthNr > 1000 /*|| !depthNr*/, !titelText || hasNumbers(titelText) || titelText.length > 30,
-                0 === takenImg.length, !this.state.useCurrPos && !localStorage.getItem('addedMarker'), dateError
-                /*, !substrartText || hasNumbers(substrartText)*/);
+            (nrWithinLimit(lengthNr, 1000), nrWithinLimit(amountNr, 1000),
+                nrWithinLimit(depthNr, 1000), !titelText || hasNumbers(titelText) || titelText.length > 30,
+                0 === takenImg.length, !this.state.useCurrPos && !localStorage.getItem('addedMarker'), dateError);
 
         } else {
 
@@ -246,7 +252,7 @@ export default class SubmitPage extends Component {
         this.getPos();
     }
 
-    confirmSubmit(e){
+    confirmSubmit(e) {
         if (Meteor.isCordova) {
             navigator.notification.confirm(
                 'Vil fullføre rapporteringen?',
@@ -259,7 +265,7 @@ export default class SubmitPage extends Component {
                 ['Send', 'Avbryt']
             )
         } else {
-            let r = confirm("Press a button!");
+            let r = confirm("Denne er kun for testing i nettleser. Trykk OK for å gå videre!");
             if (r === true) {
                 this.handleSubmit(e);
             }
@@ -377,7 +383,7 @@ export default class SubmitPage extends Component {
                                 </Button>
                             </ButtonToolbar>
                         </li>
-                        <ShowImg photo={this.state.images} removeImg={this.removeImg}/>
+                            <ShowImg photo={this.state.images} removeImg={this.removeImg}/>
                         <li className="submitPageLis">
                             <Button bsStyle="primary" onClick={this.confirmSubmit.bind(this)}>
                                 <T>common.submitPage.sendBtn</T>

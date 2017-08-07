@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Button, FormGroup, FormControl, Col, ControlLabel, Form, Checkbox} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
@@ -14,6 +15,7 @@ import {
     register,
     passMatch
 } from '../../lib/loginMethods.js';
+import {nrWithinLimit} from '../../lib/helpMethods.js';
 import {errorMsg} from "./Common_components/Loading_feedback"
 import FlagBtn from './Common_components/flagButton.jsx';
 import FacebookLogin from './login_components/loginFacebook.jsx';
@@ -143,7 +145,7 @@ export default class LoginScreen extends Component {
         if (this.state.register) {
             return (
                 <div>
-                    <FormGroup validationState={this.passValid()}>
+                    <FormGroup controlId="formHorizontalPassword" validationState={this.passValid()}>
                         <Col sm={10}>
                             <FormControl
                                 componentClass="input"
@@ -217,7 +219,7 @@ export default class LoginScreen extends Component {
     render() {
         return (
             <div className="wrapper">
-                <NavBar/>
+
                 <Form className="form-signin" horizontal>
                     <FormGroup>
                         <h2 className="form-signin-heading" style={{float: 'left'}}>
@@ -262,7 +264,6 @@ export default class LoginScreen extends Component {
 
                     {this.registerUI()}
 
-                    <div>
                         <FormGroup>
                             <Col smOffset={2} sm={10}>
                                 <Checkbox><T>common.loginform.remMe</T></Checkbox>
@@ -275,7 +276,6 @@ export default class LoginScreen extends Component {
                                 <PassRecovery/>
                             </Col>
                         </FormGroup>
-                    </div>
                     <Button className="btn btn-lg btn-primary btn-block" type="submit"
                             onClick={this.login.bind(this)}>
                         {this.state.register ? <T>common.loginform.createAcc</T> :
