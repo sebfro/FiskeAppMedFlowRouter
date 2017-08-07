@@ -50,7 +50,7 @@ export default class SubmitPage extends Component {
             useCurrPos: true,
             category: category,
             showNewReport: this.props.currentUser,
-            images: [],
+            images: takenImg,
             imgLimitReached: false,
             gpsOff: false,
         };
@@ -251,6 +251,10 @@ export default class SubmitPage extends Component {
     componentWillMount() {
         this.getPos();
     }
+
+    /*componentWillUnmount(){
+        takenImg
+    }*/
 
     confirmSubmit(e) {
         if (Meteor.isCordova) {
