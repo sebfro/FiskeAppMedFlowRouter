@@ -113,15 +113,6 @@ class Index extends Component {
             this.setPageText();
         }
     }
-
-    notify(e){
-        e.preventDefault();
-        console.log('notify button pressed');
-        Meteor.call('testUserId');
-        console.log("ferdig");
-    }
-
-
     render() {
         Push.addListener('Token', function(token) {
             console.log(JSON.stringify(token));
@@ -136,9 +127,6 @@ class Index extends Component {
                     {this.props.reports ?
                         this.renderReports()
                         : <Loading_feedback/>}
-                        <Button onClick={this.notify.bind(this)}>
-                            Notify
-                        </Button>
                 </div>
             )
         } else {

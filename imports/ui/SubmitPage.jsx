@@ -117,10 +117,16 @@ class SubmitPage extends Component {
     takePicture(event) {
         event.preventDefault();
         console.log(takenImg);
+
+        /*if (Meteor.isCordova) {
+
+            navigator.camera.getPicture(camSucc, camErr, camOp);
+        }*/
+
         if (takenImg.length < 3) {
             let cameraOptions = {
-                height: 600,
-                width: 800,
+                //height: 600,
+                //width: 800,
                 quality: 100,
                 correctOrientation: true,
             };
@@ -132,6 +138,8 @@ class SubmitPage extends Component {
                         images: takenImg
                     });
                 } else {
+                    console.log(error.message);
+                    console.log(error.reason);
                 }
             });
         } else {
