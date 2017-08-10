@@ -264,14 +264,14 @@ class SubmitPage extends Component {
     confirmSubmit(e) {
         if (Meteor.isCordova) {
             navigator.notification.confirm(
-                'Vil fullføre rapporteringen?',
+                i18n.__('common.popups.wantToSend'),
                 (buttonIndex) => {
                     if (buttonIndex === 1) {
                         this.handleSubmit(e);
                     }
                 },
                 'Bekreft',
-                ['Send', 'Avbryt']
+                [i18n.__('common.popups.send'), i18n.__('common.popups.cancel')]
             )
         } else {
             let r = confirm("Denne er kun for testing i nettleser. Trykk OK for å gå videre!");
@@ -400,6 +400,8 @@ class SubmitPage extends Component {
                         </li>
                     </ul>
                 </form>
+
+                <br/><br/>
 
 
             </div>

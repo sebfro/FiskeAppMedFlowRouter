@@ -143,17 +143,28 @@ Meteor.methods({
 
     'reports.insert'(titelText, lengdeNr, img, posLat, posLong,
                      depthInput, amountInput, useCurrPos, category, date, mail, brukerId){
-        console.log("Her kommer brukerIdene jeg har");
-        console.log("Brukerid som ble sent fra klient");
-        console.log(brukerId);
-        console.log("BrukerId generert på server");
-        console.log(this.userId);
-        console.log(Meteor.userId());
-        console.log("Bruker kommer under");
-        console.log(Meteor.users.findOne(Meteor.userId));
+
+        console.log("her kommer bruker");
+        console.log(user);
+        const user = Meteor.users.findOne(Meteor.userId());
+
+        console.log(user);
+
+        let userMail;
+
+        if(user.services.facebook){
+            userMail = user.services.facebook.email;
+        } else {
+            userMail = user.emails[0].address;
+        }
+
+        console.log("");
+        console.log("Her kommer emailen");
+        console.log(userMail);
+
 
         remote.call("reports.insert", titelText, lengdeNr, img, posLat, posLong,
-            depthInput, amountInput, useCurrPos, category, date, mail, Meteor.userId());
+            depthInput, amountInput, useCurrPos, category, date, userMail, Meteor.userId());
     },
 
     "sendVerificationEmail"() {

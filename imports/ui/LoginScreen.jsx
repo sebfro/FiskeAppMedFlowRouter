@@ -40,8 +40,12 @@ export default class LoginScreen extends Component {
             phoneError: null,
             loginErr: '',
             passMatch: null,
+            emailValue: localStorage.getItem('rememberMe') === '1' ? localStorage.getItem('email') : null,
+            handleRemMe: localStorage.getItem('rememberMe') === '1'
         };
         this.login = this.login.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handleRemMe = this.handleRemMe.bind(this);
     }
 
     setStateForInput(password, password2, firstName, lastName, phoneNr) {
@@ -103,6 +107,11 @@ export default class LoginScreen extends Component {
                             }
                         });
                         localStorage.setItem('email', email);
+                        if(this.state.handleRemMe){
+                            localStorage.setItem('rememberMe', '1');
+                        } else {
+                            localStorage.setItem('rememberMe', '0');
+                        }
                         FlowRouter.go('/homepage');
                     }
                 });
@@ -129,6 +138,11 @@ export default class LoginScreen extends Component {
                     });
                 } else {
                     localStorage.setItem('email', email);
+                    if(this.state.handleRemMe){
+                        localStorage.setItem('rememberMe', '1');
+                    } else {
+                        localStorage.setItem('rememberMe', '0');
+                    }
                     FlowRouter.go('/homepage');
                 }
             });
@@ -208,12 +222,14 @@ export default class LoginScreen extends Component {
         })
     }
 
-    componentWillMount(){
-        if(localStorage.getItem('email')){
-            $('[name=email]').val = localStorage.getItem('email');
-            //ReactDOM.findDOMNode(this.refs.rapportTitel).value
-        }
+    handleEmailChange(e){
+        this.setState({value: e.target.value});
     }
+
+    handleRemMe(e){
+        this.setState({handleRemMe: !this.state.handleRemMe})
+    }
+
     render() {
         return (
             <div className="wrapper">
@@ -232,6 +248,8 @@ export default class LoginScreen extends Component {
                             <FormControl
                                 componentClass="input"
                                 name="email"
+                                value={this.state.emailValue}
+                                onChange={this.handleEmailChange}
                                 type="email"
                                 placeholder={i18n.__('common.loginform.Email')}
                                 required={true}/>
@@ -263,7 +281,11 @@ export default class LoginScreen extends Component {
 
                         <FormGroup>
                             <Col smOffset={2} sm={10}>
-                                <Checkbox><T>common.loginform.remMe</T></Checkbox>
+                                {this.state.handleRemMe ?
+                                    <Checkbox onClick={this.handleRemMe} checked><T>common.loginform.remMe</T></Checkbox>
+                                    :
+                                    <Checkbox onClick={this.handleRemMe}><T>common.loginform.remMe</T></Checkbox>}
+
                             </Col>
                         </FormGroup>
 

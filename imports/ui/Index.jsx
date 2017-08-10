@@ -26,6 +26,7 @@ import {Button} from 'react-bootstrap';
 import NavBar from './Common_components/NavBar.jsx';
 
 const panelStyle = {paddingTop: 10};
+const T = i18n.createComponent();
 
 
 //Index komponent - Gjengir hovedsiden til applikasjonen
@@ -118,12 +119,12 @@ class Index extends Component {
             console.log(JSON.stringify(token));
             console.log("Push.addlistener");
         });
+
         if (this.props.reports) {
             return (
                 <div className="pageContainer">
                     <NavBar/>
-                    <br/><br/><br/>
-
+                    <br/><br/>
                     {this.props.reports ?
                         this.renderReports()
                         : <Loading_feedback/>}
@@ -152,5 +153,6 @@ export default createContainer(() => {
             limit: Session.get('limit'), fields: fields
         }).fetch(),
         currentUser: Meteor.user(),
+        userId: Meteor.userId()
     };
 }, Index);

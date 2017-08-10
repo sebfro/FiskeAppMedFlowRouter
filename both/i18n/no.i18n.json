@@ -6,12 +6,13 @@
     "coralSpecies": "Korall",
     "unknownSpecies": "Fremmed art",
     "profilePage": "Profil",
+    "about": "Om",
     "logout": "Logg ut"
   },
   "index": {
     "category": "Kategori: ",
-    "verified": "Verifiserte rapporter",
-    "unVerified": "Uverifiserte rapporter"
+    "verified": "Verifiserte rapporteringer",
+    "unVerified": "Uverifiserte rapporteringer"
   },
   "showMoreBtn": {
     "showMore": "Vis flere"
@@ -45,6 +46,7 @@
     "fbLoginBtn": "Logg inn med facebook",
     "newPassLabel": "Gjenta passord"
   },
+
   "passRecovery": {
     "forgotPass": "Glemt passord",
     "Email": "Email addresse",
@@ -52,7 +54,6 @@
     "closeBtn": "Lukk",
     "mailSent": "En mail har blitt sendt til emailen din."
   },
-
 
   "showReport": {
     "user": "Bruker: ",
@@ -123,6 +124,15 @@
     "verifyEmail": "Du må verifisere emailen din først",
     "invalidEmail": "Uvalidert email",
     "emailSent": "Email har blitt sent"
+  },
+
+  "popups": {
+    "wantToSend": "Vil du sende rapporteringen?",
+    "wantToLogout": "Vil du logge ut?",
+    "confirm": "Bekreft",
+    "acceptLogout": "Logg ut",
+    "cancel" : "Avbryt",
+    "send": "Send"
   }
 
 }

@@ -10,6 +10,7 @@ import StartPage from '../imports/ui/StartPage.jsx';
 import LoginScreen from '../imports/ui/LoginScreen.jsx';
 import {MainLayout} from '../imports/ui/MainLayout.jsx';
 import ProfilePage from '../imports/ui/ProfilePage.jsx';
+import About from '../imports/ui/about.jsx';
 
 import { isLoggedIn } from './helpMethods.js';
 import ChooseReportType from "../imports/ui/Index_components/ChooseReportType";
@@ -154,6 +155,14 @@ FlowRouter.route('/profil',{
     triggersEnter: checkLoggedIn,
     action(){
         renderMainLayout(<ProfilePage/>)
+    }
+});
+
+FlowRouter.route('/about',{
+    name: "About",
+    triggersEnter: checkLoggedIn,
+    action(){
+        renderMainLayout(<About/>)
     }
 });
 

@@ -13,19 +13,20 @@
 
 .bigLogo {
     position: absolute;
-    left: 1em;
+    right: 1em;
     top: 0.7em;
+}
+
+.backArrow {
+    position: fixed;
+    top: 0.7em;
+    left: 1em;
 }
 
 .removeUlLiDot {
     list-style-type: none;
 }
 
-.backArrow {
-    position: fixed;
-    top: 0.7em;
-    right: 1em;
-}
 
 .bigLogo {
     float: right;

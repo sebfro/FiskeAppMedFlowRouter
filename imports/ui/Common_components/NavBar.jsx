@@ -70,16 +70,42 @@ export default class NavBar extends Component {
         localStorage.setItem('addMarker', true);
     }
 
-    logOut(e) {
-        e.preventDefault();
+    logOut() {
         clearLocalStorage();
         Meteor.logout();
         FlowRouter.go('/');
     }
 
+    confirmLogOut(e) {
+        e.preventDefault();
+        if (Meteor.isCordova) {
+            navigator.notification.confirm(
+                i18n.__('common.popups.wantToLogout'),
+                (buttonIndex) => {
+                    if (buttonIndex === 1) {
+                        this.logOut();
+                    }
+                },
+                i18n.__('common.popups.confirm'),
+                ['Ok', i18n.__('common.popups.cancel')]
+            )
+        } else {
+            let r = confirm("Denne er kun for testing i nettleser. Trykk OK for å gå videre!");
+            if (r === true) {
+                this.logOut();
+            }
+        }
+
+    }
+
     goToProfilePage(e){
         e.preventDefault();
         FlowRouter.go('/profil')
+    }
+
+    about(e){
+        e.preventDefault();
+        FlowRouter.go('/about')
     }
 
     render() {
@@ -109,7 +135,10 @@ export default class NavBar extends Component {
                                     <T>common.navbar.profilePage</T>
                                 </NavItem>
                                 <FlagBtn loginScreen={true}/>
-                                <NavItem onClick={this.logOut.bind(this)}>
+                                <NavItem onClick={this.about.bind(this)}>
+                                    <T>common.navbar.about</T>
+                                </NavItem>
+                                <NavItem onClick={this.confirmLogOut.bind(this)}>
                                     <T>common.navbar.logout</T>
                                 </NavItem>
                             </Nav>

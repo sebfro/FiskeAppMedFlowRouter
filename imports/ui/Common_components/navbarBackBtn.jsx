@@ -22,7 +22,7 @@ export default class NavBarBackBtn extends Component {
                 <Navbar fixedTop={true} className="removeUlLiDot" >
                             <img src="/hiLogoBig.png" className="bigLogo" style={{"height": "auto", "maxHeight": "50px", "width": "200px"}} alt="imr logo"/>
                         <NavItem onClick={(e) => {e.preventDefault(); FlowRouter.go("/homepage");}}>
-                            <img src="/right_arrow_icon.png" className="backArrow" style={{"height": "auto", "maxHeight": "30px", "width": "30px"}} alt="back button"/>
+                            <img src="/home_btn_icon.png" className="backArrow" style={{"height": "auto", "maxHeight": "30px", "width": "30px"}} alt="back button"/>
                         </NavItem>
                 </Navbar>
         );

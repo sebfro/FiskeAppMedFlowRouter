@@ -6,12 +6,13 @@
     "coralSpecies": "Coral species",
     "unknownSpecies": "Introduced species",
     "profilePage": "Profile",
+    "about": "About",
     "logout": "Logout"
   },
   "index": {
     "category": "Category: ",
-    "verified": "Verified reports",
-    "unVerified": "Unverified reports"
+    "verified": "Verified registrations",
+    "unVerified": "Unverified registrations"
   },
   "showMoreBtn": {
     "showMore": "Show more"
@@ -72,7 +73,7 @@
 
   "submitPage": {
     "new": "New ",
-    "reporting": " reporting",
+    "reporting": " registration",
     "optional": "optional",
     "enterSpecies": "Enter what species you believe it is..",
     "enterLength": "Enter length (cm)",
@@ -123,6 +124,15 @@
     "verifyEmail": "You must verify your email first.",
     "invalidEmail": "Invalid email",
     "emailSent": "Email has been sent"
+  },
+
+  "popups": {
+    "wantToSend": "Do you want to send the reporting?",
+    "wantToLogout": "Do you want to logout?",
+    "confirm": "Confirm",
+    "acceptLogout": "Logout",
+    "cancel" : "Cancel",
+    "send": "Send"
   }
 
 }
