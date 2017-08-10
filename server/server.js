@@ -82,6 +82,12 @@ if (Meteor.isServer) {
     Meteor.publish('facebook.Email', function () {
         return Meteor.users.find({_id: this.userId}, {fields: {'services.facebook.email': 1}});
     });
+
+    console.log("På server");
+
+    Accounts.config({
+        loginExpirationInDays: null
+    });
 }
 
 

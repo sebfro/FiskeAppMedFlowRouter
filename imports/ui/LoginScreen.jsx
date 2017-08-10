@@ -5,6 +5,7 @@ import {Button, FormGroup, FormControl, Col, ControlLabel, Form, Checkbox} from 
 import i18n from 'meteor/universe:i18n';
 import {remoteApp} from '../../lib/reports.js';
 import {Meteor} from 'meteor/meteor';
+import {Accounts} from 'meteor/accounts-base';
 
 import PassRecovery from './Index_components/PassRecovery.jsx';
 import {
@@ -128,6 +129,7 @@ export default class LoginScreen extends Component {
             }
         } else {
             Meteor.loginWithPassword(email, password, (err) => {
+                Accounts._autoLoginEnabled = true;
                 if (err) {
                     console.log(err.reason);
                     this.setState({
@@ -143,6 +145,7 @@ export default class LoginScreen extends Component {
                     } else {
                         localStorage.setItem('rememberMe', '0');
                     }
+                    localStorage.setItem('Meteor.loginTokenExpires', null);
                     FlowRouter.go('/homepage');
                 }
             });
