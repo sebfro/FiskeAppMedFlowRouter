@@ -57,3 +57,4 @@ service-configuration
 raix:push
 dynamic-import
 facebook-oauth
+deanius:promise

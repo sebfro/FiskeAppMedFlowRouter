@@ -171,6 +171,8 @@ Meteor.methods({
 
         remote.call("reports.insert", titelText, lengdeNr, img, posLat, posLong,
             depthInput, amountInput, useCurrPos, category, date, userMail, Meteor.userId());
+
+        return "Hallo";
     },
 
     "sendVerificationEmail"() {

@@ -28,6 +28,35 @@ export function setMarkerId(id) {
     markerId = id;
 }
 
+async function handleSubmit(titelText, lengthNr,
+                            takenImg, posLat, posLong, depthNr, amountNr,
+                            useCurrPos, category, date, email, userId) {
+    try {
+        const promise = await Meteor.callAsync('reports.insert', titelText, Number(lengthNr),
+                takenImg, posLat, posLong, Number(depthNr), Number(amountNr),
+                useCurrPos, category, date, email, userId);
+
+        promise.then((res) => {
+            console.log(res);
+        });
+
+        promise.catch((err) => {
+            console.log(err);
+            console.log(err.reason);
+            console.log(err.message);
+        })
+    } catch(err){
+        console.log(err);
+        console.log(err.reason);
+        console.log(err.message);
+    }
+}
+
+function tmp(res){
+    console.log(res);
+    console.log("Fungerte");
+}
+
 //SubmitPage komponent - Gjengir side for å lage nye rapport og sden in.
 class SubmitPage extends Component {
 
@@ -172,7 +201,7 @@ class SubmitPage extends Component {
 
         }
 
-        if (nrWithinLimit(lengthNr, 1000) || nrWithinLimit(amountNr, 100) || nrWithinLimit(depthNr, 1000)|| !titelText || hasNumbers(titelText) || titelText.length > 30
+        if (nrWithinLimit(lengthNr, 1000) || nrWithinLimit(amountNr, 100) || nrWithinLimit(depthNr, 1000) || !titelText || hasNumbers(titelText) || titelText.length > 30
             || 0 === takenImg.length || !this.state.useCurrPos && !localStorage.getItem('addedMarker') || dateError) {
 
             this.inputError
@@ -196,7 +225,16 @@ class SubmitPage extends Component {
 
             Meteor.call(`reports.insert`, titelText, Number(lengthNr),
                 takenImg, posLat, posLong, Number(depthNr), Number(amountNr),
-                this.state.useCurrPos, this.state.category, date, Meteor.user().emails[0].address, Meteor.userId());
+                this.state.useCurrPos, this.state.category, date, Meteor.user().emails[0].address, Meteor.userId(),
+                (err, res) => {
+                if(err){
+                    console.log(err);
+                } else {
+                    console.log(res);
+                }
+                });
+
+
 
             ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
             ReactDOM.findDOMNode(this.refs.rapportLength).value = '';
@@ -256,10 +294,6 @@ class SubmitPage extends Component {
     componentWillMount() {
         this.getPos();
     }
-
-    /*componentWillUnmount(){
-        takenImg
-    }*/
 
     confirmSubmit(e) {
         if (Meteor.isCordova) {
@@ -392,7 +426,7 @@ class SubmitPage extends Component {
                                 </Button>
                             </ButtonToolbar>
                         </li>
-                            <ShowImg photo={this.state.images} removeImg={this.removeImg}/>
+                        <ShowImg photo={this.state.images} removeImg={this.removeImg}/>
                         <li className="submitPageLis">
                             <Button bsStyle="primary" onClick={this.confirmSubmit.bind(this)}>
                                 <T>common.submitPage.sendBtn</T>
