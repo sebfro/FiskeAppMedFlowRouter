@@ -15,7 +15,6 @@ export default class ShowMoreBtn extends Component {
     setShowMoreBtn(e) {
         e.preventDefault();
         Session.set('limit', Session.get('limit') + 10);
-        console.log("showing more " + Session.get('limit'));
     }
 
     render(){

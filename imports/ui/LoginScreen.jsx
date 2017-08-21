@@ -302,7 +302,7 @@ export default class LoginScreen extends Component {
                         <FormGroup>
                             <Col smOffset={2} sm={10}>
                                 <a onClick={this.setRegister.bind(this)}><T>common.loginform.register</T></a>
-                                <PassRecovery/>
+
                             </Col>
                         </FormGroup>
                     <Button className="btn btn-lg btn-primary btn-block" type="submit"

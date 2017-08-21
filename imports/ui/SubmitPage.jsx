@@ -5,7 +5,7 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {Button, ButtonToolbar, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
 
-import {hasNumbers, backToIndex, onlyNumbers, nrWithinLimit} from '../../lib/helpMethods.js';
+import {hasNumbers, backToIndex, onlyNumbers, nrWithinLimit, isAlphanumeric} from '../../lib/helpMethods.js';
 import MyMap from './ViewReport_components/MyMap.jsx';
 import Markers from './ViewReport_components/markers.jsx';
 import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
@@ -160,6 +160,15 @@ class SubmitPage extends Component {
         const lengthNr = ReactDOM.findDOMNode(this.refs.rapportLength).value.trim();
         const depthNr = ReactDOM.findDOMNode(this.refs.rapportDepth).value.trim();
         const amountNr = ReactDOM.findDOMNode(this.refs.rapportAmount).value.trim();
+        const vesselText = ReactDOM.findDOMNode(this.refs.rapportVessel).value.trim();
+        const toolText = ReactDOM.findDOMNode(this.refs.rapportTool).value.trim();
+
+        console.log(vesselText);
+        console.log(isAlphanumeric(vesselText));
+        console.log(toolText);
+        console.log(isAlphanumeric(toolText));
+
+
         let date;
         try {
             date = (ReactDOM.findDOMNode(this.refs.rapportDate).value.trim());
@@ -336,6 +345,28 @@ class SubmitPage extends Component {
                                 placeholder={i18n.__('common.submitPage.enterAmount')}
                             />
                         </li>
+                        <div className="DeNyInputene">
+                            <li className="submitPageLis">
+                                <p className="errorText" hidden={!this.state.amountError}>
+                                    <T>common.submitPageError.errorAmount</T>
+                                </p>
+                                <input
+                                    type="text"
+                                    ref="rapportTool"
+                                    placeholder={i18n.__('common.submitPage.tool')}
+                                />
+                            </li>
+                            <li className="submitPageLis">
+                                <p className="errorText" hidden={!this.state.amountError}>
+                                    <T>common.submitPageError.errorAmount</T>
+                                </p>
+                                <input
+                                    type="text"
+                                    ref="rapportVessel"
+                                    placeholder={i18n.__('common.submitPage.vessel')}
+                                />
+                            </li>
+                        </div>
                         {this.state.gpsOff ? null :
                             <li className="submitPageLis">
                                 <Button bsStyle="primary" onClick={this.changePos.bind(this)}>

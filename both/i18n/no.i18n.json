@@ -64,7 +64,9 @@
     "amount": "Antall: ",
     "depth": "Dybde: ",
     "length": "Lengde: ",
-    "feedback": "Tilbakemelding: "
+    "feedback": "Tilbakemelding: ",
+    "validationDate":"Ble validert: ",
+    "validSpecies": "Validert artsnavn: "
   },
 
   "viewReport": {
@@ -85,7 +87,9 @@
     "sendBtn": "Send",
     "description": "Beskrivelse:",
     "descriptionPlaceholder": "Forklar hvis du føler det er nødvendig..",
-    "date": "Dato:"
+    "date": "Dato:",
+    "vessel": "Fartøy",
+    "tool": "Redskap"
   },
 
   "ShowImgSubmitPage": {

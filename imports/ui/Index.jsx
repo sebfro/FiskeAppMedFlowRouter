@@ -27,7 +27,7 @@ import NavBar from './Common_components/NavBar.jsx';
 
 const panelStyle = {paddingTop: 10};
 const T = i18n.createComponent();
-
+let _isMounted = false;
 
 //Index komponent - Gjengir hovedsiden til applikasjonen
 class Index extends Component {
@@ -43,7 +43,7 @@ class Index extends Component {
             pageTextNav: null,
             pageTextLogin: null,
             pageTextPassRecovery: null,
-            pageTextReport: null
+            pageTextReport: null,
         };
     }
 
@@ -66,8 +66,6 @@ class Index extends Component {
             });
         }
     }
-
-
     //Kaller på report komponeneten og gjengir alle rapporter
     renderReports() {
         let verifiedReportArray = [];
@@ -115,6 +113,13 @@ class Index extends Component {
         }
     }
     render() {
+
+        if (_isMounted) {
+            i18n.onChangeLocale ((newLocale) => {
+                this.forceUpdate();
+            });
+        }
+
         Push.addListener('Token', function(token) {
             console.log(JSON.stringify(token));
             console.log("Push.addlistener");

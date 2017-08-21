@@ -18,12 +18,23 @@ export default class ShowReport extends Component {
                     <ListGroupItem>
                         <strong><T>common.showReport.species</T></strong> {this.props.report.text}
                     </ListGroupItem>
+                    {this.props.report.validSpecie === "" ? null :
+                        <ListGroupItem className="species">
+                            <strong><T>common.showReport.validSpecies</T></strong> {this.props.report.validSpecie}
+                        </ListGroupItem>
+                    }
                     <ListGroupItem>
                         <strong><T>common.index.category</T></strong> <GetCategory category={this.props.report.category}/>
                     </ListGroupItem>
                     <ListGroupItem>
                         <strong><T>common.showReport.date</T></strong> {moment(this.props.report.taken).format("dddd, MMMM Do YYYY")}
                     </ListGroupItem>
+                    {this.props.report.isValidated ?
+                        <ListGroupItem className="validationDate">
+                            <strong><T>common.showReport.validationDate</T></strong> {moment(this.props.report.validationDate).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+                        </ListGroupItem>
+                        : null
+                    }
                     <ListGroupItem>
                         <strong><T>common.showReport.amount</T></strong> {this.props.report.amount}
                     </ListGroupItem>

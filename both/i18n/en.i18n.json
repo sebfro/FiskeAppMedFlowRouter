@@ -64,7 +64,9 @@
     "amount": "Amount: ",
     "depth": "Depth: ",
     "length": "Length: ",
-    "feedback": "Feedback: "
+    "feedback": "Feedback: ",
+    "validationDate": "Was validated: ",
+    "validSpecies": "Validated species name: "
   },
 
   "viewReport": {
@@ -85,7 +87,9 @@
     "sendBtn": "Send",
     "description": "Description:",
     "descriptionPlaceholder": "Explain if you believe it's necessary..",
-    "date": "Date:"
+    "date": "Date:",
+    "vessel": "Vessel",
+    "tool": "Tool"
   },
 
   "ShowImgSubmitPage": {
