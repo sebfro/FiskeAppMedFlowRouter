@@ -28,13 +28,23 @@ export default class Report extends Component {
         FlowRouter.go('/seRapport');
     }
 
+    reportTitel(){
+        if(this.props.report.validSpecie && this.props.report.validSpecie !== ""){
+            return '(' + this.props.report.validSpecie + ')' + this.props.report.text
+        } else if (this.props.report.validSpecie === this.props.report.text){
+            return this.props.report.text
+        } else {
+            return this.props.report.text
+        }
+    }
+
     render() {
         // Give reports a different className when they are checked off,
         // so that we can style them nicely in css
         //const reportClassName = this.props.report.checked ? 'checked' : '';
         if (Meteor.userId() === this.props.report.owner) {
             return (
-                    <ListGroupItem header={this.props.report.text} onClick={this.setShow.bind(this)}>
+                    <ListGroupItem header={this.reportTitel()} onClick={this.setShow.bind(this)}>
                         <strong><T>common.index.category</T> </strong>
                         <GetCategory category={this.props.report.category}/>
                         , {moment(this.props.report.taken).format("MMMM Do YYYY")}

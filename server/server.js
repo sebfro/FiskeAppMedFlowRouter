@@ -83,6 +83,12 @@ if (Meteor.isServer) {
         return Meteor.users.find({_id: this.userId}, {fields: {'services.facebook.email': 1}});
     });
 
+    Meteor.publish('test', ()=>{
+        console.log(this.userId);
+        console.log(this.userId());
+        return remote.subscribe('reports.reportingToolList', this.userId, 10);
+    });
+
     console.log("På server");
 
     Accounts.config({
@@ -168,11 +174,10 @@ Meteor.methods({
         console.log("Her kommer emailen");
         console.log(userMail);
 
+        titelText = titelText.charAt(0).toUpperCase() + titelText.slice(1);
 
         remote.call("reports.insert", titelText, lengdeNr, img, posLat, posLong,
             depthInput, amountInput, useCurrPos, category, date, userMail, Meteor.userId());
-
-        return "Hallo";
     },
 
     "sendVerificationEmail"() {
@@ -208,7 +213,6 @@ Meteor.methods({
         let emails = [setObject2];
 
         try {
-
             Meteor.users.update(userId, {
                 $set: {profile: setObject, emails}
             })

@@ -120,6 +120,10 @@ class Index extends Component {
             console.log("Push.addlistener");
         });
 
+        if (this.props.fbEmail) {
+            console.log(this.props.fbEmail);
+        }
+
         if (this.props.reports) {
             return (
                 <div className="pageContainer">
@@ -142,10 +146,11 @@ export default createContainer(() => {
         text: 1, user: 1,
         isValidated: 1, createdAt: 1,
         scientist: 1, category: 1, owner: 1,
-        markerId: 1, taken: 1,
+        markerId: 1, taken: 1, validSpecie: 1
     };
     let user = Meteor.userId();
     remote.subscribe('reports.reportingToolList', user, Session.get('limit'));
+    Meteor.subscribe('facebook.Email');
     return {
         loaded: loaded,
         reports: Reports.find({owner: user}, {
@@ -153,6 +158,7 @@ export default createContainer(() => {
             limit: Session.get('limit'), fields: fields
         }).fetch(),
         currentUser: Meteor.user(),
-        userId: Meteor.userId()
+        userId: Meteor.userId(),
+        fbEmail: {}
     };
 }, Index);

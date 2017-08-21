@@ -28,34 +28,6 @@ export function setMarkerId(id) {
     markerId = id;
 }
 
-async function handleSubmit(titelText, lengthNr,
-                            takenImg, posLat, posLong, depthNr, amountNr,
-                            useCurrPos, category, date, email, userId) {
-    try {
-        const promise = await Meteor.callAsync('reports.insert', titelText, Number(lengthNr),
-                takenImg, posLat, posLong, Number(depthNr), Number(amountNr),
-                useCurrPos, category, date, email, userId);
-
-        promise.then((res) => {
-            console.log(res);
-        });
-
-        promise.catch((err) => {
-            console.log(err);
-            console.log(err.reason);
-            console.log(err.message);
-        })
-    } catch(err){
-        console.log(err);
-        console.log(err.reason);
-        console.log(err.message);
-    }
-}
-
-function tmp(res){
-    console.log(res);
-    console.log("Fungerte");
-}
 
 //SubmitPage komponent - Gjengir side for å lage nye rapport og sden in.
 class SubmitPage extends Component {
@@ -225,14 +197,7 @@ class SubmitPage extends Component {
 
             Meteor.call(`reports.insert`, titelText, Number(lengthNr),
                 takenImg, posLat, posLong, Number(depthNr), Number(amountNr),
-                this.state.useCurrPos, this.state.category, date, Meteor.user().emails[0].address, Meteor.userId(),
-                (err, res) => {
-                if(err){
-                    console.log(err);
-                } else {
-                    console.log(res);
-                }
-                });
+                this.state.useCurrPos, this.state.category, date, Meteor.user().emails[0].address, Meteor.userId());
 
 
 

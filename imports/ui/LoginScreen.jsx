@@ -27,6 +27,7 @@ const T = i18n.createComponent();
 
 
 const error = 'error';
+const pass = '123Fiskeri';
 
 
 export default class LoginScreen extends Component {
@@ -51,11 +52,11 @@ export default class LoginScreen extends Component {
 
     setStateForInput(password, password2, firstName, lastName, phoneNr) {
         this.setState({
-            passError: validatePass(password),
+            //passError: validatePass(password),
             fNameError: validateName(firstName),
             lNameError: validateName(lastName),
             phoneError: validatePhoneNr(phoneNr),
-            passMatch: passMatch(password2, password) ? null : error,
+            //passMatch: passMatch(password2, password) ? null : error,
         })
     }
 
@@ -63,20 +64,23 @@ export default class LoginScreen extends Component {
         e.preventDefault();
 
         let email = $('[name=email]').val();
-        let password = $('[name=password]').val();
-        let password2 = $('[name=password2]').val();
+        //let password = $('[name=password]').val();
+        //let password2 = $('[name=password2]').val();
         let firstName = $('[name=firstname]').val();
         let lastName = $('[name=lastname]').val();
         let phoneNr = $('[name=phoneNr]').val();
 
         if (this.state.register) {
-            let errors = register(email, password, password2, firstName, lastName, phoneNr);
+            console.log('register');
+            let errors = register(email, /*password, password2,*/ firstName, lastName, phoneNr);
+            console.log('register ferdig');
 
+            console.log(errors);
 
-            if (errors) {
+            if (errors === null) {
                 const user = {
                     email: email,
-                    password: password,
+                    password: pass,
                     profile: {
                         lastname: lastName,
                         firstname: firstName,
@@ -96,7 +100,7 @@ export default class LoginScreen extends Component {
                             loginErr: loginErr,
                             emailError: emailErr
                         });
-                        this.setStateForInput(password, password2, firstName, lastName, phoneNr);
+                        this.setStateForInput(/*password, password2,*/ firstName, lastName, phoneNr);
                     } else {
                         Meteor.call('sendVerificationEmail', (err, response) => {
                             if (response) {
@@ -124,19 +128,19 @@ export default class LoginScreen extends Component {
                     emailError: validMail
 
                 });
-                this.setStateForInput(password, password2, firstName, lastName, phoneNr);
+                this.setStateForInput(/*password, password2,*/ firstName, lastName, phoneNr);
 
             }
         } else {
-            Meteor.loginWithPassword(email, password, (err) => {
+            Meteor.loginWithPassword(email, pass, (err) => {
                 Accounts._autoLoginEnabled = true;
                 if (err) {
                     console.log(err.reason);
                     this.setState({
                         loginErr: i18n.__(err.reason === 'User not found' ? "common.loginform.userNotFound" : err.reason === 'Incorrect password' ? "common.loginform.incorrectPass" :
                             err.reason === 'Match failed' ? "common.loginform.noMailError" : ''),
-                        passError: err.reason === 'Incorrect password' ? error : null,
-                        emailError: err.reason === 'User not found' ? error : err.reason === 'Incorrect password' ? 'success' : null
+                        //passError: err.reason === 'Incorrect password' ? error : null,
+                        emailError: err.reason === 'User not found' /*? error : err.reason === 'Incorrect password'*/ ? 'success' : null
                     });
                 } else {
                     localStorage.setItem('email', email);
@@ -162,6 +166,7 @@ export default class LoginScreen extends Component {
         if (this.state.register) {
             return (
                 <div>
+                    {/*
                     <FormGroup controlId="formHorizontalPassword" validationState={this.passValid()}>
                         <Col sm={10}>
                             <FormControl
@@ -173,7 +178,7 @@ export default class LoginScreen extends Component {
                             <FormControl.Feedback/>
                         </Col>
                     </FormGroup>
-
+                    */}
                     <FormGroup validationState={this.state.fNameError}>
                         {errorMsg(i18n.__('common.loginform.nameError'), this.state.fNameError)}
                         <Col md={10}>
@@ -226,7 +231,7 @@ export default class LoginScreen extends Component {
     }
 
     handleEmailChange(e){
-        this.setState({value: e.target.value});
+        this.setState({emailValue: e.target.value});
     }
 
     handleRemMe(e){
@@ -260,6 +265,7 @@ export default class LoginScreen extends Component {
                         </Col>
                     </FormGroup>
 
+                    {/*
                     <FormGroup controlId="formHorizontalPassword" validationState={this.passValid()}>
 
                         {this.state.register ?
@@ -279,6 +285,7 @@ export default class LoginScreen extends Component {
                             <FormControl.Feedback/>
                         </Col>
                     </FormGroup>
+                    */}
 
                     {this.registerUI()}
 
