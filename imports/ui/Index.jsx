@@ -112,6 +112,13 @@ class Index extends Component {
             this.setPageText();
         }
     }
+
+    notify(e){
+        e.preventDefault();
+        Meteor.call('notify');
+        Meteor.call('notify.all');
+    }
+
     render() {
 
         if (_isMounted) {
@@ -137,6 +144,10 @@ class Index extends Component {
                     {this.props.reports ?
                         this.renderReports()
                         : <Loading_feedback/>}
+
+                    <Button onClick={this.notify.bind(this)}>
+                        Notify
+                    </Button>
                 </div>
             )
         } else {
