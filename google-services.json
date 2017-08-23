@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "771530747054",
+    "firebase_url": "https://reporting-tool-imr.firebaseio.com",
+    "project_id": "reporting-tool-imr",
+    "storage_bucket": "reporting-tool-imr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771530747054:android:c791ba4641d702e6",
+        "android_client_info": {
+          "package_name": "com.fiskefunn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771530747054-oqqmitt0e5gm72cjjv1ckvoj7it9nubl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYPSR64Gjax9Zg39ofcW3fDpYVAr8Z6Ns"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

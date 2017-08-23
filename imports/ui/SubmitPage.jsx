@@ -5,7 +5,14 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {Button, ButtonToolbar, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
 
-import {hasNumbers, backToIndex, onlyNumbers, nrWithinLimit, isAlphanumeric} from '../../lib/helpMethods.js';
+import {
+    hasNumbers,
+    backToIndex,
+    lessThanThirty,
+    nrWithinLimit,
+    isAlphanumeric,
+    stringIsEmtpy
+} from '../../lib/helpMethods.js';
 import MyMap from './ViewReport_components/MyMap.jsx';
 import Markers from './ViewReport_components/markers.jsx';
 import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
@@ -48,6 +55,8 @@ class SubmitPage extends Component {
             pictureError: false,
             markerError: false,
             dateError: false,
+            vesselError: false,
+            toolError: false,
             useCurrPos: true,
             category: category,
             showNewReport: this.props.currentUser,
@@ -60,7 +69,7 @@ class SubmitPage extends Component {
     }
 
     //Oppdaterer state variabler
-    inputError(length, amount, depth, titel, picture, marker, date) {
+    inputError(length, amount, depth, titel, picture, marker, date, tool, vessel) {
         this.setState({
             lengthError: length,
             amountError: amount,
@@ -69,6 +78,8 @@ class SubmitPage extends Component {
             pictureError: picture,
             markerError: marker,
             dateError: date,
+            vesselError: vessel,
+            toolError: tool
         })
     }
 
@@ -182,13 +193,15 @@ class SubmitPage extends Component {
 
         }
 
-        if (nrWithinLimit(lengthNr, 1000) || nrWithinLimit(amountNr, 100) || nrWithinLimit(depthNr, 1000) || !titelText || hasNumbers(titelText) || titelText.length > 30
-            || 0 === takenImg.length || !this.state.useCurrPos && !localStorage.getItem('addedMarker') || dateError) {
+        if (nrWithinLimit(lengthNr, 1000) || nrWithinLimit(amountNr, 100) || nrWithinLimit(depthNr, 1000) || !titelText ||
+            hasNumbers(titelText) || lessThanThirty(titelText) || 0 === takenImg.length || !this.state.useCurrPos &&
+            !localStorage.getItem('addedMarker') || dateError || isAlphanumeric(toolText) || isAlphanumeric(vesselText)) {
 
             this.inputError
             (nrWithinLimit(lengthNr, 1000), nrWithinLimit(amountNr, 100),
-                nrWithinLimit(depthNr, 1000), !titelText || hasNumbers(titelText) || titelText.length > 30,
-                0 === takenImg.length, !this.state.useCurrPos && !localStorage.getItem('addedMarker'), dateError);
+                nrWithinLimit(depthNr, 1000), !titelText || hasNumbers(titelText) || lessThanThirty(titelText),
+                0 === takenImg.length, !this.state.useCurrPos && !localStorage.getItem('addedMarker'), dateError,
+                isAlphanumeric(toolText), isAlphanumeric(vesselText));
 
         } else {
 
@@ -206,14 +219,15 @@ class SubmitPage extends Component {
 
             Meteor.call(`reports.insert`, titelText, Number(lengthNr),
                 takenImg, posLat, posLong, Number(depthNr), Number(amountNr),
-                this.state.useCurrPos, this.state.category, date, Meteor.user().emails[0].address, Meteor.userId());
-
+                this.state.useCurrPos, this.state.category, date, vesselText, toolText);
 
 
             ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
             ReactDOM.findDOMNode(this.refs.rapportLength).value = '';
             ReactDOM.findDOMNode(this.refs.rapportDepth).value = '';
             ReactDOM.findDOMNode(this.refs.rapportAmount).value = '';
+            ReactDOM.findDOMNode(this.refs.rapportVessel).value = '';
+            ReactDOM.findDOMNode(this.refs.rapportTool).value = '';
 
             takenImg = [];
             backToIndex(event);
@@ -347,8 +361,8 @@ class SubmitPage extends Component {
                         </li>
                         <div className="DeNyInputene">
                             <li className="submitPageLis">
-                                <p className="errorText" hidden={!this.state.amountError}>
-                                    <T>common.submitPageError.errorAmount</T>
+                                <p className="errorText" hidden={!this.state.toolError}>
+                                    <T>common.submitPageError.errorTool</T>
                                 </p>
                                 <input
                                     type="text"
@@ -357,8 +371,8 @@ class SubmitPage extends Component {
                                 />
                             </li>
                             <li className="submitPageLis">
-                                <p className="errorText" hidden={!this.state.amountError}>
-                                    <T>common.submitPageError.errorAmount</T>
+                                <p className="errorText" hidden={!this.state.vesselError}>
+                                    <T>common.submitPageError.errorVessel</T>
                                 </p>
                                 <input
                                     type="text"

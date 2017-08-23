@@ -34,6 +34,35 @@ if (Meteor.isServer) {
                 secret: 'bdd2aa5d0567a4796a1dd7c5c3d8ef67'
             }
         });
+
+        Push.Configure({
+            gcm: {
+                apiKey: 'AAAAIy9w9LI:APA91bEO7j-6mJ3kBYCJ_YYf-sn8wkxmCLd7Ikicnl7eh_wgzHUPrZTxbvrmjcNUowZCm03GXkJpGK5LUYp7sptPSCGT9n1wAhw_sGsYI3UptsyyKOalYMsHF_vFTQwe9_dVTdf1S7yb',
+                projectNumber: 151119787186
+            }
+        });
+
+        Push.allow({
+            send: function(userId, notification) {
+                // Allow all users to send to everybody - For test only!
+                return true;
+            },
+
+            production: false,
+            sound: true,
+            badge: true,
+            alert: true,
+            vibrate: true,
+        });
+
+        Push.send({
+            from: 'push',
+            title: 'Hello',
+            text: 'world',
+            badge: 1, //optional, use it to set badge count of the receiver when the app is in background.
+            query: {}
+        });
+
         /*
             Push.Configure({
                 /*
@@ -99,6 +128,18 @@ if (Meteor.isServer) {
 
 Meteor.methods({
 
+    'notify'(){
+        Push.send({
+            from: 'push',
+            title: 'Hello',
+            text: 'world',
+            badge: 1, //optional, use it to set badge count of the receiver when the app is in background.
+            query: {
+                userId: Meteor.userId()
+            }
+        });
+    },
+
     /*'serverNotification': function(text, title){
         console.log('serverNotification');
         let badge = 1;
@@ -154,7 +195,7 @@ Meteor.methods({
     },
 
     'reports.insert'(titelText, lengdeNr, img, posLat, posLong,
-                     depthInput, amountInput, useCurrPos, category, date, mail, brukerId){
+                     depthInput, amountInput, useCurrPos, category, date, vessel, tool){
 
         console.log("her kommer bruker");
         console.log(user);
@@ -177,7 +218,7 @@ Meteor.methods({
         titelText = titelText.charAt(0).toUpperCase() + titelText.slice(1);
 
         remote.call("reports.insert", titelText, lengdeNr, img, posLat, posLong,
-            depthInput, amountInput, useCurrPos, category, date, userMail, Meteor.userId());
+            depthInput, amountInput, useCurrPos, category, date, userMail, Meteor.userId(), vessel, tool);
     },
 
     "sendVerificationEmail"() {

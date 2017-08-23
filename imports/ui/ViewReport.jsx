@@ -141,7 +141,7 @@ export default createContainer(() => {
         depth: 1, amount: 1, markerId: 1,
         taken: 1, reportFeedback: 1, category: 1,
         validationDate: 1, isValidated: 1,
-        validSpecie: 1
+        validSpecie: 1, vessel: 1, tool: 1
     };
     let reportSub = remote.subscribe('reports.findOne', rId);
     let report;

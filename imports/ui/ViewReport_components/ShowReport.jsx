@@ -50,7 +50,19 @@ export default class ShowReport extends Component {
                     <ListGroupItem>
                         <strong><T>common.showReport.longitude</T></strong> {this.props.report.longitude}
                     </ListGroupItem>
-                    {this.props.pageTextReport.reportFeedback === "" ?
+                    {this.props.report.tool ?
+                        <ListGroupItem>
+                            <strong><T>common.showReport.tool</T></strong> {this.props.report.tool}
+                        </ListGroupItem>
+                        : null
+                    }
+                    {this.props.report.vessel ?
+                        <ListGroupItem>
+                            <strong><T>common.showReport.vessel</T></strong> {this.props.report.vessel}
+                        </ListGroupItem>
+                        : null
+                    }
+                    {this.props.report.reportFeedback === "" ?
                         null : <ListGroupItem>
                             <strong><T>common.showReport.feedback</T></strong> {this.props.report.reportFeedback}
                         </ListGroupItem>

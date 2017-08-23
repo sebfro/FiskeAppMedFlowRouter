@@ -66,7 +66,9 @@
     "length": "Lengde: ",
     "feedback": "Tilbakemelding: ",
     "validationDate":"Ble validert: ",
-    "validSpecies": "Validert artsnavn: "
+    "validSpecies": "Validert artsnavn: ",
+    "vessel": "Fartøy: ",
+    "tool": "Redskap: "
   },
 
   "viewReport": {
@@ -104,7 +106,9 @@
     "errorLength": "Lengde må være mellom 1 og 999",
     "errorDepth": "Dybde må være mellom 0 og 999",
     "errorAmount": "Antall må være mellom 0 og 99",
-    "imgLimitErr": "Kan kunne laste opp tre bilder, fjern ett viss du vil ha et annet bilde"
+    "imgLimitErr": "Kan kunne laste opp tre bilder, fjern ett viss du vil ha et annet bilde",
+    "errorVessel": "Fartøy kan kun inneholde bokstaver og tall",
+    "errorTool": "Verktøy kan kun inneholde bokstaver og tall"
   },
 
   "profilePageError": {

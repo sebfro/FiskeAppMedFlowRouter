@@ -33,7 +33,6 @@ class MyMap extends Component {
     }
 
 
-
     handleOnReady(name) {
         localStorage.setItem('addedMarker', false);
         let addedMarker = false;
@@ -42,6 +41,7 @@ class MyMap extends Component {
             Tracker.autorun(c => {
                 if(this.props.report === null) {
                     google.maps.event.addListener(map.instance, 'click', function (event) {
+                        console.log("Adding");
                         if (localStorage.getItem('addMarker') && !addedMarker) {
                             addedMarker = true;
                             localStorage.setItem('addedMarker', true);
@@ -56,14 +56,16 @@ class MyMap extends Component {
 
                 Markers.find({current: true}).observe({
                     added: function(document) {
-                        const marker = new google.maps.Marker({
+                        console.log("Markers.find");
+                        let marker = new google.maps.Marker({
                             draggable: addedMarker,
                             animation: google.maps.Animation.DROP,
                             position: new google.maps.LatLng(document.lat, document.lng),
                             map: map.instance,
                             id: document._id,
                         });
-                        if(localStorage.getItem('addMarker')) {
+
+                        /*if(localStorage.getItem('addMarker')) {
                             google.maps.event.addListener(marker, 'dragend', function (event) {
                                 Markers.update(marker.id, {
                                     $set: {lat: event.latLng.lat(), lng: event.latLng.lng()},
@@ -71,7 +73,12 @@ class MyMap extends Component {
                                 markerPos = {lat: event.latLng.lat(), lng: event.latLng.lng()};
                                 setLatLng(event.latLng.lng(), event.latLng.lat())
                             });
-                        }
+                            google.maps.event.addListener(marker, 'click', function (event) {
+                                console.log("remove");
+                                marker.remove(marker.id);
+                                Markers.remove(marker.id);
+                            });
+                        }*/
                         setMarkerId(document._id);
                         markerId = document._id;
                         markers[document._id] = marker;
@@ -100,10 +107,6 @@ class MyMap extends Component {
         });*/
     }
 
-    removeMarker(e){
-        e.preventDefault();
-    }
-
     render() {
         return (
             <div>
@@ -113,11 +116,6 @@ class MyMap extends Component {
             >
                 Loading!
             </GoogleMap>
-
-                <Button onClick={this.removeMarker.bind(this)}>
-                    Fjern markør
-                </Button>
-
             </div>
         );
     }

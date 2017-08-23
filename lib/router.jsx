@@ -46,6 +46,19 @@ if(Meteor.isClient){
             adminEmails: ['sebastianfroyen@gmail.com']
         };
 
+        Push.Configure({
+            android: {
+                senderId: 151119787186,
+                alert: true,
+                badge: true,
+                sound: true,
+                vibrate: true,
+                clearNotifications: true,
+                // icon: '',
+                // iconColor: ''
+            }
+        });
+
         /*
             Push.Configure({
                 android: {

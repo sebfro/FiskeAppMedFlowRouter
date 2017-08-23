@@ -239,6 +239,8 @@ export default class LoginScreen extends Component {
     }
 
     render() {
+        console.log("Is push enabled");
+        console.log(Push.enabled());
         return (
             <div className="wrapper">
                 <Form className="form-signin" horizontal>
