@@ -263,6 +263,7 @@ export default class LoginScreen extends Component {
         console.log(Push.enabled());
         return (
             <div className="wrapper">
+                <h1>Error testing foregår, flere funksjoner vil ikke fungere som vanlig den neste timen</h1>
                 <Form className="form-signin" horizontal>
                     <FormGroup>
                         <h2 className="form-signin-heading" style={{float: 'left'}}>

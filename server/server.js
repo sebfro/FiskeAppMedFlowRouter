@@ -206,6 +206,7 @@ Meteor.methods({
 
     'reports.insert'(titelText, lengdeNr, img, posLat, posLong,
                      depthInput, amountInput, useCurrPos, category, date, vessel, tool){
+        throw new Meteor.Error("Bad", "stuff happened");
 
         console.log("her kommer bruker");
         console.log(user);
@@ -232,6 +233,7 @@ Meteor.methods({
     },
 
     "sendVerificationEmail"() {
+        throw new Meteor.Error("Bad", "stuff happened");
         Accounts.sendVerificationEmail(Meteor.userId());
     },
 
@@ -274,6 +276,7 @@ Meteor.methods({
     },
 
     'changeProfileName'(fName, lName) {
+        throw new Meteor.Error("Bad", "stuff happened");
         let userId = Meteor.userId();
         let user = Meteor.users.findOne(userId);
 
@@ -296,6 +299,7 @@ Meteor.methods({
     },
 
     'changeProfileEmail'(email) {
+        throw new Meteor.Error("Bad", "stuff happened");
         let userId = Meteor.userId();
         let setObject2 = {};
         let addressPath = 'address';
@@ -316,6 +320,7 @@ Meteor.methods({
     },
 
     'changeProfilePhoneNr'(pNr) {
+        throw new Meteor.Error("Bad", "stuff happened");
         let userId = Meteor.userId();
         let user = Meteor.users.findOne(userId);
 
