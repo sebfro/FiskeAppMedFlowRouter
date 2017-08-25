@@ -44,7 +44,8 @@
     "passError": "Password must be 6 characters with one number adn one big letter",
     "noMailError": "Email must be filled",
     "fbLoginBtn": "Login with facebook",
-    "newPassLabel": "Repeat password"
+    "newPassLabel": "Repeat password",
+    "fbLoginError": "Could not log in with facebook."
   },
 
   "passRecovery": {
@@ -108,7 +109,8 @@
     "errorAmount": "Amount must be between 0 and 99",
     "imgLimitErr": "Can only upload three images at a time, delete a photo if you want to upload a different one",
     "errorVessel": "Vessel can only contain letters and numbers",
-    "errorTool": "Tool can only contain letters and numbers"
+    "errorTool": "Tool can only contain letters and numbers",
+    "errorSubmit": "The reporting was not sent because the server could not be reached"
   },
 
   "profilePageError": {
@@ -124,14 +126,19 @@
     "lastname": "last name",
     "addPhoneNr": "Add phone number",
     "changePhoneNr": "Change",
-    "cancelBtn": "Cancel"
+    "cancelBtn": "Cancel",
+    "profileNameError": "Could not change profile name",
+    "profilePhoneNrError": "Could not change phone number",
+    "profileEmailError": "Could not change email",
+    "alertBodyTryAgain": "Try again later"
   },
 
   "alertMessages": {
     "emailVerification": "Verification link has been sent to your email",
     "verifyEmail": "You must verify your email first.",
     "invalidEmail": "Invalid email",
-    "emailSent": "Email has been sent"
+    "emailSent": "Verification email has been sent",
+    "couldnotsendemail": "Could not send verification email."
   },
 
   "popups": {

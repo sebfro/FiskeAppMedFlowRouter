@@ -11,12 +11,10 @@ import {
     lessThanThirty,
     nrWithinLimit,
     isAlphanumeric,
-    stringIsEmtpy
 } from '../../lib/helpMethods.js';
 import MyMap from './ViewReport_components/MyMap.jsx';
 import Markers from './ViewReport_components/markers.jsx';
 import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
-import {remote, remoteApp} from '../../lib/reports.js';
 import GetCategory from './Common_components/getCategory.jsx';
 import ShowImg from './Common_components/ShowImg.jsx';
 
@@ -63,6 +61,8 @@ class SubmitPage extends Component {
             images: takenImg,
             imgLimitReached: false,
             gpsOff: false,
+            serverError: false
+
         };
 
         this.removeImg = this.removeImg.bind(this);
@@ -161,7 +161,7 @@ class SubmitPage extends Component {
 
     //Send inn alle variablene som skal være i rapport til report.js. Sjekker om det er noe galt med inputten og klaer da inputerror.
     //Sender de ellers videre.
-    handleSubmit(event) {
+    async handleSubmit(event) {
         event.preventDefault();
 
         let dateError = false;
@@ -217,10 +217,37 @@ class SubmitPage extends Component {
 
             console.log(Meteor.user().emails[0].address);
 
+            try {
+                await Meteor.callAsync(`reports.insert`, titelText, Number(lengthNr),
+                    takenImg, posLat, posLong, Number(depthNr), Number(amountNr),
+                    this.state.useCurrPos, this.state.category, date, vesselText, toolText);
+
+                ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
+                ReactDOM.findDOMNode(this.refs.rapportLength).value = '';
+                ReactDOM.findDOMNode(this.refs.rapportDepth).value = '';
+                ReactDOM.findDOMNode(this.refs.rapportAmount).value = '';
+                ReactDOM.findDOMNode(this.refs.rapportVessel).value = '';
+                ReactDOM.findDOMNode(this.refs.rapportTool).value = '';
+
+                this.setState({
+                    serverError: false
+                });
+
+                takenImg = [];
+                backToIndex(event);
+            } catch (err) {
+                this.setState({
+                    serverError: true,
+                });
+                console.log(err);
+                console.log(err.message);
+                console.log(err.reason);
+            }
+
+            /*
             Meteor.call(`reports.insert`, titelText, Number(lengthNr),
                 takenImg, posLat, posLong, Number(depthNr), Number(amountNr),
                 this.state.useCurrPos, this.state.category, date, vesselText, toolText);
-
 
             ReactDOM.findDOMNode(this.refs.rapportTitel).value = '';
             ReactDOM.findDOMNode(this.refs.rapportLength).value = '';
@@ -231,6 +258,7 @@ class SubmitPage extends Component {
 
             takenImg = [];
             backToIndex(event);
+             */
         }
     }
 
@@ -438,12 +466,17 @@ class SubmitPage extends Component {
                         </li>
                         <ShowImg photo={this.state.images} removeImg={this.removeImg}/>
                         <li className="submitPageLis">
+                            <p className="errorText" hidden={!this.state.serverError}>
+                                <T>common.submitPageError.errorSubmit</T>
+                            </p>
                             <Button bsStyle="primary" onClick={this.confirmSubmit.bind(this)}>
                                 <T>common.submitPage.sendBtn</T>
                             </Button>
                         </li>
                     </ul>
                 </form>
+
+
 
                 <br/><br/>
 

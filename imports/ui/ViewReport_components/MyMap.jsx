@@ -4,7 +4,6 @@ import Markers from './markers';
 import { setLatLng, setMarkerId } from '../SubmitPage.jsx';
 import { Meteor } from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
-import {Button} from 'react-bootstrap'
 
 let addedMarker = false;
 let markerId = "";
@@ -38,7 +37,7 @@ class MyMap extends Component {
         let addedMarker = false;
         let markerPos = { lat: 60, lng: 5};
         GoogleMaps.ready(name, map => {
-            Tracker.autorun(c => {
+            Tracker.autorun(() => {
                 if(this.props.report === null) {
                     google.maps.event.addListener(map.instance, 'click', function (event) {
                         console.log("Adding");
@@ -99,9 +98,15 @@ class MyMap extends Component {
         });
     }
 
-    componentWillUnmount() {
+    async componentWillUnmount() {
 
-        Meteor.call('marker.updateCurrent', markerId);
+        try {
+            await Meteor.callAsync('marker.updateCurrent', markerId);
+        } catch (err) {
+            console.log(err);
+            console.log(err.message);
+            console.log(err.reason);
+        }
         /*Markers.update(markerId, {
             $set: {current: false},
         });*/

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {createContainer} from 'meteor/react-meteor-data';
 import {Button, FormGroup, FormControl, Col, ControlLabel, Form, Checkbox} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
-import {remoteApp} from '../../lib/reports.js';
 import {Meteor} from 'meteor/meteor';
 import {Accounts} from 'meteor/accounts-base';
 
@@ -16,12 +15,9 @@ import {
     register,
     passMatch
 } from '../../lib/loginMethods.js';
-import {nrWithinLimit} from '../../lib/helpMethods.js';
 import {errorMsg} from "./Common_components/Loading_feedback"
 import FlagBtn from './Common_components/flagButton.jsx';
 import FacebookLogin from './login_components/loginFacebook.jsx';
-import NavBar from './Common_components/NavBar.jsx';
-import NavBarBackBtn from './Common_components/navbarBackBtn.jsx';
 
 const T = i18n.createComponent();
 
@@ -60,7 +56,7 @@ export default class LoginScreen extends Component {
         })
     }
 
-    login(e) {
+    async login(e) {
         e.preventDefault();
 
         let email = $('[name=email]').val();
@@ -102,6 +98,29 @@ export default class LoginScreen extends Component {
                         });
                         this.setStateForInput(/*password, password2,*/ firstName, lastName, phoneNr);
                     } else {
+                        try {
+                            Meteor.callAsync('sendVerificationEmail');
+                            if (Meteor.isCordova) {
+                                navigator.notification.alert(i18n.__('common.alertMessages.emailVerification'), () => {
+                                    console.log('notverified utført');
+                                }, i18n.__('common.alertMessages.emailSent'), 'Ok')
+                            } else {
+                                alert(i18n.__('common.alertMessages.emailSent'));
+                            }
+                        } catch (err) {
+                            //couldnotsendemail
+                            if (Meteor.isCordova) {
+                                navigator.notification.alert(i18n.__('common.alertMessages.couldnotsendemail'), () => {
+                                    console.log('notverified utført');
+                                }, i18n.__('common.alertMessages.couldnotsendemail'), 'Ok')
+                            } else {
+                                alert(i18n.__('common.alertMessages.couldnotsendemail'));
+                            }
+                            console.log(err);
+                            console.log(err.reason);
+                            console.log(err.message);
+                        }
+                        /*
                         Meteor.call('sendVerificationEmail', (err, response) => {
                             if (response) {
                                 alert(response);
@@ -111,6 +130,7 @@ export default class LoginScreen extends Component {
                                 console.log(err.message);
                             }
                         });
+                         */
                         localStorage.setItem('email', email);
                         if(this.state.handleRemMe){
                             localStorage.setItem('rememberMe', '1');

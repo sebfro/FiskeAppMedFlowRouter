@@ -3,7 +3,6 @@ import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import i18n from 'meteor/universe:i18n';
 import {ListGroup, ListGroupItem, FormGroup, FormControl, Button, Form, ButtonToolbar} from 'react-bootstrap'
-import {remoteApp} from '../../lib/reports.js';
 import {validateEmail, validatePhoneNr, validateName} from "../../lib/loginMethods"
 import {errorMsg} from "./Common_components/Loading_feedback";
 
@@ -30,8 +29,9 @@ class ProfileReport extends Component {
         };
     }
 
-    verify(e) {
+    async verify(e) {
         e.preventDefault();
+        /*
         Meteor.call('sendVerificationEmail', () => {
             if (Meteor.isCordova) {
                 navigator.notification.alert(i18n.__('common.alertMessages.emailVerification'), () => {
@@ -39,9 +39,32 @@ class ProfileReport extends Component {
                 }, i18n.__('common.alertMessages.emailSent'), 'Ok')
             }
         })
+         */
+
+        try {
+            await Meteor.callAsync('sendVerificationEmail');
+            if (Meteor.isCordova) {
+                navigator.notification.alert(i18n.__('common.alertMessages.emailVerification'), () => {
+                    console.log('notverified utført');
+                }, i18n.__('common.alertMessages.emailSent'), 'Ok')
+            } else {
+                alert(i18n.__('common.alertMessages.emailSent'));
+            }
+        } catch (err) {
+            if (Meteor.isCordova) {
+                navigator.notification.alert(i18n.__('common.alertMessages.couldnotsendemail'), () => {
+                    console.log('notverified utført');
+                }, i18n.__('common.alertMessages.couldnotsendemail'), 'Ok')
+            } else {
+                alert(i18n.__('common.alertMessages.couldnotsendemail'));
+            }
+            console.log(err);
+            console.log(err.reason);
+            console.log(err.message);
+        }
     }
 
-    setEditName(e) {
+    async setEditName(e) {
         e.preventDefault();
         if (this.state.editName) {
             let fName = $('[name=firstname]').val();
@@ -52,8 +75,24 @@ class ProfileReport extends Component {
             let err = fNameErr === 'error' || lNameErr === 'error' ? 'error' : null;
             this.setState({nameError: err});
             if (err !== 'error') {
+                /*
                 Meteor.call('changeProfileName', fName, lName);
                 this.setState({editName: !this.state.editName})
+                 */
+                try {
+                    await Meteor.callAsync('changeProfileName', fName, lName);
+                    this.setState({editName: !this.state.editName})
+                } catch (err){
+                    if (Meteor.isCordova) {
+                        navigator.notification.alert(i18n.__('common.alertMessages.profileNameError'), () => {
+                        }, i18n.__('common.alertMessages.alertBodyTryAgain'), 'Ok')
+                    } else {
+                        alert(i18n.__('common.alertMessages.profileNameError'));
+                    }
+                    console.log(err);
+                    console.log(err.reason);
+                    console.log(err.message);
+                }
             } else if (fName === '' && lName === '') {
                 this.setState({
                     editName: !this.state.editName,
@@ -70,7 +109,7 @@ class ProfileReport extends Component {
         this.setState({editName: !this.state.editName})
     }
 
-    setEditEmail(e) {
+    async setEditEmail(e) {
         e.preventDefault();
         if (this.state.editEmail) {
             let mail = $('[name=email]').val();
@@ -80,6 +119,21 @@ class ProfileReport extends Component {
                 emailError: err
             });
             if (err !== 'error') {
+
+                try {
+                    await Meteor.callAsync('changeProfileEmail', mail);
+                    this.setState({
+                        editEmail: !this.state.editEmail
+                    })
+                } catch (err) {
+                    if (Meteor.isCordova) {
+                        navigator.notification.alert(i18n.__('profileEmailError'), () => {
+                        }, i18n.__('alertBodyTryAgain'), 'Ok');
+                    } else {
+                        confirm(i18n.__('profileEmailError'));
+                    }
+                }
+                /*
                 try {
                     Meteor.call('changeProfileEmail', mail);
                 } catch(err) {
@@ -94,6 +148,7 @@ class ProfileReport extends Component {
                 this.setState({
                     editEmail: !this.state.editEmail
                 })
+                */
             } else if (mail === '') {
                 this.setState({
                     editEmail: !this.state.editEmail,
@@ -111,7 +166,7 @@ class ProfileReport extends Component {
         this.setState({editEmail: !this.state.editEmail})
     }
 
-    setEditPhone(e) {
+    async setEditPhone(e) {
         e.preventDefault();
         if (this.state.editPhone) {
             let change = true;
@@ -125,10 +180,28 @@ class ProfileReport extends Component {
             console.log(phoneNr);
             console.log(err !== 'error');
             if (err !== 'error' && change) {
+                try {
+                    await Meteor.callAsync('changeProfilePhoneNr', phoneNr);
+                    this.setState({
+                        editPhone: !this.state.editPhone
+                    })
+                } catch (err) {
+                    if (Meteor.isCordova) {
+                        navigator.notification.alert(i18n.__('profilePhoneNrError'), () => {
+                        }, i18n.__('alertBodyTryAgain'), 'Ok');
+                    } else {
+                        confirm(i18n.__('profilePhoneNrError'));
+                    }
+                    console.log(err);
+                    console.log(err.message);
+                    console.log(err.reason);
+                }
+                /*
                 Meteor.call('changeProfilePhoneNr', phoneNr);
                 this.setState({
                     editPhone: !this.state.editPhone
                 })
+                 */
             } else if (phoneNr === '') {
                 this.setState({
                     editPhone: !this.state.editPhone,

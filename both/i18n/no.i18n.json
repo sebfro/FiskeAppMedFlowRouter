@@ -44,7 +44,8 @@
     "passError": "Passord må være seks tegn og inneholde ett nummer og en stor bokstav",
     "noMailError": "Email må fylles inn",
     "fbLoginBtn": "Logg inn med facebook",
-    "newPassLabel": "Gjenta passord"
+    "newPassLabel": "Gjenta passord",
+    "fbLoginError": "Kunne ikke logge inn med facebook"
   },
 
   "passRecovery": {
@@ -108,7 +109,8 @@
     "errorAmount": "Antall må være mellom 0 og 99",
     "imgLimitErr": "Kan kunne laste opp tre bilder, fjern ett viss du vil ha et annet bilde",
     "errorVessel": "Fartøy kan kun inneholde bokstaver og tall",
-    "errorTool": "Verktøy kan kun inneholde bokstaver og tall"
+    "errorTool": "Verktøy kan kun inneholde bokstaver og tall",
+    "errorSubmit": "Kunne ikke sende inn rapportering fordi applikasjonen ikke kunne nå serveren"
   },
 
   "profilePageError": {
@@ -124,14 +126,19 @@
     "lastname": "Etternavn",
     "addPhoneNr": "Legg til nummer",
     "changePhoneNr": "Endre",
-    "cancelBtn": "Cancel"
+    "cancelBtn": "Cancel",
+    "profileNameError": "Kunne ikke endre navn",
+    "profilePhoneNrError": "Kunne ikke endre telefon nummer",
+    "profileEmailError": "Kunne ikke endre email",
+    "alertBodyTryAgain": "Prøv igjen senere"
   },
 
   "alertMessages": {
     "emailVerification": "Verifiserings link har blitt sendt til din email",
     "verifyEmail": "Du må verifisere emailen din først",
     "invalidEmail": "Uvalidert email",
-    "emailSent": "Email har blitt sent"
+    "emailSent": "Verifiserings email har blitt sent",
+    "couldnotsendemail": "Kunne ikke sende verifiserings email."
   },
 
   "popups": {

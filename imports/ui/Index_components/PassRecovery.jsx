@@ -28,13 +28,26 @@ export default class PassRecovery extends Component{
         })
     }
 
-    sendEmail(e){
+    async sendEmail(e){
         e.preventDefault();
         let email = $('[name=email2]').val();
+
+       try {
+           Meteor.callAsync('sendPassRecoveryLink', email);
+           this.setState({
+               sent: true
+           })
+       } catch (err) {
+           console.log(err);
+           console.log(err.message);
+           console.log(err.reason);
+       }
+        /*
         Meteor.call('sendPassRecoveryLink', email);
         this.setState({
             sent: true
         })
+         */
     }
 
     componentWillMount(){

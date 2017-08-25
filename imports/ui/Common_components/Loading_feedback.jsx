@@ -15,3 +15,7 @@ export const Loading_feedback = () => (
 export function errorMsg(msg, show){
     return show === 'error' ? (<p style={style}> {msg} </p>) : null
 }
+
+export function errorMsgBool(msg, show){
+    return show ? (<p style={style}> {msg} </p>) : null
+}

@@ -5,7 +5,7 @@ import {Panel, ListGroup, PanelGroup} from 'react-bootstrap';
 import i18n from 'meteor/universe:i18n';
 
 
-import {Reports, remote, remoteApp} from '../../lib/reports.js';
+import {Reports, remote} from '../../lib/reports.js';
 import {Loading_feedback} from './Common_components/Loading_feedback.jsx'
 import Report from './Index_components/Report.jsx';
 import {
@@ -44,6 +44,8 @@ class Index extends Component {
             pageTextLogin: null,
             pageTextPassRecovery: null,
             pageTextReport: null,
+            verifiedPanelHeader: i18n.__('common.index.verified'),
+            unverifiedPanelHeader: i18n.__('common.index.unVerified')
         };
     }
 
@@ -102,7 +104,6 @@ class Index extends Component {
     }
 
     componentWillMount() {
-
         loggedInToFacebook();
         Session.set('limit', 10);
         if (Session.get('language') === undefined) {
@@ -111,6 +112,14 @@ class Index extends Component {
         } else {
             this.setPageText();
         }
+    }
+
+    componentDidMount(){
+        _isMounted = true;
+    }
+
+    componentWillUnmount(){
+        _isMounted = false;
     }
 
     notify(e){
@@ -122,7 +131,8 @@ class Index extends Component {
     render() {
 
         if (_isMounted) {
-            i18n.onChangeLocale ((newLocale) => {
+            i18n.onChangeLocale (() => {
+                console.log("forceupdate");
                 this.forceUpdate();
             });
         }
