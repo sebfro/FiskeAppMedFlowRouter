@@ -206,7 +206,6 @@ Meteor.methods({
 
     'reports.insert'(titelText, lengdeNr, img, posLat, posLong,
                      depthInput, amountInput, useCurrPos, category, date, vessel, tool){
-        throw new Meteor.Error("Bad", "stuff happened");
 
         console.log("her kommer bruker");
         console.log(user);
@@ -228,8 +227,12 @@ Meteor.methods({
 
         titelText = titelText.charAt(0).toUpperCase() + titelText.slice(1);
 
-        remote.call("reports.insert", titelText, lengdeNr, img, posLat, posLong,
-            depthInput, amountInput, useCurrPos, category, date, userMail, Meteor.userId(), vessel, tool);
+        try {
+            remote.call("reports.insert", titelText, lengdeNr, img, posLat, posLong,
+                depthInput, amountInput, useCurrPos, category, date, userMail, Meteor.userId(), vessel, tool);
+        } catch(error) {
+            throw new Meteor.Error("Bad", "Could not insert reporting");
+        }
     },
 
     "sendVerificationEmail"() {
@@ -270,8 +273,8 @@ Meteor.methods({
                 $set: {profile: setObject, emails}
             })
         } catch (e) {
-            console.log(e.message);
-            console.log("Meteor.users.update, fikk error");
+            throw new Meteor.Error("Bad", "Coul not change mail");
+
         }
     },
 
@@ -294,12 +297,11 @@ Meteor.methods({
                 $set: {profile: setObject}
             })
         } catch (e) {
-            console.log(e.message);
+            throw new Meteor.Error("Bad", "Could not change profile name");
         }
     },
 
     'changeProfileEmail'(email) {
-        throw new Meteor.Error("Bad", "stuff happened");
         let userId = Meteor.userId();
         let setObject2 = {};
         let addressPath = 'address';
@@ -316,11 +318,12 @@ Meteor.methods({
             })
         } catch (e) {
             console.log(e.message);
+            throw new Meteor.Error("Bad", "Could not change email");
+
         }
     },
 
     'changeProfilePhoneNr'(pNr) {
-        throw new Meteor.Error("Bad", "stuff happened");
         let userId = Meteor.userId();
         let user = Meteor.users.findOne(userId);
 
@@ -337,7 +340,7 @@ Meteor.methods({
                 $set: {profile: setObject}
             })
         } catch (e) {
-            console.log(e.message);
+            throw new Meteor.Error('bad', "Could not change phone number");
         }
     }
 });
